@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.ActivityNavMyProfile">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_bar"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--user image-->
+            <ImageView
+                android:id="@+id/user_profile_user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_margin="12dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_uesr"
+                tools:ignore="ContentDescription" />
+
+            <!--user name-->
+            <TextView
+                android:id="@+id/user_profile_user_name"
+                style="@style/ThemeTextViewH1Dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:text="@string/place_holder_user_name" />
+
+            <!--user mobile no-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <!--static Text "Mobile No" -->
+                    <TextView
+                        style="@style/ThemeTextViewH1Dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_mobile_no" />
+
+                    <!--user mobile no -->
+                    <TextView
+                        android:id="@+id/user_profile_mobile_no"
+                        style="@style/ThemeTextViewH1Dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/place_holder_user_mobile_no" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--user policy-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi">
+
+                <TextView
+                    android:id="@+id/user_profile_user_policy"
+                    style="@style/ThemeTextViewH1Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:text="@string/text_user_policy" />
+
+            </android.support.v7.widget.CardView>
+
+            <!--privacy policy-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi">
+
+                <TextView
+                    android:id="@+id/user_profile_privacy_policy"
+                    style="@style/ThemeTextViewH1Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:text="@string/text_privacy_policy" />
+
+            </android.support.v7.widget.CardView>
+
+            <!--term & conditions-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi">
+
+                <TextView
+                    android:id="@+id/user_profile_terms_and_conditions"
+                    style="@style/ThemeTextViewH1Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:text="@string/text_terms_and_condition" />
+
+            </android.support.v7.widget.CardView>
+
+            <!--logout-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/ThemeTextViewH1Dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_alignParentStart="true"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="10dp"
+                        android:text="@string/text_sound" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/user_setting_sound_button"
+                        android:layout_marginEnd="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:ignore="RelativeOverlap" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--logout-->
+            <android.support.v7.widget.CardView
+                style="@style/ThemeCardViewProfileOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="NewApi">
+
+                <TextView
+                    android:id="@+id/user_profile_logout"
+                    style="@style/ThemeTextViewH1Dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:text="@string/text_logout" />
+
+            </android.support.v7.widget.CardView>
+
+            <!--App logo and copyright-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <!--App logo-->
+                <ImageView
+                    android:layout_width="196dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_app_logo_primary_dark"
+                    tools:ignore="ContentDescription" />
+
+                <!--copyright-->
+                <TextView
+                    style="@style/ThemeTextViewH3Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/text_copy_right"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--Bottom Menu-->
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            tools:ignore="DisableBaselineAlignment,UselessParent">
+
+            <!--Explore button-->
+            <LinearLayout
+                android:id="@+id/btm_nav_explore"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="NewApi">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bottom_nav_explore_unchecked"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/ThemeTextViewH4Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/text_explore"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <!--Compete Button-->
+            <LinearLayout
+                android:id="@+id/btm_nav_compete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="NewApi">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bottom_nav_compete_unchecked"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/ThemeTextViewH4Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/text_compete"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <!--Pin Button-->
+            <LinearLayout
+                android:id="@+id/btm_nav_enter_pin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="NewApi">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/pin_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="5dp"
+                    tools:ignore="NewApi">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_bottom_nav_enter_pin_checked"
+                        tools:ignore="ContentDescription" />
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    style="@style/ThemeTextViewH4Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/text_enter_pin"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <!--My quizzes Button-->
+            <LinearLayout
+                android:id="@+id/btm_nav_my_quizzes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:ignore="NewApi">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bottom_nav_my_quizzes_unchecked"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/ThemeTextViewH4Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/text_my_quizzes"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <!--Profile Button-->
+            <LinearLayout
+                android:id="@+id/btm_nav_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="NewApi">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bottom_nav_user_profile_checked"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    style="@style/ThemeTextViewH4Dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/text_profile"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

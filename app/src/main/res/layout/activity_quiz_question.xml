@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".liveQuiz.ActivityLiveQuizQuestion">
+
+    <!--vertical progress bar on the left side-->
+    <ProgressBar
+        android:id="@+id/progressBarStart"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:progress="0"
+        android:progressDrawable="@drawable/shape_progress_bar_vertical"
+        tools:ignore="RtlHardcoded" />
+
+    <!--vertical progress bar on the right side-->
+    <ProgressBar
+        android:id="@+id/progressBarEnd"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:progress="0"
+        android:progressDrawable="@drawable/shape_progress_bar_vertical"
+        tools:ignore="RtlHardcoded" />
+
+    <!--main view for question information-->
+    <RelativeLayout
+        android:id="@+id/activity_quiz_question_main_conatiner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:animateLayoutChanges="true">
+
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+
+            <TextView
+                android:id="@+id/quiz_instruction_quit_button"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableStart="@drawable/ic_close_black"
+                android:drawablePadding="4dp"
+                android:paddingTop="4dp"
+                android:text="@string/text_quit"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/activity_quiz_question_count"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="4dp"
+                tools:ignore="RelativeOverlap,RtlHardcoded" />
+
+        </RelativeLayout>
+
+        <!--conatiner for result data before clicking on next button-->
+        <LinearLayout
+            android:id="@+id/quiz_question_result_top_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top_bar"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/activtiy_quiz_question_point"
+                style="@style/ThemeTextViewH1Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:layout_weight="0"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="4dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/activity_quiz_question_result_top_bar"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="10"
+                android:fontFamily="@font/raleway_bold"
+                android:gravity="center"
+                android:text="@string/text_you_got_this_right"
+                android:textAlignment="center"
+                tools:ignore="RtlCompat,RtlHardcoded" />
+
+        </LinearLayout>
+
+        <!--conatiner for question image and text-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quiz_question_result_top_bar_container">
+
+            <!--question image-->
+            <ImageView
+                android:id="@+id/activity_quiz_question_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription" />
+
+            <!--question text-->
+            <TextView
+                android:id="@+id/activity_quiz_question_text"
+                style="@style/ThemeTextViewH1Dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_quiz_question_image"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+        </RelativeLayout>
+
+        <!--TODO delete this old proress bar and it's usage from the project-->
+        <!--old progress bar conatiner no longer in use-->
+        <RelativeLayout
+            android:id="@+id/rlTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top_bar"
+            android:minHeight="30dp"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/llProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                tools:ignore="UselessParent">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toStartOf="@+id/tvTime"
+                    android:layout_toLeftOf="@+id/tvTime"
+                    android:progressDrawable="@drawable/shape_progress_bar_vertical"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textColor="@color/colorTextPrimaryDark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="RtlHardcoded" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <!--conatainer for options-->
+        <LinearLayout
+            android:id="@+id/activity_quiz_option_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:weightSum="2">
+
+            <!--conatiner for option one and two-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!--option one card view-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/activity_quiz_question_card_view_option_one"
+                    style="@style/ThemeCardViewQuestionOptions"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:foreground="@drawable/effect_ripple"
+                    tools:ignore="NestedWeights">
+
+                    <!--option one-->
+                    <TextView
+                        android:id="@+id/activity_quiz_question_text_view_option_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorCategoryOne"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+                <!--option two card view-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/activity_quiz_question_card_view_option_two"
+                    style="@style/ThemeCardViewQuestionOptions"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:foreground="@drawable/effect_ripple">
+
+                    <!--option two-->
+                    <TextView
+                        android:id="@+id/activity_quiz_question_text_view_option_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorCategoryTwo"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <!--conatiner for option three and four-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!--option three card view-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/activity_quiz_question_card_view_option_three"
+                    style="@style/ThemeCardViewQuestionOptions"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:foreground="@drawable/effect_ripple"
+                    tools:ignore="NestedWeights">
+
+                    <!--option three-->
+                    <TextView
+                        android:id="@+id/activity_quiz_question_text_view_option_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorCategoryThree"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+                <!--option four card view-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/activity_quiz_question_card_view_option_four"
+                    style="@style/ThemeCardViewQuestionOptions"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:foreground="@drawable/effect_ripple">
+
+                    <!--option four-->
+                    <TextView
+                        android:id="@+id/activity_quiz_question_text_view_option_four"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorCategoryFour"
+                        android:fontFamily="@font/raleway_medium"
+                        android:gravity="center"
+                        android:maxLines="3"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="16sp" />
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--next button-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/actvity_quiz_question_next_button_for_description"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="73dp"
+            app:cardBackgroundColor="@color/colorTextPrimaryLight"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            tools:ignore="RtlHardcoded">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_arrow_right_black"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <!--container for  question result data-->
+    <RelativeLayout
+        android:id="@+id/activity_quiz_question_result_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/rootLeaderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:animateLayoutChanges="true"
+            tools:ignore="UselessParent">
+
+            <!--app logo-->
+            <ImageView
+                android:id="@+id/activity_quiz_question_app_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/app_name_logo"
+                android:src="@drawable/ic_app_logo_primary" />
+
+            <!--conatiner for question result data-->
+            <LinearLayout
+                android:id="@+id/result_without_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/actvity_quiz_question_next_button_for_question"
+                android:layout_below="@id/activity_quiz_question_app_logo"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--answer result image-->
+                <ImageView
+                    android:id="@+id/activity_quiz_question_answer_result_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    tools:ignore="ContentDescription" />
+
+                <!--answer result text-->
+                <TextView
+                    android:id="@+id/activity_quiz_question_answer_result_text"
+                    style="@style/ThemeTextViewH1Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="Incorrect"
+                    android:textAlignment="center"
+                    android:visibility="visible"
+                    tools:ignore="HardcodedText" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/activity_quiz_question_score_card"
+                    style="@style/ThemeCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:animateLayoutChanges="true">
+
+                    <!--total score-->
+                    <TextView
+                        android:id="@+id/activity_quiz_question_total_score"
+                        style="@style/ThemeTextViewH1Dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="16dp"
+                        android:textAlignment="center" />
+
+                </android.support.v7.widget.CardView>
+
+                <!--conatiner for quiz description-->
+                <RelativeLayout
+                    android:id="@+id/result_with_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <!--quiz description card layout-->
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/question_description_card_view"
+                        style="@style/ThemeCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="16dp"
+                        android:animateLayoutChanges="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <!--static text "Read more"-->
+                            <TextView
+                                style="@style/ThemeTextViewH1Dark"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="8dp"
+                                android:drawableStart="@drawable/ic_read_below"
+                                android:drawablePadding="4dp"
+                                android:text="@string/text_read_more" />
+
+                            <!--question descrption-->
+                            <TextView
+                                android:id="@+id/activity_quiz_question_description"
+                                style="@style/ThemeTextViewH2Dark"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:layout_weight="8"
+                                android:fontFamily="@font/raleway_regular"
+                                android:gravity="center"
+                                android:paddingEnd="16dp"
+                                tools:ignore="RtlSymmetry" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!--next button of result view-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/actvity_quiz_question_next_button_for_question"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="72dp"
+                android:animateLayoutChanges="true"
+                app:cardBackgroundColor="@color/colorTextPrimaryLight"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_arrow_right_black"
+                        tools:ignore="ContentDescription" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

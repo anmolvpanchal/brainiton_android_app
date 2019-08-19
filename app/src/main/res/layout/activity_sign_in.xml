@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:layout_gravity="center"
+    tools:context=".authentication.ActivitySignUp">
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_app_logo_accent"
+        tools:ignore="ContentDescription" />
+
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/appLogo"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <RelativeLayout
+        android:id="@+id/llPhone"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/progress_bar"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="56dp"
+        android:background="@drawable/shape_rounded_edit_text">
+
+        <TextView
+            android:id="@+id/phonePrefix"
+            style="@style/ThemeTextViewH1Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:text="@string/text_91"
+            tools:ignore="RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            style="@style/ThemeTextViewH1Dark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toRightOf="@id/phonePrefix"
+            android:background="#f2f2f2"
+            android:gravity="center_vertical"
+            android:hint="@string/hnt_mobile_number"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:maxLength="10"
+            tools:ignore="Autofill,RtlHardcoded" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSendOtp"
+        style="@style/ThemeTextViewH1Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPhone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_rounded_button"
+        android:padding="12dp"
+        android:text="@string/text_send_otp"
+        android:textAllCaps="false" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnSendOtp"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/llLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <TextView
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_don_t_have_an_account" />
+
+            <TextView
+                android:id="@+id/tvRegister"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="8dp"
+                android:text="@string/text_register"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llLogin"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <TextView
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_by_registering_you_agree_to_our" />
+
+            <TextView
+                android:id="@+id/user_profile_user_policy"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="4dp"
+                android:text="@string/text_user_policy"
+                android:textColor="@color/colorAccent"
+                tools:ignore="RtlHardcoded" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityIntro">
+
+    <LinearLayout
+        android:layout_above="@id/bottom_layout"
+        android:layout_marginTop="64dp"
+        android:id="@+id/top_layout"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/activity_intro_image_switcher"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_gravity="center"
+            android:src="@drawable/gif_intro_1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:fontFamily="@font/raleway_bold"
+            android:id="@+id/intro_screen_image_text_top"
+            style="@style/ThemeTextViewH1Dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/intro_screen_text_top_1" />
+
+        <TextView
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="64dp"
+            android:id="@+id/intro_screen_image_text_bottom"
+            style="@style/ThemeTextViewH2Dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/raleway_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/intro_screen_text_bottom_1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            tools:ignore="UselessParent">
+
+            <!--start button-->
+            <TextView
+                android:padding="16dp"
+                android:id="@+id/intro_activity_next_button"
+                style="@style/ThemeTextViewH2Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
+                android:text="@string/text_next"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                tools:ignore="RelativeOverlap" />
+
+            <Button
+                android:id="@+id/intro_activity_let_s_go_button"
+                style="@style/ThemeTextViewH1Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_rounded_button"
+                android:padding="12dp"
+                android:text="@string/text_let_s_go"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+            <TextView
+                android:padding="16dp"
+                android:id="@+id/intro_activity_skip_button"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:clickable="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:text="@string/text_skip"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

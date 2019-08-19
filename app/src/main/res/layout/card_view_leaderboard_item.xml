@@ -1,0 +1,41 @@
+<LinearLayout
+    android:id="@+id/llleaderboardContainer"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:weightSum="10"
+    tools:ignore="UselessParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        style="@style/ThemeTextViewH2Light"
+        android:fontFamily="@font/roboto_medium"
+        android:id="@+id/tvRank"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:text="@string/rank"
+        android:textAlignment="center" />
+
+    <TextView
+        style="@style/ThemeTextViewH2Light"
+        android:id="@+id/tvName"
+        android:layout_height="wrap_content"
+        android:layout_weight="5.5"
+        android:layout_width="0dp"
+        android:text="@string/name" />
+
+    <TextView
+        style="@style/ThemeTextViewH2Light"
+        android:fontFamily="@font/roboto_medium"
+        android:id="@+id/activity_quiz_question_total_score"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:layout_width="0dp"
+        android:text="@string/score" />
+
+</LinearLayout>
+
+

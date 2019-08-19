@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustResize"
+    tools:context=".main.ActivityNavEnterPin">
+
+    <!--srollable container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        tools:ignore="UselessParent">
+
+        <!--main container-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize,UselessParent">
+
+            <!--logo image-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_app_logo_accent"
+                tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/nav_explore_progress_bar"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!--main card view-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/game_pin_container"
+                style="@style/ThemeCardView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginEnd="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <!--static text Enter game pin-->
+                    <TextView
+                        style="@style/ThemeTextViewH1Dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/text_enter_game_pin" />
+
+                    <!--input for game pin-->
+                    <EditText
+                        android:id="@+id/activity_enter_pin_text_view"
+                        style="@style/ThemeTextViewH2Dark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/shape_rounded_edit_text"
+                        android:gravity="center"
+                        android:hint="@string/text_type_here"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        tools:ignore="Autofill,TextFields" />
+
+                    <!--start button-->
+                    <Button
+                        android:id="@+id/activity_enter_pin_start_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:layout_marginTop="16dp"
+                        style="@style/ThemeTextViewH2Light"
+                        android:background="@drawable/shape_rounded_button"
+                        android:text="@string/text_start" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

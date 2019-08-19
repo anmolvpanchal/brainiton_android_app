@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--primary colors -->
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#F0F4FF</color>
+
+    <!--accent colors -->
+    <color name="colorAccent">#4E67EB</color>
+    <color name="colorAccentDark">#291D89</color>
+
+    <!--dark text colors -->
+    <color name="colorTextPrimaryDark">#060709</color>
+    <color name="colorTextSecondaryDark">#BCC5D3</color>
+
+    <!--light text colors -->
+    <color name="colorTextPrimaryLight">#FFFFFF</color>
+    <color name="colorTextSecondaryLight">#FFFFFF</color>
+
+    <!--enabled option colors -->
+    <color name="colorCategoryOne">#f29c1f</color>
+    <color name="colorCategoryTwo">#48a0dc</color>
+    <color name="colorCategoryThree">#df4d60</color>
+    <color name="colorCategoryFour">#4fba6f</color>
+
+    <!--disabled option colors -->
+    <color name="colorCategoryOneDisabled">#50f29c1f</color>
+    <color name="colorCategoryTwoDisabled">#5048a0dc</color>
+    <color name="colorCategoryThreeDisabled">#50df4d60</color>
+    <color name="colorCategoryFourDisabled">#504fba6f</color>
+
+</resources>

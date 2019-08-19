@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "177302690156",
+    "firebase_url": "https://brainiton-quiz-app.firebaseio.com",
+    "project_id": "brainiton-quiz-app",
+    "storage_bucket": "brainiton-quiz-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177302690156:android:e3c28c9eb2580f4e",
+        "android_client_info": {
+          "package_name": "com.combrainiton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177302690156-jtg1r88ousi963d93c8shl4vc17de6e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLM9OOSt_zVQGQtM2IcQNPRZHg0OQE8p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177302690156-jtg1r88ousi963d93c8shl4vc17de6e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

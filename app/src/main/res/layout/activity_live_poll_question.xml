@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".liveQuiz.ActivityLiveQuizQuestion">
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/quiz_instruction_quit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/raleway_regular"
+            android:text="@string/text_quit"
+            android:textColor="@color/colorTextPrimaryDark"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_app_logo_accent" />
+
+        <TextView
+            android:id="@+id/activity_quiz_question_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/raleway_regular"
+            android:text="Que 5/10"
+            android:textColor="@color/colorTextPrimaryDark"/>
+    </RelativeLayout>
+    <!--L̥-->
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:layout_below="@+id/top_bar">
+
+        <RelativeLayout
+            android:id="@+id/llProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ProgressBar
+                android:id="@+id/progressBarStart"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/tvTime"
+                android:layout_toLeftOf="@+id/tvTime"
+
+                android:progressDrawable="@drawable/shape_progress_bar_vertical" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorTextPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/quiz_question_result_top_bar_container"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/activtiy_quiz_question_point"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:fontFamily="@font/raleway_medium"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/colorTextPrimaryLight"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/activity_quiz_question_result_top_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/raleway_medium"
+                android:gravity="center"
+                android:text="@string/text_you_got_this_right"
+                android:textColor="@color/colorCategoryFour"
+                android:textSize="26sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlTop">
+
+        <RelativeLayout
+            android:id="@+id/question_image_container"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="180dp">
+            <ImageView
+                android:id="@+id/imgQue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/activity_quiz_question_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_below="@+id/question_image_container"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/raleway_medium"
+            android:textColor="@color/colorTextPrimaryDark" />
+
+        <RelativeLayout
+            android:id="@+id/llGraph"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/activity_quiz_question_text">
+            <lecho.lib.hellocharts.view.ColumnChartView
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/v"/>
+            <View
+                android:id="@+id/v"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+                android:layout_marginTop="2dp"
+            android:background="@color/colorTextSecondaryDark"
+            android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_quiz_option_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <android.support.v7.widget.CardView
+                android:id="@+id/activity_quiz_question_card_view_option_one"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/activity_quiz_question_text_view_option_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorTextPrimaryLight"
+                    android:fontFamily="@font/raleway_regular"
+                    android:maxLines="3"
+                    />
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/activity_quiz_question_card_view_option_two"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/activity_quiz_question_text_view_option_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorTextPrimaryLight"
+                    android:maxLines="3"
+                    android:fontFamily="@font/raleway_regular"/>
+                <!--82d4fa,08a8f4 -->
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <android.support.v7.widget.CardView
+                android:id="@+id/activity_quiz_question_card_view_option_three"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/activity_quiz_question_text_view_option_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorTextPrimaryLight"
+                    android:fontFamily="@font/raleway_regular"
+                    android:maxLines="3"/>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/activity_quiz_question_card_view_option_four"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    android:id="@+id/activity_quiz_question_text_view_option_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorTextPrimaryLight"
+                    android:fontFamily="@font/raleway_regular"
+                    android:maxLines="3"
+                    />
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+    <!--for next btn-->
+    <android.support.v7.widget.CardView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:src="@drawable/ic_arrow_right_black"/>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
