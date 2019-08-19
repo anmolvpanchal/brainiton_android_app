@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".authentication.ActivitySignUp">
+
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_app_logo_accent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/infoText"
+        style="@style/ThemeTextViewH2Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appLogo"
+        android:layout_alignStart="@id/etOTP"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:padding="4dp"
+        android:text="OTP sent please wait" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infoText"
+        android:layout_alignStart="@id/infoText">
+
+        <TextView
+            android:id="@+id/mobileNumTextView"
+            style="@style/ThemeTextViewH2Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/timerTextView"
+        style="@style/ThemeTextViewH2Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infoText"
+        android:layout_alignEnd="@id/etOTP" />
+
+    <EditText
+        android:id="@+id/etOTP"
+        style="@style/ThemeTextViewH2Dark"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/timerTextView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/shape_rounded_edit_text"
+        android:gravity="center"
+        android:hint="@string/text_enter_6_digit_otp"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:maxLength="6"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        tools:ignore="Autofill" />
+    <!--@color/colorOtpError-->
+    <Button
+        android:id="@+id/btnSubmit"
+        style="@style/ThemeTextViewH2Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etOTP"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_rounded_button"
+        android:padding="12dp"
+        android:text="@string/text_submit"
+        android:textAllCaps="false" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@id/btnSubmit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvResendOtp"
+        style="@style/ThemeTextViewH1Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_resend_otp"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tvEditMobile"
+        style="@style/ThemeTextViewH2Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvResendOtp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/text_edit_mobile_no"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tvEnterValidOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEditMobile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/raleway_bold"
+        android:text="@string/text_enter_valid_otp"
+        android:textColor="@color/colorCategoryThree"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

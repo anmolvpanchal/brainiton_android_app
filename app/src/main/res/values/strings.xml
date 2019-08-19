@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">BrainItOn</string>
+    <string name="text_already_have_an_account">Already have an account?</string>
+    <string name="text_login">Login</string>
+    <string name="text_by_registering_you_agree_to_our">By registering, you agree to our</string>
+    <string name="text_don_t_have_an_account">Don\'t have an account?</string>
+    <string name="text_mobile_no">Mobile no</string>
+    <string name="text_register">Register</string>
+    <string name="text_send_otp">Send OTP</string>
+    <string name="text_edit_mobile_no">Edit mobile no.</string>
+    <string name="text_resend_otp">Resend OTP</string>
+    <string name="text_submit">Submit</string>
+    <string name="text_enter_6_digit_otp">Enter 6 digit OTP</string>
+    <string name="text_enter_valid_otp">Enter Valid OTP</string>
+    <string name="welcome_user">Welcome, User</string>
+    <string name="text_let_s_go">Let\'s Go !</string>
+
+    <!--quiz related strings-->
+    <string name="text_leaderboard">Leaderboard</string>
+    <string name="text_final_score">Final Score</string>
+    <string name="text_total_score">Total Score</string>
+    <string name="text_total_question">Total Question</string>
+    <string name="text_total_attempted">Total Attempted</string>
+    <string name="text_NA">NA</string>
+    <string name="text_correct">Correct</string>
+    <string name="text_play">Play</string>
+    <string name="text_start">Start</string>
+    <string name="text_questions">Questions</string>
+    <string name="ic_register">Register</string>
+    <string name="text_join">Join</string>
+    <string name="text_incorrect">Incorrect</string>
+    <string name="text_accuracy">Accuracy</string>
+    <string name="text_description">Description</string>
+    <string name="text_details">Details</string>
+    <string name="text_quit">Quit</string>
+    <string name="text_you_got_this_right">You got this right.!</string>
+    <string name="trending">Trending</string>
+    <string name="app_name_logo">App Name Logo</string>
+    <string name="rank">Rank</string>
+    <string name="name">Name</string>
+    <string name="score">Score</string>
+    <string name="text_read_more">Read more</string>
+    <string name="text_type_here">type here</string>
+
+    <!--intro screen activtiy texts-->
+    <string name="intro_screen_text_top_1">Get smarter everyday.</string>
+    <string name="intro_screen_text_top_2">Compete and win.</string>
+    <string name="intro_screen_text_top_3">Better Engagement</string>
+    <string name="intro_screen_text_bottom_1">Daily quizzes for you, curated by experts.</string>
+    <string name="intro_screen_text_bottom_2">Scheduled challenges to participate and win amazing prizes.</string>
+    <string name="intro_screen_text_bottom_3">Participate in live games in events powered by BrainItOn.</string>
+
+    <!--question result text top bar-->
+    <string name="top_bar_question_result_text_1">You Didn\'t Answer This !</string>
+    <string name="top_bar_question_result_text_2">You got this wrong !</string>
+    <string name="top_bar_question_result_text_3">You got this right !</string>
+    <string name="top_bar_question_result_text_4">Response registered please wait.</string>
+
+    <!--question result text result screen-->
+    <string name="result_screen_question_result_text_1">No response was given by you on previous question.</string>
+    <string name="result_screen_question_result_text_2">Incorrect</string>
+    <string name="result_screen_question_result_text_3">Correct</string>
+
+    <!--normal quiz instruction-->
+    <string name="text_normal_quiz_instruction_1">Response quickly for more points.</string>
+    <string name="text_normal_quiz_instruction_2">Series of correct answers gives extra points.</string>
+    <string name="text_normal_quiz_instruction_3">Limited time to respond to each question.</string>
+
+    <!--live quiz instruction-->
+    <string name="text_live_quiz_instruction_1">Other competitors are joining in. Please wait for the game to start.</string>
+    <string name="text_live_quiz_instruction_2">Do not press the back or home button during the game</string>
+    <string name="text_live_quiz_instruction_3">Make sure you have fast internet connection</string>
+    <string name="text_live_quiz_instruction_4">No negative points</string>
+
+    <!--hint texts-->
+    <string name="hnt_mobile_code">+91</string>
+    <string name="hnt_search">Search by keyword</string>
+
+    <!--error strings-->
+    <string name="error_server_problem">There is server error. Please try after sometime.</string>
+    <string name="error_enter_all_fields">Please Enter All Fields</string>
+    <string name="error_enter_your_name">Please Enter Name</string>
+    <string name="error_wrong_pin">Please Enter Valid Pin.</string>
+    <string name="error_invalid_input">Please Enter Valid Input</string>
+    <string name="error_incorrect_mobile">Please Enter Valid Mobile Number</string>
+    <string name="error_network_issue">Sorry you are not connected with internet please check your connection and try again!</string>
+
+    <!--my profile item string-->
+    <string name="place_holder_user_name">Hello User !</string>
+    <string name="place_holder_user_mobile_no">Your Mobile No.</string>
+    <string name="text_terms_and_condition">Terms and Condition</string>
+    <string name="text_logout">Logout</string>
+    <string name="text_privacy_policy">Privacy Policy</string>
+
+    <!--home item strings-->
+    <string name="text_today">Today</string>
+    <string name="text_previous">Previous</string>
+    <string name="text_copy_right">2019 © All right Reserved</string>
+
+    <!--bottom nav item strings-->
+    <string name="text_explore">Explore</string>
+    <string name="text_compete">Compete</string>
+    <string name="text_enter_pin">Enter pin</string>
+    <string name="text_my_quizzes">My quizzes</string>
+    <string name="text_profile">Profile</string>
+
+    <!--firebase cloud messaging toke-->
+    <string name="text_fcm_token">FCM Token: %s</string>
+    <string name="text_enter_game_pin">Enter Game PIN</string>
+    <string name="text_you_are_at">You are at</string>
+    <string name="text_position">position</string>
+    <string name="text_scoreboard">Scoreboard</string>
+    <string name="text_quiz_starting_soon">Quiz starting soon</string>
+    <string name="text_next">Next</string>
+    <string name="text_skip">Skip</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_name">Name</string>
+    <string name="text_91">+91</string>
+    <string name="text_user_policy">User Policy</string>
+    <string name="text_verifying_otp">Verifying OTP…</string>
+    <string name="hnt_mobile_number">Mobile number</string>
+    <string name="text_sound">Sound</string>
+    <string name="text_play_again">Play again</string>
+    <string name="text_home">Home</string>
+    <string name="text_share">Share</string>
+    <string name="text_challange">Challange</string>
+    <string name="text_play_now_to_beat_the_score">Play now to beat the score!</string>
+    <string name="text_score">Score</string>
+    <string name="text_player">Player</string>
+    <string name="text_quiz">Quiz</string>
+
+</resources>

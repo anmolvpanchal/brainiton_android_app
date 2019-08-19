@@ -1,0 +1,44 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvMainContainer"
+    android:layout_height="180dp"
+    android:layout_width="152dp"
+    style="@style/ThemeCardViewFeaturedQuizPrevious"
+    tools:ignore="NewApi,UnusedAttribute">
+    <!--TODO use dimensions for layout width and height instead of static size-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgQuizCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            style="@style/ThemeBackgroundFade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_quizzes_quiz_name"
+                style="@style/ThemeTextViewH2Light"
+                android:maxLines="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvQuizBy"
+                style="@style/ThemeTextViewH3Light"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

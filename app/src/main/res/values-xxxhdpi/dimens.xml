@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="card_view_height_featured_quiz_today">460dp</dimen>
+</resources>

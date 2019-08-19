@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:thickness="2dp"
+    android:useLevel="false">
+
+    <solid android:color="@android:color/transparent" />
+
+    <!--<gradient android:startColor="#32C5FF" android:endColor="#0091FF" />-->
+    <stroke android:color="#2A8FF0" android:width="2dp" />
+
+</shape>

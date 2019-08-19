@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLeaderLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".liveQuiz.ActivityLiveQuizQuestionResult">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/live_quize_result_quit_button"
+            style="@style/ThemeTextViewH2Light"
+            android:textSize="18sp"
+            android:clickable="true"
+            android:enabled="true"
+            android:paddingStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            android:drawableStart="@drawable/ic_close_white"
+            android:drawablePadding="4dp"
+            android:text="@string/text_quit"
+            tools:ignore="RelativeOverlap,RtlSymmetry"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            style="@style/ThemeTextViewH1Light"
+            android:text="@string/text_leaderboard"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:layout_width="231dp"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_winners"
+            tools:ignore="ContentDescription" />
+
+        <RelativeLayout
+            android:id="@+id/positionOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp">
+
+            <TextView
+                android:id="@+id/tvPlayerFirstName"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvPlayerFirstScore"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPlayerFirstName"
+                android:layout_centerHorizontal="true"
+                android:gravity="center" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="55dp"
+            android:layout_toLeftOf="@+id/positionOne"
+            tools:ignore="RelativeOverlap,RtlHardcoded">
+
+            <TextView
+                android:id="@+id/tvPlayerSecondName"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvPlayerSecondScore"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPlayerSecondName"
+                android:layout_centerHorizontal="true"
+                android:gravity="center" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="48dp"
+            android:layout_toRightOf="@+id/positionOne"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/tvPlayerThirdName"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvPlayerThirdScore"
+                style="@style/ThemeTextViewH2Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPlayerThirdName"
+                android:layout_centerHorizontal="true"
+                android:gravity="center" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llLblRnk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            style="@style/ThemeTextViewH2Dark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/rank" />
+
+        <TextView
+            style="@style/ThemeTextViewH2Dark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5.5"
+            android:text="@string/name" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            style="@style/ThemeTextViewH2Dark"
+            android:text="@string/score" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewRank"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llLblRnk"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorTextPrimaryDark"
+        tools:ignore="ObsoleteLayoutParam" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvLeaderBoard"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="match_parent"
+        android:scrollbars="none" />
+
+</LinearLayout>
