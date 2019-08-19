@@ -1,12 +1,8 @@
 package com.combrainiton.main
 
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.managers.LivePollAndQuizManagement
@@ -28,7 +24,7 @@ open class ActivityNavEnterPin : AppCompatActivity(), View.OnClickListener {
         //set on click listener for the start button
         activity_enter_pin_start_button.setOnClickListener(this@ActivityNavEnterPin)
         if (intent.hasExtra("QUIZ_ID")) {
-            val quizID = "N" + intent.getStringExtra("QUIZ_ID").toString()
+            val quizID = "N"+intent.getStringExtra("QUIZ_ID").toString()
             activity_enter_pin_text_view.setText(quizID)
             activity_enter_pin_start_button.performClick()
         }
@@ -39,14 +35,12 @@ open class ActivityNavEnterPin : AppCompatActivity(), View.OnClickListener {
             R.id.activity_enter_pin_start_button -> { //on click of start button
                 getGamePin() //get user entered pin
                 if (isValidInpput()) { //if pin is valid
-                    //Calling asyncTask
-                    LoadGame().execute()
-                    /*if (NetworkHandler(this@ActivityNavEnterPin).isNetworkAvailable()) { //check for network
+                    if (NetworkHandler(this@ActivityNavEnterPin).isNetworkAvailable()) { //check for network
                         verifyPinRequest() //verify the request
                     } else {
                         //show error message
                         Toast.makeText(this@ActivityNavEnterPin, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
-                    }*/
+                    }
                 }
             }
         }
@@ -67,6 +61,8 @@ open class ActivityNavEnterPin : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun verifyPinRequest() {
+
+        //nav_explore_progress_bar.visibility = View.VISIBLE
         val mDialog = AppProgressDialog(this@ActivityNavEnterPin)
         mDialog.show()
         //here we will check this pin is for poll or seminar quiz if user enter pin content "P" then it will consider as poll pin & we call other api for verify pin
@@ -99,29 +95,6 @@ open class ActivityNavEnterPin : AppCompatActivity(), View.OnClickListener {
     //open home activtiy on backpressed
     override fun onBackPressed() {
         explore()
-    }
-
-    inner class LoadGame() : AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg params: Void?): Void? {
-            if (NetworkHandler(this@ActivityNavEnterPin).isNetworkAvailable()) { //check for network
-                verifyPinRequest() //verify the request
-            } else {
-                //show error message
-                Toast.makeText(this@ActivityNavEnterPin, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
-            }
-
-            return null
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            loader.visibility = View.VISIBLE
-        }
-
-        override fun onPostExecute(result: Void?) {
-            super.onPostExecute(result)
-            loader.visibility = View.GONE
-        }
     }
 
 }

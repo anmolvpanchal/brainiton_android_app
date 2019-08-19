@@ -2,29 +2,21 @@
 
 package com.combrainiton.authentication
 
-import android.content.BroadcastReceiver
 import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.combrainiton.R
-import com.combrainiton.main.NoInternet
 import com.combrainiton.managers.UserManagement
 import com.combrainiton.utils.AppProgressDialog
-import com.combrainiton.utils.CheckInternetBroadCastReceiver
-import com.combrainiton.utils.MyApplication
 import com.combrainiton.utils.NetworkHandler
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import java.io.Serializable
 
 
-class ActivitySignIn : AppCompatActivity(),CheckInternetBroadCastReceiver.ConnectionReceiverListener, View.OnClickListener{
+class ActivitySignIn : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mobileStr: String
 
@@ -32,24 +24,8 @@ class ActivitySignIn : AppCompatActivity(),CheckInternetBroadCastReceiver.Connec
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
-
-        //No internet code
-        baseContext.registerReceiver(CheckInternetBroadCastReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        MyApplication.instance.setConnectionListener(this)
-
         initViews()
 
-    }
-
-    override fun onNetworkConnectionChanged(isConnected: Boolean) {
-         if(! isConnected) {
-             startActivity(Intent(this@ActivitySignIn, NoInternet::class.java)
-                     .putExtra("nointernet", "ActivitySignIn"))
-             finish()
-             Log.i("Signin","No")
-         }else{
-             Log.i("Signin","Yes")
-         }
     }
 
     private fun initViews() {
@@ -78,7 +54,6 @@ class ActivitySignIn : AppCompatActivity(),CheckInternetBroadCastReceiver.Connec
             R.id.tvRegister -> {
                 startActivity(Intent(this@ActivitySignIn, ActivitySignUp::class.java)
                         .putExtra("from", "signIn"))
-                       // .putExtra("act",this@ActivitySignIn)
                 finish()
             }
             //onclick of user policy link
@@ -110,6 +85,8 @@ class ActivitySignIn : AppCompatActivity(),CheckInternetBroadCastReceiver.Connec
         progress_bar.visibility = View.VISIBLE
         val mProgressDialog = AppProgressDialog(this)
         mProgressDialog.show()
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         val requestMap = HashMap<String, String>()
         requestMap["user_id"] = mobileStr
         val requestManagement = UserManagement(this, this, mProgressDialog, requestMap)

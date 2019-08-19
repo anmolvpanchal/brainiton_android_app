@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.managers.UserManagement
@@ -88,9 +89,11 @@ class ActivitySignUp : AppCompatActivity(), View.OnClickListener {
 
     //check user data validity
     private fun isValidInput(): Boolean {
-        return if (nameStr.isEmpty() && mobileStr.isEmpty()) {
-            Toast.makeText(this, resources.getString(R.string.error_enter_all_fields),
-                    Toast.LENGTH_SHORT).show()
+        return if (nameStr.isEmpty()) {
+            etName.error = resources.getString(R.string.error_enter_your_name)
+            false
+        }else if( mobileStr.isEmpty()) {
+            etPhone.error = getString(R.string.error_enter_mobileno)
             false
         } else if (nameStr.isEmpty() || !nameStr.matches("[a-zA-z .?]*".toRegex())) {
             etName.error = resources.getString(R.string.error_enter_your_name)
@@ -108,6 +111,8 @@ class ActivitySignUp : AppCompatActivity(), View.OnClickListener {
         progress_bar.visibility = View.VISIBLE
         val mProgressDialog = AppProgressDialog(this)
         mProgressDialog.show()
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         val requestMap = HashMap<String, String>()
         requestMap["user_id"] = mobileStr
         requestMap["name"] = nameStr

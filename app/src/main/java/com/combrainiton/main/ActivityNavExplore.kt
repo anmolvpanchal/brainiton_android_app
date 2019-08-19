@@ -3,9 +3,12 @@ package com.combrainiton.main
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorCategoryList
 import com.combrainiton.adaptors.AdaptorFeaturedQuizPrevious
@@ -17,11 +20,10 @@ import kotlinx.android.synthetic.main.activity_nav_explore.*
 @Suppress("UNCHECKED_CAST")
 class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var mRunnable:Runnable
-
     private lateinit var featuredQuizzesList: ArrayList<GetAllQuizResponceModel.Allquizzes> //list for all the featured quizzes
     private lateinit var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes> //list for all the quizzes
     private lateinit var categoryList: ArrayList<GetAllQuizResponceModel.CategoryList> //list for all the categories
+    private var doubleBackToExitPressedOnce = false // to close app
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -34,17 +36,31 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         //this will initialize the bottom nav bar
         initBottomMenu()
 
-        pullToRefresh.setOnRefreshListener {
-                //this will initialize the main view
-                initMainView()
 
-                //this will initialize the bottom nav bar
-                initBottomMenu()
+        // this is to set the colors of refreshing
+        swipeToRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
 
-                // Hide swipe to refresh icon animation
-                pullToRefresh.isRefreshing = false
+        // Initialize the handler instance
+        //val mHandler = Handler()
 
+        // this will refresh the whole feed
+        swipeToRefresh.setOnRefreshListener {
 
+            //var mRunnable = Runnable {
+
+            //this will initialize the main view
+            initMainView()
+            swipeToRefresh.isRefreshing = false
+            //}
+
+            // Execute the task after specified time
+//            mHandler.postDelayed(
+//                    mRunnable,
+//                    ((3) * 1000).toLong() // Delay max 1 to 5 seconds
+//            )
         }
 
 
@@ -77,11 +93,20 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
     //initiates bottom navigation bar
     private fun initBottomMenu() {
-        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavEnterPin::class.java)) }
+        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavEnterPin::class.java))
+            (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
         //btm_nav_explore.setOnClickListener { do nothing }
-        btm_nav_my_quizzes.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavMyQuizzes::class.java)) }
-        btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavMyProfile::class.java)) }
-        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityMyNavCompete::class.java)) }
+        btm_nav_my_quizzes.setOnClickListener {
+            startActivity(Intent(this@ActivityNavExplore, ActivityNavMyQuizzes::class.java))
+            (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavMyProfile::class.java))
+            (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavCompete::class.java))
+            (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
     }
 
     //onclick functions for search button and category list
@@ -131,8 +156,25 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
     //this fucntion is called when user clicks on back button {for noobs}
     override fun onBackPressed() {
+
         //put task in backgrund instead of finishing it
-        moveTaskToBack(true)
+        //moveTaskToBack(true)
+
+        if (doubleBackToExitPressedOnce) {    // checking the amount of times back pressed
+            super.onBackPressed()
+            finishAffinity()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+
+        val toast : Toast  = Toast.makeText(this,"Please click BACK again to exit", Toast.LENGTH_SHORT);  // to show toast in center
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000 ) // time in which second back should press and quit app
+
+
     }
 
 }

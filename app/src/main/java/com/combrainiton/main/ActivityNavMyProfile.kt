@@ -41,7 +41,7 @@ class ActivityNavMyProfile : AppCompatActivity() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://brainiton.in/privacy.html")))
         }
 
-        //open terms anc condition link in browser
+        //open terms and condition link in browser
         user_profile_terms_and_conditions.setOnClickListener {
             //user_profile_terms_and_conditions.setTextColor(Color.parseColor("#16a5e1"))
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://brainiton.in/terms.html")))

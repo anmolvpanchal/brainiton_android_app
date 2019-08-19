@@ -29,7 +29,7 @@ class NoInternet : AppCompatActivity(), CheckInternetBroadCastReceiver.Connectio
         if (isConnected) {
 
             Log.i("NoInternet", "yes")
-            if (intent.extras.getString("nointernet").equals("ActivitySignIn")) {
+            if (intent!!.extras.getString("nointernet").equals("ActivitySignIn")) {
                 startActivity(Intent(this@NoInternet, ActivitySignIn::class.java)
                         .putExtra("from", "NoInternet"))
                 finish()

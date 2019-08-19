@@ -36,11 +36,19 @@ class ActivityNavMyQuizzes : AppCompatActivity() {
 
     //this will initialize the bottom nav menu
     private fun initBottomMenu() {
-        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavEnterPin::class.java)) }
-        btm_nav_explore.setOnClickListener { explore() }
+        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavEnterPin::class.java))
+            (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        btm_nav_explore.setOnClickListener { explore()
+            (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
         //btm_nav_my_quizzes.setOnClickListener { do nothing }
-        btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavMyProfile::class.java)) }
-        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavCompete::class.java)) }
+        btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavMyProfile::class.java))
+            (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavCompete::class.java))
+            (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
 
     }
 

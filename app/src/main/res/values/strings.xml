@@ -130,5 +130,6 @@
     <string name="text_score">Score</string>
     <string name="text_player">Player</string>
     <string name="text_quiz">Quiz</string>
+    <string name="error_enter_mobileno">Please enter mobile number</string>
 
 </resources>
