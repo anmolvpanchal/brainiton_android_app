@@ -27,10 +27,11 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        <activity android:name=".main.ActivityNavProfile"></activity>
         <activity
             android:name=".main.ActivityNavCompete"
-            android:theme="@style/Compete"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Compete" />
         <activity
             android:name=".ActivitySplashScreen"
             android:label="@string/app_name"

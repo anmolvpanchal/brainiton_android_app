@@ -17,7 +17,7 @@ class ActivityNavMyProfile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nav_my_profile)
+        setContentView(com.combrainiton.R.layout.activity_nav_my_profile)
         initBottomMenu() //initialize bottom menu
         initMainView() //initialize main view
     }
