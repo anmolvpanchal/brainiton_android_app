@@ -38,6 +38,9 @@ dependencies {
     //view pager librarie for competition page latest version (2.3.4) on AUG 12
     //implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 
+    //Circle Image View
+    implementation 'com.alexzh:circleimageview:1.2.0'
+
     //kotlin libraries
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 

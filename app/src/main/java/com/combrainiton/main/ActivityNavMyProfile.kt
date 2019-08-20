@@ -17,7 +17,7 @@ class ActivityNavMyProfile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.combrainiton.R.layout.activity_nav_my_profile)
+        setContentView(R.layout.activity_nav_my_profile)
         initBottomMenu() //initialize bottom menu
         initMainView() //initialize main view
     }
@@ -76,10 +76,14 @@ class ActivityNavMyProfile : AppCompatActivity() {
         btm_nav_explore.setOnClickListener { explore() }
         btm_nav_compete.setOnClickListener {
             startActivity(Intent(this@ActivityNavMyProfile, ActivityNavCompete::class.java))
-
+            (it.context as ActivityNavMyProfile).overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
         }
-        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavMyProfile, ActivityNavEnterPin::class.java)) }
-        btm_nav_my_quizzes.setOnClickListener { startActivity(Intent(this@ActivityNavMyProfile, ActivityNavMyQuizzes::class.java)) }
+        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavMyProfile, ActivityNavEnterPin::class.java))
+            (it.context as ActivityNavMyProfile).overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
+        }
+        btm_nav_my_quizzes.setOnClickListener { startActivity(Intent(this@ActivityNavMyProfile, ActivityNavMyQuizzes::class.java))
+            (it.context as ActivityNavMyProfile).overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
+        }
         //btm_nav_profile.setOnClickListener { Do Nothing }
     }
 

@@ -9,6 +9,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -91,6 +92,9 @@ class UserManagement(var mContext: Context, var mActivity: Activity, var mProgre
 
                 //mProgressDialog.dialog.dismiss()
                 progressBar.visibility = View.GONE
+
+                //allow user to internet removing flags
+                mActivity.window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
                 //if response if successful
                 if (response.isSuccessful) {
