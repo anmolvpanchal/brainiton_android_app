@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.6">
+                android:layout_weight="1.4">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -42,8 +42,8 @@
                         android:layout_height="100dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="39dp"
-                        android:src="@drawable/dp1"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:src="@drawable/dp1" />
 
                     <!-- Name -->
                     <TextView
@@ -84,10 +84,14 @@
 
                 <!-- Sound -->
                 <LinearLayout
+                    android:id="@+id/profile_sound"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:background="?attr/selectableItemBackground">
 
                     <!-- Sound Text -->
                     <LinearLayout
@@ -96,7 +100,6 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/profile_sound"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -139,12 +142,15 @@
 
                 <!-- User policy -->
                 <LinearLayout
+                    android:id="@+id/user_profile_user_policy"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:id="@+id/user_profile_user_policy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -163,12 +169,15 @@
 
                 <!-- Privacy policy -->
                 <LinearLayout
+                    android:id="@+id/user_profile_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:id="@+id/user_profile_privacy_policy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -187,12 +196,15 @@
 
                 <!-- Terms and condition -->
                 <LinearLayout
+                    android:id="@+id/user_profile_terms_and_conditions"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:id="@+id/user_profile_terms_and_conditions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -211,12 +223,15 @@
 
                 <!-- Logout -->
                 <LinearLayout
+                    android:id="@+id/user_profile_logout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:id="@+id/user_profile_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -248,9 +263,9 @@
                             <ImageView
                                 android:layout_width="196dp"
                                 android:layout_height="24dp"
+                                android:layout_centerHorizontal="true"
                                 android:src="@drawable/ic_app_logo_primary_dark"
-                                tools:ignore="ContentDescription"
-                                android:layout_centerHorizontal="true"/>
+                                tools:ignore="ContentDescription" />
 
                         </RelativeLayout>
 
@@ -270,10 +285,10 @@
                                 style="@style/ThemeTextViewH3Dark"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
                                 android:paddingRight="20dp"
                                 android:text="@string/text_copy_right"
-                                tools:ignore="RtlHardcoded,RtlSymmetry"
-                                android:layout_centerHorizontal="true"/>
+                                tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                         </RelativeLayout>
 

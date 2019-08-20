@@ -44,6 +44,7 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
     private lateinit var timerSound: MediaPlayer
     private var sound: Boolean = false
     private lateinit var client: OkHttpClient
+    private lateinit var timerAnimate: ObjectAnimator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +75,14 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
         val currentQuestion: String = "" + AppSharedPreference(this@ActivityLiveQuizQuestion).getInt("currentQuestion")
 
         //set question counter text view
-        val queCountStr = "$currentQuestion/$totalQuestion"
+        val queCountStr = "Question $currentQuestion/$totalQuestion"
         activity_quiz_question_count.visibility = View.VISIBLE
         activity_quiz_question_count.text = queCountStr
+
+        //Timer animation and textview will remain invisible until 3 secs delay
+        timer_layout.visibility = View.GONE
+        tvTime.visibility = View.GONE
+        progressBarCircle.visibility = View.GONE
 
         //get question from question response model
         val questionModel: QuestionResponceModel? = intent.getSerializableExtra("question") as QuestionResponceModel?
@@ -168,6 +174,19 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
     }
 
     private fun startProgressBar() {
+        /**Circular timer */
+        //Question count will disappear after 3 secs delay
+        activity_quiz_question_count.visibility = View.GONE
+        //Timer animation and textview will appear
+        timer_layout.visibility = View.VISIBLE
+        tvTime.visibility = View.VISIBLE
+        progressBarCircle.visibility = View.VISIBLE
+        //animation
+        timerAnimate = ObjectAnimator.ofInt(progressBarCircle, "progress", 100, 0)
+        timerAnimate.duration = quizTime // 0.5 second
+        timerAnimate.interpolator = LinearInterpolator()
+        timerAnimate.start()
+        /**Circular timer end*/
         //set progress on left side visible
         progressBarStart.visibility = View.VISIBLE
         //make animation object for progress value of left progress bar
@@ -206,6 +225,11 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.activity_quiz_question_text_view_option_one -> { //on click of option 1
+
+                //Stopping timer animation and timer textview
+                tvTime.text = "0"
+                timerAnimate.end()
+
                 val remainingTime: Int = progressBarStart.progress
                 if (remainingTime > 0) {
                     //get the tag of view
@@ -226,6 +250,11 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
                 }
             }
             R.id.activity_quiz_question_text_view_option_two -> { //on click option 2
+
+                //Stopping timer animation and timer textview
+                tvTime.text = "0"
+                timerAnimate.end()
+
                 val remainingTime: Int = progressBarStart.progress
                 if (remainingTime > 0) {
                     //get the tag of view
@@ -245,6 +274,11 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
                 }
             }
             R.id.activity_quiz_question_text_view_option_three -> { //on click option 3
+
+                //Stopping timer animation and timer textview
+                tvTime.text = "0"
+                timerAnimate.end()
+
                 val remainingTime: Int = progressBarStart.progress
                 if (remainingTime > 0) {
                     //get the tag of view
@@ -264,6 +298,11 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
                 }
             }
             R.id.activity_quiz_question_text_view_option_four -> { //on click option 4
+
+                //Stopping timer animation and timer textview
+                tvTime.text = "0"
+                timerAnimate.end()
+
                 val remainingTime: Int = progressBarStart.progress
                 if (remainingTime > 0) {
                     //get the tag of view

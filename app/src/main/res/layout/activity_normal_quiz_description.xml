@@ -118,6 +118,7 @@
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
+                        android:onClick="shareQuiz"
                         android:padding="5dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
