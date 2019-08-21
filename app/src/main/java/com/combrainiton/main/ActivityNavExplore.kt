@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.combrainiton.adaptors.AdaptorCategoryList
 import com.combrainiton.adaptors.AdaptorFeaturedQuizPrevious
 import com.combrainiton.adaptors.AdaptorFeaturedQuizToday
 import com.combrainiton.models.GetAllQuizResponceModel
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_nav_explore.*
 
 @SuppressLint("NewApi")
@@ -29,6 +31,8 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_explore)
+
+        Log.i("Explore",FirebaseInstanceId.getInstance().getToken())
 
         //this will initialize the main view
         initMainView()

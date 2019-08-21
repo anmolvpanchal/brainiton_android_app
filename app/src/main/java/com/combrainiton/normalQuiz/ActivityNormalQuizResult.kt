@@ -86,19 +86,6 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
         //set on click listener to home button
         normal_quiz_home_button.setOnClickListener {
-            // Because app crashes sometimes without the try->catch
-            try {
-                // if file exists in memory
-                if (imageFileToShare!!.exists()) {
-                    imageFileToShare!!.delete()
-                    Log.e(TAG,"image deleted :- $imageFileToShare")
-                }
-                else{
-                    Toast.makeText(this, "image not deleted", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e : Exception) {
-                Log.e(TAG,e.toString())
-            }
             onBackPressed()
         }
 
@@ -158,7 +145,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     }
 
 
-    // to delete the stored image
+    // to delete the stored image when activity is destroyed
     @SuppressLint("LongLogTag")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // Because app crashes sometimes without the try->catch
@@ -192,7 +179,22 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("LongLogTag")
     override fun onBackPressed() {
+        // Because app crashes sometimes without the try->catch
+        try {
+            // if file exists in memory
+            if (imageFileToShare!!.exists()) {
+                imageFileToShare!!.delete()
+                Log.e(TAG,"image deleted :- $imageFileToShare")
+            }
+            else{
+                Toast.makeText(this, "image not deleted", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e : Exception) {
+            Log.e(TAG,e.toString())
+        }
+
         //here we have to call home page api
         if (NetworkHandler(this@ActivityNormalQuizResult).isNetworkAvailable()) {
             val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
