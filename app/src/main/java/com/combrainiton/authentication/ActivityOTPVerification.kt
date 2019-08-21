@@ -29,7 +29,7 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
     private lateinit var smsVerifyCatcher: SmsVerifyCatcher
     private var oTPStr: String = ""
     private var fromStr: String = ""
-    private val TAG: String = "ActivityOTPVerification" // to check the log
+    private val TAG: String = "ActivityOTPVerification"    // to check the log
 
     override fun onStart() { // used for SMS catcher
         super.onStart()

@@ -29,7 +29,9 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.graphics.Canvas
+import android.nfc.Tag
 import android.os.StrictMode
+import android.util.Log
 import java.io.ByteArrayOutputStream
 
 
@@ -42,6 +44,11 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     private var playerName: String? = null
     private var quizName: String? = null
     private var userName: String? = null
+    private var imageFileToShare: File? = null
+
+
+    private val TAG: String = "ActivityNormalQuizResult"    // to check the log
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +61,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         challange_view.visibility = View.INVISIBLE
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "LongLogTag")
     private fun initViews() {
 
         challange_view.isDrawingCacheEnabled = true
@@ -79,6 +86,19 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
         //set on click listener to home button
         normal_quiz_home_button.setOnClickListener {
+            // Because app crashes sometimes without the try->catch
+            try {
+                // if file exists in memory
+                if (imageFileToShare!!.exists()) {
+                    imageFileToShare!!.delete()
+                    Log.e(TAG,"image deleted :- $imageFileToShare")
+                }
+                else{
+                    Toast.makeText(this, "image not deleted", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e : Exception) {
+                Log.e(TAG,e.toString())
+            }
             onBackPressed()
         }
 
@@ -119,7 +139,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             }
 
             val imagePath : String = Environment.getExternalStorageDirectory().toString() + "/$quizId.png"
-            val imageFileToShare = File(imagePath)
+            imageFileToShare = File(imagePath)
             val uri = Uri.fromFile(imageFileToShare)
             try {
                 val share = Intent(Intent.ACTION_SEND)
@@ -137,6 +157,26 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         }
     }
 
+
+    // to delete the stored image
+    @SuppressLint("LongLogTag")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // Because app crashes sometimes without the try->catch
+        try {
+            // if file exists in memory
+            if (imageFileToShare!!.exists()) {
+                imageFileToShare!!.delete()
+                Log.e(TAG,"image deleted :- $imageFileToShare")
+            }
+            else{
+                Toast.makeText(this, "image not deleted", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e : Exception) {
+            Log.e(TAG,e.toString())
+        }
+    }
+
+    // forcefully allowes devices to give access to path to the sotred image
     fun forceToAccessPath() : Boolean {
         if (Build.VERSION.SDK_INT >= 24) {
             try {

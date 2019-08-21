@@ -28,10 +28,6 @@
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
 
-        <activity android:name=".main.ActivityNavMyProfile"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
