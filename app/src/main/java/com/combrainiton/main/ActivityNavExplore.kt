@@ -1,11 +1,16 @@
 package com.combrainiton.main
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
@@ -14,6 +19,7 @@ import com.combrainiton.adaptors.AdaptorCategoryList
 import com.combrainiton.adaptors.AdaptorFeaturedQuizPrevious
 import com.combrainiton.adaptors.AdaptorFeaturedQuizToday
 import com.combrainiton.models.GetAllQuizResponceModel
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_nav_explore.*
 
 @SuppressLint("NewApi")
@@ -33,8 +39,13 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         //this will initialize the main view
         initMainView()
 
+        Log.i("Explore", FirebaseInstanceId.getInstance().getToken())
+
         //this will initialize the bottom nav bar
         initBottomMenu()
+
+        //creatting notification channel
+        createNotificationChannel()
 
 
         // this is to set the colors of refreshing
@@ -64,6 +75,22 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         }
 
 
+    }
+
+    private fun createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            var name = "General"
+            var description = "General message"
+            var importance = NotificationManager.IMPORTANCE_HIGH
+            var channel = NotificationChannel("28+", name, importance)
+            channel.description = description
+            //channel.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     //this will initialize all the views
