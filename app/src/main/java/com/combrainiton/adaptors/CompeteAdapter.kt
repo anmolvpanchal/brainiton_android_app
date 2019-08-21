@@ -59,5 +59,6 @@ class CompeteAdapter(var images: ArrayList<String>,var imagesUri : ArrayList<Str
     }
 
 
+
 }
 

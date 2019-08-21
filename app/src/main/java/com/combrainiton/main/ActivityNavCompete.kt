@@ -31,7 +31,7 @@ class ActivityNavCompete : AppCompatActivity() {
         viewPager.setPageTransformer(true, ViewPagerStack())
         viewPager.offscreenPageLimit = 3
         viewPager.setClipToPadding(false)
-        viewPager.setPadding( 0,0, 0, 45);
+        viewPager.setPadding(0, 0, 0, 45);
     }
 
     private inner class ViewPagerStack : ViewPager.PageTransformer {
@@ -56,10 +56,10 @@ class ActivityNavCompete : AppCompatActivity() {
                 page.setTranslationX(-page.getWidth() * position);
                 page.setTranslationY(30 * position);
             }
-
-
         }
     }
+
+
 
 
     fun initView() {
@@ -95,7 +95,8 @@ class ActivityNavCompete : AppCompatActivity() {
 
     //initiates bottom navigation bar
     private fun initBottomMenu() {
-        btm_nav_enter_pin.setOnClickListener { startActivity(Intent(this@ActivityNavCompete, ActivityNavEnterPin::class.java))
+        btm_nav_enter_pin.setOnClickListener {
+            startActivity(Intent(this@ActivityNavCompete, ActivityNavEnterPin::class.java))
             (it.context as ActivityNavCompete).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         btm_nav_explore.setOnClickListener { explore() }
@@ -103,11 +104,13 @@ class ActivityNavCompete : AppCompatActivity() {
             startActivity(Intent(this@ActivityNavCompete, ActivityNavMyQuizzes::class.java))
             (it.context as ActivityNavCompete).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavCompete, ActivityNavMyProfile::class.java))
+        btm_nav_profile.setOnClickListener {
+            startActivity(Intent(this@ActivityNavCompete, ActivityNavMyProfile::class.java))
             (it.context as ActivityNavCompete).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_compete.setOnClickListener {//do nothimg
-             }
+        btm_nav_compete.setOnClickListener {
+            //do nothimg
+        }
     }
 
 

@@ -17,7 +17,7 @@ import org.json.JSONObject
 /**
  * Created by Dipendra Sharma  on 23-10-2018.
  */
-class LiveQuizQuestionWebSocketLisner(var mContext: Context, var mActivity: Activity) : WebSocketListener() {
+class LiveQuizQuestionWebSocketLisner (var mContext: Context, var mActivity: Activity) : WebSocketListener() {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
 
