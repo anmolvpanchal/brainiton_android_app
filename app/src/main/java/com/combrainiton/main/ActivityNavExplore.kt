@@ -32,7 +32,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_explore)
 
-        Log.i("Explore",FirebaseInstanceId.getInstance().getToken())
+        Log.e("Explore", FirebaseInstanceId.getInstance().getToken())
 
         //this will initialize the main view
         initMainView()
