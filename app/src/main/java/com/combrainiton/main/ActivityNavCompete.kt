@@ -71,17 +71,17 @@ class ActivityNavCompete : AppCompatActivity() {
 
     fun initView() {
 
-        images.add("http://link.brainiton.in/imgcard1")
-        images.add("https://i.imgur.com/J0jpjzM.jpg")
-        images.add("https://i.imgur.com/IsBZLNo.jpg")
+        images.add("http://link.brainiton.in/imgcard4")
+        images.add("http://link.brainiton.in/imgcard5")
+        images.add("http://link.brainiton.in/imgcard6")
 
-        /*imagesUri.add("http://link.brainiton.in/txtcard1")
-        imagesUri.add("http://link.brainiton.in/txtcard2")
-        imagesUri.add("http://link.brainiton.in/txtcard3")*/
+        imagesUri.add("http://link.brainiton.in/txtcard4")
+        imagesUri.add("http://link.brainiton.in/txtcard5")
+        imagesUri.add("http://link.brainiton.in/txtcard6")
 
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter: PagerAdapter = CompeteAdapter(images, this)
+        val adapter: PagerAdapter = CompeteAdapter(images,imagesUri, this)
         viewPager.adapter = adapter
 
         viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {

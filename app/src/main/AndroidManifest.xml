@@ -153,6 +153,7 @@
             </intent-filter>
         </receiver>
 
+        <!-- This will set default icon and color for notification from firebase-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_app_logo_notification" />

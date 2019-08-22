@@ -1,25 +1,17 @@
 package com.combrainiton.utils;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-
 import com.combrainiton.R;
 import com.combrainiton.main.ActivityNavExplore;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
 import java.util.Objects;
-
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
@@ -44,7 +36,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                 .setContentText(message.getNotification().getBody())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setStyle(new NotificationCompat.BigTextStyle())
-                .setSmallIcon(R.drawable.ic_app_logo_notification)
+                .setSmallIcon(R.drawable.ic_app_logo_notification) //meta-data has been made in manifest.xml for icon
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_app_logo_notification))
                 .setContentIntent(pendingIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
