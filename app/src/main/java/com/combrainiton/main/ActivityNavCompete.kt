@@ -1,8 +1,13 @@
 package com.combrainiton.main
 
+import android.app.Notification
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.media.RingtoneManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -13,6 +18,8 @@ import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.activity_nav_explore.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ActivityNavCompete : AppCompatActivity() {
@@ -64,17 +71,17 @@ class ActivityNavCompete : AppCompatActivity() {
 
     fun initView() {
 
-        images.add("http://link.brainiton.in/imgcard1")
-        images.add("http://link.brainiton.in/imgcard2")
-        images.add("http://link.brainiton.in/imgcard3")
+        images.add("http://link.brainiton.in/imgcard4")
+        images.add("http://link.brainiton.in/imgcard5")
+        images.add("http://link.brainiton.in/imgcard6")
 
-        imagesUri.add("http://link.brainiton.in/txtcard1")
-        imagesUri.add("http://link.brainiton.in/txtcard2")
-        imagesUri.add("http://link.brainiton.in/txtcard3")
+        imagesUri.add("http://link.brainiton.in/txtcard4")
+        imagesUri.add("http://link.brainiton.in/txtcard5")
+        imagesUri.add("http://link.brainiton.in/txtcard6")
 
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter: PagerAdapter = CompeteAdapter(images, imagesUri, this)
+        val adapter: PagerAdapter = CompeteAdapter(images,imagesUri, this)
         viewPager.adapter = adapter
 
         viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {

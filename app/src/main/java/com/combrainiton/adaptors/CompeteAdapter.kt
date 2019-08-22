@@ -16,7 +16,7 @@ import com.combrainiton.R
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CompeteAdapter(var images: ArrayList<String>,var imagesUri : ArrayList<String> , var context: Context) : PagerAdapter() {
+class CompeteAdapter(var images: ArrayList<String>,var imagesUri: ArrayList<String>, var context: Context) : PagerAdapter() {
 
     lateinit var layoutInflater: LayoutInflater
 
