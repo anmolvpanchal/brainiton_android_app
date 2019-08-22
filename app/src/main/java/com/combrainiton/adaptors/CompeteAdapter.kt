@@ -16,7 +16,7 @@ import com.combrainiton.R
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CompeteAdapter(var images: ArrayList<String>,var imagesUri : ArrayList<String> , var context: Context) : PagerAdapter() {
+class CompeteAdapter(var images: ArrayList<String>, var context: Context) : PagerAdapter() {
 
     lateinit var layoutInflater: LayoutInflater
 
@@ -46,7 +46,7 @@ class CompeteAdapter(var images: ArrayList<String>,var imagesUri : ArrayList<Str
 
         imageView.setOnClickListener(object  : View.OnClickListener{
             override fun onClick(v: View?) {
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(images[position])))
             }
 
         })
