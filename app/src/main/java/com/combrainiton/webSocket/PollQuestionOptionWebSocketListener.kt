@@ -41,9 +41,9 @@ class PollQuestionOptionWebSocketListener(var mContext: Context, var mActivity: 
         Log.v("dip", "inside option open web socket :" + response.message())
     }
 
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {
+    /*override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {
         Log.v("dip", "inside option fail :" + response.message() + t.message)
-    }
+    }*/
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         Log.v("dip", "inside option close :$code$reason")
