@@ -28,10 +28,10 @@ class PollQuestionWebSocketLisner(var mContext: Context, var mActivity: Activity
 
     }
 
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {
+    /*override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {
         //super.onFailure(webSocket, t, response)
         Log.v("dip", "inside fail :" + response.message() + t.message)
-    }
+    }*/
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         //super.onClosing(webSocket, code, reason)

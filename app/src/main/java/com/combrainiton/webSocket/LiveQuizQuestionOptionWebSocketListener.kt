@@ -158,7 +158,7 @@ class LiveQuizQuestionOptionWebSocketListener(var mContext: Context, var mActivi
 
     override fun onOpen(webSocket: WebSocket, response: Response) {}
 
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {}
+    //override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response) {}
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {}
 
