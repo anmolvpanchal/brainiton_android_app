@@ -32,7 +32,6 @@
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
             android:theme="@style/Compete" />
-
         <activity
             android:name=".ActivitySplashScreen"
             android:label="@string/app_name"
@@ -140,10 +139,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <service
-            android:name=".utils.FirebaseNotificationService"
-            android:enabled="true"
-            android:exported="false">
+        <service android:name=".utils.FirebaseNotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -157,16 +153,13 @@
             </intent-filter>
         </receiver>
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more. -->
-        <!--<meta-data
+        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="" />
-        &lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;
+            android:resource="@drawable/ic_app_logo_notification" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />-->
+            android:resource="@color/colorPrimary" />
 
     </application>
 
