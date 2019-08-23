@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/brand_home_baseCard"
     style="@style/ThemeCardViewCategory"
-    android:layout_width="140dp"
-    android:layout_height="140dp"
+    android:layout_width="@dimen/brand_home_cell_height"
+    android:layout_height="@dimen/brand_home_cell_width"
     android:backgroundTint="#2196F3"
     app:cardCornerRadius="10dp">
 
