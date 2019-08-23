@@ -131,5 +131,8 @@
     <string name="text_player">Player</string>
     <string name="text_quiz">Quiz</string>
     <string name="error_enter_mobileno">Please enter mobile number</string>
+    <string name="title_activity_course_home_page">Course_home_page</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 
 </resources>

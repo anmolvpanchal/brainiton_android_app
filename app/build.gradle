@@ -78,5 +78,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
 
 
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
 }
 apply plugin: 'com.google.gms.google-services'
