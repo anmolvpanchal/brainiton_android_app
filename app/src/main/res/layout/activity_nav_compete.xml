@@ -4,69 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.ActivityNavCompete"
-    >
+    tools:context=".main.ActivityNavCompete">
 
     <!--Top bar-->
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <!--Top bar title -->
-        <TextView
-            android:id="@+id/top_bar_title"
-            style="@style/ThemeTextViewH1Dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:fontFamily="@font/raleway_medium"
-            android:text="Competitions"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText,RelativeOverlap,RtlHardcoded" />
-
-        <!--Top bar search button-->
-        <ImageView
-            android:id="@+id/top_bar_search_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="16dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_search"
-            android:visibility="gone"
-            tools:ignore="ContentDescription,NewApi,RtlHardcoded" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/cardStackView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_bar"
-        android:layout_below="@+id/top_bar"
-        android:layout_margin="5dp">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/compete_viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:clipToPadding="false"
-            android:foregroundGravity="center"
-            android:overScrollMode="never">
-        </android.support.v4.view.ViewPager>
-
-
-    </RelativeLayout>
-
-
-    <!--Bottom Menu-->
     <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
@@ -174,6 +114,7 @@
                     android:text="@string/text_enter_pin"
                     tools:ignore="SmallSp" />
 
+
             </LinearLayout>
 
             <!--My quizzes Button-->
@@ -238,5 +179,100 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_compete_bottons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_bar"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/nav_compete_mysubscription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#60000000"
+            android:clickable="true"
+            android:fontFamily="@font/raleway_bold"
+            android:text="My Subscription"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/nav_compete_availableSub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#60000000"
+            android:clickable="true"
+            android:fontFamily="@font/raleway_bold"
+            android:text="Available Subscription"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FFF" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cardStackView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nav_compete_bottons"
+        android:layout_below="@+id/top_bar"
+        android:layout_margin="5dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/compete_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:clipToPadding="false"
+            android:foregroundGravity="center"
+            android:overScrollMode="never" />
+
+
+    </RelativeLayout>
+
+
+    <!--Bottom Menu-->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <!--Top bar title -->
+        <ImageView
+            android:id="@+id/top_bar_search_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_search"
+            android:visibility="gone"
+            tools:ignore="ContentDescription,NewApi,RtlHardcoded" />
+
+        <!--Top bar search button-->
+        <TextView
+            android:id="@+id/top_bar_title"
+            style="@style/ThemeTextViewH1Dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="Competitions"
+            android:textSize="24sp"
+            tools:ignore="HardcodedText,RelativeOverlap,RtlHardcoded" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

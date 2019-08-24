@@ -1,27 +1,37 @@
 package com.combrainiton.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.NetworkHandler
+import kotlinx.android.synthetic.main.activity_nav_compete.*
 import kotlinx.android.synthetic.main.activity_nav_explore.*
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_compete
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_enter_pin
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_explore
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_my_quizzes
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_profile
 import kotlin.collections.ArrayList
 
 
-class ActivityNavCompete : AppCompatActivity() {
+class ActivityNavCompete : AppCompatActivity(), View.OnClickListener {
+
 
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
     lateinit var viewPager: ViewPager
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_compete)
@@ -34,6 +44,25 @@ class ActivityNavCompete : AppCompatActivity() {
         viewPager.setClipToPadding(false)
         viewPager.setPadding(0, 0, 0, 45);
     }
+
+    @SuppressLint("ResourceAsColor")
+    override fun onClick(p0: View?) {
+
+        when (p0?.id) {
+
+            R.id.nav_compete_mysubscription -> {
+                nav_compete_mysubscription.setBackgroundColor(R.color.colorTransperentDark)
+                nav_compete_availableSub.setTextColor(R.color.colorTransperentLight)
+            }
+
+            R.id.nav_compete_availableSub -> {
+                nav_compete_availableSub.setBackgroundColor(R.color.colorTransperentDark)
+                nav_compete_mysubscription.setTextColor(R.color.colorTransperentLight)
+            }
+        }
+
+    }
+
 
     private inner class ViewPagerStack : ViewPager.PageTransformer {
         @Override
@@ -61,14 +90,14 @@ class ActivityNavCompete : AppCompatActivity() {
     }
 
 
-
-
     fun initView() {
 
         //This links will be displayed on card
-        images.add("http://link.brainiton.in/imgcard4")
-        images.add("http://link.brainiton.in/imgcard5")
-        images.add("http://link.brainiton.in/imgcard6")
+        // images.add("http://link.brainiton.in/imgcard4")
+        images.add("https://i.imgur.com/VFzhBmW.jpg")
+        images.add("https://i.imgur.com/eXdt2ND.jpg")
+        images.add("https://i.imgur.com/GGCHVIi.jpg")
+        images.add("https://i.imgur.com/DH9QbAq.jpg")
 
         //This links will be opened when corresponding card is clicked
         imagesUri.add("http://link.brainiton.in/txtcard4")
@@ -77,7 +106,7 @@ class ActivityNavCompete : AppCompatActivity() {
 
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter: PagerAdapter = CompeteAdapter(images,imagesUri, this)
+        val adapter: PagerAdapter = CompeteAdapter(images, imagesUri, this)
         viewPager.adapter = adapter
 
         viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
