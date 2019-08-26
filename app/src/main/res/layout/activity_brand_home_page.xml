@@ -20,7 +20,7 @@
             <RelativeLayout
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="256dp">
 
                 <ImageView
                     android:id="@+id/brand_home_image"

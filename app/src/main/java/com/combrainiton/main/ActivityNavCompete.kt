@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -24,17 +25,42 @@ import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_profile
 import kotlin.collections.ArrayList
 
 
-class ActivityNavCompete : AppCompatActivity(), View.OnClickListener {
+class ActivityNavCompete : AppCompatActivity() {
 
 
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
     lateinit var viewPager: ViewPager
+    private val TAG = "ActivityNavCompete"
+    private lateinit var mySub: Button
+    private lateinit var allSub: Button
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_compete)
+
+        mySub = findViewById<Button>(R.id.nav_compete_mysubscription)
+        allSub = findViewById<Button>(R.id.nav_compete_availableSub)
+
+
+        mySub.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                Log.e(TAG, "nav_compete_mysubscription touched")
+                mySub.setBackgroundColor(R.color.colorTransperentDark)
+                allSub.setBackgroundColor(R.color.colorTransperentLight)
+            }
+
+        })
+        allSub.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                allSub.setBackgroundColor(R.color.colorTransperentDark)
+                mySub.setBackgroundColor(R.color.colorTransperentLight)
+                Log.e(TAG, "nav_compete_availableSub touched")
+            }
+
+        })
+
 
         initView()
         initBottomMenu()
@@ -43,24 +69,6 @@ class ActivityNavCompete : AppCompatActivity(), View.OnClickListener {
         viewPager.offscreenPageLimit = 3
         viewPager.setClipToPadding(false)
         viewPager.setPadding(0, 0, 0, 45);
-    }
-
-    @SuppressLint("ResourceAsColor")
-    override fun onClick(p0: View?) {
-
-        when (p0?.id) {
-
-            R.id.nav_compete_mysubscription -> {
-                nav_compete_mysubscription.setBackgroundColor(R.color.colorTransperentDark)
-                nav_compete_availableSub.setTextColor(R.color.colorTransperentLight)
-            }
-
-            R.id.nav_compete_availableSub -> {
-                nav_compete_availableSub.setBackgroundColor(R.color.colorTransperentDark)
-                nav_compete_mysubscription.setTextColor(R.color.colorTransperentLight)
-            }
-        }
-
     }
 
 

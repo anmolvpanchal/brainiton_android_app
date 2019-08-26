@@ -7,8 +7,6 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toolbar
-import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout
-import cn.hugeterry.coordinatortablayout.listener.OnTabSelectedListener
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
@@ -26,6 +24,7 @@ class CourseHomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
 
+
         //Getting ids from xml
         //coordinatorTabLayout = findViewById<CoordinatorTabLayout>(R.id.course_coordinatorTabLayout)
         viewPager = findViewById<ViewPager>(R.id.course_viewPager)
@@ -33,15 +32,12 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.course_CollapseToolbar)
         tabLayout = findViewById<TabLayout>(R.id.course_tabLayout)
 
-        setSupportActionBar(toolbar)
-        if (getSupportActionBar() != null)
-        /*{
-            //Sets title and subtitle along with their color for toolbar
-            getSupportActionBar()?.setTitle("Courses")
-            toolbar?.setTitleTextColor(resources.getColor(R.color.colorAccent))
-            getSupportActionBar()?.setSubtitle("jdjd")
-            toolbar?.setSubtitleTextColor(resources.getColor(R.color.colorAccent))
-        }*/
+        if (supportActionBar != null){
+            supportActionBar?.setDisplayHomeAsUpEnabled(false);
+            supportActionBar?.setDisplayShowHomeEnabled(false);
+        }
+
+
 
         //Setting fontStyle and color to title based on expand and collapse
         collapseToolbarLayout?.apply {
