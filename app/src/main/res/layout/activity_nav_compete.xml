@@ -180,7 +180,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/nav_compete_bottons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -215,13 +215,13 @@
             android:textColor="#FFF" />
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <RelativeLayout
         android:id="@+id/cardStackView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/nav_compete_bottons"
+        android:layout_above="@+id/compete_tabLayout"
         android:layout_below="@+id/top_bar"
         android:layout_margin="5dp">
 
@@ -229,13 +229,22 @@
             android:id="@+id/compete_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:clipToPadding="false"
             android:foregroundGravity="center"
             android:overScrollMode="never" />
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabTextColor="@color/colorTextPrimaryDark"
+        android:id="@+id/compete_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_collapseMode="pin"
+        android:layout_above="@id/bottom_bar" />
 
 
     <!--Bottom Menu-->

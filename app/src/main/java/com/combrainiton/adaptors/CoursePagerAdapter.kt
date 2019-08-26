@@ -9,25 +9,24 @@ import com.combrainiton.fragments.CourseProgressFragment
 
 class CoursePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val tabTitles = arrayOf("Description", "Lessons", "Progress")
-    private var fragmentList = ArrayList<Fragment>()
-    private var fragmentListTitle = ArrayList<String>()
+private var fragmentList = ArrayList<Fragment>()
+private var fragmentListTitle = ArrayList<String>()
 
-    override fun getItem(positon: Int): Fragment? {
-        return fragmentList.get(positon)
-    }
+override fun getItem(positon: Int): Fragment? {
+    return fragmentList.get(positon)
+}
 
-    override fun getCount(): Int {
-        return fragmentList.size
-    }
+override fun getCount(): Int {
+    return fragmentList.size
+}
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentListTitle.get(position)
-    }
+override fun getPageTitle(position: Int): CharSequence? {
+    return fragmentListTitle.get(position)
+}
 
-    fun addFragment(fragment: Fragment, title: String) {
-        fragmentList.add(fragment)
-        fragmentListTitle.add(title)
-    }
+fun addFragment(fragment: Fragment, title: String) {
+    fragmentList.add(fragment)
+    fragmentListTitle.add(title)
+}
 
 }
