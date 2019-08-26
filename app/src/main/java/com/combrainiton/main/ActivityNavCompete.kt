@@ -93,7 +93,8 @@ class ActivityNavCompete : AppCompatActivity(), View.OnClickListener {
     fun initView() {
 
         //This links will be displayed on card
-        // images.add("http://link.brainiton.in/imgcard4")
+        images.add("http://link.brainiton.in/imgcard4")
+        images.add("http://link.brainiton.in/imgcard5")
         images.add("https://i.imgur.com/VFzhBmW.jpg")
         images.add("https://i.imgur.com/eXdt2ND.jpg")
         images.add("https://i.imgur.com/GGCHVIi.jpg")
