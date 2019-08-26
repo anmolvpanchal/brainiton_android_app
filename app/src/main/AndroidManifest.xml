@@ -15,10 +15,7 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity
-            android:name=".main.Course_home_page"
-            android:label="@string/title_activity_course_home_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
@@ -60,7 +57,7 @@
         <activity
             android:name=".main.CourseHomePage"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.FullScreen" />
         <activity
             android:name=".main.NoInternet"
             android:screenOrientation="portrait"
