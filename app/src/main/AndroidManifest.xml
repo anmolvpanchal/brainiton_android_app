@@ -15,7 +15,10 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".main.BrandHomePage"></activity>
+        <activity
+            android:name=".main.Course_home_page"
+            android:label="@string/title_activity_course_home_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
@@ -38,6 +41,11 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".main.BrandHomePage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".authentication.ActivitySignUp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -47,6 +55,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".authentication.ActivitySignIn"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".main.CourseHomePage"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
@@ -160,6 +172,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
 </manifest>
