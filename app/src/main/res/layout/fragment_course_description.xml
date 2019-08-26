@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.CourseDescriptionFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="was the first to be granted a United States patent for a device thatronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another tt produced clearly intelligible replication of the human voice. This instrument was further developed by many others. The telephone was the first device intronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another t"
+            android:textSize="30dp" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

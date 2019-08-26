@@ -36,7 +36,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_explore)
 
-        Log.i("Explore",FirebaseInstanceId.getInstance().getToken())
+        Log.e("Explore", FirebaseInstanceId.getInstance().getToken())
 
         //this will initialize the main view
         initMainView()
@@ -133,7 +133,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavMyProfile::class.java))
             (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavCompete::class.java))
+        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, CourseHomePage::class.java))
             (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }

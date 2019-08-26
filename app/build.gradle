@@ -41,6 +41,9 @@ dependencies {
     //Circle Image View
     implementation 'com.alexzh:circleimageview:1.2.0'
 
+    //CoordinatorTabLayout
+    implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
+
     //kotlin libraries
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
