@@ -5,6 +5,11 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#F0F4FF</color>
 
+    <!--    transperent background colors-->
+    <color name="colorTransperentDark">#80000000</color>
+    <color name="colorTransperentLight">#60000000</color>
+
+
     <!--accent colors -->
     <color name="colorAccent">#4E67EB</color>
     <color name="colorAccentDark">#291D89</color>

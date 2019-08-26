@@ -17,7 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.combrainiton.R
 import com.combrainiton.main.ActivityNavMyQuizzes
 import com.combrainiton.main.BrandHomePage
-import com.combrainiton.main.CourseHomePage
+import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,10 +44,11 @@ class CompeteAdapter(var images: ArrayList<String>,var imagesUri: ArrayList<Stri
         imageView = rv.findViewById(R.id.compete_imageView)
         card = rv.findViewById(R.id.compete_cardView)
 
-        Glide.with(context)
+        // use picaso as its fast and reduces the complexity of code
+
+        Picasso.get()
                 .load(images[position])
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .fit()
                 .into(imageView)
 
 
@@ -55,8 +56,7 @@ class CompeteAdapter(var images: ArrayList<String>,var imagesUri: ArrayList<Stri
             override fun onClick(v: View?) {
                // context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
 
-                //var intent = Intent(context,BrandHomePage:: class.java)
-                var intent = Intent(context,CourseHomePage::class.java)
+                var intent = Intent(context,BrandHomePage:: class.java)
                 context.startActivity(intent)
             }
 

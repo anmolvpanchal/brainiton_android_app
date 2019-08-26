@@ -29,16 +29,14 @@ class BrandHomePage : AppCompatActivity() {
         brandHomeTryList.add("nine quiz")
 
 
-        val spanCount = 2 // 2 columns
-        val spacing = 20 // 20px
-        val includeEdge = true
+        val spacing = 0 // 20px
 
 
 
         //this will attach category list adapter to category list recycler view
         BrandHomeRecycler.layoutManager = GridLayoutManager(this@BrandHomePage, 2, GridLayoutManager.VERTICAL, false)
         BrandHomeRecycler.adapter = AdaptorBrandHomeList(this@BrandHomePage, this@BrandHomePage, brandHomeTryList)
-        BrandHomeRecycler.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, includeEdge))
+        BrandHomeRecycler.addItemDecoration(EqualSpacingItemDecoration(spacing))
 
 
 

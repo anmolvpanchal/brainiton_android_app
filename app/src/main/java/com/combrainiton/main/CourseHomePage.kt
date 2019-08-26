@@ -14,9 +14,6 @@ import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
 import com.combrainiton.fragments.CourseLessonsFragment
 import com.combrainiton.fragments.CourseProgressFragment
-import kotlinx.android.synthetic.main.activity_course_home_page.*
-import kotlinx.android.synthetic.main.activity_course_home_page.course_tabLayout
-import kotlinx.android.synthetic.main.activity_course_home_page.course_viewPager
 
 class CourseHomePage : AppCompatActivity() {
 
@@ -59,7 +56,7 @@ class CourseHomePage : AppCompatActivity() {
             setExpandedTitleTypeface(medium)
 
             //setting collapsed text color
-            setCollapsedTitleTextColor(resources.getColor(R.color.colorCategoryFour))
+            setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
         }
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
