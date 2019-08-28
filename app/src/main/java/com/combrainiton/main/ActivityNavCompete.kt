@@ -1,12 +1,16 @@
 package com.combrainiton.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.util.AttributeSet
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -31,6 +35,9 @@ import kotlin.collections.ArrayList
 class ActivityNavCompete : AppCompatActivity() {
 
     lateinit var viewPager: ViewPager
+
+    private val TAG = "ActivityNavCompete"
+
     lateinit var tabLayout: TabLayout
 
     @SuppressLint("ResourceAsColor")
@@ -43,6 +50,7 @@ class ActivityNavCompete : AppCompatActivity() {
         initView()
         initBottomMenu()
 
+
     }
 
 
@@ -50,22 +58,25 @@ class ActivityNavCompete : AppCompatActivity() {
 
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter = SubscriptionAdapter(supportFragmentManager,this@ActivityNavCompete)
+        val adapter = SubscriptionAdapter(supportFragmentManager, this@ActivityNavCompete)
 
-        adapter.addFragment(MySubscriptionFragment(),"My Subscription",this@ActivityNavCompete)
-        adapter.addFragment(AvailableSubscriptionFragment(),"Available Subscription",this@ActivityNavCompete)
+        adapter.addFragment(MySubscriptionFragment(), "My Subscription", this@ActivityNavCompete)
+        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription", this@ActivityNavCompete)
 
         viewPager.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
+
 
         //Tab Layout
         tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
@@ -110,6 +121,5 @@ class ActivityNavCompete : AppCompatActivity() {
     override fun onBackPressed() {
         explore()
     }
-
 }
 

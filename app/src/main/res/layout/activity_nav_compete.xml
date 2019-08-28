@@ -180,52 +180,16 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout
-        android:id="@+id/nav_compete_bottons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_bar"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/nav_compete_mysubscription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#60000000"
-            android:clickable="true"
-            android:fontFamily="@font/raleway_bold"
-            android:text="My Subscription"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#FFF" />
-
-        <Button
-            android:id="@+id/nav_compete_availableSub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#60000000"
-            android:clickable="true"
-            android:fontFamily="@font/raleway_bold"
-            android:text="Available Subscription"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#FFF" />
-
-
-    </LinearLayout>-->
-
     <RelativeLayout
         android:id="@+id/cardStackView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/compete_tabLayout"
         android:layout_below="@+id/top_bar"
-        android:layout_margin="5dp">
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp">
 
-        <android.support.v4.view.ViewPager
+        <com.combrainiton.CustomViewPager
             android:id="@+id/compete_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -278,7 +242,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="Competitions"
+            android:text="Courses"
             android:textSize="24sp"
             tools:ignore="HardcodedText,RelativeOverlap,RtlHardcoded" />
 
