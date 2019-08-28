@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_height_featured_quiz_today">160dp</dimen>
+    <dimen name="brand_home_cell_width">75dp</dimen>
+    <dimen name="brand_home_cell_height">75dp</dimen>
+    <dimen name="recyclerBrand">3.75dp</dimen>
+</resources>

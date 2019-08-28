@@ -50,10 +50,10 @@ class ActivityNavCompete : AppCompatActivity() {
 
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter = SubscriptionAdapter(supportFragmentManager,this@ActivityNavCompete)
+        val adapter = SubscriptionAdapter(supportFragmentManager)
 
-        adapter.addFragment(MySubscriptionFragment(),"My Subscription",this@ActivityNavCompete)
-        adapter.addFragment(AvailableSubscriptionFragment(),"Available Subscription",this@ActivityNavCompete)
+        adapter.addFragment(MySubscriptionFragment(),"My Subscription")
+        adapter.addFragment(AvailableSubscriptionFragment(),"Available Subscription")
 
         viewPager.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)

@@ -1,5 +1,6 @@
 <resources>
-    <dimen name="card_view_height_featured_quiz_today">275dp</dimen>
-    <dimen name="brand_home_cell_width">150dp</dimen>
-    <dimen name="brand_home_cell_height">150dp</dimen>
+	<dimen name="card_view_height_featured_quiz_today">275dp</dimen>
+	<dimen name="brand_home_cell_width">150dp</dimen>
+	<dimen name="brand_home_cell_height">150dp</dimen>
+	<dimen name="recyclerBrand">11.3dp</dimen>
 </resources>

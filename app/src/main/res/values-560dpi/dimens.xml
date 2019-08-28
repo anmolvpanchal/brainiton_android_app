@@ -1,5 +1,0 @@
-<resources>
-    <dimen name="card_view_height_featured_quiz_today">420dp</dimen>
-    <dimen name="brand_home_cell_width">170dp</dimen>
-    <dimen name="brand_home_cell_height">170dp</dimen>
-</resources>

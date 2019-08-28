@@ -17,14 +17,11 @@ class MySubscriptionFragment : Fragment() {
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
     lateinit var viewPager: ViewPager
-    lateinit var contexts: Context
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_my_subscription, container, false)
-
-        contexts = container!!.context
 
         viewPager = view.findViewById(R.id.my_sub_viewPager) as ViewPager
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.CardView
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<String>, var context: FragmentActivity?) : PagerAdapter() {
+
 
     lateinit var layoutInflater: LayoutInflater
 
@@ -61,6 +63,7 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)
     }
+
 
 }
 

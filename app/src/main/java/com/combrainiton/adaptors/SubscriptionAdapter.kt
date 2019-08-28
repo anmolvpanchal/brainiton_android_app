@@ -6,11 +6,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.combrainiton.fragments.MySubscriptionFragment
 
-class SubscriptionAdapter(fm: FragmentManager,context: Context): FragmentPagerAdapter(fm) {
+class SubscriptionAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     private var fragmentList = ArrayList<Fragment>()
     private var fragmentListTitle = ArrayList<String>()
-    private lateinit var context: Context
 
     override fun getItem(positon: Int): Fragment? {
         return fragmentList.get(positon)
@@ -25,10 +24,9 @@ class SubscriptionAdapter(fm: FragmentManager,context: Context): FragmentPagerAd
         return fragmentListTitle.get(position)
     }
 
-    fun addFragment(fragment: Fragment, title: String,context: Context) {
+    fun addFragment(fragment: Fragment, title: String) {
         fragmentList.add(fragment)
         fragmentListTitle.add(title)
-        this.context = context
     }
 
 }

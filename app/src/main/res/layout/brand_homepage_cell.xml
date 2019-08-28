@@ -3,34 +3,39 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/brand_home_baseCard"
+    android:id="@+id/brand_home_cardView"
     style="@style/ThemeCardViewCategory"
     android:layout_width="@dimen/brand_home_cell_height"
     android:layout_height="@dimen/brand_home_cell_width"
     android:backgroundTint="#2196F3"
     app:cardCornerRadius="10dp"
+    android:clickable="true"
+    android:layout_margin="5dp"
     android:elevation="10dp"
     tools:targetApi="lollipop">
 
     <!--TODO use dimensions for layout width and height instead of static size-->
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/brand_home_cell_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
             android:scaleType="fitCenter"
             android:src="@drawable/dp1"/>
 
         <TextView
             android:id="@+id/brand_home_cell_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:focusable="true"
@@ -38,9 +43,9 @@
             android:gravity="center"
             android:text="Title will be shown here"
             android:textAlignment="center"
-            android:textSize="17sp" />
+            android:textSize="15sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </android.support.v7.widget.CardView>
