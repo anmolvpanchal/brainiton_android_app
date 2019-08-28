@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"

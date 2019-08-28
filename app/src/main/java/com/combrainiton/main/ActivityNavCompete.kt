@@ -1,17 +1,24 @@
 package com.combrainiton.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.CompeteAdapter
+import com.combrainiton.adaptors.SubscriptionAdapter
+import com.combrainiton.fragments.AvailableSubscriptionFragment
+import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.NetworkHandler
@@ -27,109 +34,52 @@ import kotlin.collections.ArrayList
 
 class ActivityNavCompete : AppCompatActivity() {
 
-
-    var images = ArrayList<String>()
-    var imagesUri = ArrayList<String>()
     lateinit var viewPager: ViewPager
+
     private val TAG = "ActivityNavCompete"
-    private lateinit var mySub: Button
-    private lateinit var allSub: Button
+
+    lateinit var tabLayout: TabLayout
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_compete)
 
-        mySub = findViewById<Button>(R.id.nav_compete_mysubscription)
-        allSub = findViewById<Button>(R.id.nav_compete_availableSub)
-
-
-        mySub.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                Log.e(TAG, "nav_compete_mysubscription touched")
-                mySub.setBackgroundColor(R.color.colorTransperentDark)
-                allSub.setBackgroundColor(R.color.colorTransperentLight)
-            }
-
-        })
-        allSub.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                allSub.setBackgroundColor(R.color.colorTransperentDark)
-                mySub.setBackgroundColor(R.color.colorTransperentLight)
-                Log.e(TAG, "nav_compete_availableSub touched")
-            }
-
-        })
-
+        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
 
         initView()
         initBottomMenu()
 
-        viewPager.setPageTransformer(true, ViewPagerStack())
-        viewPager.offscreenPageLimit = 3
-        viewPager.setClipToPadding(false)
-        viewPager.setPadding(0, 0, 0, 45);
-    }
 
-
-    private inner class ViewPagerStack : ViewPager.PageTransformer {
-        @Override
-        override fun transformPage(page: View, position: Float) {
-
-            // transition 1
-//            if (position >= 0) {
-//                page.scaleY = 1f - 0.9f * position
-//                page.scaleX = 1f
-//                page.translationY = -page.width * position
-//                page.translationX = 360 * position
-//            }
-
-
-            // transition 2
-
-            if (position >= 0) {
-
-                page.setScaleX(1f - 0.30f * position);
-                page.setScaleY(1f);
-                page.setTranslationX(-page.getWidth() * position);
-                page.setTranslationY(30 * position);
-            }
-        }
     }
 
 
     fun initView() {
 
-        //This links will be displayed on card
-        images.add("http://link.brainiton.in/imgcard4")
-        images.add("http://link.brainiton.in/imgcard5")
-        images.add("https://i.imgur.com/VFzhBmW.jpg")
-        images.add("https://i.imgur.com/eXdt2ND.jpg")
-        images.add("https://i.imgur.com/GGCHVIi.jpg")
-        images.add("https://i.imgur.com/DH9QbAq.jpg")
-
-        //This links will be opened when corresponding card is clicked
-        imagesUri.add("http://link.brainiton.in/txtcard4")
-        imagesUri.add("http://link.brainiton.in/txtcard5")
-        imagesUri.add("http://link.brainiton.in/txtcard6")
-
         viewPager = findViewById(R.id.compete_viewPager) as ViewPager
 
-        val adapter: PagerAdapter = CompeteAdapter(images, imagesUri, this)
+        val adapter = SubscriptionAdapter(supportFragmentManager, this@ActivityNavCompete)
+
+        adapter.addFragment(MySubscriptionFragment(), "My Subscription", this@ActivityNavCompete)
+        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription", this@ActivityNavCompete)
+
         viewPager.adapter = adapter
+        tabLayout!!.setupWithViewPager(viewPager)
 
-        viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-                //Log.i("Compete","check")
+
+        //Tab Layout
+        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager!!.currentItem = tab.position
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-                //Log.i("Compete","check")
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
             }
 
-            override fun onPageSelected(p0: Int) {
-            }
+            override fun onTabReselected(tab: TabLayout.Tab) {
 
+            }
         })
 
     }
@@ -171,6 +121,5 @@ class ActivityNavCompete : AppCompatActivity() {
     override fun onBackPressed() {
         explore()
     }
-
 }
 
