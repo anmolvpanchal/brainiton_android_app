@@ -2,6 +2,7 @@ package com.combrainiton.adaptors
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.CardView
@@ -49,7 +50,7 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
 
         card.setOnClickListener(object  : View.OnClickListener{
             override fun onClick(v: View?) {
-               // context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
+               //context!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
 
                 var intent = Intent(context,BrandHomePage:: class.java)
                 context?.startActivity(intent)

@@ -189,7 +189,7 @@
         android:layout_below="@+id/top_bar"
         android:layout_margin="5dp">
 
-        <android.support.v4.view.ViewPager
+        <com.combrainiton.CustomViewPager
             android:id="@+id/compete_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
