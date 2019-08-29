@@ -1,22 +1,15 @@
 package com.combrainiton.utils;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
-import com.android.volley.toolbox.Volley;
 import com.combrainiton.R;
 import com.combrainiton.main.ActivityNavExplore;
 import com.google.firebase.messaging.FirebaseMessagingService;

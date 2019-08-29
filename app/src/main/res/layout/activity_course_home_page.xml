@@ -7,18 +7,18 @@
     tools:context=".main.CourseHomePage">
 
     <!-- Purchase button-->
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/swipe_button_layout">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/course_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/course_CollapseToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,16 +38,16 @@
                     android:src="@drawable/img"
                     app:layout_collapseMode="parallax" />
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/course_tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,15 +56,15 @@
                 app:tabSelectedTextColor="@color/colorAccent"
                 app:tabTextColor="@color/colorTextPrimaryDark" />
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/course_viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <LinearLayout
         android:id="@+id/swipe_button_layout"
@@ -74,23 +74,32 @@
         android:background="#2B4E67EB"
         android:padding="10dp">
 
-        <com.stfalcon.swipeablebutton.SwipeableButton
+        <com.ebanx.swipebtn.SwipeButton
             android:id="@+id/course_subscriptionButton"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedIcon="@drawable/ic_lock_open_black_24dp"
-            app:uncheckedIcon="@drawable/ic_lock_outline_black_24dp"
-            app:textChecked="Subscribed"
-            app:textUnchecked="Swipe to subscribe"
-            android:textAlignment="center"
-            app:textColorChecked="@color/colorAccent"
-            app:textColorUnChecked="@color/colorPrimary"
-            app:checkedBackground="@drawable/swipe_button_background_checked"
-            app:uncheckedBackground="@drawable/swipe_button_background_unchecked"
-            app:uncheckedToggleBackground="@drawable/swipe_button_shape_unchecked"
-            app:checkedToggleBackground="@drawable/swipe_button_shape_checked"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:inner_text="Swipe to subscribe"
+            app:inner_text_color="@android:color/white"
+            app:inner_text_size="16sp"
+            app:inner_text_top_padding="18dp"
+            app:inner_text_bottom_padding="18dp"
+            app:inner_text_background="@drawable/swipe_button_shape_checked"
+            app:button_image_height="60dp"
+            app:button_image_width="100dp"
+            app:button_image_disabled="@drawable/ic_lock_open_black_24dp"
+            app:button_image_enabled="@drawable/ic_lock_outline_black_24dp"
+            app:button_left_padding="20dp"
+            app:button_right_padding="20dp"
+            app:button_top_padding="20dp"
+            app:button_bottom_padding="20dp"
+            app:button_background="@drawable/swipe_button_background_checked"
+            app:button_trail_enabled="true"
+            app:button_trail_drawable="@drawable/swipe_button_background_checked"
+            app:initial_state="disabled"
+            app:has_activate_state="true"
+            />
 
 
     </LinearLayout>

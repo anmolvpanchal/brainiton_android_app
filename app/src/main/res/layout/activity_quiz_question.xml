@@ -8,6 +8,26 @@
     android:animateLayoutChanges="true"
     tools:context=".liveQuiz.ActivityLiveQuizQuestion">
 
+    <!--<RelativeLayout
+        android:id="@+id/animation_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#F40303"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wrong!!!"
+            android:textColor="@color/colorTextPrimaryDark"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/raleway_bold"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+    </RelativeLayout>-->
+
 
     <!--vertical progress bar on the left side-->
     <ProgressBar
@@ -253,7 +273,7 @@
                 android:weightSum="2">
 
                 <!--option one card view-->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/activity_quiz_question_card_view_option_one"
                     style="@style/ThemeCardViewQuestionOptions"
                     android:layout_width="0dp"
@@ -278,10 +298,10 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="16sp" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--option two card view-->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/activity_quiz_question_card_view_option_two"
                     style="@style/ThemeCardViewQuestionOptions"
                     android:layout_width="0dp"
@@ -304,7 +324,7 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="16sp" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
@@ -317,7 +337,7 @@
                 android:weightSum="2">
 
                 <!--option three card view-->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/activity_quiz_question_card_view_option_three"
                     style="@style/ThemeCardViewQuestionOptions"
                     android:layout_width="0dp"
@@ -341,10 +361,10 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="16sp" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--option four card view-->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/activity_quiz_question_card_view_option_four"
                     style="@style/ThemeCardViewQuestionOptions"
                     android:layout_width="0dp"
@@ -366,14 +386,14 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="16sp" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
         </LinearLayout>
 
         <!--next button-->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/actvity_quiz_question_next_button_for_description"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -399,7 +419,7 @@
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
@@ -464,7 +484,7 @@
                     android:visibility="visible"
                     tools:ignore="HardcodedText" />
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/activity_quiz_question_score_card"
                     style="@style/ThemeCardView"
                     android:layout_width="match_parent"
@@ -483,7 +503,7 @@
                         android:padding="16dp"
                         android:textAlignment="center" />
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--conatiner for quiz description-->
                 <RelativeLayout
@@ -493,7 +513,7 @@
                     android:gravity="center">
 
                     <!--quiz description card layout-->
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/question_description_card_view"
                         style="@style/ThemeCardView"
                         android:layout_width="match_parent"
@@ -544,14 +564,14 @@
 
 
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                 </RelativeLayout>
 
             </LinearLayout>
 
             <!--next button of result view-->
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/actvity_quiz_question_next_button_for_question"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -578,7 +598,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 

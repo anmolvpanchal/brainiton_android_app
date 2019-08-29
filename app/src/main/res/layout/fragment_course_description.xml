@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".fragments.CourseDescriptionFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -18,6 +18,6 @@
             android:text="was the first to be granted a United States patent for a device thatronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another tt produced clearly intelligible replication of the human voice. This instrument was further developed by many others. The telephone was the first device intronic signals that are transmitted via cables and other communication channels to another ttronic signals that are transmitted via cables and other communication channels to another t"
             android:textSize="30dp" />
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

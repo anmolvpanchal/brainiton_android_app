@@ -1,12 +1,13 @@
 package com.combrainiton.main
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -18,6 +19,7 @@ import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.NetworkHandler
+import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_nav_compete.*
 import kotlinx.android.synthetic.main.activity_nav_explore.*
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_compete
@@ -30,7 +32,7 @@ import kotlin.collections.ArrayList
 
 class ActivityNavCompete : AppCompatActivity() {
 
-    lateinit var viewPager: ViewPager
+    lateinit var viewPager: androidx.viewpager.widget.ViewPager
     lateinit var tabLayout: TabLayout
 
     @SuppressLint("ResourceAsColor")
@@ -48,7 +50,7 @@ class ActivityNavCompete : AppCompatActivity() {
 
     fun initView() {
 
-        viewPager = findViewById(R.id.compete_viewPager) as ViewPager
+        viewPager = findViewById(R.id.compete_viewPager) as androidx.viewpager.widget.ViewPager
 
         val adapter = SubscriptionAdapter(supportFragmentManager)
 

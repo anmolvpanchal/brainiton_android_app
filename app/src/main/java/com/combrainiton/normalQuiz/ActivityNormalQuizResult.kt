@@ -8,7 +8,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.combrainiton.BuildConfig
@@ -24,7 +24,7 @@ import java.io.File
 import java.io.FileOutputStream
 import android.Manifest.permission
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.os.Build
 import android.Manifest.permission.READ_EXTERNAL_STORAGE

@@ -1,11 +1,11 @@
 package com.combrainiton.main
 
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.TabLayout
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.tabs.TabLayout
+import androidx.core.content.res.ResourcesCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -18,28 +18,43 @@ import com.combrainiton.fragments.CourseProgressFragment
 import com.ebanx.swipebtn.OnActiveListener
 import com.ebanx.swipebtn.OnStateChangeListener
 import com.ebanx.swipebtn.SwipeButton
-import com.stfalcon.swipeablebutton.SwipeableButton
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class CourseHomePage : AppCompatActivity() {
 
     var tabLayout: TabLayout? = null
-    var viewPager: ViewPager? = null
+    var viewPager: androidx.viewpager.widget.ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
-    lateinit var subscriptionButton: SwipeableButton
+    lateinit var subscriptionButton: SwipeButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
 
         //Getting ids from xml
-        viewPager = findViewById<ViewPager>(R.id.course_viewPager)
+        viewPager = findViewById<androidx.viewpager.widget.ViewPager>(R.id.course_viewPager)
         collapseToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.course_CollapseToolbar)
         tabLayout = findViewById<TabLayout>(R.id.course_tabLayout)
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
 
         //When user swipes to the end
-        subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
+        //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
+
+        subscriptionButton.setOnStateChangeListener( OnStateChangeListener {
+            active -> kotlin.run {
+            if (active){ //fully swiped
+                Toast.makeText(this@CourseHomePage,"Subscribed",Toast.LENGTH_LONG).show()
+            } else{ //when it's unswiped back to normal
+                Toast.makeText(this@CourseHomePage,"Back to unswipe",Toast.LENGTH_LONG).show()
+            }
+        }
+        })
 
         initView()
 

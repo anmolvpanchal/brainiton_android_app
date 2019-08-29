@@ -2,7 +2,7 @@ package com.combrainiton.main
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
 import kotlinx.android.synthetic.main.fragment_my_quizzes.*
 
-class FragmentMyQuizzes : Fragment() {
+class FragmentMyQuizzes : androidx.fragment.app.Fragment() {
 
     private lateinit var mContext: Context
     private var isDataLoaded: Boolean = false

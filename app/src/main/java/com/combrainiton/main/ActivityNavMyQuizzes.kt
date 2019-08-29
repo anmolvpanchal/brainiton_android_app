@@ -2,9 +2,9 @@ package com.combrainiton.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.MyReportsPagerAdapter
@@ -24,7 +24,7 @@ class ActivityNavMyQuizzes : AppCompatActivity() {
 
     //this will initiate the main view in xml file
     private fun initMainView() {
-        val viewPager = findViewById<ViewPager>(R.id.my_quizzes_view_pager)
+        val viewPager = findViewById<androidx.viewpager.widget.ViewPager>(R.id.my_quizzes_view_pager)
         if (viewPager != null) {
             val adapter = MyReportsPagerAdapter(supportFragmentManager)
             viewPager.adapter = adapter

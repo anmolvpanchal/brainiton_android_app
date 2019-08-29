@@ -3,8 +3,8 @@
 package com.combrainiton.livePoll
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import android.view.View
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -23,7 +23,7 @@ import okhttp3.Request
 class ActivityLivePollQuestion : AppCompatActivity(), View.OnClickListener {
 
     private var optionTVArray: Array<TextView>? = null
-    private var optionCVArray: Array<CardView>? = null
+    private var optionCVArray: Array<androidx.cardview.widget.CardView>? = null
     private var optionId: Int = 0
     private var questionId: Int = 0
 

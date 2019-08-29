@@ -1,8 +1,8 @@
 package com.combrainiton.livePoll
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorLivePollResult
@@ -25,7 +25,7 @@ class ActivityLivePollResult : AppCompatActivity() {
         val resultData: PollAllQuestionListResponceModel? = intent.getSerializableExtra("result") as PollAllQuestionListResponceModel?
         tvPollName.text = resultData!!.poll_name
         val resultDataList: ArrayList<PollAllQuestionListResponceModel.QuestionsList>? = resultData.questions
-        rvPollResult.layoutManager = LinearLayoutManager(this@ActivityLivePollResult)
+        rvPollResult.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@ActivityLivePollResult)
         rvPollResult.adapter = AdaptorLivePollResult(this@ActivityLivePollResult, this@ActivityLivePollResult, resultDataList!!)
 
     }

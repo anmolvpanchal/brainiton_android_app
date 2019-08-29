@@ -6,9 +6,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.*
 import com.combrainiton.*
@@ -24,6 +24,7 @@ import com.combrainiton.normalQuiz.ActivityNormalQuizResult
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
+import com.tapadoo.alerter.Alerter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -180,7 +181,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                          oldProgressBarContainer: RelativeLayout, QuestionResultViewContainer: LinearLayout,
                          topBarQuestionResultText: TextView, optionTVArray: Array<TextView>?, userAnswerOptionId: Int,
                          imgCorrectIncorrect: ImageView, tvCorrectIncorrect: TextView, resultViewTotalScore: TextView,
-                         QuestionResultView: RelativeLayout, scoreCard: CardView) {
+                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView) {
 
         //create client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -288,6 +289,14 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                                 mp.start()
                             }
 
+                            //Showing Alerter
+                            Alerter.create(mActivity)
+                                    .setTitle("Wrong!")
+                                    .setBackgroundColorRes(R.color.colorCategoryThree)
+                                    .setIcon(R.drawable.shape_answer_wrong)
+                                    .setDuration(1000)
+                                    .show()
+
                             result.isUserAnswerCorrect = false
 
                             //set image visbility to visible
@@ -323,6 +332,14 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                                 val mp = MediaPlayer.create(mContext, R.raw.right)
                                 mp.start()
                             }
+
+                            //Showing Alerter
+                            Alerter.create(mActivity)
+                                    .setTitle("Wrong!")
+                                    .setBackgroundColorRes(R.color.colorCategoryFour)
+                                    .setIcon(R.drawable.ic_check_result)
+                                    .setDuration(1000)
+                                    .show()
 
                             result.isUserAnswerCorrect = true
 
@@ -434,7 +451,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
     }
 
     //for getting list of recent quiz played by user
-    fun getRecentQuiz(recyclerViewForMyQuizzes: RecyclerView) {
+    fun getRecentQuiz(recyclerViewForMyQuizzes: androidx.recyclerview.widget.RecyclerView) {
 
         //get client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -465,7 +482,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val recentDataList: ArrayList<GetUserRecentAllQuizResponceModel.RecentQuizList>? = response.body()!!.quizzes
 
                     //set linear layout manager for my quiizes recylcer view
-                    recyclerViewForMyQuizzes.layoutManager = LinearLayoutManager(mContext)
+                    recyclerViewForMyQuizzes.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(mContext)
 
                     //set adapter to recycler view
                     recyclerViewForMyQuizzes.adapter = AdaptorMyQuizzesList(mContext, mActivity, recentDataList!!)

@@ -4,8 +4,8 @@ package com.combrainiton.adaptors
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.LinearLayoutCompat
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.card_view_category_item.view.*
  * Created by Dipendra Sharma  on 06-11-2018.
  */
 
-class AdaptorCategoryList(var mContext: Context, var mActivity: Activity, private var categoryList: ArrayList<GetAllQuizResponceModel.CategoryList>, var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes>, var clickLisner: View.OnClickListener, var featured_quizzesList: ArrayList<GetAllQuizResponceModel.Allquizzes>) : RecyclerView.Adapter<AdaptorCategoryList.MyViewHolder>() {
+class AdaptorCategoryList(var mContext: Context, var mActivity: Activity, private var categoryList: ArrayList<GetAllQuizResponceModel.CategoryList>, var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes>, var clickLisner: View.OnClickListener, var featured_quizzesList: ArrayList<GetAllQuizResponceModel.Allquizzes>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorCategoryList.MyViewHolder>() {
 
     var count = 0
     private var backGroundColor = arrayOf(R.color.colorCategoryOne, R.color.colorCategoryTwo, R.color.colorCategoryThree, R.color.colorCategoryFour)
@@ -58,7 +58,7 @@ class AdaptorCategoryList(var mContext: Context, var mActivity: Activity, privat
 
     }
 
-    class MyViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
 
         val cvMainContainer = mView.rlCategory!!
         val tvQuizCatName = mView.tvQuizCatName!!

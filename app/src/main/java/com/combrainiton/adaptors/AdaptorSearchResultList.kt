@@ -5,7 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.opengl.Visibility
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.course_lessons_card_view_item.view.*
 /**
  * Created by Dipendra Sharma  on 18-12-2018.
  */
-class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes>) : RecyclerView.Adapter<AdaptorSearchResultList.MyViewHolder>(), Filterable {
+class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorSearchResultList.MyViewHolder>(), Filterable {
     var filterList: ArrayList<GetAllQuizResponceModel.Allquizzes>? = ArrayList()
 
     init {
@@ -115,7 +115,7 @@ class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, va
         }
     }
 
-    class MyViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val imgQuiz = mView.my_quizzes_quiz_image!!
         val tvQuizTitle = mView.my_quizzes_quiz_name!!
         val tvQuizHost = mView.my_quizzes_quiz_sponsor!!

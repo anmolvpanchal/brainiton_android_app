@@ -3,7 +3,7 @@ package com.combrainiton.adaptors
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.card_view_report_item.view.*
 /**
  * Created by Dipendra Sharma  on 06-12-2018.
  */
-class AdaptorMyQuizzesList(var mContext: Context, var mActivity: Activity, var recentList: ArrayList<GetUserRecentAllQuizResponceModel.RecentQuizList>) : RecyclerView.Adapter<AdaptorMyQuizzesList.MyViewHolder>() {
+class AdaptorMyQuizzesList(var mContext: Context, var mActivity: Activity, var recentList: ArrayList<GetUserRecentAllQuizResponceModel.RecentQuizList>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorMyQuizzesList.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
@@ -44,7 +44,7 @@ class AdaptorMyQuizzesList(var mContext: Context, var mActivity: Activity, var r
     }
 
 
-    class MyViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val cvMainContainer = mView.cvMainContainer!!
         val imgQuiz = mView.my_quizzes_quiz_image!!
         val tvQuizTitle = mView.my_quizzes_quiz_name!!
