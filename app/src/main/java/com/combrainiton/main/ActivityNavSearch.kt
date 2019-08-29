@@ -34,7 +34,7 @@ class ActivityNavSearch : AppCompatActivity(), View.OnClickListener, TextWatcher
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_search)
 
-        //initialize the main view
+        //initialise the main view
         initMainView()
 
     }
@@ -45,16 +45,16 @@ class ActivityNavSearch : AppCompatActivity(), View.OnClickListener, TextWatcher
         //first we have to check user coming from category search or all quiz search
         //get the value of key "from" from intent extras
         searchFrom = intent.getStringExtra("from")
-        if (searchFrom == "category") { //when user has clciked on category list item
+        if (searchFrom == "category") { //when user has clicked on category list item
 
-            //initilize views to show a specific category by default
+            //initialise views to show a specific category by default
             initForCategory()
             //and se the title as the name of category
             nav_search_category_title.text = intent.getStringExtra("categoryName")
 
-        } else { //when user has clicked on search button from explroe activtiy's top bar
+        } else { //when user has clicked on search button from explore activity's top bar
 
-            initForHomeSearch() //initlize view to show all quizzes by deafult
+            initForHomeSearch() //initialise view to show all quizzes by default
 
         }
 

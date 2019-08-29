@@ -187,7 +187,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/compete_tabLayout"
         android:layout_below="@+id/top_bar"
-        android:layout_margin="5dp">
+        android:layout_marginRight="14dp"
+        android:layout_marginLeft="14dp">
 
         <com.combrainiton.CustomViewPager
             android:id="@+id/compete_viewPager"

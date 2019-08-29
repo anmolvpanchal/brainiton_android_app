@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,11 @@ import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import com.combrainiton.R
 import com.combrainiton.models.GetAllQuizResponceModel
 import kotlinx.android.synthetic.main.card_view_report_item.view.*
+import kotlinx.android.synthetic.main.card_view_report_item.view.my_quizzes_list_item_main_container
+import kotlinx.android.synthetic.main.card_view_report_item.view.my_quizzes_quiz_image
+import kotlinx.android.synthetic.main.card_view_report_item.view.my_quizzes_quiz_name
+import kotlinx.android.synthetic.main.card_view_report_item.view.my_quizzes_quiz_sponsor
+import kotlinx.android.synthetic.main.course_lessons_card_view_item.view.*
 
 /**
  * Created by Dipendra Sharma  on 18-12-2018.
@@ -29,7 +36,7 @@ class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, va
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.card_view_report_item, parent, false))
+        return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.course_lessons_card_view_item, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +52,20 @@ class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, va
         holder.tvQuizTitle.text = quizData.quiz_title
         holder.tvQuizHost.text = "By " + quizData.host_name
         holder.cvMain.tag = position
+
+        //Setting lesson count
+        val no = position+1
+        holder.lessonCount.text = no.toString()
+
+        //Removing UpperLine and LowerLine from first and last card
+        /*if(position == 0){ //First card
+            holder.upperLine.visibility = View.INVISIBLE
+        } else if(position == itemCount - 1){ //Last card
+            holder.lowerLine.visibility = View.INVISIBLE
+        }*/
+
         holder.cvMain.setOnClickListener { p0 ->
+
             val selectedPosition: Int = p0!!.tag as Int
             if (filterList!![selectedPosition].total_questions != 0) {
                 mActivity.startActivity(Intent(mContext, ActivityNormalQuizDescription::class.java)
@@ -100,6 +120,9 @@ class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, va
         val tvQuizTitle = mView.my_quizzes_quiz_name!!
         val tvQuizHost = mView.my_quizzes_quiz_sponsor!!
         val cvMain = mView.my_quizzes_list_item_main_container!!
+        val lessonCount = mView.lessons_count
+        val upperLine = mView.upper_line
+        val lowerLine = mView.lower_line
     }
 
 }
