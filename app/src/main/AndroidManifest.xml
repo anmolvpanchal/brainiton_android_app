@@ -40,7 +40,7 @@
         <activity
             android:name=".main.BrandHomePage"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.FullScreen" />
 
         <activity
             android:name=".authentication.ActivitySignUp"

@@ -7,15 +7,18 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toolbar
-import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout
-import cn.hugeterry.coordinatortablayout.listener.OnTabSelectedListener
+import android.view.Gravity
+import android.view.View
+import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
 import com.combrainiton.fragments.CourseLessonsFragment
 import com.combrainiton.fragments.CourseProgressFragment
-
+import com.ebanx.swipebtn.OnActiveListener
+import com.ebanx.swipebtn.OnStateChangeListener
+import com.ebanx.swipebtn.SwipeButton
+import com.stfalcon.swipeablebutton.SwipeableButton
 
 
 class CourseHomePage : AppCompatActivity() {
@@ -23,6 +26,7 @@ class CourseHomePage : AppCompatActivity() {
     var tabLayout: TabLayout? = null
     var viewPager: ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
+    lateinit var subscriptionButton: SwipeableButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,32 +36,12 @@ class CourseHomePage : AppCompatActivity() {
         viewPager = findViewById<ViewPager>(R.id.course_viewPager)
         collapseToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.course_CollapseToolbar)
         tabLayout = findViewById<TabLayout>(R.id.course_tabLayout)
+        subscriptionButton = findViewById(R.id.course_subscriptionButton)
 
-        //remove back button from toolbar
-        if (supportActionBar != null) {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.setDisplayShowHomeEnabled(false)
-        }
+        //When user swipes to the end
+        subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
 
-        //Setting fontStyle and color to title based on expand and collapse
-        collapseToolbarLayout?.apply {
-
-            //setting title
-            setTitle("Course")
-
-            //Creates typefaces for fonts to be used
-            val bold = ResourcesCompat.getFont(this@CourseHomePage, R.font.raleway_bold)
-            val medium = ResourcesCompat.getFont(this@CourseHomePage, R.font.raleway_medium)
-
-            //setting typrface
-            setCollapsedTitleTypeface(bold)
-            setExpandedTitleTypeface(medium)
-
-            //setting collapsed text color
-            setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
-        }
-
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        initView()
 
         //Creating and adding tab items
         tabLayout!!.addTab(tabLayout!!.newTab().setText("Description"))
@@ -89,5 +73,33 @@ class CourseHomePage : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun initView() {
+        //remove back button from toolbar
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+        }
+
+        //Setting fontStyle and color to title based on expand and collapse
+        collapseToolbarLayout?.apply {
+
+            //setting title
+            setTitle("Course")
+
+            //Creates typefaces for fonts to be used
+            val bold = ResourcesCompat.getFont(this@CourseHomePage, R.font.raleway_bold)
+            val medium = ResourcesCompat.getFont(this@CourseHomePage, R.font.raleway_medium)
+
+            //setting typrface
+            setCollapsedTitleTypeface(bold)
+            setExpandedTitleTypeface(medium)
+
+            //setting collapsed text color
+            setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
+        }
+
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
     }
 }

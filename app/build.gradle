@@ -47,6 +47,10 @@ dependencies {
     //kotlin libraries
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    //Swipe to unlock Button
+    implementation 'com.github.stfalcon:swipeable-button:0.1.0'
+    implementation 'com.ebanx:swipe-button:0.8.3'
+
     //glide framework for images
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 

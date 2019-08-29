@@ -3,7 +3,9 @@ package com.combrainiton.main
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
@@ -100,6 +102,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
         //This will get he list of all quizzes and category list
         quizList = (intent.getSerializableExtra("allQuiz") as ArrayList<GetAllQuizResponceModel.Allquizzes>?)!!
+
         categoryList = (intent.getSerializableExtra("categoryList") as ArrayList<GetAllQuizResponceModel.CategoryList>?)!!
         featuredQuizzesList = (intent.getSerializableExtra("featured_quizzes") as ArrayList<GetAllQuizResponceModel.Allquizzes>?)!!
 
