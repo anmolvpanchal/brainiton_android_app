@@ -25,6 +25,7 @@ import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import com.combrainiton.utils.QuestionCountDownTimer
+import com.irozon.sneaker.Sneaker
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 
 
@@ -72,10 +73,15 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var timerAnimate: ObjectAnimator
 
+    private lateinit var sneaker: Sneaker
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
         sound = AppSharedPreference(this@ActivityNormalQuizQuestion).getBoolean("sound")
+
+        sneaker = Sneaker(this@ActivityNormalQuizQuestion)
+
         initViews() //initiates main view
     }
 
@@ -262,7 +268,8 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             requestData["option_id"] = 0 //add selected option id to request data
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
-            NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout,activity_quiz_question_score_card)
         }, quizTime)
     }
 
@@ -382,13 +389,17 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         requestData["question_time"] = actualTime
         requestData["option_id"] = optionId
 
-        NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+        //getting sneaker to dismiss on next question click
+        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
 
     }
 
     //for next question & end the quiz & show leaderboard
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun nextQuestion() {
+
+        //Hiding the sneaker before going to next question
+        sneaker.hide()
         //firstly we will save user answer id with question id
         result.addData(result)
         userAnswerList.add(GetNormalQuizScoreRequestModel.QuestionsList(questionModel.question_id, optionId))

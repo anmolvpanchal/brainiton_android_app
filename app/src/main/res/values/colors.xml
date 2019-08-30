@@ -37,4 +37,7 @@
     <!-- line quiz timer -->
     <color name="colorYellow">#F5FA55</color>
 
+    <color name="incorrectAnswerPoint">#BB3547</color>
+    <color name="correctAnswerPoint">#2A8D51</color>
+
 </resources>

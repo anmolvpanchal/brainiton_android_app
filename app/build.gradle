@@ -53,7 +53,7 @@ dependencies {
 
     //Slide view animation in quiz questions
     implementation 'com.tapadoo.android:alerter:4.0.2'
-    implementation 'com.github.cesarferreira:MaterialComponent.Banner:0.14.0'
+    implementation 'com.irozon.sneaker:sneaker:2.0.0'
 
     //glide framework for images
     implementation 'com.github.bumptech.glide:glide:3.7.0'

@@ -287,8 +287,8 @@
                     <!--option one-->
                     <TextView
                         android:id="@+id/activity_quiz_question_text_view_option_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="196dp"
+                        android:layout_height="96dp"
                         android:background="@color/colorCategoryOne"
                         android:fontFamily="@font/raleway_medium"
                         android:gravity="center"
