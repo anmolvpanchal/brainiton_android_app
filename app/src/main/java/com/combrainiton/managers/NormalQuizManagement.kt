@@ -5,12 +5,16 @@ package com.combrainiton.managers
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.media.MediaPlayer
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.os.Handler
+import android.view.LayoutInflater
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.*
 import com.combrainiton.adaptors.AdaptorMyQuizzesList
 import com.combrainiton.models.*
@@ -24,9 +28,12 @@ import com.combrainiton.normalQuiz.ActivityNormalQuizResult
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
+import com.irozon.sneaker.Sneaker
+import kotlinx.android.synthetic.main.sneaker_custom_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.roundToInt
 
 
 /**
@@ -36,6 +43,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
     private var requestDataMap: Map<String, String> = HashMap()
     private var requestInterface: NormalQuizManagementInterface? = null
+    private var currentScore: Double = 0.0
 
     init {
         this.requestDataMap = requestDataMap
@@ -180,7 +188,9 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                          oldProgressBarContainer: RelativeLayout, QuestionResultViewContainer: LinearLayout,
                          topBarQuestionResultText: TextView, optionTVArray: Array<TextView>?, userAnswerOptionId: Int,
                          imgCorrectIncorrect: ImageView, tvCorrectIncorrect: TextView, resultViewTotalScore: TextView,
-                         QuestionResultView: RelativeLayout, scoreCard: CardView) {
+                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView) : Sneaker{
+
+        var sneaker= Sneaker.with(mActivity)
 
         //create client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -225,6 +235,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                     //add the current point to the last point
                     val currentTotalPoint: Double = lastPoint + response.body()!!.score
+                    currentScore = response.body()!!.score
 
                     //store the current normal quiz point in the share prefrences
                     AppSharedPreference(mContext).saveString("normalQuizPoint", currentTotalPoint.toString())
@@ -288,6 +299,26 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                                 mp.start()
                             }
 
+                            //Adding custom view in sneaker and displaying
+                            val view = LayoutInflater.from(mContext).inflate(R.layout.sneaker_custom_view,sneaker.getView(),false)
+
+                            //Setting background color
+                            view.sneaker_linearLayout.setBackgroundColor(mActivity.resources.getColor(R.color.colorCategoryThree))
+
+                            //Getting random response
+                            val random = (0..9).shuffled().take(1)
+                            val response = randomIncorrectResponse(random[0])
+
+                            //Setting random response and answer feedback
+                            view.sneaker_textViewResult.text = response
+
+                            //Setting current score value to 0 as answer selected was not correct
+                            view.sneaker_score.text = "+0"
+
+                            //Setting sneaker properties
+                            sneaker.setDuration(10000)
+                            sneaker.sneakCustom(view)
+
                             result.isUserAnswerCorrect = false
 
                             //set image visbility to visible
@@ -323,6 +354,28 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                                 val mp = MediaPlayer.create(mContext, R.raw.right)
                                 mp.start()
                             }
+
+                            //Adding custom view in sneaker and displaying
+                            val view = LayoutInflater.from(mContext).inflate(R.layout.sneaker_custom_view,sneaker.getView(),false)
+
+                            //Getting random response
+                            val random = (0..9).shuffled().take(1)
+                            val response = randomCorrectResponse(random[0])
+
+                            //Setting random response and answer feedback
+                            view.sneaker_textViewResult.text = response
+
+                            //Setting current score value and background
+                            view.sneaker_score.setBackgroundColor(mActivity.resources.getColor(R.color.correctAnswerPoint))
+                            view.sneaker_score.text = "+"+ currentScore.roundToInt().toString()
+
+                            //Setting background color
+                            view.sneaker_linearLayout.setBackgroundColor(mActivity.resources.getColor(R.color.colorCategoryFour))
+
+                            //Setting sneaker properties
+                            sneaker.setDuration(10000)
+                            sneaker.sneakCustom(view)
+
 
                             result.isUserAnswerCorrect = true
 
@@ -360,6 +413,21 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                 }
             }
         })
+
+        //returning so sneaker can be dismissed on next question button click
+        return sneaker
+    }
+
+    private fun randomCorrectResponse(index: Int):String{
+        var response = arrayOf("That’s right","Spot on","You’ve nailed it","Great going","Correct","Great job","Bull's eye","Well done","Awesome")
+
+        return response[index]
+    }
+
+    private fun randomIncorrectResponse(index: Int):String{
+        var response = arrayOf("That's not right","You are mistaken","You've got it wrong","It's no go","Bad mistake","Incorrect","Mistaken","Oops that's wrong","Unlucky")
+
+        return response[index]
     }
 
     //set the bckgroungs of options as per user input
@@ -434,7 +502,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
     }
 
     //for getting list of recent quiz played by user
-    fun getRecentQuiz(recyclerViewForMyQuizzes: RecyclerView) {
+    fun getRecentQuiz(recyclerViewForMyQuizzes: androidx.recyclerview.widget.RecyclerView) {
 
         //get client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -465,7 +533,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val recentDataList: ArrayList<GetUserRecentAllQuizResponceModel.RecentQuizList>? = response.body()!!.quizzes
 
                     //set linear layout manager for my quiizes recylcer view
-                    recyclerViewForMyQuizzes.layoutManager = LinearLayoutManager(mContext)
+                    recyclerViewForMyQuizzes.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(mContext)
 
                     //set adapter to recycler view
                     recyclerViewForMyQuizzes.adapter = AdaptorMyQuizzesList(mContext, mActivity, recentDataList!!)

@@ -5,7 +5,7 @@ package com.combrainiton.adaptors
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.card_view_leaderboard_item.view.*
 /**
  * Created by Dipendra Sharma  on 17-11-2018.
  */
-class AdaptorLiveQuizLeaderBoard(var mContext: Context, var mActivity: Activity, private var userList: ArrayList<SingleQuestionLeaderBoardResponceModel.UserList>, private var userPosition: Int) : RecyclerView.Adapter<AdaptorLiveQuizLeaderBoard.MyViewHolder>() {
+class AdaptorLiveQuizLeaderBoard(var mContext: Context, var mActivity: Activity, private var userList: ArrayList<SingleQuestionLeaderBoardResponceModel.UserList>, private var userPosition: Int) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorLiveQuizLeaderBoard.MyViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.card_view_leaderboard_item, p0, false))
@@ -44,7 +44,7 @@ class AdaptorLiveQuizLeaderBoard(var mContext: Context, var mActivity: Activity,
     }
 
 
-    class MyViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val rootLayout = mView.llleaderboardContainer!!
         val tvRank = mView.tvRank!!
         val tvName = mView.tvName!!

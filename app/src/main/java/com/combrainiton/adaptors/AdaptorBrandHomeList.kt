@@ -2,8 +2,8 @@ package com.combrainiton.adaptors
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +17,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.brand_homepage_cell.view.*
 import java.util.ArrayList
 
-class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList<String>) : RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
+class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
-    class MyViewHolder : RecyclerView.ViewHolder {
+    class MyViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
         var imageView: ImageView
         var textView: TextView
-        var cardView: CardView
+        var cardView: androidx.cardview.widget.CardView
 
         constructor(view: View) : super(view){
             imageView = view.findViewById(R.id.brand_home_cell_image)

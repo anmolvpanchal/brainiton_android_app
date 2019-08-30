@@ -3,8 +3,8 @@ package com.combrainiton.liveQuiz
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.Toast
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorLiveQuizFinalLeaderBoard
@@ -77,7 +77,7 @@ class ActivityLiveQuizResult : AppCompatActivity() {
         }
 
         //set recycler view layout manager to linear layout manager
-        rvLeaderBoard.layoutManager = LinearLayoutManager(this@ActivityLiveQuizResult)
+        rvLeaderBoard.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@ActivityLiveQuizResult)
         //set adaptor to recycler view
         rvLeaderBoard.adapter = AdaptorLiveQuizFinalLeaderBoard(this@ActivityLiveQuizResult, this@ActivityLiveQuizResult, userList, userPosition)
 

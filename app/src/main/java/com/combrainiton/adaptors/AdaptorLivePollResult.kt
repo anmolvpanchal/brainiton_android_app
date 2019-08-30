@@ -3,7 +3,7 @@ package com.combrainiton.adaptors
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import java.text.DecimalFormat
 /**
  * Created by Dipendra Sharma  on 27-11-2018.
  */
-class AdaptorLivePollResult(var mContext: Context, var mActivity: Activity, private var resultDataList: ArrayList<PollAllQuestionListResponceModel.QuestionsList>) : RecyclerView.Adapter<AdaptorLivePollResult.MyViewHolder>() {
+class AdaptorLivePollResult(var mContext: Context, var mActivity: Activity, private var resultDataList: ArrayList<PollAllQuestionListResponceModel.QuestionsList>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorLivePollResult.MyViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.card_view_live_poll_result, p0, false))
@@ -43,7 +43,7 @@ class AdaptorLivePollResult(var mContext: Context, var mActivity: Activity, priv
         p0.tvOption4Percent.text = "$option4Percent%"
     }
 
-    class MyViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
+    class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
         val tvPollQuiz = mView.tvPollQue!!
         val tvOption1 = mView.optionOne!!
         val tvOption1Percent = mView.optionOnePercent!!

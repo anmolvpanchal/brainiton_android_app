@@ -5,11 +5,12 @@ package com.combrainiton.liveQuiz
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
@@ -30,13 +31,17 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import android.media.MediaPlayer
 import android.os.CountDownTimer
+import android.view.Gravity
+import android.view.animation.AnimationUtils
+import android.widget.RelativeLayout
+import com.tapadoo.alerter.Alerter
 import kotlin.system.measureTimeMillis
 
 
 class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Animator.AnimatorListener {
 
     private var optionTVArray: Array<TextView>? = null
-    private var optionCVArray: Array<CardView>? = null
+    private var optionCVArray: Array<androidx.cardview.widget.CardView>? = null
     private var optionId: Int = 0
     private var questionId: Int = 0
     private var quizTime: Long = 0
@@ -54,6 +59,7 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
         AppSharedPreference(this@ActivityLiveQuizQuestion).saveInt("currentQuestion", currentQuestion)
         sound = AppSharedPreference(this@ActivityLiveQuizQuestion).getBoolean("sound")
         initViews()
+
     }
 
     @SuppressLint("NewApi")
@@ -125,7 +131,7 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
         //set quiz title
         activity_quiz_question_text.text = questionModel.question_title
 
-        //get the opotions from the option model
+        //get the options from the option model
         val optionList: List<QuestionResponceModel.OptionListModel>? = questionModel.options
 
         //for each value in options arraylist
@@ -221,11 +227,11 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
         progressBarEnd.visibility = View.GONE
     }
 
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.activity_quiz_question_text_view_option_one -> { //on click of option 1
-
                 //Stopping timer animation and timer textview
                 tvTime.text = "0"
                 timerAnimate.end()

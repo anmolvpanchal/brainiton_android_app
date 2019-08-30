@@ -6,7 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.CountDownTimer
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView

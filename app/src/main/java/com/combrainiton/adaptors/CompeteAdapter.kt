@@ -3,10 +3,10 @@ package com.combrainiton.adaptors
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.FragmentActivity
-import android.support.v4.view.PagerAdapter
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.PagerAdapter
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import com.combrainiton.main.BrandHomePage
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<String>, var context: FragmentActivity?) : PagerAdapter() {
+class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<String>, var context: androidx.fragment.app.FragmentActivity?) : androidx.viewpager.widget.PagerAdapter() {
 
 
     lateinit var layoutInflater: LayoutInflater
@@ -31,7 +31,7 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView: ImageView
-        val card : CardView
+        val card : androidx.cardview.widget.CardView
 
         layoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rv: View = layoutInflater.inflate(R.layout.compete_cell_item,container,false)

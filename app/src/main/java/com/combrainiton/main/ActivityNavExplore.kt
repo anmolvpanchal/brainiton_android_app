@@ -10,8 +10,8 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -107,15 +107,15 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         featuredQuizzesList = (intent.getSerializableExtra("featured_quizzes") as ArrayList<GetAllQuizResponceModel.Allquizzes>?)!!
 
         //this will load the main featured quiz on the page
-        rv_featured_quiz_today.layoutManager = GridLayoutManager(this@ActivityNavExplore, 1, GridLayoutManager.HORIZONTAL, false)
+        rv_featured_quiz_today.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 1, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
         rv_featured_quiz_today.adapter = AdaptorFeaturedQuizToday(this@ActivityNavExplore, this@ActivityNavExplore, featuredQuizzesList)
 
         //this will attach featured quiz adapter to featured quiz recycler view
-        rv_featured_quiz_previous.layoutManager = GridLayoutManager(this@ActivityNavExplore, 1, GridLayoutManager.HORIZONTAL, false)
+        rv_featured_quiz_previous.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 1, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
         rv_featured_quiz_previous.adapter = AdaptorFeaturedQuizPrevious(this@ActivityNavExplore, this@ActivityNavExplore, featuredQuizzesList)
 
         //this will attach category list adapter to category list recycler view
-        rv_category_list.layoutManager = GridLayoutManager(this@ActivityNavExplore, 2, GridLayoutManager.HORIZONTAL, false)
+        rv_category_list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 2, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
         rv_category_list.adapter = AdaptorCategoryList(this@ActivityNavExplore, this@ActivityNavExplore, categoryList, quizList, this@ActivityNavExplore, featuredQuizzesList)
 
         // add on click listener to the top bar seach button

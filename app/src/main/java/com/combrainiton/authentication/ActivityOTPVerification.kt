@@ -5,7 +5,7 @@ package com.combrainiton.authentication
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.combrainiton.managers.UserManagement
@@ -20,7 +20,7 @@ import android.R.id.message
 import android.util.Log
 import java.util.logging.Logger
 import java.util.regex.Pattern
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import android.R.id.message
 
 

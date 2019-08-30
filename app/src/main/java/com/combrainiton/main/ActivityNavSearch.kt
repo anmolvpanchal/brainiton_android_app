@@ -3,10 +3,10 @@
 package com.combrainiton.main
 
 import android.os.Bundle
-import android.support.transition.Slide
-import android.support.transition.TransitionManager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -62,13 +62,13 @@ class ActivityNavSearch : AppCompatActivity(), View.OnClickListener, TextWatcher
         val quizDataList = intent.getSerializableExtra("quizData") as ArrayList<GetAllQuizResponceModel.Allquizzes>?
 
         //set horizontal linear layout manager to the search suggestion recycler view
-        nav_search_suggestion_recycler_view.layoutManager = LinearLayoutManager(this@ActivityNavSearch, LinearLayoutManager.HORIZONTAL, false)
+        nav_search_suggestion_recycler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@ActivityNavSearch, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
 
         //attach the adaptor to the search suggestion recycler view
         nav_search_suggestion_recycler_view.adapter = AdaptorSearchSuggestionList(this@ActivityNavSearch, this@ActivityNavSearch, quizDataList!!)
 
         //set vertical linear layout manager to the search result recycler view
-        nav_search_result_recyler_view.layoutManager = LinearLayoutManager(this@ActivityNavSearch)
+        nav_search_result_recyler_view.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@ActivityNavSearch)
 
         //attach search result adapter to search result recycvler view
         mSearchAdapter = AdaptorSearchResultList(this@ActivityNavSearch, this@ActivityNavSearch, quizDataList)

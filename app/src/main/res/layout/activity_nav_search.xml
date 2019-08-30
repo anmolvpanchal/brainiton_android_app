@@ -14,7 +14,7 @@
         android:background="@color/colorPrimary">
 
         <!--search input with close button visible when search button is clicked-->
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/nav_search_card_view_search_box"
             style="@style/ThemeCardViewSearchBar"
             android:layout_width="match_parent"
@@ -69,7 +69,7 @@
 
             </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <!--title of category visible when category button is clicked-->
         <RelativeLayout
@@ -120,13 +120,13 @@
     </RelativeLayout>
 
     <!--recycler view for search suggestion-->
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/nav_search_suggestion_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <!--recyler view for search results-->
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/nav_search_result_recyler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

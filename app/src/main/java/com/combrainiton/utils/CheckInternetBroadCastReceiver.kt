@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.widget.Toast
 import android.net.NetworkInfo
-import android.support.annotation.IntegerRes
-import android.support.v4.content.ContextCompat.getSystemService
+import androidx.annotation.IntegerRes
+import androidx.core.content.ContextCompat.getSystemService
 import android.util.Log
 import java.util.logging.Handler
 

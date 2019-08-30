@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sneaker_linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/colorCategoryThree">
+
+    <RelativeLayout
+        android:id="@+id/inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/sneaker_textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/raleway_bold"
+            android:textSize="30sp"
+            android:text="Wrong!!"
+            android:layout_marginLeft="20dp"
+            android:drawablePadding="20dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/sneaker_score"
+            android:layout_below="@id/sneaker_textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="6dp"
+            android:text="+0"
+            android:fontFamily="@font/raleway_medium"
+            android:background="@color/incorrectAnswerPoint"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

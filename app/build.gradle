@@ -13,7 +13,7 @@ android {
         versionCode 4
         versionName "1.3"
         multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -26,11 +26,11 @@ android {
 dependencies {
 
     //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     //fetch otp library
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
@@ -48,8 +48,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //Swipe to unlock Button
-    implementation 'com.github.stfalcon:swipeable-button:0.1.0'
+    //implementation 'com.github.stfalcon:swipeable-button:0.1.0'
     implementation 'com.ebanx:swipe-button:0.8.3'
+
+    //Slide view animation in quiz questions
+    implementation 'com.tapadoo.android:alerter:4.0.2'
+    implementation 'com.irozon.sneaker:sneaker:2.0.0'
 
     //glide framework for images
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -85,6 +89,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
 
 
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

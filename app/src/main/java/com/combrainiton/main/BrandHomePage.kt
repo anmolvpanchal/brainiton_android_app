@@ -1,27 +1,27 @@
 package com.combrainiton.main
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorBrandHomeList
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.utils.ItemOffsetDecoration
 import kotlinx.android.synthetic.main.activity_brand_home_page.*
 import android.util.TypedValue
-import android.support.v4.app.SupportActivity
-import android.support.v4.app.SupportActivity.ExtraData
-import android.support.v4.content.ContextCompat.getSystemService
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v4.content.res.ResourcesCompat
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import androidx.core.content.res.ResourcesCompat
 import android.util.Log
 
 class BrandHomePage : AppCompatActivity() {
 
     private var brandHomeTryList: ArrayList<String> = ArrayList<String>()
-    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     lateinit var collapseToolbarLayout: CollapsingToolbarLayout
 
 
@@ -52,7 +52,7 @@ class BrandHomePage : AppCompatActivity() {
         val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
 
         val adapter = AdaptorBrandHomeList(this,brandHomeTryList)
-        recyclerView.layoutManager = GridLayoutManager(this,2)
+        recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
         val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
         recyclerView.addItemDecoration(decoration)
         recyclerView.adapter = adapter

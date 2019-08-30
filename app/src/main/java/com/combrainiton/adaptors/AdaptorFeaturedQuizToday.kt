@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import com.combrainiton.R
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import kotlinx.android.synthetic.main.card_view_featured_quiz_main_item.view.*
 
-class AdaptorFeaturedQuizToday(var mContext: Context, var mActivity: Activity, private var featuredQuizzes:ArrayList<GetAllQuizResponceModel.Allquizzes>): RecyclerView.Adapter<AdaptorFeaturedQuizToday.MyViewHolder>() {
+class AdaptorFeaturedQuizToday(var mContext: Context, var mActivity: Activity, private var featuredQuizzes:ArrayList<GetAllQuizResponceModel.Allquizzes>): androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorFeaturedQuizToday.MyViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.card_view_featured_quiz_main_item, p0, false))
@@ -57,7 +57,7 @@ class AdaptorFeaturedQuizToday(var mContext: Context, var mActivity: Activity, p
 
     }
 
-    class MyViewHolder(mView: View):RecyclerView.ViewHolder(mView){
+    class MyViewHolder(mView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(mView){
         val imgQuizCover= mView.main_featured_quiz_image!!
         val tvQuizTitle= mView.main_featured_quiz_name!!
         val tvQuizBy= mView.main_featured_quiz_sponsor_name!!

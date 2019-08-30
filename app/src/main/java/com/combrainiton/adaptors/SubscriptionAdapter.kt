@@ -1,17 +1,17 @@
 package com.combrainiton.adaptors
 
 import android.content.Context
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.combrainiton.fragments.MySubscriptionFragment
 
-class SubscriptionAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
+class SubscriptionAdapter(fm: androidx.fragment.app.FragmentManager): androidx.fragment.app.FragmentPagerAdapter(fm) {
 
-    private var fragmentList = ArrayList<Fragment>()
+    private var fragmentList = ArrayList<androidx.fragment.app.Fragment>()
     private var fragmentListTitle = ArrayList<String>()
 
-    override fun getItem(positon: Int): Fragment? {
+    override fun getItem(positon: Int): androidx.fragment.app.Fragment? {
         return fragmentList.get(positon)
 
     }
@@ -24,7 +24,7 @@ class SubscriptionAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         return fragmentListTitle.get(position)
     }
 
-    fun addFragment(fragment: Fragment, title: String) {
+    fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
         fragmentList.add(fragment)
         fragmentListTitle.add(title)
     }

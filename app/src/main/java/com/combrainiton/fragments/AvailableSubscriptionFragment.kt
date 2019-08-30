@@ -1,10 +1,10 @@
 package com.combrainiton.fragments
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import com.google.android.material.tabs.TabLayout
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +14,18 @@ import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.adaptors.SubscriptionAdapter
 import com.combrainiton.main.ActivityNavCompete
 
-class AvailableSubscriptionFragment : Fragment() {
+class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
-    lateinit var viewPager: ViewPager
+    lateinit var viewPager: androidx.viewpager.widget.ViewPager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_available_subscription, container, false)
 
-        viewPager = view.findViewById(R.id.avail_sub_viewPager) as ViewPager
+        viewPager = view.findViewById(R.id.avail_sub_viewPager) as androidx.viewpager.widget.ViewPager
 
         viewPager.setPageTransformer(true, ViewPagerStack())
         viewPager.offscreenPageLimit = 3
@@ -56,10 +56,10 @@ class AvailableSubscriptionFragment : Fragment() {
         imagesUri.add("http://link.brainiton.in/txtcard6")
 
 
-        val adapter: PagerAdapter = CompeteAdapter(images, imagesUri, activity)
+        val adapter: androidx.viewpager.widget.PagerAdapter = CompeteAdapter(images, imagesUri, activity)
         viewPager.adapter = adapter
 
-        viewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 //Log.i("Compete","check")
             }
@@ -75,7 +75,7 @@ class AvailableSubscriptionFragment : Fragment() {
 
     }
 
-    private inner class ViewPagerStack : ViewPager.PageTransformer {
+    private inner class ViewPagerStack : androidx.viewpager.widget.ViewPager.PageTransformer {
         @Override
         override fun transformPage(page: View, position: Float) {
 
