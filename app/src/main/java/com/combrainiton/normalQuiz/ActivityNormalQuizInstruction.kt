@@ -2,6 +2,7 @@ package com.combrainiton.normalQuiz
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_noraml_quiz_instruction.*
 
 
 class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener {
+
+    private val TAG : String = "ActivityNormalQuizInstruction"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,7 @@ class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener 
         tvQuizQuestionCount.text = "$totalQuestion Questions" //set number of questions
     }
 
+    @SuppressLint("LongLogTag")
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.normal_quiz_instruction_start_button -> { //on click of start button
@@ -49,6 +53,7 @@ class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener 
                     mDialog.show() //show progress dialog
                     //get question data from normal quiz management and pass the dialog object in the function
                     NormalQuizManagement(this@ActivityNormalQuizInstruction, this@ActivityNormalQuizInstruction, mDialog).getQuestions(quizId,quizName)
+                    Log.e(TAG,"result of id $quizId and name $quizName")
                 } else {
                     //display error meessage
                     Toast.makeText(this@ActivityNormalQuizInstruction, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()

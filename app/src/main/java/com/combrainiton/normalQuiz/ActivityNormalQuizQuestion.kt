@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -27,9 +28,20 @@ import com.combrainiton.utils.NetworkHandler
 import com.combrainiton.utils.QuestionCountDownTimer
 import com.irozon.sneaker.Sneaker
 import kotlinx.android.synthetic.main.activity_quiz_question.*
+import android.R.id.edit
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
+
+    private val TAG :String = "ActivityNormalQuizQuestion"
 
     private var optionTextViewList: Array<TextView>? = null
 
@@ -83,6 +95,15 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         sneaker = Sneaker(this@ActivityNormalQuizQuestion)
 
         initViews() //initiates main view
+
+        // Create object of SharedPreferences.
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        //now get Editor
+        val editor = sharedPref.edit()
+        //put your value
+        editor.putString("listofQues", "stackoverlow")
+
+
     }
 
     @SuppressLint("NewApi")
@@ -115,6 +136,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    @SuppressLint("LongLogTag")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setData(questionModel: QuestionResponceModel?) {
 
@@ -182,11 +204,14 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             questionDescription = (questionModel.question_title.subSequence(questionModel.question_title.indexOf(";"), questionModel.question_title.length)).toString()
             //set the question title after removing the description from it
             activity_quiz_question_text.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+            Log.e(TAG,"question" + questionModel.question_title.subSequence(0,questionModel.question_title.indexOf(";")) as String?)
             result.questionText = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?
+
 
         } catch (e: Exception) {
             //if eror occurs then set the question without parsing
             activity_quiz_question_text.text = questionModel.question_title
+            Log.e(TAG,"error "+questionModel.question_title)
             result.questionText = questionModel.question_title
             System.out.println("no description found")
         }
@@ -198,6 +223,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         for (i in optionTextViewList!!.indices) {
             //set option title
             optionTextViewList!![i].text = optionList!![i].option_title
+            Log.e(TAG,"options text" + optionList!![i].option_title)
             //set option id as option text view tag
             optionTextViewList!![i].tag = optionList[i].option_id
             //make option view clickable
@@ -248,7 +274,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 optionTextViewList!![i].isClickable = false
                 optionTextViewList!![i].isEnabled = false
                 //set top bar result container visible
-                quiz_question_result_top_bar_container.visibility = View.VISIBLE
+                quiz_question_result_top_bar_container.visibility = View.GONE
                 //set top bar text color to red
                 activity_quiz_question_result_top_bar.setTextColor(resources.getColor(R.color.colorCategoryThree))
                 //set top bar text to result text 4

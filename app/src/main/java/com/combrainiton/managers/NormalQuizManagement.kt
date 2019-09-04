@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.media.MediaPlayer
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +45,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
     private var requestDataMap: Map<String, String> = HashMap()
     private var requestInterface: NormalQuizManagementInterface? = null
     private var currentScore: Double = 0.0
+    private val TAG = "NormalQuizManagement"
 
     init {
         this.requestDataMap = requestDataMap
@@ -161,6 +163,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                     //get JSON object questions as array list of QuestionResponseModel
                     val questionsList: ArrayList<QuestionResponceModel>? = response.body()!!.questions
+                    Log.e(TAG,"questions $questionsList")
 
                     //get JSON object quiz id as integer from response
                     val qid = response.body()!!.quiz_id
@@ -219,6 +222,9 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                     //get JSON Object correct_answer_id from response
                     val correctOptionId: Int = response.body()!!.correct_answer_id
+                    Log.e(TAG,"Correct result $correctOptionId and string is ${response.body()!!.correct_answer_value}")
+
+
 
                     //set backgrounds of wrong options to red and correct option to green
                     setOptionBackground(R.drawable.shape_answer_right, correctOptionId, optionTVArray!!, result)
@@ -263,10 +269,10 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             resultViewTotalScore.text = score
 
                             //set the question result color to red
-                            topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryThree))
+                            //topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryThree))
 
                             //set the question result text to top bar question rsult text 1
-                            topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_1)
+                            //topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_1)
 
                             //TODO we no longet use question point text view remove it's usage from here and from other methods as well
                             //tvQuestionPoint.text = "+ 0"
@@ -306,7 +312,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             view.sneaker_linearLayout.setBackgroundColor(mActivity.resources.getColor(R.color.colorCategoryThree))
 
                             //Getting random response
-                            val random = (0..9).shuffled().take(1)
+                            val random = (0..8).shuffled().take(1)
                             val response = randomIncorrectResponse(random[0])
 
                             //Setting random response and answer feedback
@@ -331,10 +337,10 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             setOptionBackground(R.drawable.shape_answer_wrong, userAnswerOptionId, optionTVArray, result)
 
                             //set top bar result text color to red
-                            topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryThree))
+                            //topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryThree))
 
                             //set text to topbar text 2
-                            topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_2)
+                            //topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_2)
 
                             //tvQuestionPoint.text = "+0"
 
@@ -359,7 +365,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             val view = LayoutInflater.from(mContext).inflate(R.layout.sneaker_custom_view,sneaker.getView(),false)
 
                             //Getting random response
-                            val random = (0..9).shuffled().take(1)
+                            val random = (0..8).shuffled().take(1)
                             val response = randomCorrectResponse(random[0])
 
                             //Setting random response and answer feedback
@@ -389,10 +395,10 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             scoreCard.visibility = View.VISIBLE
 
                             //set top bar text color to green
-                            topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryFour))
+                            //topBarQuestionResultText.setTextColor(mContext.resources.getColor(R.color.colorCategoryFour))
 
                             //set text to top bar text 3
-                            topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_3)
+                            //topBarQuestionResultText.text = mContext.getString(R.string.top_bar_question_result_text_3)
 
                             //tvQuestionPoint.text = "+" + response.body()!!.score.toInt().toString()
 
