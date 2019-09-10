@@ -287,8 +287,8 @@
                     <!--option one-->
                     <TextView
                         android:id="@+id/activity_quiz_question_text_view_option_one"
-                        android:layout_width="196dp"
-                        android:layout_height="96dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@color/colorCategoryOne"
                         android:fontFamily="@font/raleway_medium"
                         android:gravity="center"
@@ -454,7 +454,7 @@
                 android:id="@+id/result_without_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/actvity_quiz_question_next_button_for_question"
+                android:layout_above="@+id/actvity_quiz_question_next_button_for_question"
                 android:layout_below="@id/activity_quiz_question_app_logo"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="32dp"

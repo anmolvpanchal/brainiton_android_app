@@ -8,11 +8,13 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import android.view.View
 import android.view.animation.LinearInterpolator
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -138,7 +140,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         activity_quiz_question_result_container.visibility = View.GONE
 
         //TODO we no longer use old progress bar remove it's usage from the project
-        llProgress.visibility = View.GONE
+        //llProgress.visibility = View.GONE
 
         //set the next button visibility to gone
         actvity_quiz_question_next_button_for_description.visibility = View.GONE
@@ -281,6 +283,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 tvTime.text = "0"
                 timerAnimate.end()
 
+                result_with_description.visibility = View.VISIBLE
+                if (questionDescription.isNotEmpty()) {
+                    activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
+                    System.out.println(questionDescription)
+                    result_with_description.visibility = View.VISIBLE
+                    Log.i("Check",questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length).toString())
+                } else {
+                    result_with_description.visibility = View.GONE
+                }
+
                 optionId = p0.tag as Int
                 userAnswer = 1
                 result.userOptionText = activity_quiz_question_text_view_option_one.text as String?
@@ -291,6 +303,15 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 //Stopping timer animation and timer textview
                 tvTime.text = "0"
                 timerAnimate.end()
+
+                result_with_description.visibility = View.VISIBLE
+                if (questionDescription.isNotEmpty()) {
+                    activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
+                    System.out.println(questionDescription)
+                    result_with_description.visibility = View.VISIBLE
+                } else {
+                    result_with_description.visibility = View.GONE
+                }
 
                 userAnswer = 2
                 optionId = p0.tag as Int
@@ -303,6 +324,15 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 tvTime.text = "0"
                 timerAnimate.end()
 
+                result_with_description.visibility = View.VISIBLE
+                if (questionDescription.isNotEmpty()) {
+                    activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
+                    System.out.println(questionDescription)
+                    result_with_description.visibility = View.VISIBLE
+                } else {
+                    result_with_description.visibility = View.GONE
+                }
+
                 userAnswer = 3
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_three.text as String?
@@ -314,6 +344,15 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 tvTime.text = "0"
                 timerAnimate.end()
 
+                result_with_description.visibility = View.VISIBLE
+                if (questionDescription.isNotEmpty()) {
+                    activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
+                    System.out.println(questionDescription)
+                    result_with_description.visibility = View.VISIBLE
+                } else {
+                    result_with_description.visibility = View.GONE
+                }
+
                 userAnswer = 4
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_four.text as String?
@@ -322,6 +361,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             }
             R.id.actvity_quiz_question_next_button_for_description -> {
                 //rlQuestionView.visibility = View.GONE
+                //nextQuestion()
                 activity_quiz_question_result_container.visibility = View.VISIBLE
                 quiz_question_result_top_bar_container.visibility = View.GONE
                 activity_quiz_option_container.visibility = View.GONE
