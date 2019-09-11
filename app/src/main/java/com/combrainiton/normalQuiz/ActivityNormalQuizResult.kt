@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.StrictMode
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,9 +38,12 @@ import kotlinx.android.synthetic.main.activity_quiz_question.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
-class ActivityNormalQuizResult : AppCompatActivity() {
+class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private lateinit var allData: ArrayList<ObjectQuizResult>
 
@@ -57,7 +61,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     var totalQuestion: Int = 0
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
-
+    private var tts: TextToSpeech? = null
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
 
@@ -71,6 +75,11 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         quizName = intent.getStringExtra("quizName")
         userName = AppSharedPreference(this@ActivityNormalQuizResult).getString("name")
 
+        tts = TextToSpeech(this, this)
+
+        correct_option_layout.setOnClickListener {
+            speakOut()
+        }
 
         getQuestions(quizId, quizName!!)
 
@@ -94,6 +103,40 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         super.onResume()
         //challange_view.visibility = View.INVISIBLE
     }
+
+    private fun speakOut(){
+        val text = correct_option_layout.text.toString()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        }
+    }
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
+
+    }
+
+    override fun onInit(status : Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts!!.setLanguage(Locale("en", "IN"))
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","The Language specified is not supported!")
+            } else {
+                correct_option_layout!!.isEnabled = true
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+        }
+
+    }
+
 
 
     @SuppressLint("SetTextI18n", "LongLogTag")
@@ -139,6 +182,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
         result_Cell_right_button.visibility = View.VISIBLE
         currentQuestion -= 1
+        var QuestionNo = currentQuestion+1
 
         if (currentQuestion.equals(-1)) {
             result_Cell_left_button.visibility = View.INVISIBLE
@@ -147,7 +191,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             try {
                 questionModel = questionsList[currentQuestion]
                 question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
-                result_Cell_questionNo_text.text = "Question " + currentQuestion.toString()
+                result_Cell_questionNo_text.text = "Question $QuestionNo"
                 Log.e(TAG,"previous clicked")
                 val requestData = HashMap<String, Int>()
 
@@ -164,7 +208,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             } catch (e: Exception) {
                 questionModel = questionsList[currentQuestion]
                 question_layout.text = questionModel.question_title
-                result_Cell_questionNo_text.text = "Question " + currentQuestion.toString()
+                result_Cell_questionNo_text.text = "Question $QuestionNo"
 
                 val requestData = HashMap<String, Int>()
 
@@ -188,6 +232,8 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         totalQuestion = questionsList.size
         result_Cell_left_button.visibility = View.VISIBLE
         currentQuestion += 1
+        var QuestionNo = currentQuestion+1
+
 
         if (currentQuestion == totalQuestion) {
             result_Cell_right_button.visibility = View.INVISIBLE
@@ -196,7 +242,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             try {
                 questionModel = questionsList[currentQuestion]
                 question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
-                result_Cell_questionNo_text.text = "Question $currentQuestion"
+                result_Cell_questionNo_text.text = "Question $QuestionNo"
                 Log.e(TAG,"next clicked")
 
                 val requestData = HashMap<String, Int>()
@@ -213,7 +259,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             } catch (e: Exception) {
                 questionModel = questionsList[currentQuestion]
                 question_layout.text = questionModel.question_title
-                result_Cell_questionNo_text.text = "Question $currentQuestion"
+                result_Cell_questionNo_text.text = "Question $QuestionNo"
                 val requestData = HashMap<String, Int>()
 
                 requestData["quiz_id"] = quizId //add quiz id to request data
@@ -257,7 +303,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
                     val correctOptionId: Int = response.body()!!.correct_answer_id
                     val correctOptionText : String = response.body()!!.correct_answer_value
                     Log.e(TAG,"Correct result $correctOptionId and string is $correctOptionText")
-                    correct_option_layout.text = "Correct ans is "+correctOptionText
+                    correct_option_layout.text = correctOptionText
 
                 }else{
                     //if the response is not successfull then show the error
@@ -309,7 +355,8 @@ class ActivityNormalQuizResult : AppCompatActivity() {
                         question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
                         Log.e(TAG, "question" + questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")))
                         result.questionText = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?
-                        result_Cell_questionNo_text.text = "Question $currentQuestion"
+                        var QuestionNo = currentQuestion+1
+                        result_Cell_questionNo_text.text = "Question $QuestionNo"
                         Log.e(TAG, "question list size ${questionsList.size.toString()}")
                         Log.e(TAG, "current $currentQuestion")
 
@@ -326,11 +373,17 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
                         getCorrectOption(requestData)
 
+                        if (currentQuestion.equals(0)) {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                        }
+
 
                     } catch (e: java.lang.Exception) {
                         //if eror occurs then set the question without parsing
                         question_layout.text = questionModel.question_title
                         result.questionText = questionModel.question_title
+                        var QuestionNo = currentQuestion+1
+                        result_Cell_questionNo_text.text = "Question $QuestionNo"
                         val requestData = HashMap<String, Int>()
 
                         requestData["quiz_id"] = quizId //add quiz id to request data
@@ -341,6 +394,10 @@ class ActivityNormalQuizResult : AppCompatActivity() {
                         //get correct option data from normal quiz management
 
                         getCorrectOption(requestData)
+
+                        if (currentQuestion.equals(0)) {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                        }
 
                         System.out.println("no description found")
                     }
