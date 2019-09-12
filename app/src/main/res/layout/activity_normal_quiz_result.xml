@@ -233,18 +233,18 @@
             <!--                android:gravity="center"-->
             <!--                android:weightSum="2">-->
 
-            <!--                <Button-->
-            <!--                    android:id="@+id/normal_quiz_play_again_button"-->
-            <!--                    style="@style/ThemeTextViewH1Light"-->
-            <!--                    android:layout_width="0dp"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_weight="1"-->
-            <!--                    android:background="@drawable/shape_rounded_button"-->
-            <!--                    android:drawableStart="@drawable/ic_refresh"-->
-            <!--                    android:paddingStart="16dp"-->
-            <!--                    android:text="@string/text_play_again"-->
-            <!--                    android:textAllCaps="false"-->
-            <!--                    tools:ignore="RtlSymmetry" />-->
+                            <Button
+                                android:id="@+id/normal_quiz_play_again_button"
+                                style="@style/ThemeTextViewH1Light"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/shape_rounded_button"
+                                android:drawableStart="@drawable/ic_refresh"
+                                android:paddingStart="16dp"
+                                android:text="@string/text_play_again"
+                                android:textAllCaps="false"
+                                tools:ignore="RtlSymmetry" />
 
             <!--                <Button-->
             <!--                    android:id="@+id/normal_quiz_home_button"-->

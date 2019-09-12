@@ -168,12 +168,12 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 //        }
 
 //        //set on click listener to play again button
-//        normal_quiz_play_again_button.setOnClickListener {
-//            val quizId: Int = intent.getIntExtra("quizId", 0)
-//            val mDialog = AppProgressDialog(applicationContext)
-//            mDialog.show()
-//            NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
-//        }
+        normal_quiz_play_again_button.setOnClickListener {
+            val quizId: Int = intent.getIntExtra("quizId", 0)
+            val mDialog = AppProgressDialog(applicationContext)
+            mDialog.show()
+            NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
+        }
 
     }
 
