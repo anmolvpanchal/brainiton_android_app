@@ -36,6 +36,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -130,14 +131,33 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            // set US English as language for tts
-            val result = tts!!.setLanguage(Locale("en", "IN"))
 
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "The Language specified is not supported!")
-            } else {
-                actvity_quiz_question_speak_button_for_options!!.isEnabled = true
+            var speachListener = object : UtteranceProgressListener(){
+                @SuppressLint("LongLogTag")
+                override fun onDone(string: String?) {
+                    Log.e(TAG,"Sound completed " + string)
+                    timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
+                    timerSound.isLooping = true
+                    timerSound.start()
+                }
+
+                override fun onError(p0: String?) {
+                    Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onStart(p0: String?) {
+                    val result = tts!!.setLanguage(Locale("en", "IN"))
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language specified is not supported!")
+                    } else {
+                        actvity_quiz_question_speak_button_for_options!!.isEnabled = true
+                    }
+                }
+
             }
+
+            tts?.setOnUtteranceProgressListener(speachListener)
 
         } else {
             Log.e("TTS", "Initilization Failed!")
