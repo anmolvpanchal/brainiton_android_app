@@ -43,12 +43,12 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
     fun initView() {
 
         //This links will be displayed on card
-        images.add("http://link.brainiton.in/imgcard4")
-        images.add("http://link.brainiton.in/imgcard5")
-        images.add("https://i.imgur.com/VFzhBmW.jpg")
-        images.add("https://i.imgur.com/eXdt2ND.jpg")
-        images.add("https://i.imgur.com/GGCHVIi.jpg")
-        images.add("https://i.imgur.com/DH9QbAq.jpg")
+        images.add("http://aagamacademy.com/brainiton/delete/brand1.jpeg")
+//        images.add("http://link.brainiton.in/imgcard5")
+//        images.add("https://i.imgur.com/VFzhBmW.jpg")
+//        images.add("https://i.imgur.com/eXdt2ND.jpg")
+//        images.add("https://i.imgur.com/GGCHVIi.jpg")
+//        images.add("https://i.imgur.com/DH9QbAq.jpg")
 
         //This links will be opened when corresponding card is clicked
         imagesUri.add("http://link.brainiton.in/txtcard4")

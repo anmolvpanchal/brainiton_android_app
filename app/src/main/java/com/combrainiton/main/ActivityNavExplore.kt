@@ -167,6 +167,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
     //opens category
     private fun openCategory(selectedCategory: Int) {
         val categoryId = categoryList[selectedCategory].category_id //get selected category name from category list
+        Log.e("catagory id ", categoryId.toString())
         startActivity(Intent(this@ActivityNavExplore, ActivityNavSearch::class.java) //open search activtiy
                 .putExtra("quizData", getCategoryData(categoryId)) //pass category data using getCategoryFunction(int cateory id)
                 .putExtra("from", "category")   //pass "from" key with value "category"
