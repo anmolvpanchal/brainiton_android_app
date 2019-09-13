@@ -48,7 +48,7 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
                 .into(imageView)
 
 
-        card.setOnClickListener(object  : View.OnClickListener{
+        imageView.setOnClickListener(object  : View.OnClickListener{
             override fun onClick(v: View?) {
                //context!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
 

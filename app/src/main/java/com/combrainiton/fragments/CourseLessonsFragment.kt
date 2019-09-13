@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.combrainiton.R
+import com.combrainiton.adaptors.AdapterCourseLesson
 import com.combrainiton.adaptors.AdaptorSearchResultList
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
@@ -33,7 +34,7 @@ import retrofit2.Response
 class CourseLessonsFragment : androidx.fragment.app.Fragment() {
 
     private lateinit var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes> //list for all the quizzes
-    private lateinit var mSearchAdapter: AdaptorSearchResultList //adapter for search results
+    private lateinit var mSearchAdapter: AdapterCourseLesson //adapter for search results
     lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     private var requestInterface: NormalQuizManagementInterface? = null
 
@@ -57,6 +58,7 @@ class CourseLessonsFragment : androidx.fragment.app.Fragment() {
         return view
     }
 
+    //For getting quizes from API
     private fun initView() {
 
         requestInterface = ApiClient.getClient().create(NormalQuizManagementInterface::class.java)
@@ -172,9 +174,8 @@ class CourseLessonsFragment : androidx.fragment.app.Fragment() {
         val quizDataList = getCategoryData(23,quizList)
 
         //attach search result adapter to search result recycvler view
-        mSearchAdapter = AdaptorSearchResultList(context!!, activity!!, quizDataList)
+        mSearchAdapter = AdapterCourseLesson(context!!, activity!!, quizDataList)
         recyclerView.adapter = mSearchAdapter
-
     }
 
 }
