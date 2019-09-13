@@ -391,6 +391,38 @@
 
         </LinearLayout>
 
+<!--        speak button-->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/actvity_quiz_question_speak_button_for_options"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="72dp"
+            android:animateLayoutChanges="true"
+            app:cardBackgroundColor="@color/colorTextPrimaryLight"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_speaker"
+                    tools:ignore="ContentDescription" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
         <!--next button-->
         <androidx.cardview.widget.CardView
             android:id="@+id/actvity_quiz_question_next_button_for_description"

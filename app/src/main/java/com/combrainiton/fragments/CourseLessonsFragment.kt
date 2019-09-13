@@ -171,7 +171,7 @@ class CourseLessonsFragment : androidx.fragment.app.Fragment() {
 
     private fun getData(quizList: ArrayList<GetAllQuizResponceModel.Allquizzes>){
 
-        val quizDataList = getCategoryData(23,quizList)
+        val quizDataList = getCategoryData(28,quizList)
 
         //attach search result adapter to search result recycvler view
         mSearchAdapter = AdapterCourseLesson(context!!, activity!!, quizDataList)

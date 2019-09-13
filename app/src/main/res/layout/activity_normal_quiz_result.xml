@@ -133,6 +133,10 @@
                 android:id="@+id/baseCard_result_cell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="2dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="10dp">
 
@@ -152,6 +156,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTint="#fff"
                             android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
                         <TextView
@@ -169,6 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTint="#fff"
                             android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
 
@@ -178,7 +184,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:weightSum="5"
+                        android:weightSum="6"
                         android:layout_below="@id/top_bar"
                         >
 
@@ -186,7 +192,7 @@
                         android:id="@+id/question_layout"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:fontFamily="@font/raleway_medium"
                         android:gravity="center"
                         android:text="question will be shown here"
@@ -197,16 +203,21 @@
 
                     <TextView
                         android:id="@+id/correct_option_layout"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="2"
                         android:layout_below="@id/question_layout"
                         android:fontFamily="@font/raleway_medium"
+                        android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="correct option"
+                        android:drawableLeft="@drawable/ic_green_check_mark"
+                        android:drawableRight="@drawable/ic_speaker"
+                        android:drawablePadding="10dp"
+                        android:text=""
                         android:textColor="#000"
                         android:textSize="22dp"
                         />
+
 
                     </LinearLayout>
 
@@ -228,18 +239,18 @@
             <!--                android:gravity="center"-->
             <!--                android:weightSum="2">-->
 
-            <!--                <Button-->
-            <!--                    android:id="@+id/normal_quiz_play_again_button"-->
-            <!--                    style="@style/ThemeTextViewH1Light"-->
-            <!--                    android:layout_width="0dp"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_weight="1"-->
-            <!--                    android:background="@drawable/shape_rounded_button"-->
-            <!--                    android:drawableStart="@drawable/ic_refresh"-->
-            <!--                    android:paddingStart="16dp"-->
-            <!--                    android:text="@string/text_play_again"-->
-            <!--                    android:textAllCaps="false"-->
-            <!--                    tools:ignore="RtlSymmetry" />-->
+                            <Button
+                                android:id="@+id/normal_quiz_play_again_button"
+                                style="@style/ThemeTextViewH1Light"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/shape_rounded_button"
+                                android:drawableStart="@drawable/ic_refresh"
+                                android:paddingStart="16dp"
+                                android:text="@string/text_play_again"
+                                android:textAllCaps="false"
+                                tools:ignore="RtlSymmetry" />
 
             <!--                <Button-->
             <!--                    android:id="@+id/normal_quiz_home_button"-->

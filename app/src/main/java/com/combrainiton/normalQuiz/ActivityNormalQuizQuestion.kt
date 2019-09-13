@@ -36,13 +36,19 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
+class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, TextToSpeech.OnInitListener {
 
+    private val TAG: String = "ActivityNormalQuizQuestion"
 
-class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
-
-    private val TAG :String = "ActivityNormalQuizQuestion"
+    private var tts: TextToSpeech? = null
 
     private var optionTextViewList: Array<TextView>? = null
 
@@ -78,6 +84,11 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
 
     private var questionDescription: String = ""
 
+    private var OptionOne: String = ""
+    private var OptionTwo: String = ""
+    private var OptionThree: String = ""
+    private var OptionFour: String = ""
+    private var speakQuestion : String = ""
     private lateinit var timerSound: MediaPlayer
 
     private var sound: Boolean = true
@@ -104,6 +115,55 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         //put your value
         editor.putString("listofQues", "stackoverlow")
 
+        tts = TextToSpeech(this, this)
+
+
+    }
+
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
+
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+
+            var speachListener = object : UtteranceProgressListener(){
+                @SuppressLint("LongLogTag")
+                override fun onDone(string: String?) {
+                    Log.e(TAG,"Sound completed " + string)
+                    timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
+                    timerSound.isLooping = true
+                    timerSound.start()
+                }
+
+                override fun onError(p0: String?) {
+                    Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onStart(p0: String?) {
+                    val result = tts!!.setLanguage(Locale("en", "IN"))
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language specified is not supported!")
+                    } else {
+                        actvity_quiz_question_speak_button_for_options!!.isEnabled = true
+                    }
+                }
+
+            }
+
+            tts?.setOnUtteranceProgressListener(speachListener)
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+            Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -135,6 +195,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
 
         actvity_quiz_question_next_button_for_question.setOnClickListener(this@ActivityNormalQuizQuestion)
 
+        actvity_quiz_question_speak_button_for_options.setOnClickListener(this@ActivityNormalQuizQuestion)
+
+        activity_quiz_question_text.setOnClickListener(this@ActivityNormalQuizQuestion)
     }
 
     @SuppressLint("LongLogTag")
@@ -169,6 +232,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         //set top bar result container to invisible
         quiz_question_result_top_bar_container.visibility = View.GONE
 
+        //set speak container to invisible
+        actvity_quiz_question_speak_button_for_options.visibility = View.GONE
+
         //make option view invisible
         activity_quiz_option_container.visibility = View.GONE
 
@@ -189,7 +255,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
 
         //initialize the count down timer  with quiz time
         //countDownTimer = QuestionCountDownTimer(quizTime, 1000, this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, progressBarStart, progressBarEnd, tvTime, optionTextViewList!!)
-        countDownTimer = QuestionCountDownTimer(quizTime, 1000,this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, progressBarCircle, tvTime, optionTextViewList!!)
+        countDownTimer = QuestionCountDownTimer(quizTime, 1000, this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, progressBarCircle, tvTime, optionTextViewList!!)
 
         if (questionModel.question_image.isEmpty()) { //if question doesn't have any image
             activity_quiz_question_image.visibility = View.GONE // make question image view visibility gone
@@ -205,14 +271,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             questionDescription = (questionModel.question_title.subSequence(questionModel.question_title.indexOf(";"), questionModel.question_title.length)).toString()
             //set the question title after removing the description from it
             activity_quiz_question_text.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
-            Log.e(TAG,"question" + questionModel.question_title.subSequence(0,questionModel.question_title.indexOf(";")) as String?)
+            Log.e(TAG, "question" + questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?)
+            speakQuestion = (questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?).toString()
             result.questionText = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?
 
 
         } catch (e: Exception) {
             //if eror occurs then set the question without parsing
             activity_quiz_question_text.text = questionModel.question_title
-            Log.e(TAG,"error "+questionModel.question_title)
+            Log.e(TAG, "error " + questionModel.question_title)
+            speakQuestion = questionModel.question_title.toString()
             result.questionText = questionModel.question_title
             System.out.println("no description found")
         }
@@ -224,7 +292,8 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         for (i in optionTextViewList!!.indices) {
             //set option title
             optionTextViewList!![i].text = optionList!![i].option_title
-            Log.e(TAG,"options text" + optionList!![i].option_title)
+            Log.e(TAG, "options text" + optionList!![i].option_title)
+
             //set option id as option text view tag
             optionTextViewList!![i].tag = optionList[i].option_id
             //make option view clickable
@@ -236,12 +305,42 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             //set backgrounds
             optionTextViewList!![i].setBackgroundColor(resources.getColor(setEnableBackground(i)))
         }
+
+        // assigning the options
+        OptionOne = optionList!![0].option_title
+        OptionTwo = optionList!![1].option_title
+        OptionThree = optionList!![2].option_title
+        OptionFour = optionList!![3].option_title
+
+        Log.e(TAG, " options assigned " + OptionOne + " " + OptionTwo + " " + OptionThree + " " + OptionFour)
+
         //initiate progress bar with three second of delay
         initProgresBar()
         //show option after three second of dealy
         showOption(3 * 1000, countDownTimer, quizTime)
     }
 
+    private fun speakQuestion(){
+        val text:String = speakQuestion
+        tts!!.setSpeechRate(0.75F)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        }
+
+    }
+    private fun speakOut(){
+        val text = "A... " + OptionOne +"... Bee... " + OptionTwo + "... C... "  + OptionThree + "... Dee... " + OptionFour
+        tts!!.setSpeechRate(0.75F)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        }
+
+    }
+    private fun stopSpeaking(){
+        if (tts!!.isSpeaking){
+            tts?.stop()
+        }
+    }
     //to show the options to the user after a delayed time
     @SuppressLint("NewApi")
     private fun showOption(delayTime: Long, mTimer: QuestionCountDownTimer, quizTime: Long) {
@@ -252,6 +351,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
         //start thread with delay time
         questionLoader.postDelayed({
             activity_quiz_option_container.visibility = View.VISIBLE //make option layout visible
+            actvity_quiz_question_speak_button_for_options.visibility = View.VISIBLE // speak option visible
             startProgressBar() //start the vertical progress bar
             mTimer.start() // start the question timer
             notAnswer(quizTime) //start another thread with delay = quiztime which will be called if the user doesn't answers the question
@@ -277,9 +377,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 //set top bar result container visible
                 quiz_question_result_top_bar_container.visibility = View.GONE
                 //set top bar text color to red
-                activity_quiz_question_result_top_bar.setTextColor(resources.getColor(R.color.colorCategoryThree))
+                //activity_quiz_question_result_top_bar.setTextColor(resources.getColor(R.color.colorCategoryThree))
                 //set top bar text to result text 4
-                activity_quiz_question_result_top_bar.text = baseContext.getString(R.string.top_bar_question_result_text_1)
+                //activity_quiz_question_result_top_bar.text = baseContext.getString(R.string.top_bar_question_result_text_1)
             }
             actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             val mDialog = AppProgressDialog(this@ActivityNormalQuizQuestion)
@@ -296,11 +396,11 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
 
-            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout,activity_quiz_question_score_card)
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
         }, quizTime)
     }
 
-    @SuppressLint("NewApi")
+    @SuppressLint("NewApi", "LongLogTag")
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.activity_quiz_question_text_view_option_one -> {
@@ -321,7 +421,10 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 optionId = p0.tag as Int
                 userAnswer = 1
                 result.userOptionText = activity_quiz_question_text_view_option_one.text as String?
+                Log.e(TAG, " option one text " + result.userOptionText)
                 setSelectedOptionBackground(optionId)
+                stopSpeaking()
+                actvity_quiz_question_speak_button_for_options.visibility = View.GONE
                 actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_two -> {
@@ -342,6 +445,8 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_two.text as String?
                 setSelectedOptionBackground(optionId)
+                stopSpeaking()
+                actvity_quiz_question_speak_button_for_options.visibility = View.GONE
                 actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_three -> {
@@ -362,6 +467,8 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_three.text as String?
                 setSelectedOptionBackground(optionId)
+                stopSpeaking()
+                actvity_quiz_question_speak_button_for_options.visibility = View.GONE
                 actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_four -> {
@@ -382,7 +489,29 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_four.text as String?
                 setSelectedOptionBackground(optionId)
+                stopSpeaking()
+                actvity_quiz_question_speak_button_for_options.visibility = View.GONE
                 actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+            }
+            R.id.actvity_quiz_question_speak_button_for_options -> {
+                if (sound) {
+                    timerSound.release()
+                }
+                if (tts!!.isSpeaking){
+
+                }else {
+                    speakOut()
+                }
+            }
+            R.id.activity_quiz_question_text ->{
+                if (sound){
+                    timerSound.release()
+                }
+                if (tts!!.isSpeaking){
+
+                }else{
+                    speakQuestion()
+                }
             }
             R.id.actvity_quiz_question_next_button_for_description -> {
                 //rlQuestionView.visibility = View.GONE
@@ -420,7 +549,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener {
             val mDialog = AppProgressDialog(this@ActivityNormalQuizQuestion)
             mDialog.show()
             val quizName: String = intent.getStringExtra("quizName")
-            NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getQuizScore(requestData, result,quizName)
+            NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getQuizScore(requestData, result, quizName)
         } else {
             Toast.makeText(this@ActivityNormalQuizQuestion, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
         }

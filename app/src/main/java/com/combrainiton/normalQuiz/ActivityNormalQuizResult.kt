@@ -33,18 +33,7 @@ import com.combrainiton.authentication.ActivitySignIn
 import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.*
 import com.combrainiton.utils.AppAlerts
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import kotlinx.android.synthetic.main.activity_quiz_question.*
-import lecho.lib.hellocharts.formatter.ValueFormatterHelper
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ViewPortHandler
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,12 +42,6 @@ import retrofit2.Response
 class ActivityNormalQuizResult : AppCompatActivity() {
 
     private lateinit var allData: ArrayList<ObjectQuizResult>
-
-    /** Graph experiment */
-    /*val entries = ArrayList<BarEntry>()
-    val iDataSet = ArrayList<IBarDataSet>()
-    lateinit var dataSet:BarDataSet*/
-    /** end */
 
     private var quizId: Int = 0
     private var quizScore: String? = null
@@ -84,85 +67,9 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_normal_quiz_result)
 
-        val i:Bundle = intent.extras
-
         quizId = intent.getIntExtra("quizId", 0)
         quizName = intent.getStringExtra("quizName")
         userName = AppSharedPreference(this@ActivityNormalQuizResult).getString("name")
-
-
-        /** Graph experiment */
-
-        /*val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
-        mDialog.show() //show progress dialog
-
-        val graph = findViewById<BarChart>(R.id.chart)
-
-        entries.add(BarEntry(1.toFloat(),100.toFloat()))
-        entries.add(BarEntry(2.toFloat(),220.toFloat()))
-        entries.add(BarEntry(3.toFloat(),315.toFloat()))
-        entries.add(BarEntry(4.toFloat(),408.toFloat()))
-        entries.add(BarEntry(5.toFloat(),500.toFloat()))
-        entries.add(BarEntry(6.toFloat(),600.toFloat()))
-        entries.add(BarEntry(7.toFloat(),275.toFloat()))
-        entries.add(BarEntry(8.toFloat(),365.toFloat()))
-        entries.add(BarEntry(9.toFloat(),471.toFloat()))
-        entries.add(BarEntry(10.toFloat(),558.toFloat()))
-        entries.add(BarEntry(11.toFloat(),100.toFloat()))
-        entries.add(BarEntry(12.toFloat(),220.toFloat()))
-        entries.add(BarEntry(13.toFloat(),315.toFloat()))
-        entries.add(BarEntry(14.toFloat(),408.toFloat()))
-        entries.add(BarEntry(15.toFloat(),500.toFloat()))
-
-        dataSet = BarDataSet(entries,"Result")
-        dataSet.setColor(resources.getColor(R.color.colorAccent))
-
-        //iDataSet.add(dataSet)
-
-        val barData = BarData(dataSet)
-        barData.barWidth = 0.9f
-        graph.data = barData
-        graph.setFitBars(false)
-        //graph.invalidate()
-        graph.getAxisRight().setEnabled(false)
-        //graph.animateX(9000,Easing.EasingOption.EaseOutBack)
-        graph.animateY(6000,Easing.EaseOutBack)
-        graph.setPinchZoom(false)
-        graph.setMaxVisibleValueCount(60)
-        graph.setDrawBarShadow(false)
-        graph.setDrawGridBackground(false)
-        graph.setDrawValueAboveBar(true)
-        graph.xAxis.valueFormatter = My()
-        graph.isClickable = false
-        graph.zoomToCenter(1f,1f)
-
-
-        val xAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f // only intervals of 1 day
-        xAxis.labelCount = 7
-        xAxis.valueFormatter = My()
-
-        val leftAxis = chart.axisLeft
-        leftAxis.setLabelCount(8, false)
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-        leftAxis.spaceTop = 15f
-        leftAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
-
-        val rightAxis = chart.axisRight
-        rightAxis.setDrawGridLines(false)
-        rightAxis.setLabelCount(8, false)
-        rightAxis.spaceTop = 15f
-        rightAxis.axisMinimum = 0f // this replaces setStartAtZero(true)
-
-        val legend = chart.legend
-        legend.setEnabled(false)
-
-        val description = graph.description
-        description.isEnabled = false //setEnabled()*/
-
-        /** end */
 
 
         getQuestions(quizId, quizName!!)
@@ -182,14 +89,6 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         initViews()
 
     }
-
-    /*class My : ValueFormatter(){
-        val question = arrayOf("0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
-
-        override fun getFormattedValue(value: Float): String {
-            return question.getOrNull(value.toInt()) ?: value.toString()
-        }
-    }*/
 
     override fun onResume() {
         super.onResume()
@@ -219,6 +118,19 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             val mp = MediaPlayer.create(applicationContext, R.raw.final_leaderboard)
             mp.start()
         }
+
+//        //set on click listener to home button
+//        normal_quiz_home_button.setOnClickListener {
+//            onBackPressed()
+//        }
+
+//        //set on click listener to play again button
+//        normal_quiz_play_again_button.setOnClickListener {
+//            val quizId: Int = intent.getIntExtra("quizId", 0)
+//            val mDialog = AppProgressDialog(applicationContext)
+//            mDialog.show()
+//            NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
+//        }
 
     }
 
@@ -453,6 +365,14 @@ class ActivityNormalQuizResult : AppCompatActivity() {
             quizName = intent.getStringExtra("quizName")
             userName = AppSharedPreference(this@ActivityNormalQuizResult).getString("name")
 
+            //challange_quiz_name.text = quizName
+            //challange_score.text = quizScore
+            //challange_user_name.text = userName
+
+//            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+//            val canvas = Canvas(bitmap)
+
+            //val mBitmap = challange_view.drawingCache
             try {
                 val path = Environment.getExternalStorageDirectory().toString() + "/$quizId.png"
                 val outputStream = FileOutputStream(File(path))
