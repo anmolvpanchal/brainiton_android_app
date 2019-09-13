@@ -2,22 +2,17 @@ package com.combrainiton.adaptors
 
 import android.content.Context
 import android.content.Intent
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.combrainiton.R
-import com.combrainiton.main.BrandHomePage
 import com.combrainiton.main.CourseHomePage
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.brand_homepage_cell.view.*
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
-class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
+class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
     class MyViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
@@ -43,6 +38,11 @@ class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList
      override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
          holder.textView.text = brandHomeTryList.get(position)
+
+         Picasso.get()
+                 .load(images[position])
+                 .fit()
+                 .into(holder.imageView)
 
          //This will load image to course cardView
          /*Picasso.get()

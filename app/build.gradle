@@ -41,6 +41,9 @@ dependencies {
     //Circle Image View
     implementation 'com.alexzh:circleimageview:1.2.0'
 
+    //custom dialog to rate application
+    implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
+
     //CoordinatorTabLayout
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 

@@ -87,7 +87,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
     private var OptionTwo: String = ""
     private var OptionThree: String = ""
     private var OptionFour: String = ""
-
+    private var speakQuestion : String = ""
     private lateinit var timerSound: MediaPlayer
 
     private var sound: Boolean = true
@@ -161,6 +161,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
         } else {
             Log.e("TTS", "Initilization Failed!")
+            Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -195,6 +196,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
         actvity_quiz_question_speak_button_for_options.setOnClickListener(this@ActivityNormalQuizQuestion)
 
+        activity_quiz_question_text.setOnClickListener(this@ActivityNormalQuizQuestion)
     }
 
     @SuppressLint("LongLogTag")
@@ -269,6 +271,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             //set the question title after removing the description from it
             activity_quiz_question_text.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
             Log.e(TAG, "question" + questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?)
+            speakQuestion = (questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?).toString()
             result.questionText = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?
 
 
@@ -276,6 +279,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             //if eror occurs then set the question without parsing
             activity_quiz_question_text.text = questionModel.question_title
             Log.e(TAG, "error " + questionModel.question_title)
+            speakQuestion = questionModel.question_title.toString()
             result.questionText = questionModel.question_title
             System.out.println("no description found")
         }
@@ -315,8 +319,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         showOption(3 * 1000, countDownTimer, quizTime)
     }
 
+    private fun speakQuestion(){
+        val text:String = speakQuestion
+        tts!!.setSpeechRate(0.75F)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        }
+
+    }
     private fun speakOut(){
-        val text = "A... " + OptionOne +"... B... " + OptionTwo + "... C... "  + OptionThree + "... D... " + OptionFour
+        val text = "A... " + OptionOne +"... Bee... " + OptionTwo + "... C... "  + OptionThree + "... Dee... " + OptionFour
         tts!!.setSpeechRate(0.75F)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
@@ -451,6 +463,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
                 }else {
                     speakOut()
+                }
+            }
+            R.id.activity_quiz_question_text ->{
+                if (sound){
+                    timerSound.release()
+                }
+                if (tts!!.isSpeaking){
+
+                }else{
+                    speakQuestion()
                 }
             }
             R.id.actvity_quiz_question_next_button_for_description -> {

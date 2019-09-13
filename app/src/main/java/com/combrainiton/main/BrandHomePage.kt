@@ -2,24 +2,16 @@ package com.combrainiton.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorBrandHomeList
-import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.utils.ItemOffsetDecoration
-import kotlinx.android.synthetic.main.activity_brand_home_page.*
-import android.util.TypedValue
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import androidx.core.content.res.ResourcesCompat
 import android.util.Log
 
 class BrandHomePage : AppCompatActivity() {
 
+    private var images = ArrayList<String>()
     private var brandHomeTryList: ArrayList<String> = ArrayList<String>()
     lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     lateinit var collapseToolbarLayout: CollapsingToolbarLayout
@@ -33,15 +25,16 @@ class BrandHomePage : AppCompatActivity() {
         recyclerView = findViewById(R.id.compete_brandHomeRecycler)
         collapseToolbarLayout = findViewById(R.id.brand_CollapseToolbar)
 
-        brandHomeTryList.add("first quiz")
-        brandHomeTryList.add("second quiz")
-        brandHomeTryList.add("third quiz")
-        brandHomeTryList.add("fourth quiz")
-        brandHomeTryList.add("fifth quiz")
-        brandHomeTryList.add("sixth quiz")
-        brandHomeTryList.add("seventh quiz")
-        brandHomeTryList.add("eight quiz")
-        brandHomeTryList.add("nine quiz")
+        images.add("http://aagamacademy.com/brainiton/delete/cell1.jpeg")
+        images.add("http://aagamacademy.com/brainiton/delete/cell2.jpeg")
+        images.add("http://aagamacademy.com/brainiton/delete/cell3.jpeg")
+        images.add("http://aagamacademy.com/brainiton/delete/cell4.jpeg")
+
+
+        brandHomeTryList.add("Crazy Chemistry")
+        brandHomeTryList.add("Fun Biology")
+        brandHomeTryList.add("Learn English")
+        brandHomeTryList.add("Aptitude and GK")
 
         initView()
 
@@ -51,7 +44,7 @@ class BrandHomePage : AppCompatActivity() {
 
         val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
 
-        val adapter = AdaptorBrandHomeList(this,brandHomeTryList)
+        val adapter = AdaptorBrandHomeList(this,brandHomeTryList,images)
         recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
         val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
         recyclerView.addItemDecoration(decoration)
@@ -67,7 +60,7 @@ class BrandHomePage : AppCompatActivity() {
         collapseToolbarLayout?.apply {
 
             //setting title
-            setTitle("BrandHomePage")
+            setTitle("Curious 365")
 
             //Creates typefaces for fonts to be used
             val bold = ResourcesCompat.getFont(this@BrandHomePage, R.font.raleway_bold)
