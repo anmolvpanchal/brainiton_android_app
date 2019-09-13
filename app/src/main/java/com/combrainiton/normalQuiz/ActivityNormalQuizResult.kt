@@ -55,9 +55,9 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     private lateinit var allData: ArrayList<ObjectQuizResult>
 
     /** Graph experiment */
-    val entries = ArrayList<BarEntry>()
+    /*val entries = ArrayList<BarEntry>()
     val iDataSet = ArrayList<IBarDataSet>()
-    lateinit var dataSet:BarDataSet
+    lateinit var dataSet:BarDataSet*/
     /** end */
 
     private var quizId: Int = 0
@@ -74,7 +74,6 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     var totalQuestion: Int = 0
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
-    private var correctAnswerList = ArrayList<String>()
 
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
@@ -94,7 +93,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
         /** Graph experiment */
 
-        val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
+        /*val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
         mDialog.show() //show progress dialog
 
         val graph = findViewById<BarChart>(R.id.chart)
@@ -161,7 +160,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
         legend.setEnabled(false)
 
         val description = graph.description
-        description.isEnabled = false //setEnabled()
+        description.isEnabled = false //setEnabled()*/
 
         /** end */
 
@@ -184,13 +183,13 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
     }
 
-    class My : ValueFormatter(){
+    /*class My : ValueFormatter(){
         val question = arrayOf("0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15")
 
         override fun getFormattedValue(value: Float): String {
             return question.getOrNull(value.toInt()) ?: value.toString()
         }
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
