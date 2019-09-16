@@ -72,7 +72,7 @@ class ActivityLiveQuizQuestion : AppCompatActivity(), View.OnClickListener, Anim
         AppSharedPreference(this@ActivityLiveQuizQuestion).saveInt("userAnswerId", 0)
 
         //set next button visibility to gone
-        actvity_quiz_question_next_button_for_description.visibility = View.GONE
+        //actvity_quiz_question_next_button_for_description.visibility = View.GONE
 
         //get total number of question
         val totalQuestion: String = "" + AppSharedPreference(this@ActivityLiveQuizQuestion).getInt("totalQuestion")

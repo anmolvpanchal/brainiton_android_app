@@ -30,15 +30,22 @@ import com.combrainiton.utils.QuestionCountDownTimer
 import com.irozon.sneaker.Sneaker
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 import android.R.id.edit
+import android.app.Dialog
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.preference.PreferenceManager
 import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.opengl.Visibility
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
+import kotlinx.android.synthetic.main.custom_dialog_quiz_description.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -47,57 +54,41 @@ import kotlin.collections.HashMap
 class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, TextToSpeech.OnInitListener {
 
     private val TAG: String = "ActivityNormalQuizQuestion"
-
     private var tts: TextToSpeech? = null
-
     private var optionTextViewList: Array<TextView>? = null
-
     private var optionCardViewList: Array<androidx.cardview.widget.CardView>? = null
-
     private var userAnswer: Int = 0
-
     private var rightAnswer: Int = 0
-
     private var optionId: Int = 0
-
     private var questionId: Int = 0
-
     private var totalQuestion: Int = 0
-
     private var currentQuestion: Int = 0
-
     private lateinit var questionList: ArrayList<QuestionResponceModel>
-
     private lateinit var questionModel: QuestionResponceModel
-
     private lateinit var userAnswerList: ArrayList<GetNormalQuizScoreRequestModel.QuestionsList>
-
     private lateinit var countDownTimer: QuestionCountDownTimer
-
     private lateinit var questionLoader: Handler
-
     private lateinit var answerChecker: Handler
-
     private var actualTime: Int = 0
-
     private val result: ObjectQuizResult = ObjectQuizResult()
-
     private var questionDescription: String = ""
-
     private var OptionOne: String = ""
     private var OptionTwo: String = ""
     private var OptionThree: String = ""
     private var OptionFour: String = ""
     private var speakQuestion : String = ""
     private lateinit var timerSound: MediaPlayer
-
     private var sound: Boolean = true
-
     private var temp: Boolean = false
-
     private lateinit var timerAnimate: ObjectAnimator
-
     private lateinit var sneaker: Sneaker
+    private lateinit var customDialog: Dialog
+    private lateinit var descriptionTextView: TextView
+    private lateinit var descriptionNextButton: Button
+    private lateinit var headingTextView: TextView
+    private lateinit var viewGroup: ViewGroup
+    lateinit var builder: AlertDialog.Builder
+    lateinit var alertDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,6 +160,24 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
     @SuppressLint("NewApi")
     private fun initViews() {
+        //create custom dialog for description
+        viewGroup = findViewById(android.R.id.content)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_quiz_description,viewGroup,false)
+        builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        alertDialog= builder.create()
+
+        //getting textview and button from custom layout
+        descriptionTextView = dialogView.findViewById(R.id.custom_dialog_description)!!
+        descriptionNextButton = dialogView.findViewById(R.id.custom_dialog_next_button)!!
+        headingTextView = dialogView.findViewById(R.id.custom_dialog_heading)
+
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        /*customDialog = Dialog(this)
+        customDialog.setContentView(R.layout.custom_dialog_quiz_description)
+        descriptionTextView = customDialog.findViewById(R.id.custom_dialog_description)
+        descriptionNextButton = customDialog.findViewById(R.id.custom_dialog_next_button)*/
 
         //save normal quiz point to 0.0
         AppSharedPreference(this@ActivityNormalQuizQuestion).saveString("normalQuizPoint", "0.00")
@@ -191,7 +200,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         //set the question model data into
         setData(questionModel)
 
-        actvity_quiz_question_next_button_for_description.setOnClickListener(this@ActivityNormalQuizQuestion)
+        //actvity_quiz_question_next_button_for_description.setOnClickListener(this@ActivityNormalQuizQuestion)
 
         actvity_quiz_question_next_button_for_question.setOnClickListener(this@ActivityNormalQuizQuestion)
 
@@ -227,7 +236,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         //llProgress.visibility = View.GONE
 
         //set the next button visibility to gone
-        actvity_quiz_question_next_button_for_description.visibility = View.GONE
+        //actvity_quiz_question_next_button_for_description.visibility = View.GONE
 
         //set top bar result container to invisible
         quiz_question_result_top_bar_container.visibility = View.GONE
@@ -381,7 +390,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 //set top bar text to result text 4
                 //activity_quiz_question_result_top_bar.text = baseContext.getString(R.string.top_bar_question_result_text_1)
             }
-            actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+            //actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             val mDialog = AppProgressDialog(this@ActivityNormalQuizQuestion)
             mDialog.show()
             //get quiz id
@@ -418,6 +427,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     result_with_description.visibility = View.GONE
                 }
 
+                //for showing popup
+                showDescriptionPopup()
+
                 optionId = p0.tag as Int
                 userAnswer = 1
                 result.userOptionText = activity_quiz_question_text_view_option_one.text as String?
@@ -425,7 +437,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 setSelectedOptionBackground(optionId)
                 stopSpeaking()
                 actvity_quiz_question_speak_button_for_options.visibility = View.GONE
-                actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+                //actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_two -> {
                 //Stopping timer animation and timer textview
@@ -441,13 +453,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     result_with_description.visibility = View.GONE
                 }
 
+                //for showing popup
+                showDescriptionPopup()
+
                 userAnswer = 2
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_two.text as String?
                 setSelectedOptionBackground(optionId)
                 stopSpeaking()
                 actvity_quiz_question_speak_button_for_options.visibility = View.GONE
-                actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+                //actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_three -> {
                 //Stopping timer animation and timer textview
@@ -463,13 +478,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     result_with_description.visibility = View.GONE
                 }
 
+                //for showing popup
+                showDescriptionPopup()
+
                 userAnswer = 3
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_three.text as String?
                 setSelectedOptionBackground(optionId)
                 stopSpeaking()
                 actvity_quiz_question_speak_button_for_options.visibility = View.GONE
-                actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+                //actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.activity_quiz_question_text_view_option_four -> {
                 //Stopping timer animation and timer textview
@@ -485,13 +503,16 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     result_with_description.visibility = View.GONE
                 }
 
+                //for showing popup
+                showDescriptionPopup()
+
                 userAnswer = 4
                 optionId = p0.tag as Int
                 result.userOptionText = activity_quiz_question_text_view_option_four.text as String?
                 setSelectedOptionBackground(optionId)
                 stopSpeaking()
                 actvity_quiz_question_speak_button_for_options.visibility = View.GONE
-                actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
+                //actvity_quiz_question_next_button_for_description.visibility = View.VISIBLE
             }
             R.id.actvity_quiz_question_speak_button_for_options -> {
                 if (sound) {
@@ -513,20 +534,20 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     speakQuestion()
                 }
             }
-            R.id.actvity_quiz_question_next_button_for_description -> {
+            /*R.id.actvity_quiz_question_next_button_for_question -> {
                 //rlQuestionView.visibility = View.GONE
                 //nextQuestion()
-                activity_quiz_question_result_container.visibility = View.VISIBLE
-                quiz_question_result_top_bar_container.visibility = View.GONE
-                activity_quiz_option_container.visibility = View.GONE
-                if (questionDescription.isNotEmpty()) {
+                //activity_quiz_question_result_container.visibility = View.VISIBLE
+                //quiz_question_result_top_bar_container.visibility = View.GONE
+                //activity_quiz_option_container.visibility = View.GONE
+                *//*if (questionDescription.isNotEmpty()) {
                     activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
                     System.out.println(questionDescription)
                     result_with_description.visibility = View.VISIBLE
                 } else {
                     result_with_description.visibility = View.GONE
-                }
-            }
+                }*//*
+            }*/
             R.id.actvity_quiz_question_next_button_for_question -> {
                 nextQuestion()
             }
@@ -537,6 +558,40 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 if (sound) timerSound.release()
                 explore()
             }
+        }
+    }
+
+    private fun showDescriptionPopup(){
+        //for showing description as popup
+        if (questionDescription.isNotEmpty()) { //Description available
+            descriptionTextView.visibility = View.VISIBLE
+            descriptionTextView.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
+            descriptionNextButton.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    alertDialog.dismiss()
+                    nextQuestion()
+                }
+            })
+            System.out.println(questionDescription)
+
+            //To open popup after 1.5 secs delay
+            Handler().postDelayed({
+                alertDialog.show()
+            },1500)
+
+        } else { //No description available
+            headingTextView.text = "Self explanatory question!"
+            descriptionTextView.visibility = View.GONE
+            descriptionNextButton.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    alertDialog.dismiss()
+                    nextQuestion()
+                }
+            })
+
+            Handler().postDelayed({
+                alertDialog.show()
+            },1500)
         }
     }
 

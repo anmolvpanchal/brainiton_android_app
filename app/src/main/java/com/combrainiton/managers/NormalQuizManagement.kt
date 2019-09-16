@@ -22,6 +22,7 @@ import com.combrainiton.models.*
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
+import com.combrainiton.main.ActivityDemoResult
 import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import com.combrainiton.normalQuiz.ActivityNormalQuizQuestion
@@ -505,7 +506,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val scoreData: GetNormalQuizScoreResponceModel = response.body()!!
 
                     //start result activity
-                    mActivity.startActivity(Intent(mContext, ActivityNormalQuizResult::class.java)
+                    mActivity.startActivity(Intent(mContext, ActivityDemoResult::class.java)
                             .putExtra("scoreData", scoreData)//add score data
                             .putExtra("allData", scoreBoardResult.data)
                             .putExtra("quizName",quizName)
