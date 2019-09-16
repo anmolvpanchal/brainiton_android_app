@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".normalQuiz.ActivityNormalQuizResult">
 
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,8 +26,8 @@
             android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="4">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -391,7 +397,7 @@
 
     <!--    </LinearLayout>-->
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -431,6 +437,9 @@
             android:gravity="center"
             android:visibility="gone" />
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+
+
 
 </RelativeLayout>

@@ -51,6 +51,9 @@ class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener 
                 if (NetworkHandler(this@ActivityNormalQuizInstruction).isNetworkAvailable()) { //if network is connected
                     val mDialog = AppProgressDialog(this@ActivityNormalQuizInstruction)
                     mDialog.show() //show progress dialog
+
+                    /** Experiment*/
+
                     //get question data from normal quiz management and pass the dialog object in the function
                     NormalQuizManagement(this@ActivityNormalQuizInstruction, this@ActivityNormalQuizInstruction, mDialog).getQuestions(quizId,quizName)
                     Log.e(TAG,"result of id $quizId and name $quizName")

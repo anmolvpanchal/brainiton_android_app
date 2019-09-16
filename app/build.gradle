@@ -73,6 +73,12 @@ dependencies {
     //Picasso library for image loading
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Pop-up for description in normal quiz
+    implementation 'com.nightonke:boommenu:2.1.1'
+
+    //Graph
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

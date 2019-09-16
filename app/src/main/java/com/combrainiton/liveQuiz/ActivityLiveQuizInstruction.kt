@@ -1,5 +1,6 @@
 package com.combrainiton.liveQuiz
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
@@ -28,6 +29,9 @@ class ActivityLiveQuizInstruction : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initViews() {
+
+
+
         //set on click listener to quit button
         quiz_instruction_quit_button.setOnClickListener(this@ActivityLiveQuizInstruction)
 

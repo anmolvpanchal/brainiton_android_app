@@ -38,7 +38,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
     fun initView() {
 
         //This links will be displayed on card
-        images.add("http://link.brainiton.in/imgcard4")
+        images.add("http://go.brainiton.in/img1")
         images.add("http://link.brainiton.in/imgcard5")
         images.add("https://i.imgur.com/VFzhBmW.jpg")
         images.add("https://i.imgur.com/eXdt2ND.jpg")
