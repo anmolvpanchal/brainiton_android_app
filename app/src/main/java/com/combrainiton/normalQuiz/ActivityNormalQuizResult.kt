@@ -3,41 +3,39 @@ package com.combrainiton.normalQuiz
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import androidx.appcompat.app.AppCompatActivity
+import android.os.StrictMode
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.codemybrainsout.ratingdialog.RatingDialog
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
+import com.combrainiton.api.ApiClient
+import com.combrainiton.api.ApiErrorParser
+import com.combrainiton.authentication.ActivitySignIn
 import com.combrainiton.managers.NormalQuizManagement
+import com.combrainiton.managers.NormalQuizManagementInterface
+import com.combrainiton.models.*
+import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
-import java.io.File
-import java.io.FileOutputStream
-import androidx.core.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.os.Build
-import android.os.StrictMode
-import android.speech.tts.TextToSpeech
-import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.combrainiton.adaptors.ResultQuizRecAdapter
-import com.combrainiton.api.ApiClient
-import com.combrainiton.api.ApiErrorParser
-import com.combrainiton.authentication.ActivitySignIn
-import com.combrainiton.managers.NormalQuizManagementInterface
-import com.combrainiton.models.*
-import com.combrainiton.utils.AppAlerts
-import kotlinx.android.synthetic.main.activity_quiz_question.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -62,9 +60,11 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
     private var tts: TextToSpeech? = null
-
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
 
+    companion object{
+        private var valueOfLaunchCountModified = false;
+    }
 
     @SuppressLint("LongLogTag")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +74,6 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
         quizId = intent.getIntExtra("quizId", 0)
         quizName = intent.getStringExtra("quizName")
         userName = AppSharedPreference(this@ActivityNormalQuizResult).getString("name")
-
         tts = TextToSpeech(this, this)
 
         correct_option_layout.setOnClickListener {
@@ -97,6 +96,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
         initViews()
 
+
     }
 
     override fun onResume() {
@@ -109,6 +109,22 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
         }
+    }
+
+
+    private fun showRatingBox(){
+
+        var  ratingDialog: RatingDialog? =  RatingDialog.Builder(this)
+                .session(1)
+                .threshold(4F)
+                .negativeButtonText("Never")
+                .ratingBarColor(R.color.colorYellow)
+                .onRatingBarFormSumbit {
+                    Toast.makeText(this,"Thank you for your valuable feedback ",Toast.LENGTH_SHORT).show()
+                }.build()
+
+            ratingDialog?.show()
+
     }
 
     override fun onDestroy() {
@@ -237,6 +253,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
         if (currentQuestion == totalQuestion) {
             result_Cell_right_button.visibility = View.INVISIBLE
+            showRatingBox()
         } else {
 
             try {

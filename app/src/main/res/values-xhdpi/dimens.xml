@@ -3,4 +3,18 @@
 	<dimen name="brand_home_cell_width">112.5dp</dimen>
 	<dimen name="brand_home_cell_height">112.5dp</dimen>
 	<dimen name="recyclerBrand">7.5dp</dimen>
+	<dimen name="logo_weidth_plan_select">52.5dp</dimen>
+	<dimen name="logo_height_plan_select">45dp</dimen>
+	<dimen name="phoneimage_weidth_plan_select">135dp</dimen>
+	<dimen name="phoneimage_height_plan_select">90dp</dimen>
+	<dimen name="cardsmain_view_height_plan_select">112.5dp</dimen>
+	<dimen name="singlecard_height_plan_select">105dp</dimen>
+	<dimen name="edittext_height_plan_select">30dp</dimen>
+	<dimen name="editext_button_weidth_plan_select">30dp</dimen>
+	<dimen name="editext_button_height_plan_select">30dp</dimen>
+	<dimen name="cardtext_size_plan_select">11.2sp</dimen>
+	<dimen name="cardtext_padding_plan_select">11.2dp</dimen>
+	<dimen name="edittext_textsize_plan_select">9sp</dimen>
+	<dimen name="descriptionext_size_plan_select">11.2sp</dimen>
+	<dimen name="titletext_size_plan_select">15sp</dimen>
 </resources>

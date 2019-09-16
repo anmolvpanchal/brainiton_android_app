@@ -51,6 +51,7 @@
                     android:layout_marginBottom="16dp">
 
                     <LinearLayout
+                        android:id="@+id/accuracy_and_score_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -111,9 +112,25 @@
 
                 </androidx.cardview.widget.CardView>
 
+
+                <Button
+                    android:id="@+id/normal_quiz_play_again_button"
+                    style="@style/ThemeTextViewH1Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_button"
+                    android:drawableStart="@drawable/ic_refresh"
+                    android:paddingStart="16dp"
+                    android:text="@string/text_play_again"
+                    android:textAllCaps="false"
+                    tools:ignore="RtlSymmetry"
+                    />
+
             </RelativeLayout>
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/bottom_view"
@@ -219,6 +236,8 @@
             </androidx.cardview.widget.CardView>
 
 
+
+
             <!--            recycler view which is skipping layout-->
             <!--            <androidx.recyclerview.widget.RecyclerView-->
             <!--                android:id="@+id/quiz_result_recycler"-->
@@ -233,18 +252,6 @@
             <!--                android:gravity="center"-->
             <!--                android:weightSum="2">-->
 
-                            <Button
-                                android:id="@+id/normal_quiz_play_again_button"
-                                style="@style/ThemeTextViewH1Light"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/shape_rounded_button"
-                                android:drawableStart="@drawable/ic_refresh"
-                                android:paddingStart="16dp"
-                                android:text="@string/text_play_again"
-                                android:textAllCaps="false"
-                                tools:ignore="RtlSymmetry" />
 
             <!--                <Button-->
             <!--                    android:id="@+id/normal_quiz_home_button"-->

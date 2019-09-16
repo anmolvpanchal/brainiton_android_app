@@ -1,3 +1,17 @@
 <resources>
 	<dimen name="recyclerBrand">1dp</dimen>
+	<dimen name="logo_weidth_plan_select">29.2dp</dimen>
+	<dimen name="logo_height_plan_select">25dp</dimen>
+	<dimen name="phoneimage_weidth_plan_select">75dp</dimen>
+	<dimen name="phoneimage_height_plan_select">50dp</dimen>
+	<dimen name="cardsmain_view_height_plan_select">62.5dp</dimen>
+	<dimen name="singlecard_height_plan_select">58.3dp</dimen>
+	<dimen name="edittext_height_plan_select">16.7dp</dimen>
+	<dimen name="editext_button_weidth_plan_select">16.7dp</dimen>
+	<dimen name="editext_button_height_plan_select">16.7dp</dimen>
+	<dimen name="cardtext_size_plan_select">6.2sp</dimen>
+	<dimen name="cardtext_padding_plan_select">6.2dp</dimen>
+	<dimen name="edittext_textsize_plan_select">5sp</dimen>
+	<dimen name="descriptionext_size_plan_select">6.2sp</dimen>
+	<dimen name="titletext_size_plan_select">8.3sp</dimen>
 </resources>

@@ -35,7 +35,8 @@
     <color name="colorCategoryFourDisabled">#504fba6f</color>
 
     <!-- line quiz timer -->
-    <color name="colorYellow">#F5FA55</color>
+    <color name="colorYellow">#FFE731</color>
+    <color name="colorRed">#FF4242</color>
 
     <color name="incorrectAnswerPoint">#BB3547</color>
     <color name="correctAnswerPoint">#2A8D51</color>

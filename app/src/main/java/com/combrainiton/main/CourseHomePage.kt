@@ -1,5 +1,6 @@
 package com.combrainiton.main
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
@@ -50,6 +51,7 @@ class CourseHomePage : AppCompatActivity() {
             active -> kotlin.run {
             if (active){ //fully swiped
                 Toast.makeText(this@CourseHomePage,"Subscribed",Toast.LENGTH_LONG).show()
+                startActivity(Intent(this,ActivityPlanSelect::class.java))
             } else{ //when it's unswiped back to normal
                 Toast.makeText(this@CourseHomePage,"Back to unswipe",Toast.LENGTH_LONG).show()
             }
