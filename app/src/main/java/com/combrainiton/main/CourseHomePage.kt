@@ -1,5 +1,6 @@
 package com.combrainiton.main
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
@@ -38,9 +39,9 @@ class CourseHomePage : AppCompatActivity() {
         setContentView(R.layout.activity_course_home_page)
 
         //Getting ids from xml
-        viewPager = findViewById<androidx.viewpager.widget.ViewPager>(R.id.course_viewPager)
-        collapseToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.course_CollapseToolbar)
-        tabLayout = findViewById<TabLayout>(R.id.course_tabLayout)
+        viewPager = findViewById(R.id.course_viewPager)
+        collapseToolbarLayout = findViewById(R.id.course_CollapseToolbar)
+        tabLayout = findViewById(R.id.course_tabLayout)
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
 
         //When user swipes to the end
@@ -49,7 +50,7 @@ class CourseHomePage : AppCompatActivity() {
         subscriptionButton.setOnStateChangeListener( OnStateChangeListener {
             active -> kotlin.run {
             if (active){ //fully swiped
-                Toast.makeText(this@CourseHomePage,"Subscribed",Toast.LENGTH_LONG).show()
+                startActivity(Intent(this,PaymentActivity::class.java))
             } else{ //when it's unswiped back to normal
                 Toast.makeText(this@CourseHomePage,"Back to unswipe",Toast.LENGTH_LONG).show()
             }

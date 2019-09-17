@@ -166,6 +166,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         alertDialog= builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
 
         //getting textview and button from custom layout
         descriptionTextView = dialogView.findViewById(R.id.custom_dialog_description)!!
@@ -534,21 +535,10 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     speakQuestion()
                 }
             }
-            /*R.id.actvity_quiz_question_next_button_for_question -> {
-                //rlQuestionView.visibility = View.GONE
-                //nextQuestion()
-                //activity_quiz_question_result_container.visibility = View.VISIBLE
-                //quiz_question_result_top_bar_container.visibility = View.GONE
-                //activity_quiz_option_container.visibility = View.GONE
-                *//*if (questionDescription.isNotEmpty()) {
-                    activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
-                    System.out.println(questionDescription)
-                    result_with_description.visibility = View.VISIBLE
-                } else {
-                    result_with_description.visibility = View.GONE
-                }*//*
-            }*/
             R.id.actvity_quiz_question_next_button_for_question -> {
+                //This will set the bellow to properties to gone and will we visible after showing answer options
+                actvity_quiz_question_next_button_for_question.visibility = View.GONE
+                actvity_quiz_question_speak_button_for_options.visibility = View.GONE
                 nextQuestion()
             }
             R.id.quiz_instruction_quit_button -> {
@@ -569,7 +559,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             descriptionNextButton.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
-                    nextQuestion()
+                    nextQuestion() //even though if you see error on this line code will run perfectly
                 }
             })
             System.out.println(questionDescription)
@@ -580,18 +570,20 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             },1500)
 
         } else { //No description available
-            headingTextView.text = "Self explanatory question!"
+            actvity_quiz_question_next_button_for_question.visibility = View.VISIBLE
+            actvity_quiz_question_speak_button_for_options.visibility = View.GONE
+            /*headingTextView.text = "Self explanatory question!"
             descriptionTextView.visibility = View.GONE
             descriptionNextButton.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
-                    nextQuestion()
+                    nextQuestion() //even though if you see error on this line code will run perfectly
                 }
             })
 
             Handler().postDelayed({
                 alertDialog.show()
-            },1500)
+            },1500)*/
         }
     }
 
@@ -645,7 +637,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
     //for next question & end the quiz & show leaderboard
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun nextQuestion() {
+    fun nextQuestion() {
 
         //Hiding the sneaker before going to next question
         sneaker.hide()

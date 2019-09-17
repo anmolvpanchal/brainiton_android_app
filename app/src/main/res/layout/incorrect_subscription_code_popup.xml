@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/dp20"
+    android:layout_marginLeft="@dimen/dp20"
+    app:cardElevation="@dimen/dp10"
+    app:cardCornerRadius="@dimen/dp15">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_sad"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_gravity="center"
+            android:text="On no.!"
+            android:textSize="@dimen/sp30"
+            android:fontFamily="@font/raleway_medium"
+            android:textColor="@color/colorTextPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp30"
+            android:text="You have entered incorrect subscription code. Please check the code again"
+            android:textSize="@dimen/sp20"
+            android:layout_marginLeft="@dimen/dp20"
+            android:textColor="@color/colorTextPrimaryDark"
+            android:fontFamily="@font/raleway_light"
+            android:layout_marginRight="@dimen/dp20"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/activity_payment_paymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp30"
+            android:paddingTop="@dimen/dp5"
+            android:paddingBottom="@dimen/dp5"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorCategoryThree"
+            android:text="Try again"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp20" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
