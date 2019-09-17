@@ -17,6 +17,7 @@ class ApiClient {
 
     companion object {
 
+        //private const val BASE_URL: String = "http://13.235.33.12:8000/"
         private const val BASE_URL: String = "http://13.67.94.139/"
         //val BASE_URL: String = "http://52.187.71.94/" //test
 
