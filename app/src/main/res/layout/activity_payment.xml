@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F4FA"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp10"
+    tools:context=".main.PaymentActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp20"
+            app:cardCornerRadius="@dimen/dp15"
+            app:cardElevation="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp80"
+                    android:layout_height="@dimen/dp40"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:src="@drawable/ic_app_logo_accent" />
+
+                <TextView
+                    android:layout_width="@dimen/dp100"
+                    android:layout_height="@dimen/dp95"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_protection" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="Course details"
+                    android:textSize="@dimen/sp15" />
+
+                <TextView
+                    android:id="@+id/activity_payment_courseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp20"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:text="Funtastic Mathematics Curious 365"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimaryDark"
+                    android:textSize="@dimen/sp30" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp20"
+            app:cardCornerRadius="@dimen/dp15"
+            app:cardElevation="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="User details:"
+                    android:textSize="@dimen/sp15" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextAppearance="@font/raleway_medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_payment_userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:drawableStart="@drawable/ic_user"
+                        android:drawablePadding="@dimen/dp10"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:textSize="@dimen/sp15" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextAppearance="@font/raleway_medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_payment_userPhoneNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:drawablePadding="@dimen/dp10"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Mobile No."
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textSize="@dimen/sp15" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextAppearance="@font/raleway_medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_payment_userEmailId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawablePadding="@dimen/dp10"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Email id"
+                        android:inputType="textEmailAddress"
+                        android:textSize="@dimen/sp15" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextAppearance="@font/raleway_medium">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/activity_payment_userAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:drawableStart="@drawable/ic_calendar"
+                        android:drawablePadding="@dimen/dp10"
+                        android:fontFamily="@font/raleway_medium"
+                        android:hint="Age (dd/mm/yyyy)"
+                        android:inputType="date"
+                        android:textSize="@dimen/sp15" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp45"
+                    android:layout_marginTop="@dimen/dp10"
+                    app:hintAnimationEnabled="true"
+                    app:hintTextAppearance="@font/raleway_medium">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp20"
+                            android:drawableStart="@drawable/ic_gender" />
+
+                        <RadioGroup
+                            android:id="@+id/activity_payment_genderRadioGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp5"
+                            android:contentDescription="gender"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/activity_payment_radioMale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/raleway_medium"
+                                android:text="Male"
+                                android:textSize="@dimen/sp15" />
+
+                            <RadioButton
+                                android:id="@+id/activity_payment_radioFemale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:fontFamily="@font/raleway_medium"
+                                android:text="Female"
+                                android:textSize="@dimen/sp15" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            app:cardCornerRadius="@dimen/dp15"
+            app:cardElevation="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="Subscription starts from:"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="Subscription ends on:"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="Duration"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="Amount to pay:"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="16 Sept 2019"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="16 Sept 2020"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp5"
+                        android:fontFamily="@font/raleway_medium"
+                        android:text="12 months"
+                        android:textColor="@color/colorTextPrimaryDark"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:fontFamily="@font/raleway_bold"
+                        android:text="₹499"
+                        android:textColor="@color/colorAccentDark"
+                        android:textSize="@dimen/sp25" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_payment_paymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp20"
+            android:paddingTop="@dimen/dp5"
+            android:paddingBottom="@dimen/dp5"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorAccentDark"
+            android:text="Complete Payment"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp20" />
+
+    </LinearLayout>
+
+</LinearLayout>

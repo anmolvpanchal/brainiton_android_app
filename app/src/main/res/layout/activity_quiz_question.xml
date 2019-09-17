@@ -8,25 +8,6 @@
     android:animateLayoutChanges="true"
     tools:context=".liveQuiz.ActivityLiveQuizQuestion">
 
-    <!--<RelativeLayout
-        android:id="@+id/animation_feedback"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="#F40303"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wrong!!!"
-            android:textColor="@color/colorTextPrimaryDark"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/raleway_bold"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-    </RelativeLayout>-->
-
-
     <!--vertical progress bar on the left side-->
     <ProgressBar
         android:id="@+id/progressBarStart"
@@ -221,32 +202,6 @@
                 android:padding="5dp"
                 tools:ignore="UselessParent">
 
-                <!--<ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toStartOf="@+id/tvTime"
-                    android:layout_toLeftOf="@+id/tvTime"
-                    android:progressDrawable="@drawable/shape_progress_bar_vertical"
-                    tools:ignore="RtlHardcoded" />-->
-
-                <!--<TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/raleway_regular"
-                    android:textColor="@color/colorTextPrimaryDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:ignore="RtlHardcoded" />-->
-
             </RelativeLayout>
 
         </RelativeLayout>
@@ -389,7 +344,7 @@
 
         </LinearLayout>
 
-        <!--speak button-->
+        <!--        speak button-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/actvity_quiz_question_speak_button_for_options"
@@ -422,10 +377,11 @@
 
 
         <!--next button-->
-        <!--<androidx.cardview.widget.CardView
-            android:id="@+id/actvity_quiz_question_next_button_for_description"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/actvity_quiz_question_next_button_for_question"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_margin="73dp"
@@ -448,7 +404,7 @@
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>-->
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
@@ -483,7 +439,7 @@
                 android:id="@+id/result_without_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/actvity_quiz_question_next_button_for_question"
+                android:layout_above="@id/actvity_quiz_question_next_button_for_description"
                 android:layout_below="@id/activity_quiz_question_app_logo"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="32dp"
@@ -600,8 +556,9 @@
             </LinearLayout>
 
             <!--next button of result view-->
+            <!--This cardView is useless but keep as it is-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/actvity_quiz_question_next_button_for_question"
+                android:id="@+id/actvity_quiz_question_next_button_for_description"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
