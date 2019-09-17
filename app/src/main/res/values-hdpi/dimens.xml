@@ -43,4 +43,26 @@
 	<dimen name="sp75">30sp</dimen>
 	<dimen name="sp85">34sp</dimen>
 	<dimen name="sp95">38sp</dimen>
+	<dimen name="logo_weidth_plan_select">35dp</dimen>
+	<dimen name="logo_height_plan_select">30dp</dimen>
+	<dimen name="phoneimage_weidth_plan_select">90dp</dimen>
+	<dimen name="phoneimage_height_plan_select">60dp</dimen>
+	<dimen name="cardsmain_view_height_plan_select">80dp</dimen>
+	<dimen name="singlecard_height_plan_select">75dp</dimen>
+	<dimen name="edittext_height_plan_select">20dp</dimen>
+	<dimen name="cardtext_size_plan_select">9.5sp</dimen>
+	<dimen name="cardtext_padding_plan_select">8.5dp</dimen>
+	<dimen name="edittext_textsize_plan_select">6sp</dimen>
+	<dimen name="descriptionext_size_plan_select">7.5sp</dimen>
+	<dimen name="titletext_size_plan_select">10sp</dimen>
+	<dimen name="editext_button_plan_select">20dp</dimen>
+	<dimen name="margin40dp_plan_select">20dp</dimen>
+	<dimen name="margin10dp_plan_select">5dp</dimen>
+	<dimen name="margin7dp_plan_select">3.5dp</dimen>
+	<dimen name="margin50dp_plan_select">25dp</dimen>
+	<dimen name="margin5dp_plan_select">2.5dp</dimen>
+	<dimen name="margin15dp_plan_select">7.5dp</dimen>
+	<dimen name="margin25dp_plan_select">12.5dp</dimen>
+	<dimen name="seperation_text8sp_plan_select">4sp</dimen>
+	<dimen name="botomcardt_text_size_plan_select">7.5sp</dimen>
 </resources>
