@@ -14,7 +14,6 @@
         android:layout_height="150dp"
         android:background="#F40303"
         android:visibility="gone">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
             android:fontFamily="@font/raleway_bold"
             android:textAlignment="center"
             android:textSize="30sp" />
-
     </RelativeLayout>-->
 
 
@@ -391,7 +389,7 @@
 
         </LinearLayout>
 
-<!--        speak button-->
+        <!--speak button-->
 
         <androidx.cardview.widget.CardView
             android:id="@+id/actvity_quiz_question_speak_button_for_options"
@@ -424,7 +422,7 @@
 
 
         <!--next button-->
-        <androidx.cardview.widget.CardView
+        <!--<androidx.cardview.widget.CardView
             android:id="@+id/actvity_quiz_question_next_button_for_description"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -450,7 +448,7 @@
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
     </RelativeLayout>
 

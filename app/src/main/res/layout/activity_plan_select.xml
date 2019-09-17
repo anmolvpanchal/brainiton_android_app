@@ -39,10 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edittext_button"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="@dimen/margin50dp_plan_select"
+                android:layout_marginTop="@dimen/margin15dp_plan_select"
+                android:layout_marginRight="@dimen/margin50dp_plan_select"
+                android:layout_marginBottom="@dimen/margin15dp_plan_select"
                 android:orientation="horizontal"
                 android:weightSum="4">
                 <View
@@ -60,7 +60,7 @@
                     android:fontFamily="@font/raleway_semi_bold"
                     android:text=" OR SUBSCRIBE FROM HERE "
                     android:textAlignment="center"
-                    android:textSize="8sp" />
+                    android:textSize="@dimen/seperation_text8sp_plan_select" />
 
 
                 <View
@@ -81,25 +81,26 @@
                 android:layout_height="@dimen/cardsmain_view_height_plan_select"
                 android:layout_below="@id/seperation_view"
                 android:orientation="horizontal"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
+                android:layout_marginLeft="@dimen/margin15dp_plan_select"
+                android:layout_marginRight="@dimen/margin15dp_plan_select"
+                android:paddingLeft="@dimen/margin25dp_plan_select"
+                android:paddingRight="@dimen/margin25dp_plan_select"
                 android:weightSum="2">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/firstcard_plan_select"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/singlecard_height_plan_select"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="@dimen/margin15dp_plan_select"
+                    android:layout_marginRight="@dimen/margin15dp_plan_select"
+                    android:layout_marginBottom="@dimen/margin10dp_plan_select"
+                    android:layout_marginTop="@dimen/margin5dp_plan_select"
                     android:layout_weight="1"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp">
@@ -115,23 +116,24 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:background="#f4f4f4"
-                            android:fontFamily="@font/raleway_medium"
-                            android:text="3 \n MONTHS"
+                            android:fontFamily="@font/raleway_semi_bold"
+                            android:text="3\nMONTHS"
                             android:textAlignment="center"
                             android:paddingTop="@dimen/cardtext_padding_plan_select"
                             android:textSize="@dimen/cardtext_size_plan_select" />
 
                         <TextView
+                            android:id="@+id/cardone_bottomtext_planselect"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="#fff"
                             android:fontFamily="@font/raleway_medium"
-                            android:text="₹ 300 \n ₹100/mon"
+                            android:lineSpacingExtra="@dimen/margin5dp_plan_select"
                             android:textAlignment="center"
                             android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/cardtext_size_plan_select" />
+                            android:textSize="@dimen/botomcardt_text_size_plan_select" />
 
 
                     </LinearLayout>
@@ -149,11 +151,11 @@
                     android:id="@+id/secondcard_plan_select"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/singlecard_height_plan_select"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="@dimen/margin15dp_plan_select"
+                    android:layout_marginRight="@dimen/margin15dp_plan_select"
                     android:layout_weight="1"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="@dimen/margin10dp_plan_select"
+                    android:layout_marginTop="@dimen/margin5dp_plan_select"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp">
 
@@ -167,24 +169,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:background="#f4f4f4"
-                            android:fontFamily="@font/raleway_medium"
-                            android:text="12 \n MONTHS"
+                            android:background="#E8FAFA"
+                            android:fontFamily="@font/raleway_semi_bold"
+                            android:text="12\nMONTHS"
                             android:textAlignment="center"
                             android:paddingTop="@dimen/cardtext_padding_plan_select"
                             android:textSize="@dimen/cardtext_size_plan_select" />
 
                         <TextView
+                            android:id="@+id/cardtwo_bottomtext_planselect"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:background="#fff"
                             android:fontFamily="@font/raleway_medium"
-                            android:text="₹ 500 \n ₹40/mon"
+                            android:lineSpacingExtra="@dimen/margin5dp_plan_select"
                             android:textAlignment="center"
                             android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/cardtext_size_plan_select" />
+                            android:textSize="@dimen/botomcardt_text_size_plan_select" />
 
 
                     </LinearLayout>
@@ -200,12 +203,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edittext_height_plan_select"
                 android:layout_below="@+id/description_selectPlan"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginLeft="@dimen/margin50dp_plan_select"
+                android:layout_marginTop="@dimen/margin10dp_plan_select"
+                android:layout_marginRight="@dimen/margin50dp_plan_select"
                 android:background="@drawable/rounded_edittext"
                 android:backgroundTint="#FFF"
-                android:elevation="10dp">
+                android:elevation="@dimen/margin10dp_plan_select">
 
 
                 <EditText
@@ -215,13 +218,13 @@
                     android:layout_alignParentLeft="true"
                     android:background="@drawable/rounded_edittext"
                     android:hint="Bought subscription code? Enter here"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="@dimen/margin10dp_plan_select"
                     android:textSize="@dimen/edittext_textsize_plan_select" />
 
                 <ImageButton
                     android:id="@+id/nextbutton_plan_select"
-                    android:layout_width="@dimen/editext_button_weidth_plan_select"
-                    android:layout_height="@dimen/editext_button_height_plan_select"
+                    android:layout_width="@dimen/editext_button_plan_select"
+                    android:layout_height="@dimen/editext_button_plan_select"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/circle_planselect"
                     android:src="@drawable/ic_arrow_forward_white_24dp" />
@@ -234,11 +237,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_selectPlan"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="@dimen/margin7dp_plan_select"
                 android:fontFamily="@font/raleway_medium"
-                android:padding="5dp"
+                android:padding="@dimen/margin5dp_plan_select"
                 android:text="Premium content,daily lessons,\n competition pass, online support \n                 and much more !"
-                android:textColor="#000"
+                android:textColor="#A4000000"
                 android:textSize="@dimen/descriptionext_size_plan_select" />
 
 
@@ -248,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phoneScreen_Image"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin10dp_plan_select"
                 android:fontFamily="@font/raleway_bold"
                 android:text="@string/your_benefits_include"
                 android:textColor="#000"
@@ -265,9 +268,9 @@
                 android:backgroundTint="#484AA1"
                 android:textColor="#fff"
                 android:textSize="@dimen/titletext_size_plan_select"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginTop="@dimen/margin10dp_plan_select"
+                android:layout_marginLeft="@dimen/margin40dp_plan_select"
+                android:layout_marginRight="@dimen/margin40dp_plan_select"
                 android:fontFamily="@font/raleway_medium"/>
 
             <TextView
@@ -278,7 +281,7 @@
                 android:fontFamily="@font/raleway_light"
                 android:layout_below="@+id/continue_button_plan_select"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin15dp_plan_select"
                 android:layout_marginBottom="5dp"
                 android:textColor="#000"/>
 

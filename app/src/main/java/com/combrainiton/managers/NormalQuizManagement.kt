@@ -22,6 +22,7 @@ import com.combrainiton.models.*
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
+import com.combrainiton.main.ActivityDemoResult
 import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import com.combrainiton.normalQuiz.ActivityNormalQuizQuestion
@@ -86,37 +87,6 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                     //TODO this should be taken care of at the backend side remove it after confirmation
                     //redudant code to replace null values from http response
-                    /*            for (i in quizList!!.indices) {
-                                    if (quizList[i].category_id == null || quizList[i].category_name == null) {
-                                        val getData = quizList[i]
-                                        var setItemModel: GetAllQuizResponceModel.Allquizzes?
-                                        if (quizList[i].host_name == null) {
-                                            setItemModel = GetAllQuizResponceModel.Allquizzes(getData.quiz_id, getData.quiz_title, getData.total_questions, 0, "quizzes", getData.description, "No Data", getData.image_url)
-                                        } else {
-                                            setItemModel = GetAllQuizResponceModel.Allquizzes(getData.quiz_id, getData.quiz_title, getData.total_questions, 0, "quizzes", getData.description, getData.host_name, getData.image_url)
-                                        }
-                                        quizList.set(i, setItemModel)
-
-                                    }
-
-                                }
-                                for (i in quizList.indices) {
-                                    if (quizList[i].host_name == null) {
-                                        var getData = quizList[i]
-                                        var setItemModel = GetAllQuizResponceModel.Allquizzes(getData.quiz_id, getData.quiz_title, getData.total_questions, getData.category_id, getData.category_name, getData.description, "No Data", getData.image_url)
-                                        quizList.set(i, setItemModel)
-
-                                    }
-
-                                }
-                                for (i in featured_quizzes!!.indices) {
-                                    if (featured_quizzes[i].host_name == null) {
-                                        val getData = featured_quizzes[i]
-                                        val setItemModel = GetAllQuizResponceModel.Allquizzes(getData.quiz_id, getData.quiz_title, getData.total_questions, 0, "", getData.description, "No Data", getData.image_url)
-                                        featured_quizzes.set(i, setItemModel)
-                                    }
-                                }
-            */
 
                     //start activity explore and pass all three list recieve from the response
                     mActivity.startActivity(Intent(mContext, ActivityNavExplore::class.java)
@@ -132,6 +102,51 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                 }
             }
         })
+    }
+
+    fun getQuestionsForResultPage(quizId: Int,quizName: String) : ArrayList<QuestionResponceModel>?{
+
+        var questionsList: ArrayList<QuestionResponceModel>? = null
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
+
+        //intialize the normal quiz management interface
+        requestInterface = ApiClient.getClient(apiToken).create(NormalQuizManagementInterface::class.java)
+
+        //attach your get method with call object
+        val getQuestionCall: Call<GetNormalQuestionListResponceModel>? = requestInterface!!.getQuestions(quizId)
+
+        //request the data from backend
+        getQuestionCall!!.enqueue(object : Callback<GetNormalQuestionListResponceModel> {
+
+            //on request fail
+            override fun onFailure(call: Call<GetNormalQuestionListResponceModel>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(mContext, "Error", mContext.resources.getString(R.string.error_server_problem))
+
+            }
+
+            //on response recieved
+            override fun onResponse(call: Call<GetNormalQuestionListResponceModel>, response: Response<GetNormalQuestionListResponceModel>) {
+                //mProgressDialog.dialog.dismiss()
+                if (response.isSuccessful) {
+
+                    //get JSON object questions as array list of QuestionResponseModel
+                    questionsList = response.body()!!.questions
+                    Log.e(TAG,"questions $questionsList")
+
+                } else {
+                    //if the response is not successfull then show the error
+
+                    val errorMsgModle: CommonResponceModel = ApiErrorParser().errorResponce(response)
+                    isSessionExpire(errorMsgModle)
+                }
+
+            }
+        })
+
+        return questionsList
     }
 
     //for getting questions by quiz id
@@ -164,7 +179,6 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     //get JSON object questions as array list of QuestionResponseModel
                     val questionsList: ArrayList<QuestionResponceModel>? = response.body()!!.questions
                     Log.e(TAG,"questions $questionsList")
-
                     //get JSON object quiz id as integer from response
                     val qid = response.body()!!.quiz_id
 
@@ -470,6 +484,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
         //attach your get method with call object
         val getScoreCall: Call<GetNormalQuizScoreResponceModel>? = requestInterface!!.getQuizScore(requestData)
 
+
         //request for data
         getScoreCall!!.enqueue(object : Callback<GetNormalQuizScoreResponceModel> {
 
@@ -491,7 +506,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val scoreData: GetNormalQuizScoreResponceModel = response.body()!!
 
                     //start result activity
-                    mActivity.startActivity(Intent(mContext, ActivityNormalQuizResult::class.java)
+                    mActivity.startActivity(Intent(mContext, ActivityDemoResult::class.java)
                             .putExtra("scoreData", scoreData)//add score data
                             .putExtra("allData", scoreBoardResult.data)
                             .putExtra("quizName",quizName)

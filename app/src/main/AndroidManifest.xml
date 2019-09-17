@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".main.ActivityPlanSelect"></activity>
+        <activity android:name=".main.ActivityDemoResult"></activity>
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
@@ -67,6 +67,11 @@
             android:name=".authentication.ActivityWelcomeUser"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".main.ActivityPlanSelect"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+
         <activity
             android:name=".main.ActivityNavEnterPin"
             android:screenOrientation="portrait"
