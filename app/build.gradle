@@ -32,6 +32,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
     //fetch otp library
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
 
