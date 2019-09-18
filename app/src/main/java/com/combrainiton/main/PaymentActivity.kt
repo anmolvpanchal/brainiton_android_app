@@ -26,9 +26,6 @@ class PaymentActivity : AppCompatActivity() {
     lateinit var alertDialog: AlertDialog
     lateinit var userAge: TextInputEditText
     lateinit var datePickerDialog: DatePickerDialog
-    var year:Int = 0
-    var month:Int = 0
-    var day:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +35,14 @@ class PaymentActivity : AppCompatActivity() {
         paymentButton = findViewById(R.id.activity_payment_paymentButton)
         userAge = findViewById(R.id.activity_payment_userAge)
 
-        //Showing datepickerdialog on age edit text on focus
+        //Showing datepickerdialog on focus of age(edittext)
         userAge.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 datePicker()
             }
         }
 
-        //creating and shoing alert dialog
+        //creating and showing alert dialog
         alertDialog()
     }
 
@@ -59,7 +56,7 @@ class PaymentActivity : AppCompatActivity() {
         //This won't allow dialog to dismiss if touched outside it's area
         alertDialog.setCanceledOnTouchOutside(false)
 
-        //Making background transparent of alertdialog
+        //Transparent background for alert dialog
         alertDialog.window.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
         paymentButton.setOnClickListener(object : View.OnClickListener{
@@ -72,7 +69,7 @@ class PaymentActivity : AppCompatActivity() {
 
     fun datePicker(){
         datePickerDialog = DatePickerDialog(this@PaymentActivity,DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            //Setting date to edittext
+            //Setting date to edit text
             userAge.setText((StringBuilder().append(dayOfMonth).append("/").append(month+1).append("/").append(year)).toString())
         },0,0,0)
 

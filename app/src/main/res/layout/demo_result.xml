@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTextSecondaryDark">
+    android:background="#F5F4FA">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,20 +16,20 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:src="@drawable/ic_app_logo_accent"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="@dimen/_15sdp"/>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="@color/colorPrimary"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="@dimen/_15sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -37,8 +37,8 @@
                     android:orientation="vertical">
 
                     <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
                         android:layout_gravity="center_horizontal"
                         android:src="@drawable/medal"/>
 
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:text="23,456"
                         android:fontFamily="@font/raleway_bold"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/_20ssp"
                         android:textColor="@color/colorTextPrimaryDark"
                         android:gravity="center_horizontal"/>
 
@@ -55,6 +55,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Your score"
+                        android:fontFamily="@font/raleway_light"
+                        android:textSize="@dimen/_12ssp"
                         android:gravity="center_horizontal"/>
 
                     <View
@@ -83,7 +85,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="43,343"
                                 android:fontFamily="@font/raleway_bold"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/_20ssp"
                                 android:textColor="@color/colorTextPrimaryDark"
                                 android:gravity="center_horizontal"/>
 
@@ -91,7 +93,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Top score"
-                                android:fontFamily="@font/raleway_medium"
+                                android:textSize="@dimen/_12ssp"
+                                android:fontFamily="@font/raleway_light"
                                 android:gravity="center_horizontal"/>
 
 
@@ -109,7 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="14,865"
                                 android:fontFamily="@font/raleway_bold"
-                                android:textSize="20sp"
+                                android:textSize="@dimen/_20ssp"
                                 android:textColor="@color/colorTextPrimaryDark"
                                 android:gravity="center_horizontal"/>
 
@@ -117,7 +120,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Average score"
-                                android:fontFamily="@font/raleway_medium"
+                                android:textSize="@dimen/_12ssp"
+                                android:fontFamily="@font/raleway_light"
                                 android:gravity="center_horizontal"/>
 
 
@@ -146,7 +150,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Accuracy"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/_15ssp"
+                        android:fontFamily="@font/raleway_medium"
                         android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"/>
 
@@ -175,16 +180,16 @@
                                 android:text="79%"
                                 android:fontFamily="@font/raleway_bold"
                                 android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="20sp"/>
+                                android:textSize="@dimen/_15ssp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=" of answers correct"
+                                android:text=" of total answers correct"
                                 android:layout_toRightOf="@id/accuracy_number"
                                 android:fontFamily="@font/raleway_medium"
                                 android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="20sp"/>
+                                android:textSize="@dimen/_15ssp"/>
 
                         </LinearLayout>
 
@@ -195,10 +200,10 @@
                         android:id="@+id/demo_result_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"/>
 
                 </LinearLayout>
 
@@ -208,10 +213,10 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                app:cardCornerRadius="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -221,7 +226,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="@dimen/_10sdp">
 
                         <!-- Left button-->
                         <ImageButton
@@ -229,31 +234,32 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:src="@drawable/ic_left_arrow"
-                            android:padding="10dp"
+                            android:padding="@dimen/_10sdp"
                             android:clickable="true"
                             android:focusable="true"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:layout_marginLeft="10dp"/>
+                            android:layout_marginLeft="@dimen/_10sdp"/>
 
                         <!-- Right button-->
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:padding="10dp"
+                            android:padding="@dimen/_10sdp"
                             android:src="@drawable/ic_right_arrow"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
                             android:focusable="true"
-                            android:layout_marginRight="10dp"/>
+                            android:layout_marginRight="@dimen/_10sdp"/>
 
                         <!-- Question count-->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Question 1"
-                            android:textSize="20sp"
-                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/raleway_medium"
+                            android:textSize="@dimen/_15ssp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:layout_centerHorizontal="true"/>
 
                     </RelativeLayout>
@@ -264,28 +270,28 @@
                         android:layout_height="wrap_content"
                         android:text="What are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some time"
                         android:gravity="center_horizontal"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:maxLines="3"
                         android:ellipsize="end"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:textColor="@color/colorTextPrimaryDark"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/_15ssp"
                         android:fontFamily="@font/raleway_medium" />
 
                     <!-- Answer -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:fontFamily="@font/raleway_medium"
                         android:layout_gravity="center_horizontal"
                         android:text="Correct answer"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/_15ssp"
                         android:textColor="@color/colorTextPrimaryDark"
                         android:drawableLeft="@drawable/ic_green_check_mark"
-                        android:drawablePadding="10dp"/>
+                        android:drawablePadding="@dimen/_10sdp"/>
 
                 </LinearLayout>
 
@@ -296,12 +302,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="@dimen/_10sdp"
                 android:clickable="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -314,12 +320,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         android:layout_gravity="center_horizontal"
                         android:text="Challange Friend"
                         android:textAllCaps="true"
-                        android:textSize="25sp"
+                        android:textSize="@dimen/_20ssp"
                         android:textColor="@color/colorTextPrimaryDark"
                         android:fontFamily="@font/raleway_medium"
                         android:drawableLeft="@drawable/ic_swords"
@@ -334,24 +340,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="@dimen/_10sdp">
 
                 <!-- Replay -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="@dimen/_20sdp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="10dp"
-                        app:cardCornerRadius="10dp">
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -366,11 +372,11 @@
                                 android:gravity="center_horizontal"
                                 android:text="Replay"
                                 android:fontFamily="@font/raleway_medium"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="25sp"/>
+                                android:textSize="@dimen/_20ssp"/>
 
                         </LinearLayout>
 
@@ -383,15 +389,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="@dimen/_20sdp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        app:cardCornerRadius="10dp">
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -405,12 +411,12 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
                                 android:text="Done"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
                                 android:fontFamily="@font/raleway_medium"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="25sp"/>
+                                android:textSize="@dimen/_20ssp"/>
 
                         </LinearLayout>
 
