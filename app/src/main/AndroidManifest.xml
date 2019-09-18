@@ -15,6 +15,10 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
+        <activity
+            android:name=".main.ActivityPlanSelect"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
         <activity android:name=".main.PaymentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
@@ -70,10 +74,6 @@
             android:name=".authentication.ActivityWelcomeUser"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".main.ActivityPlanSelect"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen" />
 
         <activity
             android:name=".main.ActivityNavEnterPin"

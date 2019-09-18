@@ -22,6 +22,7 @@
                 android:id="@+id/logo_Image"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_app_logo_accent" />
 
@@ -29,6 +30,7 @@
                 android:id="@+id/phoneScreen_Image"
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="@dimen/_130sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_below="@id/logo_Image"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"
@@ -234,6 +236,19 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/title_selectPlan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phoneScreen_Image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/raleway_bold"
+                android:text="@string/your_benefits_include"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="@dimen/_20ssp" />
+
+            <TextView
                 android:id="@+id/description_selectPlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -248,20 +263,6 @@
                 android:text="Premium content,daily lessons, competition pass, online support and much more !"
                 android:textColor="#A4000000"
                 android:textSize="@dimen/_12ssp" />
-
-
-            <TextView
-                android:id="@+id/title_selectPlan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/phoneScreen_Image"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/raleway_bold"
-                android:text="@string/your_benefits_include"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="@dimen/_20ssp" />
 
 
             <Button
