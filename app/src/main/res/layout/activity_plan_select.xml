@@ -20,15 +20,15 @@
 
             <ImageView
                 android:id="@+id/logo_Image"
-                android:layout_width="@dimen/logo_weidth_plan_select"
-                android:layout_height="@dimen/logo_height_plan_select"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_app_logo_accent" />
 
             <ImageView
                 android:id="@+id/phoneScreen_Image"
-                android:layout_width="@dimen/phoneimage_weidth_plan_select"
-                android:layout_height="@dimen/phoneimage_height_plan_select"
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_130sdp"
                 android:layout_below="@id/logo_Image"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"
@@ -39,10 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edittext_button"
-                android:layout_marginLeft="@dimen/margin50dp_plan_select"
-                android:layout_marginTop="@dimen/margin15dp_plan_select"
-                android:layout_marginRight="@dimen/margin50dp_plan_select"
-                android:layout_marginBottom="@dimen/margin15dp_plan_select"
+                android:layout_marginLeft="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_35sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:orientation="horizontal"
                 android:weightSum="4">
                 <View
@@ -60,7 +60,7 @@
                     android:fontFamily="@font/raleway_semi_bold"
                     android:text=" OR SUBSCRIBE FROM HERE "
                     android:textAlignment="center"
-                    android:textSize="@dimen/seperation_text8sp_plan_select" />
+                    android:textSize="@dimen/_10ssp" />
 
 
                 <View
@@ -78,13 +78,13 @@
             <LinearLayout
                 android:id="@+id/cards_view_plan_selection"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/cardsmain_view_height_plan_select"
+                android:layout_height="@dimen/_160sdp"
                 android:layout_below="@id/seperation_view"
                 android:orientation="horizontal"
-                android:layout_marginLeft="@dimen/margin15dp_plan_select"
-                android:layout_marginRight="@dimen/margin15dp_plan_select"
-                android:paddingLeft="@dimen/margin25dp_plan_select"
-                android:paddingRight="@dimen/margin25dp_plan_select"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:paddingLeft="@dimen/_25sdp"
+                android:paddingRight="@dimen/_25sdp"
                 android:weightSum="2">
 
                 <LinearLayout
@@ -96,11 +96,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/firstcard_plan_select"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/singlecard_height_plan_select"
-                    android:layout_marginLeft="@dimen/margin15dp_plan_select"
-                    android:layout_marginRight="@dimen/margin15dp_plan_select"
-                    android:layout_marginBottom="@dimen/margin10dp_plan_select"
-                    android:layout_marginTop="@dimen/margin5dp_plan_select"
+                    android:layout_height="@dimen/_140sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp">
@@ -118,9 +118,10 @@
                             android:background="#f4f4f4"
                             android:fontFamily="@font/raleway_semi_bold"
                             android:text="3\nMONTHS"
+                            android:lineSpacingExtra="@dimen/_5sdp"
                             android:textAlignment="center"
-                            android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/cardtext_size_plan_select" />
+                            android:paddingTop="@dimen/_13sdp"
+                            android:textSize="@dimen/_15ssp" />
 
                         <TextView
                             android:id="@+id/cardone_bottomtext_planselect"
@@ -130,10 +131,10 @@
                             android:layout_weight="1"
                             android:background="#fff"
                             android:fontFamily="@font/raleway_medium"
-                            android:lineSpacingExtra="@dimen/margin5dp_plan_select"
+                            android:lineSpacingExtra="@dimen/_5sdp"
                             android:textAlignment="center"
-                            android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/botomcardt_text_size_plan_select" />
+                            android:paddingTop="@dimen/_13sdp"
+                            android:textSize="@dimen/_12ssp" />
 
 
                     </LinearLayout>
@@ -150,12 +151,12 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/secondcard_plan_select"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/singlecard_height_plan_select"
-                    android:layout_marginLeft="@dimen/margin15dp_plan_select"
-                    android:layout_marginRight="@dimen/margin15dp_plan_select"
+                    android:layout_height="@dimen/_140sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:layout_marginBottom="@dimen/margin10dp_plan_select"
-                    android:layout_marginTop="@dimen/margin5dp_plan_select"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp">
 
@@ -173,8 +174,9 @@
                             android:fontFamily="@font/raleway_semi_bold"
                             android:text="12\nMONTHS"
                             android:textAlignment="center"
-                            android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/cardtext_size_plan_select" />
+                            android:lineSpacingExtra="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_13sdp"
+                            android:textSize="@dimen/_15ssp" />
 
                         <TextView
                             android:id="@+id/cardtwo_bottomtext_planselect"
@@ -184,10 +186,10 @@
                             android:layout_weight="1"
                             android:background="#fff"
                             android:fontFamily="@font/raleway_medium"
-                            android:lineSpacingExtra="@dimen/margin5dp_plan_select"
+                            android:lineSpacingExtra="@dimen/_5sdp"
                             android:textAlignment="center"
-                            android:paddingTop="@dimen/cardtext_padding_plan_select"
-                            android:textSize="@dimen/botomcardt_text_size_plan_select" />
+                            android:paddingTop="@dimen/_13sdp"
+                            android:textSize="@dimen/_12ssp" />
 
 
                     </LinearLayout>
@@ -201,14 +203,14 @@
             <RelativeLayout
                 android:id="@+id/edittext_button"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/edittext_height_plan_select"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_below="@+id/description_selectPlan"
-                android:layout_marginLeft="@dimen/margin50dp_plan_select"
-                android:layout_marginTop="@dimen/margin10dp_plan_select"
-                android:layout_marginRight="@dimen/margin50dp_plan_select"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginRight="@dimen/_40sdp"
                 android:background="@drawable/rounded_edittext"
                 android:backgroundTint="#FFF"
-                android:elevation="@dimen/margin10dp_plan_select">
+                android:elevation="@dimen/_10sdp">
 
 
                 <EditText
@@ -218,13 +220,13 @@
                     android:layout_alignParentLeft="true"
                     android:background="@drawable/rounded_edittext"
                     android:hint="Bought subscription code? Enter here"
-                    android:paddingLeft="@dimen/margin10dp_plan_select"
-                    android:textSize="@dimen/edittext_textsize_plan_select" />
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:textSize="@dimen/_10ssp" />
 
                 <ImageButton
                     android:id="@+id/nextbutton_plan_select"
-                    android:layout_width="@dimen/editext_button_plan_select"
-                    android:layout_height="@dimen/editext_button_plan_select"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/circle_planselect"
                     android:src="@drawable/ic_arrow_forward_white_24dp" />
@@ -237,12 +239,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_selectPlan"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin7dp_plan_select"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_45sdp"
+                android:layout_marginLeft="@dimen/_45sdp"
                 android:fontFamily="@font/raleway_medium"
-                android:padding="@dimen/margin5dp_plan_select"
-                android:text="Premium content,daily lessons,\n competition pass, online support \n                 and much more !"
+                android:textAlignment="center"
+                android:padding="@dimen/_5sdp"
+                android:text="Premium content,daily lessons, competition pass, online support and much more !"
                 android:textColor="#A4000000"
-                android:textSize="@dimen/descriptionext_size_plan_select" />
+                android:textSize="@dimen/_12ssp" />
 
 
             <TextView
@@ -251,11 +256,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phoneScreen_Image"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin10dp_plan_select"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/raleway_bold"
                 android:text="@string/your_benefits_include"
+                android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="@dimen/titletext_size_plan_select" />
+                android:textSize="@dimen/_20ssp" />
 
 
             <Button
@@ -267,10 +273,10 @@
                 android:background="@drawable/rounded_edittext"
                 android:backgroundTint="#484AA1"
                 android:textColor="#fff"
-                android:textSize="@dimen/titletext_size_plan_select"
-                android:layout_marginTop="@dimen/margin10dp_plan_select"
-                android:layout_marginLeft="@dimen/margin40dp_plan_select"
-                android:layout_marginRight="@dimen/margin40dp_plan_select"
+                android:textSize="@dimen/_17ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginRight="@dimen/_40sdp"
                 android:fontFamily="@font/raleway_medium"/>
 
             <TextView
@@ -281,8 +287,9 @@
                 android:fontFamily="@font/raleway_light"
                 android:layout_below="@+id/continue_button_plan_select"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin15dp_plan_select"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_10ssp"
                 android:textColor="#000"/>
 
         </RelativeLayout>
