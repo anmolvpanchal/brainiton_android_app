@@ -104,51 +104,6 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
         })
     }
 
-    fun getQuestionsForResultPage(quizId: Int,quizName: String) : ArrayList<QuestionResponceModel>?{
-
-        var questionsList: ArrayList<QuestionResponceModel>? = null
-
-        //create api client first
-        val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
-
-        //intialize the normal quiz management interface
-        requestInterface = ApiClient.getClient(apiToken).create(NormalQuizManagementInterface::class.java)
-
-        //attach your get method with call object
-        val getQuestionCall: Call<GetNormalQuestionListResponceModel>? = requestInterface!!.getQuestions(quizId)
-
-        //request the data from backend
-        getQuestionCall!!.enqueue(object : Callback<GetNormalQuestionListResponceModel> {
-
-            //on request fail
-            override fun onFailure(call: Call<GetNormalQuestionListResponceModel>, t: Throwable) {
-                //mProgressDialog.dialog.dismiss()
-                AppAlerts().showAlertMessage(mContext, "Error", mContext.resources.getString(R.string.error_server_problem))
-
-            }
-
-            //on response recieved
-            override fun onResponse(call: Call<GetNormalQuestionListResponceModel>, response: Response<GetNormalQuestionListResponceModel>) {
-                //mProgressDialog.dialog.dismiss()
-                if (response.isSuccessful) {
-
-                    //get JSON object questions as array list of QuestionResponseModel
-                    questionsList = response.body()!!.questions
-                    Log.e(TAG,"questions $questionsList")
-
-                } else {
-                    //if the response is not successfull then show the error
-
-                    val errorMsgModle: CommonResponceModel = ApiErrorParser().errorResponce(response)
-                    isSessionExpire(errorMsgModle)
-                }
-
-            }
-        })
-
-        return questionsList
-    }
-
     //for getting questions by quiz id
     fun getQuestions(quizId: Int,quizName: String) {
 

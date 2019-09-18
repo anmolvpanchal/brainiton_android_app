@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.StrictMode
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,9 +38,12 @@ import kotlinx.android.synthetic.main.activity_quiz_question.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
-class ActivityNormalQuizResult : AppCompatActivity() {
+class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private lateinit var allData: ArrayList<ObjectQuizResult>
 
@@ -57,6 +61,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
     var totalQuestion: Int = 0
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
+    private var tts: TextToSpeech? = null
 
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
@@ -74,6 +79,13 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
         getQuestions(quizId, quizName!!)
 
+        tts = TextToSpeech(this, this)
+
+        correct_option_layout.setOnClickListener {
+            speakOut()
+        }
+
+
         result_Cell_left_button.setOnClickListener {
             previousQuestion()
         }
@@ -90,9 +102,43 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 
     }
 
+
     override fun onResume() {
         super.onResume()
         //challange_view.visibility = View.INVISIBLE
+    }
+
+    private fun speakOut(){
+        val text = correct_option_layout.text.toString()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        }
+    }
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
+
+    }
+
+    override fun onInit(status : Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts!!.setLanguage(Locale("en", "IN"))
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","The Language specified is not supported!")
+            } else {
+                correct_option_layout!!.isEnabled = true
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+        }
+
     }
 
 
@@ -125,12 +171,12 @@ class ActivityNormalQuizResult : AppCompatActivity() {
 //        }
 
 //        //set on click listener to play again button
-//        normal_quiz_play_again_button.setOnClickListener {
-//            val quizId: Int = intent.getIntExtra("quizId", 0)
-//            val mDialog = AppProgressDialog(applicationContext)
-//            mDialog.show()
-//            NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
-//        }
+        normal_quiz_play_again_button.setOnClickListener {
+            val quizId: Int = intent.getIntExtra("quizId", 0)
+            val mDialog = AppProgressDialog(applicationContext)
+            mDialog.show()
+            NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
+        }
 
     }
 
@@ -257,7 +303,7 @@ class ActivityNormalQuizResult : AppCompatActivity() {
                     val correctOptionId: Int = response.body()!!.correct_answer_id
                     val correctOptionText : String = response.body()!!.correct_answer_value
                     Log.e(TAG,"Correct result $correctOptionId and string is $correctOptionText")
-                    correct_option_layout.text = "Correct ans is "+correctOptionText
+                    correct_option_layout.text = correctOptionText
 
                 }else{
                     //if the response is not successfull then show the error
