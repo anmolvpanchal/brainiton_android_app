@@ -16,7 +16,7 @@ class ActivityPlanSelect : AppCompatActivity() {
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
 
         continue_button_plan_select.setOnClickListener {
-            startActivity(Intent(this,PaymentActivity::class.java))
+//            startActivity(Intent(this,PaymentActivity::class.java))
         }
     }
 }
