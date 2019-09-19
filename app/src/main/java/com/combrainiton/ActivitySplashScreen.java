@@ -7,8 +7,6 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.combrainiton.main.ActivityDemoResult;
 import com.combrainiton.main.ActivityNavEnterPin;
 import com.combrainiton.managers.NormalQuizManagement;
 import com.combrainiton.utils.AppProgressDialog;

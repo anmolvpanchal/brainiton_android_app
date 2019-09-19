@@ -49,6 +49,9 @@ dependencies {
     //custom dialog to rate application
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
 
+    //badge library to show badges
+    implementation "com.github.nekocode:Badge:2.0"
+
     //CoordinatorTabLayout
     implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 
