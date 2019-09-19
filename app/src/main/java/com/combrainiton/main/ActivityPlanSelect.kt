@@ -7,7 +7,6 @@ import android.text.Html
 import android.text.SpannableString
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
-import cn.nekocode.badge.BadgeDrawable
 import com.combrainiton.R
 import kotlinx.android.synthetic.main.activity_plan_select.*
 

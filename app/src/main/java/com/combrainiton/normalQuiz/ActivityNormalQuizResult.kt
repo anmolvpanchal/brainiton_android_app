@@ -27,6 +27,7 @@ import com.combrainiton.adaptors.AdapterResultDemo
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
+import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.*
@@ -35,6 +36,7 @@ import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.demo_result.*
+import pl.droidsonroids.gif.GifDrawable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +47,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 
-class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener {
+class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var allData: ArrayList<ObjectQuizResult>
 
@@ -57,16 +59,15 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
     private var imageFileToShare: File? = null
     private var questionDescription: String = ""
     private var requestInterface: NormalQuizManagementInterface? = null
-    private var currentQuestion: Int = 0
+    private var currentQuestion: Int = 1
     var questionsList: ArrayList<QuestionResponceModel> = ArrayList()
     val quiz_result_recycler: RecyclerView? = null
     var totalQuestion: Int = 0
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
     private var tts: TextToSpeech? = null
-    var answer = arrayOf(true,false,true,false,true,false,true,false,true,false,true,false)
+    var answer = arrayOf(true, false, true, false, true, false, true, false, true, false, true, false)
     lateinit var recycler: RecyclerView
-
 
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
@@ -96,9 +97,12 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
             nextQuestion()
         }
 
-        val adapter = AdapterResultDemo(this,answer)
+        //Make gif play only once
+        gifPlayOnlyOnce()
+
+        val adapter = AdapterResultDemo(this, answer)
         recycler = findViewById(R.id.demo_result_recycler)
-        recycler.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler.adapter = adapter
 
 //        quiz_result_recycler?.findViewById<RecyclerView>(R.id.quiz_result_recycler)
@@ -109,16 +113,26 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
     }
 
+    private fun gifPlayOnlyOnce() {
+        var gifDrawable: GifDrawable? = null
+        try{
+            gifDrawable = GifDrawable(resources,R.drawable.medal)
+            gifDrawable.loopCount = 1
+        }catch (e: java.lang.Exception){
+            e.printStackTrace()
+        }
+        gif.setImageDrawable(gifDrawable)
+    }
 
     override fun onResume() {
         super.onResume()
         challange_view.visibility = View.INVISIBLE
     }
 
-    private fun speakOut(){
+    private fun speakOut() {
         val text = correct_option_layout.text.toString()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
     }
 
@@ -131,13 +145,13 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
     }
 
-    override fun onInit(status : Int) {
+    override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
             val result = tts!!.setLanguage(Locale("en", "IN"))
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS","The Language specified is not supported!")
+                Log.e("TTS", "The Language specified is not supported!")
             } else {
                 correct_option_layout!!.isEnabled = true
             }
@@ -207,44 +221,44 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
         result_Cell_right_button.visibility = View.VISIBLE
         currentQuestion -= 1
 
-        if (currentQuestion.equals(-1)) {
+        if (currentQuestion == 1) {
             result_Cell_left_button.visibility = View.INVISIBLE
-        } else {
+            result_Cell_right_button.visibility = View.VISIBLE
+        }
 
-            try {
-                questionModel = questionsList[currentQuestion]
-                question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
-                result_Cell_questionNo_text.text = "Question " + currentQuestion.toString()
-                Log.e(TAG,"previous clicked")
-                val requestData = HashMap<String, Int>()
+        try {
+            questionModel = questionsList[currentQuestion - 1]
+            question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+            result_Cell_questionNo_text.text = "Question ${currentQuestion}"
+            Log.e(TAG, "previous clicked")
+            val requestData = HashMap<String, Int>()
 
-                requestData["quiz_id"] = quizId //add quiz id to request data
-                requestData["question_id"] = questionModel.question_id //add question id to request data
-                requestData["time_remaining"] = 0 //add time remaining to request data
-                requestData["question_time"] = questionModel.question_time //add quiz time to request data
-                requestData["option_id"] = 0 //add selected option id to request data
-                //get correct option data from normal quiz management
+            requestData["quiz_id"] = quizId //add quiz id to request data
+            requestData["question_id"] = questionModel.question_id //add question id to request data
+            requestData["time_remaining"] = 0 //add time remaining to request data
+            requestData["question_time"] = questionModel.question_time //add quiz time to request data
+            requestData["option_id"] = 0 //add selected option id to request data
+            //get correct option data from normal quiz management
 
-                getCorrectOption(requestData)
+            getCorrectOption(requestData)
 
 
-            } catch (e: Exception) {
-                questionModel = questionsList[currentQuestion]
-                question_layout.text = questionModel.question_title
-                result_Cell_questionNo_text.text = "Question " + currentQuestion.toString()
+        } catch (e: Exception) {
+            questionModel = questionsList[currentQuestion - 1]
+            question_layout.text = questionModel.question_title
+            result_Cell_questionNo_text.text = "Question ${currentQuestion}"
 
-                val requestData = HashMap<String, Int>()
+            val requestData = HashMap<String, Int>()
 
-                requestData["quiz_id"] = quizId //add quiz id to request data
-                requestData["question_id"] = questionModel.question_id //add question id to request data
-                requestData["time_remaining"] = 0 //add time remaining to request data
-                requestData["question_time"] = questionModel.question_time //add quiz time to request data
-                requestData["option_id"] = 0 //add selected option id to request data
-                //get correct option data from normal quiz management
+            requestData["quiz_id"] = quizId //add quiz id to request data
+            requestData["question_id"] = questionModel.question_id //add question id to request data
+            requestData["time_remaining"] = 0 //add time remaining to request data
+            requestData["question_time"] = questionModel.question_time //add quiz time to request data
+            requestData["option_id"] = 0 //add selected option id to request data
+            //get correct option data from normal quiz management
 
-                getCorrectOption(requestData)
+            getCorrectOption(requestData)
 
-            }
         }
 
     }
@@ -258,43 +272,43 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
         if (currentQuestion == totalQuestion) {
             result_Cell_right_button.visibility = View.INVISIBLE
-        } else {
+            result_Cell_left_button.visibility = View.VISIBLE
+        }
 
-            try {
-                questionModel = questionsList[currentQuestion]
-                question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
-                result_Cell_questionNo_text.text = "Question $currentQuestion"
-                Log.e(TAG,"next clicked")
+        try {
+            questionModel = questionsList[currentQuestion - 1]
+            question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+            result_Cell_questionNo_text.text = "Question $currentQuestion"
+            Log.e(TAG, "next clicked")
 
-                val requestData = HashMap<String, Int>()
+            val requestData = HashMap<String, Int>()
 
-                requestData["quiz_id"] = quizId //add quiz id to request data
-                requestData["question_id"] = questionModel.question_id //add question id to request data
-                requestData["time_remaining"] = 0 //add time remaining to request data
-                requestData["question_time"] = questionModel.question_time //add quiz time to request data
-                requestData["option_id"] = 0 //add selected option id to request data
-                //get correct option data from normal quiz management
+            requestData["quiz_id"] = quizId //add quiz id to request data
+            requestData["question_id"] = questionModel.question_id //add question id to request data
+            requestData["time_remaining"] = 0 //add time remaining to request data
+            requestData["question_time"] = questionModel.question_time //add quiz time to request data
+            requestData["option_id"] = 0 //add selected option id to request data
+            //get correct option data from normal quiz management
 
-                getCorrectOption(requestData)
+            getCorrectOption(requestData)
 
-            } catch (e: Exception) {
-                questionModel = questionsList[currentQuestion]
-                question_layout.text = questionModel.question_title
-                result_Cell_questionNo_text.text = "Question $currentQuestion"
-                val requestData = HashMap<String, Int>()
+        } catch (e: Exception) {
+            questionModel = questionsList[currentQuestion - 1]
+            question_layout.text = questionModel.question_title
+            result_Cell_questionNo_text.text = "Question $currentQuestion"
+            val requestData = HashMap<String, Int>()
 
-                requestData["quiz_id"] = quizId //add quiz id to request data
-                requestData["question_id"] = questionModel.question_id //add question id to request data
-                requestData["time_remaining"] = 0 //add time remaining to request data
-                requestData["question_time"] = questionModel.question_time //add quiz time to request data
-                requestData["option_id"] = 0 //add selected option id to request data
-                //get correct option data from normal quiz management
+            requestData["quiz_id"] = quizId //add quiz id to request data
+            requestData["question_id"] = questionModel.question_id //add question id to request data
+            requestData["time_remaining"] = 0 //add time remaining to request data
+            requestData["question_time"] = questionModel.question_time //add quiz time to request data
+            requestData["option_id"] = 0 //add selected option id to request data
+            //get correct option data from normal quiz management
 
-                getCorrectOption(requestData)
-
-            }
+            getCorrectOption(requestData)
 
         }
+
     }
 
     //to get the correctoption in the result activity
@@ -319,14 +333,14 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
             @SuppressLint("LongLogTag")
             override fun onResponse(call: Call<GetCorrectOptionResponceModel>, response: Response<GetCorrectOptionResponceModel>) {
 
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     //get JSON Object correct_answer_id from response
                     val correctOptionId: Int = response.body()!!.correct_answer_id
-                    val correctOptionText : String = response.body()!!.correct_answer_value
-                    Log.e(TAG,"Correct result $correctOptionId and string is $correctOptionText")
+                    val correctOptionText: String = response.body()!!.correct_answer_value
+                    Log.e(TAG, "Correct result $correctOptionId and string is $correctOptionText")
                     correct_option_layout.text = correctOptionText
 
-                }else{
+                } else {
                     //if the response is not successfull then show the error
                     val errorMsgModle: CommonResponceModel = ApiErrorParser().errorResponce(response)
                     isSessionExpire(errorMsgModle)
@@ -370,7 +384,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
                         //get JSON object questions as array list of QuestionResponseModel
                         questionsList = response.body()!!.questions!!
                         //try to parse the question description from the question title
-                        questionModel = questionsList[currentQuestion]
+                        questionModel = questionsList[0]
                         questionDescription = (questionModel.question_title.subSequence(questionModel.question_title.indexOf(";"), questionModel?.question_title!!.length)).toString()
                         //set the question title after removing the description from it
                         question_layout.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
@@ -379,6 +393,14 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
                         result_Cell_questionNo_text.text = "Question $currentQuestion"
                         Log.e(TAG, "question list size ${questionsList.size.toString()}")
                         Log.e(TAG, "current $currentQuestion")
+
+                        //If there's only 1 question then both buttons will become invisible
+                        if (questionsList.size == 1) {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                            result_Cell_right_button.visibility = View.INVISIBLE
+                        } else {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                        }
 
                         // for getting correct option
 
@@ -398,6 +420,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
                         //if eror occurs then set the question without parsing
                         question_layout.text = questionModel.question_title
                         result.questionText = questionModel.question_title
+                        result_Cell_questionNo_text.text = "Question ${currentQuestion}"
                         val requestData = HashMap<String, Int>()
 
                         requestData["quiz_id"] = quizId //add quiz id to request data
@@ -406,6 +429,14 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
                         requestData["question_time"] = questionModel.question_time //add quiz time to request data
                         requestData["option_id"] = 0 //add selected option id to request data
                         //get correct option data from normal quiz management
+
+                        //If there's only 1 question then both buttons will become invisible
+                        if (questionsList.size == 1) {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                            result_Cell_right_button.visibility = View.INVISIBLE
+                        } else {
+                            result_Cell_left_button.visibility = View.INVISIBLE
+                        }
 
                         getCorrectOption(requestData)
 
@@ -426,7 +457,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
     fun shareScore(view: View) {
         if (isReadStoragePermissionGranted() && isWriteStoragePermissionGranted() && forceToAccessPath()) {
-           // challange_view.visibility = View.VISIBLE
+            // challange_view.visibility = View.VISIBLE
 
 
             quizId = intent.getIntExtra("quizId", 0)

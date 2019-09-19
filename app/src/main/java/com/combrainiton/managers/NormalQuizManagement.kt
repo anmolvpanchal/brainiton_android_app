@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.cardview.widget.CardView
 import com.combrainiton.*
 import com.combrainiton.adaptors.AdaptorMyQuizzesList
 import com.combrainiton.models.*
@@ -130,6 +131,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     //get JSON object quiz id as integer from response
                     val qid = response.body()!!.quiz_id
 
+
                     //start normal quiz activtiy
                     mActivity.startActivity(Intent(mContext, ActivityNormalQuizQuestion::class.java)
                             .putExtra("questionList", questionsList) //pass question list
@@ -153,7 +155,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                          oldProgressBarContainer: RelativeLayout, QuestionResultViewContainer: LinearLayout,
                          topBarQuestionResultText: TextView, optionTVArray: Array<TextView>?, userAnswerOptionId: Int,
                          imgCorrectIncorrect: ImageView, tvCorrectIncorrect: TextView, resultViewTotalScore: TextView,
-                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView) : Sneaker{
+                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView,actvity_quiz_question_next_button_for_question: CardView) : Sneaker{
 
         var sneaker= Sneaker.with(mActivity)
 
@@ -186,8 +188,6 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val correctOptionId: Int = response.body()!!.correct_answer_id
                     Log.e(TAG,"Correct result $correctOptionId and string is ${response.body()!!.correct_answer_value}")
 
-
-
                     //set backgrounds of wrong options to red and correct option to green
                     setOptionBackground(R.drawable.shape_answer_right, correctOptionId, optionTVArray!!, result)
 
@@ -217,6 +217,8 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                         //when user has not answered anything
                         userAnswerOptionId == 0 -> {
+
+                            actvity_quiz_question_next_button_for_question.visibility = View.VISIBLE
 
                             if(AppSharedPreference(mContext).getBoolean("sound")) {
                                 val mp = MediaPlayer.create(mContext, R.raw.wrong)
@@ -284,7 +286,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                             view.sneaker_score.text = "+0"
 
                             //Setting sneaker properties
-                            sneaker.setDuration(10000)
+                            sneaker.setDuration(60000)
                             sneaker.sneakCustom(view)
 
                             result.isUserAnswerCorrect = false

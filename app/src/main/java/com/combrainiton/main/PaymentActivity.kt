@@ -68,12 +68,18 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     fun datePicker(){
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
         datePickerDialog = DatePickerDialog(this@PaymentActivity,DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+
             //Setting date to edit text
             userAge.setText((StringBuilder().append(dayOfMonth).append("/").append(month+1).append("/").append(year)).toString())
-        },0,0,0)
+        },year,month,day)
 
-        //This will disable date of today and of the future
+        //This will disable all the further dates
         datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
         datePickerDialog.show()
     }

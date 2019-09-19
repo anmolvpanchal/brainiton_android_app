@@ -4,19 +4,26 @@ package com.combrainiton.normalQuiz
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.combrainiton.R
 import com.combrainiton.managers.NormalQuizManagement
@@ -29,22 +36,6 @@ import com.combrainiton.utils.NetworkHandler
 import com.combrainiton.utils.QuestionCountDownTimer
 import com.irozon.sneaker.Sneaker
 import kotlinx.android.synthetic.main.activity_quiz_question.*
-import android.R.id.edit
-import android.app.Dialog
-import android.content.SharedPreferences
-import android.graphics.drawable.ColorDrawable
-import android.preference.PreferenceManager
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.opengl.Visibility
-import android.speech.tts.TextToSpeech
-import android.speech.tts.UtteranceProgressListener
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.custom_dialog_quiz_description.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -127,12 +118,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 @SuppressLint("LongLogTag")
                 override fun onDone(string: String?) {
                     Log.e(TAG,"Sound completed " + string)
-
-                    if (sound){
-                        timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
-                        timerSound.isLooping = true
-                        timerSound.start()
-                    }
+                    timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
+                    timerSound.isLooping = true
+                    timerSound.start()
                 }
 
                 override fun onError(p0: String?) {
@@ -408,7 +396,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
 
-            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
         }, quizTime)
     }
 
@@ -561,9 +549,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             descriptionNextButton.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        nextQuestion()
-                    } //even though if you see error on this line code will run perfectly
+                    nextQuestion() //even though if you see error on this line code will run perfectly
                 }
             })
             System.out.println(questionDescription)
@@ -635,7 +621,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         requestData["option_id"] = optionId
 
         //getting sneaker to dismiss on next question click
-        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
 
     }
 

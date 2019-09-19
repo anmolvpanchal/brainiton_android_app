@@ -123,443 +123,452 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/top_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:src="@drawable/ic_app_logo_accent" />
-
-            <androidx.cardview.widget.CardView
+            <LinearLayout
+                android:id="@+id/top_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@color/colorPrimary"
-                app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_10sdp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:src="@drawable/ic_app_logo_accent" />
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@color/colorPrimary"
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_10sdp">
 
-                    <!-- Top and average score-->
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/medal" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_light"
-                        android:gravity="center_horizontal"
-                        android:text="Your score"
-                        android:textSize="@dimen/_12ssp" />
-
-                    <TextView
-                        android:id="@+id/tvTotalScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_bold"
-                        android:gravity="center_horizontal"
-                        android:text="23,456"
-                        android:textColor="@color/colorTextPrimaryDark"
-                        android:textSize="@dimen/_20ssp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/colorAccent" />
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <!--Top score -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <!-- Top and average score-->
+                        <pl.droidsonroids.gif.GifImageView
+                            android:id="@+id/gif"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_gravity="center_horizontal" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:fontFamily="@font/raleway_light"
+                            android:gravity="center_horizontal"
+                            android:text="Your score"
+                            android:textSize="@dimen/_12ssp" />
 
-                            <TextView
-                                android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/tvTotalScore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_bold"
+                            android:gravity="center_horizontal"
+                            android:text="23,456"
+                            android:textColor="@color/colorTextPrimaryDark"
+                            android:textSize="@dimen/_20ssp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/colorAccent" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+
+                            <!--Top score -->
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/raleway_bold"
-                                android:gravity="center_horizontal"
-                                android:text="43,343"
-                                android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="@dimen/_20ssp" />
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="match_parent"
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/raleway_bold"
+                                    android:gravity="center_horizontal"
+                                    android:text="43,343"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_20ssp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/raleway_light"
+                                    android:gravity="center_horizontal"
+                                    android:text="Top score"
+                                    android:textSize="@dimen/_12ssp" />
+
+
+                            </LinearLayout>
+
+                            <!-- Average score-->
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/raleway_light"
-                                android:gravity="center_horizontal"
-                                android:text="Top score"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/raleway_bold"
+                                    android:gravity="center_horizontal"
+                                    android:text="14,865"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_20ssp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/raleway_light"
+                                    android:gravity="center_horizontal"
+                                    android:text="Average score"
+                                    android:textSize="@dimen/_12ssp" />
+
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
-                        <!-- Average score-->
-                        <LinearLayout
-                            android:layout_width="0dp"
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="@dimen/_10sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/raleway_medium"
+                            android:gravity="center_horizontal"
+                            android:text="Accuracy"
+                            android:textSize="@dimen/_15ssp" />
+
+                        <!-- Accuracy -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/colorAccent" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:layout_marginTop="10dp">
 
-                            <TextView
-                                android:layout_width="match_parent"
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/raleway_bold"
-                                android:gravity="center_horizontal"
-                                android:text="14,865"
-                                android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="@dimen/_20ssp" />
+                                android:layout_centerHorizontal="true"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/raleway_light"
-                                android:gravity="center_horizontal"
-                                android:text="Average score"
-                                android:textSize="@dimen/_12ssp" />
+                                <TextView
+                                    android:id="@+id/tvAccuracy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/raleway_bold"
+                                    android:text="79%"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_15ssp" />
 
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/tvAccuracy"
+                                    android:fontFamily="@font/raleway_medium"
+                                    android:text=" of total answers correct"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_15ssp" />
 
-                        </LinearLayout>
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <!-- Answer feedback-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/demo_result_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp" />
 
                     </LinearLayout>
 
 
+                </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="@dimen/_10sdp">
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_10sdp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/raleway_medium"
-                        android:gravity="center_horizontal"
-                        android:text="Accuracy"
-                        android:textSize="@dimen/_15ssp" />
+                        android:orientation="vertical">
 
-                    <!-- Accuracy -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/colorAccent" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="@dimen/_10sdp">
 
-                            <TextView
-                                android:id="@+id/tvAccuracy"
+                            <!-- Left button-->
+                            <ImageButton
+                                android:id="@+id/result_Cell_left_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/raleway_bold"
-                                android:text="79%"
-                                android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="@dimen/_15ssp" />
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="@dimen/_5sdp"
+                                android:src="@drawable/ic_left_arrow" />
 
-                            <TextView
+                            <!-- Right button-->
+                            <ImageButton
+                                android:id="@+id/result_Cell_right_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toRightOf="@id/tvAccuracy"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="@dimen/_5sdp"
+                                android:src="@drawable/ic_right_arrow" />
+
+                            <!-- Question count-->
+                            <TextView
+                                android:id="@+id/result_Cell_questionNo_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/_5sdp"
                                 android:fontFamily="@font/raleway_medium"
-                                android:text=" of total answers correct"
-                                android:textColor="@color/colorTextPrimaryDark"
                                 android:textSize="@dimen/_15ssp" />
 
-                        </LinearLayout>
+                        </RelativeLayout>
 
-                    </RelativeLayout>
-
-                    <!-- Answer feedback-->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/demo_result_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp" />
-
-                </LinearLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                app:cardCornerRadius="@dimen/_15sdp"
-                app:cardElevation="@dimen/_10sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp">
-
-                        <!-- Left button-->
-                        <ImageButton
-                            android:id="@+id/result_Cell_left_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="@dimen/_10sdp"
-                            android:src="@drawable/ic_left_arrow" />
-
-                        <!-- Right button-->
-                        <ImageButton
-                            android:id="@+id/result_Cell_right_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="@dimen/_10sdp"
-                            android:src="@drawable/ic_right_arrow" />
-
-                        <!-- Question count-->
+                        <!-- Question -->
                         <TextView
-                            android:id="@+id/result_Cell_questionNo_text"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/question_layout"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:ellipsize="end"
                             android:fontFamily="@font/raleway_medium"
-                            android:text="Question 1"
+                            android:gravity="center_horizontal"
+                            android:maxLines="3"
+                            android:textColor="@color/colorTextPrimaryDark"
                             android:textSize="@dimen/_15ssp" />
 
-                    </RelativeLayout>
+                        <!-- Answer -->
+                        <TextView
+                            android:id="@+id/correct_option_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:drawableLeft="@drawable/ic_green_check_mark"
+                            android:drawableRight="@drawable/ic_speaker"
+                            android:drawablePadding="@dimen/_10sdp"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text=" "
+                            android:textColor="@color/colorTextPrimaryDark"
+                            android:textSize="@dimen/_15ssp" />
 
-                    <!-- Question -->
-                    <TextView
-                        android:id="@+id/question_layout"
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Challange friend button-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_10sdp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    app:cardCornerRadius="@dimen/_10sdp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/raleway_medium"
-                        android:gravity="center_horizontal"
-                        android:maxLines="3"
-                        android:text="What are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some time"
-                        android:textColor="@color/colorTextPrimaryDark"
-                        android:textSize="@dimen/_15ssp" />
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical">
 
-                    <!-- Answer -->
-                    <TextView
-                        android:id="@+id/correct_option_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:drawableLeft="@drawable/ic_green_check_mark"
-                        android:drawableRight="@drawable/ic_speaker"
-                        android:drawablePadding="@dimen/_10sdp"
-                        android:fontFamily="@font/raleway_medium"
-                        android:text=" "
-                        android:textColor="@color/colorTextPrimaryDark"
-                        android:textSize="@dimen/_15ssp" />
+                        <TextView
+                            android:id="@+id/Challange_friend"
+                            style="@style/ThemeTextViewH1Light"
+                            tools:ignore="RtlSymmetry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:drawableLeft="@drawable/ic_swords"
+                            android:drawablePadding="15dp"
+                            android:paddingTop="@dimen/_7sdp"
+                            android:paddingBottom="@dimen/_7sdp"
+                            android:onClick="shareScore"
+                            android:fontFamily="@font/raleway_medium"
+                            android:text="Challange Friend"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorTextPrimaryDark"
+                            android:textSize="@dimen/_20ssp" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Challange friend button-->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                app:cardCornerRadius="@dimen/_10sdp">
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/Challange_friend"
-                        style="@style/ThemeTextViewH1Light"
-                        tools:ignore="RtlSymmetry"
-                        android:layout_width="wrap_content"
+                    <!-- Replay -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:drawableLeft="@drawable/ic_swords"
-                        android:drawablePadding="15dp"
-                        android:onClick="shareScore"
-                        android:fontFamily="@font/raleway_medium"
-                        android:text="Challange Friend"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorTextPrimaryDark"
-                        android:textSize="@dimen/_20ssp" />
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1">
 
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:orientation="horizontal">
-
-                <!-- Replay -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_weight="1">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        app:cardCornerRadius="@dimen/_10sdp">
-
-                        <LinearLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/normal_quiz_play_again_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:cardElevation="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_15sdp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
-                            android:focusable="true">
+                            app:cardCornerRadius="@dimen/_10sdp">
 
-                            <TextView
-                                android:id="@+id/normal_quiz_play_again_button"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/raleway_medium"
-                                android:gravity="center_horizontal"
-                                android:text="Replay"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="@dimen/_20ssp" />
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true">
 
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:fontFamily="@font/raleway_medium"
+                                    android:gravity="center_horizontal"
+                                    android:text="Replay"
+                                    android:paddingTop="@dimen/_7sdp"
+                                    android:paddingBottom="@dimen/_7sdp"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_20ssp" />
 
-                    </androidx.cardview.widget.CardView>
+                            </LinearLayout>
 
-                </LinearLayout>
+                        </androidx.cardview.widget.CardView>
 
-                <!-- Done -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_weight="1">
+                    </LinearLayout>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                    <!-- Done -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        app:cardCornerRadius="@dimen/_10sdp">
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_weight="1">
 
-                        <LinearLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/home"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:clickable="true"
-                            android:focusable="true">
+                            android:paddingBottom="@dimen/_15sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            app:cardElevation="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            app:cardCornerRadius="@dimen/_10sdp">
 
-                            <TextView
-                                android:id="@+id/normal_quiz_home_button"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/raleway_medium"
-                                android:gravity="center_horizontal"
-                                android:text="Home"
-                                android:textAllCaps="true"
-                                android:textColor="@color/colorTextPrimaryDark"
-                                android:textSize="@dimen/_20ssp" />
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true">
 
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/normal_quiz_home_button"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:fontFamily="@font/raleway_medium"
+                                    android:gravity="center_horizontal"
+                                    android:text="Home"
+                                    android:paddingTop="@dimen/_7sdp"
+                                    android:paddingBottom="@dimen/_7sdp"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textSize="@dimen/_20ssp" />
 
-                    </androidx.cardview.widget.CardView>
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
 
         </RelativeLayout>
 
