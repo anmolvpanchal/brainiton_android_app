@@ -5,24 +5,18 @@ package com.combrainiton.managers
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.media.MediaPlayer
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.*
-import androidx.core.content.res.ResourcesCompat
+import androidx.cardview.widget.CardView
 import com.combrainiton.*
 import com.combrainiton.adaptors.AdaptorMyQuizzesList
 import com.combrainiton.models.*
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
-import com.combrainiton.main.ActivityDemoResult
 import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import com.combrainiton.normalQuiz.ActivityNormalQuizQuestion
@@ -462,7 +456,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val scoreData: GetNormalQuizScoreResponceModel = response.body()!!
 
                     //start result activity
-                    mActivity.startActivity(Intent(mContext, ActivityDemoResult::class.java)
+                    mActivity.startActivity(Intent(mContext, ActivityNormalQuizResult::class.java)
                             .putExtra("scoreData", scoreData)//add score data
                             .putExtra("allData", scoreBoardResult.data)
                             .putExtra("quizName",quizName)

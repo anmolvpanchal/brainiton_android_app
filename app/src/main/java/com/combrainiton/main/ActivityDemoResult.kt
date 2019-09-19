@@ -32,10 +32,6 @@ import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.correct_option_layout
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.result_Cell_right_button
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.tvAccuracy
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.tvTotalScore
 import kotlinx.android.synthetic.main.demo_result.*
 import retrofit2.Call
 import retrofit2.Callback

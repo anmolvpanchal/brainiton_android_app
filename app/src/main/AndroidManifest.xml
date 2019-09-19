@@ -19,10 +19,11 @@
             android:name=".main.ActivityPlanSelect"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
+
         <activity android:name=".main.PaymentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
-        <activity android:name=".main.ActivityDemoResult" />
+
         <activity
             android:name=".main.ActivityNavCompete"
             android:screenOrientation="portrait"
