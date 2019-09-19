@@ -3,41 +3,43 @@ package com.combrainiton.normalQuiz
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.widget.Toast
-import com.combrainiton.BuildConfig
-import com.combrainiton.R
-import com.combrainiton.managers.NormalQuizManagement
-import com.combrainiton.utils.AppProgressDialog
-import com.combrainiton.utils.AppSharedPreference
-import com.combrainiton.utils.NetworkHandler
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
-import java.io.File
-import java.io.FileOutputStream
-import androidx.core.app.ActivityCompat
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.StrictMode
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.combrainiton.adaptors.ResultQuizRecAdapter
+import com.combrainiton.BuildConfig
+import com.combrainiton.R
+import com.combrainiton.adaptors.AdapterResultDemo
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
+import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.*
 import com.combrainiton.utils.AppAlerts
-import kotlinx.android.synthetic.main.activity_quiz_question.*
+import com.combrainiton.utils.AppProgressDialog
+import com.combrainiton.utils.AppSharedPreference
+import com.combrainiton.utils.NetworkHandler
+import kotlinx.android.synthetic.main.demo_result.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -62,6 +64,9 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
     private var tts: TextToSpeech? = null
+    var answer = arrayOf(true,false,true,false,true,false,true,false,true,false,true,false)
+    lateinit var recycler: RecyclerView
+
 
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
@@ -70,7 +75,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
     @SuppressLint("LongLogTag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_normal_quiz_result)
+        setContentView(R.layout.demo_result)
 
         quizId = intent.getIntExtra("quizId", 0)
         quizName = intent.getStringExtra("quizName")
@@ -84,16 +89,18 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
         correct_option_layout.setOnClickListener {
             speakOut()
         }
-
-
         result_Cell_left_button.setOnClickListener {
             previousQuestion()
         }
-
         result_Cell_right_button.setOnClickListener {
             nextQuestion()
         }
-//
+
+        val adapter = AdapterResultDemo(this,answer)
+        recycler = findViewById(R.id.demo_result_recycler)
+        recycler.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+        recycler.adapter = adapter
+
 //        quiz_result_recycler?.findViewById<RecyclerView>(R.id.quiz_result_recycler)
 //        quiz_result_recycler?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
 //        quiz_result_recycler?.adapter = ResultQuizRecAdapter(this,questionsList,quizId,quizName!!)
@@ -105,7 +112,7 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
     override fun onResume() {
         super.onResume()
-        //challange_view.visibility = View.INVISIBLE
+        challange_view.visibility = View.INVISIBLE
     }
 
     private fun speakOut(){
@@ -145,8 +152,12 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
     @SuppressLint("SetTextI18n", "LongLogTag")
     private fun initViews() {
 
-        //challange_view.isDrawingCacheEnabled = true
+        challange_view.isDrawingCacheEnabled = true
         top_view.isDrawingCacheEnabled = true
+
+//        challange_view.visibility = View.INVISIBLE
+//        top_view.visibility = View.VISIBLE
+
 
         //get score data
         val scoreData = intent.getSerializableExtra("scoreData") as GetNormalQuizScoreResponceModel?
@@ -166,9 +177,9 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
         }
 
 //        //set on click listener to home button
-//        normal_quiz_home_button.setOnClickListener {
-//            onBackPressed()
-//        }
+        normal_quiz_home_button.setOnClickListener {
+            onBackPressed()
+        }
 
 //        //set on click listener to play again button
         normal_quiz_play_again_button.setOnClickListener {
@@ -177,6 +188,16 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
             mDialog.show()
             NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
         }
+
+//        Challange_friend.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(view : View?) {
+//                if (view != null) {
+//                    shareScore(view)
+//                }
+//            }
+//
+//        })
+
 
     }
 
@@ -405,24 +426,33 @@ class ActivityNormalQuizResult : AppCompatActivity(),TextToSpeech.OnInitListener
 
     fun shareScore(view: View) {
         if (isReadStoragePermissionGranted() && isWriteStoragePermissionGranted() && forceToAccessPath()) {
-            //challange_view.visibility = View.VISIBLE
+           // challange_view.visibility = View.VISIBLE
+
 
             quizId = intent.getIntExtra("quizId", 0)
             quizName = intent.getStringExtra("quizName")
             userName = AppSharedPreference(this@ActivityNormalQuizResult).getString("name")
 
-            //challange_quiz_name.text = quizName
-            //challange_score.text = quizScore
-            //challange_user_name.text = userName
+            challange_quiz_name.text = quizName
+            challange_score.text = quizScore
+            challange_user_name.text = userName
 
-//            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-//            val canvas = Canvas(bitmap)
-
-            //val mBitmap = challange_view.drawingCache
+            // new method to get image
+            val bitmap = Bitmap.createBitmap(challange_view.width, challange_view.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            var bgDrawable = challange_view.getBackground();
+            if (bgDrawable != null) {
+                bgDrawable.draw(canvas)
+            } else {
+                canvas.drawColor(Color.WHITE)
+            }
+            challange_view.draw(canvas)
+//
+//            val mBitmap = challange_view.drawingCache
             try {
                 val path = Environment.getExternalStorageDirectory().toString() + "/$quizId.png"
                 val outputStream = FileOutputStream(File(path))
-                //mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
                 outputStream.flush()
                 outputStream.close()
             } catch (exception: Exception) {
