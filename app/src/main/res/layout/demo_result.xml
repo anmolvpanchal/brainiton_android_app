@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F4FA">
+    android:background="#F5F4FA"
+    tools:context=".main.ActivityDemoResult">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,9 +42,12 @@
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
                         android:layout_gravity="center_horizontal"
+                        android:scaleType="fitXY"
+
                         android:src="@drawable/medal"/>
 
                     <TextView
+                        android:id="@+id/tvTotalScore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="23,456"
@@ -174,7 +179,7 @@
                             android:layout_centerHorizontal="true">
 
                             <TextView
-                                android:id="@+id/accuracy_number"
+                                android:id="@+id/tvAccuracy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="79%"
@@ -186,7 +191,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=" of total answers correct"
-                                android:layout_toRightOf="@id/accuracy_number"
+                                android:layout_toRightOf="@id/tvAccuracy"
                                 android:fontFamily="@font/raleway_medium"
                                 android:textColor="@color/colorTextPrimaryDark"
                                 android:textSize="@dimen/_15ssp"/>
@@ -230,11 +235,12 @@
 
                         <!-- Left button-->
                         <ImageButton
+                            android:id="@+id/leftButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:src="@drawable/ic_left_arrow"
-                            android:padding="@dimen/_10sdp"
+                            android:padding="@dimen/_5sdp"
                             android:clickable="true"
                             android:focusable="true"
                             android:background="?attr/selectableItemBackgroundBorderless"
@@ -242,10 +248,11 @@
 
                         <!-- Right button-->
                         <ImageButton
+                            android:id="@+id/rightButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:padding="@dimen/_10sdp"
+                            android:padding="@dimen/_5sdp"
                             android:src="@drawable/ic_right_arrow"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="true"
@@ -254,33 +261,35 @@
 
                         <!-- Question count-->
                         <TextView
+                            android:id="@+id/questionCount_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Question 1"
                             android:fontFamily="@font/raleway_medium"
                             android:textSize="@dimen/_15ssp"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:layout_centerHorizontal="true"/>
 
                     </RelativeLayout>
 
                     <!-- Question -->
                     <TextView
+                        android:id="@+id/question_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="What are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some timeWhat are you doing? You are just passing some time"
+                        android:text=""
                         android:gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:maxLines="3"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:ellipsize="end"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:textColor="@color/colorTextPrimaryDark"
                         android:textSize="@dimen/_15ssp"
                         android:fontFamily="@font/raleway_medium" />
 
                     <!-- Answer -->
                     <TextView
+                        android:id="@+id/correct_option_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
@@ -350,6 +359,7 @@
                     android:layout_marginTop="@dimen/_20sdp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/play_again_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:clickable="true"

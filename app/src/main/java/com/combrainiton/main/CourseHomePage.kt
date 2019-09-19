@@ -50,7 +50,7 @@ class CourseHomePage : AppCompatActivity() {
         subscriptionButton.setOnStateChangeListener( OnStateChangeListener {
             active -> kotlin.run {
             if (active){ //fully swiped
-                startActivity(Intent(this,ActivityPlanSelect::class.java))
+                startActivity(Intent(this,PaymentActivity::class.java))
             } else{ //when it's unswiped back to normal
                 Toast.makeText(this@CourseHomePage,"Back to unswipe",Toast.LENGTH_LONG).show()
             }

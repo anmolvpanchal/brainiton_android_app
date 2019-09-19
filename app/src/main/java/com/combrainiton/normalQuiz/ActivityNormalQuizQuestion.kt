@@ -44,6 +44,7 @@ import android.speech.tts.UtteranceProgressListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.combrainiton.models.Demo
 import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
 import kotlinx.android.synthetic.main.custom_dialog_quiz_description.*
 import java.util.*
@@ -406,7 +407,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
 
-            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
         }, quizTime)
     }
 
@@ -631,7 +632,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         requestData["option_id"] = optionId
 
         //getting sneaker to dismiss on next question click
-        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card)
+        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
 
     }
 
