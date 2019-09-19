@@ -18,6 +18,7 @@
             android:background="#F5F4FA">
 
 
+
             <ImageView
                 android:id="@+id/logo_Image"
                 android:layout_width="@dimen/_80sdp"
@@ -76,7 +77,8 @@
 
             </LinearLayout>
 
-<!--            cards view-->
+
+            <!--            cards view-->
             <LinearLayout
                 android:id="@+id/cards_view_plan_selection"
                 android:layout_width="match_parent"
@@ -85,6 +87,7 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:paddingLeft="@dimen/_25sdp"
                 android:paddingRight="@dimen/_25sdp"
                 android:weightSum="2">
@@ -102,7 +105,7 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     app:cardCornerRadius="15dp"
                     app:cardElevation="5dp">
@@ -147,20 +150,43 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    >
-                <androidx.cardview.widget.CardView
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/yousave_banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60% OFF"
+                        android:textSize="@dimen/_10ssp"
+                        android:background="@drawable/rounded_edittext"
+                        android:backgroundTint="@color/colorCategoryFour"
+                        android:textColor="#FFF"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:paddingLeft="@dimen/_7sdp"
+                        android:paddingRight="@dimen/_7sdp"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="@dimen/_5sdp"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <androidx.cardview.widget.CardView
                     android:id="@+id/secondcard_plan_select"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_140sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     app:cardCornerRadius="15dp"
-                    app:cardElevation="5dp">
+                    app:cardElevation="5dp"
+                    tools:ignore="MissingConstraints">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -169,6 +195,7 @@
                         android:weightSum="2">
 
                         <TextView
+                            android:id="@+id/twelvemonths_text"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
@@ -197,6 +224,8 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -292,6 +321,8 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="#000"/>
+
+
 
         </RelativeLayout>
     </ScrollView>
