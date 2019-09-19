@@ -44,7 +44,6 @@ import android.speech.tts.UtteranceProgressListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_normal_quiz_result.*
 import kotlinx.android.synthetic.main.custom_dialog_quiz_description.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -128,9 +127,12 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 @SuppressLint("LongLogTag")
                 override fun onDone(string: String?) {
                     Log.e(TAG,"Sound completed " + string)
-                    timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
-                    timerSound.isLooping = true
-                    timerSound.start()
+
+                    if (sound){
+                        timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
+                        timerSound.isLooping = true
+                        timerSound.start()
+                    }
                 }
 
                 override fun onError(p0: String?) {
@@ -559,7 +561,9 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             descriptionNextButton.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
-                    nextQuestion() //even though if you see error on this line code will run perfectly
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        nextQuestion()
+                    } //even though if you see error on this line code will run perfectly
                 }
             })
             System.out.println(questionDescription)
