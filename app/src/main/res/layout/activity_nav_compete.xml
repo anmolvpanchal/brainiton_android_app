@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="5"
+            
             tools:ignore="DisableBaselineAlignment,UselessParent">
 
             <!--Explore button-->

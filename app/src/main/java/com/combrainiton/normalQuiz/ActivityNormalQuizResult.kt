@@ -190,12 +190,16 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
             mp.start()
         }
 
-//        //set on click listener to home button
+        //set on click listener to home button
+        /*normal_quiz_home_button.setOnClickListener {
+            explore()
+        }*/
+
         normal_quiz_home_button.setOnClickListener {
-            onBackPressed()
+            explore()
         }
 
-//        //set on click listener to play again button
+        //set on click listener to play again button
         normal_quiz_play_again_button.setOnClickListener {
             val quizId: Int = intent.getIntExtra("quizId", 0)
             val mDialog = AppProgressDialog(applicationContext)
@@ -212,6 +216,17 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 //
 //        })
 
+
+    }
+
+    private fun explore() {
+        if (NetworkHandler(this@ActivityNormalQuizResult).isNetworkAvailable()) { //if internet is connected
+            val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
+            mDialog.show() //show progress dialog
+            NormalQuizManagement(this@ActivityNormalQuizResult, this@ActivityNormalQuizResult, mDialog).getAllQuiz() //this will open the home activity after retriving the data
+        } else {
+            Toast.makeText(this@ActivityNormalQuizResult, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show() //display error message
+        }
 
     }
 
