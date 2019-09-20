@@ -112,10 +112,11 @@
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            app:hintAnimationEnabled="true"
+                            android:layout_height="@dimen/_45sdp"
                             app:hintTextAppearance="@font/raleway_medium"
-                            app:errorEnabled="true">
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:errorEnabled="true"
+                            app:hintEnabled="false">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/activity_payment_userName"
@@ -129,14 +130,14 @@
                                 android:hint="Name"
                                 android:inputType="textPersonName"
                                 android:maxLines="1"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/_15ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            app:hintAnimationEnabled="true"
+                            android:layout_height="@dimen/_45sdp"
+                            app:hintEnabled="false"
                             app:hintTextAppearance="@font/raleway_medium">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -151,14 +152,14 @@
                                 android:hint="Mobile No."
                                 android:inputType="number"
                                 android:maxLength="10"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/_15ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            app:hintAnimationEnabled="true"
+                            android:layout_height="@dimen/_45sdp"
+                            app:hintEnabled="false"
                             app:hintTextAppearance="@font/raleway_medium">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -172,14 +173,14 @@
                                 android:fontFamily="@font/raleway_medium"
                                 android:hint="Email id"
                                 android:inputType="textEmailAddress"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/_15ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            app:hintAnimationEnabled="true"
+                            android:layout_height="@dimen/_45sdp"
+                            app:hintEnabled="false"
                             app:hintTextAppearance="@font/raleway_medium">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -193,21 +194,20 @@
                                 android:fontFamily="@font/raleway_medium"
                                 android:hint="Age (dd/mm/yyyy)"
                                 android:inputType="date"
-                                android:textSize="15sp" />
+                                android:textSize="@dimen/_15ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            app:hintAnimationEnabled="true"
+                            android:layout_height="@dimen/_45sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             app:hintTextAppearance="@font/raleway_medium">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
                                 android:orientation="horizontal">
 
                                 <TextView
@@ -220,7 +220,7 @@
                                     android:id="@+id/activity_payment_genderRadioGroup"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_10sdp"
                                     android:contentDescription="gender"
                                     android:orientation="horizontal">
 
@@ -230,7 +230,8 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/raleway_medium"
                                         android:text="Male"
-                                        android:textSize="15sp" />
+                                        android:checked="true"
+                                        android:textSize="@dimen/_12sdp" />
 
                                     <RadioButton
                                         android:id="@+id/activity_payment_radioFemale"
@@ -239,7 +240,7 @@
                                         android:layout_marginLeft="30dp"
                                         android:fontFamily="@font/raleway_medium"
                                         android:text="Female"
-                                        android:textSize="15sp" />
+                                        android:textSize="@dimen/_12sdp" />
 
                                 </RadioGroup>
 

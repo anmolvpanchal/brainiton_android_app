@@ -218,6 +218,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                         //when user has not answered anything
                         userAnswerOptionId == 0 -> {
 
+                            //If timer is up, the next question button will be shown
                             actvity_quiz_question_next_button_for_question.visibility = View.VISIBLE
 
                             if(AppSharedPreference(mContext).getBoolean("sound")) {

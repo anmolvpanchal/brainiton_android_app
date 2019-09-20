@@ -46,7 +46,7 @@
             android:textAlignment="center"/>
 
         <Button
-            android:id="@+id/activity_payment_paymentButton"
+            android:id="@+id/incorrect_subscription_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
