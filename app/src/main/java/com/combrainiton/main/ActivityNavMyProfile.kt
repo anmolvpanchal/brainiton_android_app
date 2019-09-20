@@ -295,7 +295,7 @@ class ActivityNavMyProfile : AppCompatActivity(){
     /*this will inititlaize the Bottom Menu*/
     private fun initBottomMenu() {
         btm_nav_explore.setOnClickListener { explore() }
-        btm_nav_compete.setOnClickListener {
+        btm_nav_premium.setOnClickListener {
             startActivity(Intent(this@ActivityNavMyProfile, ActivityNavCompete::class.java))
             (it.context as ActivityNavMyProfile).overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right)
         }

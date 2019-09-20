@@ -3,14 +3,19 @@ package com.combrainiton.main
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.combrainiton.R
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.adaptors.SubscriptionAdapter
@@ -22,11 +27,12 @@ import com.combrainiton.utils.NetworkHandler
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_nav_compete.*
 import kotlinx.android.synthetic.main.activity_nav_explore.*
-import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_compete
+import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_premium
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_enter_pin
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_explore
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_my_quizzes
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_profile
+import kotlinx.android.synthetic.main.compete_activity_popup.*
 import kotlin.collections.ArrayList
 
 
@@ -34,15 +40,41 @@ class ActivityNavCompete : AppCompatActivity() {
 
     lateinit var viewPager: androidx.viewpager.widget.ViewPager
     lateinit var tabLayout: TabLayout
+    lateinit var builder: AlertDialog.Builder
+    lateinit var alertDialog: AlertDialog
+    lateinit var viewGroup: ViewGroup
+    lateinit var keepPlaying: Button
+
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_compete)
 
-        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
+        viewGroup = findViewById(android.R.id.content)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.compete_activity_popup, viewGroup, false)
+        builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+        alertDialog = builder.create()
+        keepPlaying = dialogView.findViewById(R.id.activity_compete_playButton)
 
-        initView()
+
+        //This won't allow dialog to dismiss if touched outside it's area
+        alertDialog.setCanceledOnTouchOutside(false)
+
+        //Transparent background for alert dialog
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
+
+        keepPlaying.setOnClickListener {
+            explore()
+        }
+
+//        uncomment this two line to statr subscription model
+//        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
+//        initView()
         initBottomMenu()
 
     }
@@ -54,8 +86,8 @@ class ActivityNavCompete : AppCompatActivity() {
 
         val adapter = SubscriptionAdapter(supportFragmentManager)
 
-        adapter.addFragment(MySubscriptionFragment(),"My Subscription")
-        adapter.addFragment(AvailableSubscriptionFragment(),"Available Subscription")
+        adapter.addFragment(MySubscriptionFragment(), "My Subscription")
+        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription")
 
         viewPager.adapter = adapter
         tabLayout!!.setupWithViewPager(viewPager)
@@ -65,9 +97,11 @@ class ActivityNavCompete : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
@@ -90,7 +124,7 @@ class ActivityNavCompete : AppCompatActivity() {
             startActivity(Intent(this@ActivityNavCompete, ActivityNavMyProfile::class.java))
             (it.context as ActivityNavCompete).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_compete.setOnClickListener {
+        btm_nav_premium.setOnClickListener {
             //do nothing
         }
     }

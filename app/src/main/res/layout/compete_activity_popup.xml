@@ -19,7 +19,7 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_love"
+            android:src="@drawable/ic_clock_for_popup"
             />
 
         <TextView
@@ -27,27 +27,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_gravity="center"
-            android:text="Coming Soon!"
+            android:text="Coming Soon !"
             android:textSize="@dimen/_30ssp"
             android:fontFamily="@font/raleway_medium"
+
             android:textColor="@color/colorTextPrimaryDark"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:text="stay tuned "
-            android:textSize="@dimen/_15ssp"
-            android:lineSpacingExtra="@dimen/_2ssp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:textColor="@color/colorTextPrimaryDark"
-            android:fontFamily="@font/raleway_light"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:textAlignment="center"/>
-
         <Button
-            android:id="@+id/activity_payment_paymentButton"
+            android:id="@+id/activity_compete_playButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -59,7 +46,7 @@
             android:paddingBottom="@dimen/_5sdp"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/colorCategoryFour"
-            android:text="Register Now"
+            android:text="Continue Playing"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
