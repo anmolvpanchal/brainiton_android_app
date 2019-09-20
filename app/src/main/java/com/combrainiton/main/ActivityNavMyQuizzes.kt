@@ -46,7 +46,7 @@ class ActivityNavMyQuizzes : AppCompatActivity() {
         btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavMyProfile::class.java))
             (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavCompete::class.java))
+        btm_nav_premium.setOnClickListener { startActivity(Intent(this@ActivityNavMyQuizzes, ActivityNavCompete::class.java))
             (it.context as ActivityNavMyQuizzes).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
 
