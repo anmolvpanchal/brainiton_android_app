@@ -68,7 +68,6 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
             //this will initialize the main view
             initMainView()
-            swipeToRefresh.isRefreshing = false
             //}
 
             // Execute the task after specified time
@@ -120,6 +119,9 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
         // add on click listener to the top bar seach button
         top_bar_search_button.setOnClickListener(this@ActivityNavExplore)
+
+        swipeToRefresh.isRefreshing = false
+
 
     }
 
