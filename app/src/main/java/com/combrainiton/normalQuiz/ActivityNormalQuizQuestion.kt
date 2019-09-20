@@ -66,7 +66,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
     private var OptionTwo: String = ""
     private var OptionThree: String = ""
     private var OptionFour: String = ""
-    private var speakQuestion : String = ""
+    private var speakQuestion: String = ""
     private lateinit var timerSound: MediaPlayer
     private var sound: Boolean = true
     private var temp: Boolean = false
@@ -114,17 +114,22 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
 
-            var speachListener = object : UtteranceProgressListener(){
+            var speachListener = object : UtteranceProgressListener() {
                 @SuppressLint("LongLogTag")
                 override fun onDone(string: String?) {
-                    Log.e(TAG,"Sound completed " + string)
-                    timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
-                    timerSound.isLooping = true
-                    timerSound.start()
+                    if (sound){
+                        if (!tvTime.text.equals("0")){
+                            Log.e(TAG, "Sound completed " + string)
+                            timerSound = MediaPlayer.create(applicationContext, R.raw.question_timer_loop)
+                            timerSound.isLooping = true
+                            timerSound.start()
+                        }
+                    }
+
                 }
 
                 override fun onError(p0: String?) {
-                    Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ActivityNormalQuizQuestion, "Error cannot speak", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onStart(p0: String?) {
@@ -143,7 +148,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
         } else {
             Log.e("TTS", "Initilization Failed!")
-            Toast.makeText(this@ActivityNormalQuizQuestion,"Error cannot speak",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ActivityNormalQuizQuestion, "Error cannot speak", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -152,10 +157,10 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
     private fun initViews() {
         //create custom dialog for description
         viewGroup = findViewById(android.R.id.content)
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_quiz_description,viewGroup,false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_quiz_description, viewGroup, false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
-        alertDialog= builder.create()
+        alertDialog = builder.create()
         alertDialog.setCanceledOnTouchOutside(false)
 
         //getting textview and button from custom layout
@@ -320,27 +325,30 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         showOption(3 * 1000, countDownTimer, quizTime)
     }
 
-    private fun speakQuestion(){
-        val text:String = speakQuestion
+    private fun speakQuestion() {
+        val text: String = speakQuestion
         tts!!.setSpeechRate(0.75F)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
 
     }
-    private fun speakOut(){
-        val text = "A... " + OptionOne +"... Bee... " + OptionTwo + "... C... "  + OptionThree + "... Dee... " + OptionFour
+
+    private fun speakOut() {
+        val text = "A... " + OptionOne + "... Bee... " + OptionTwo + "... C... " + OptionThree + "... Dee... " + OptionFour
         tts!!.setSpeechRate(0.75F)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }
 
     }
-    private fun stopSpeaking(){
-        if (tts!!.isSpeaking){
+
+    private fun stopSpeaking() {
+        if (tts!!.isSpeaking) {
             tts?.stop()
         }
     }
+
     //to show the options to the user after a delayed time
     @SuppressLint("NewApi")
     private fun showOption(delayTime: Long, mTimer: QuestionCountDownTimer, quizTime: Long) {
@@ -396,7 +404,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
 
-            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question)
         }, quizTime)
     }
 
@@ -413,7 +421,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                     activity_quiz_question_description.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
                     System.out.println(questionDescription)
                     result_with_description.visibility = View.VISIBLE
-                    Log.i("Check",questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length).toString())
+                    Log.i("Check", questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length).toString())
                 } else {
                     result_with_description.visibility = View.GONE
                 }
@@ -509,19 +517,19 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 if (sound) {
                     timerSound.release()
                 }
-                if (tts!!.isSpeaking){
+                if (tts!!.isSpeaking) {
 
-                }else {
+                } else {
                     speakOut()
                 }
             }
-            R.id.activity_quiz_question_text ->{
-                if (sound){
+            R.id.activity_quiz_question_text -> {
+                if (sound) {
                     timerSound.release()
                 }
-                if (tts!!.isSpeaking){
+                if (tts!!.isSpeaking) {
 
-                }else{
+                } else {
                     speakQuestion()
                 }
             }
@@ -541,12 +549,13 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         }
     }
 
-    private fun showDescriptionPopup(){
+    private fun showDescriptionPopup() {
         //for showing description as popup
         if (questionDescription.isNotEmpty()) { //Description available
             descriptionTextView.visibility = View.VISIBLE
             descriptionTextView.text = questionDescription.subSequence(questionDescription.indexOf(";") + 1, questionDescription.length)
-            descriptionNextButton.setOnClickListener(object : View.OnClickListener{
+            descriptionNextButton.setOnClickListener(object : View.OnClickListener {
+                @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
                     nextQuestion() //even though if you see error on this line code will run perfectly
@@ -557,7 +566,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             //To open popup after 1.5 secs delay
             Handler().postDelayed({
                 alertDialog.show()
-            },1500)
+            }, 1500)
 
         } else { //No description available
             actvity_quiz_question_next_button_for_question.visibility = View.VISIBLE
@@ -621,7 +630,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         requestData["option_id"] = optionId
 
         //getting sneaker to dismiss on next question click
-        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card,actvity_quiz_question_next_button_for_question)
+        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question)
 
     }
 
