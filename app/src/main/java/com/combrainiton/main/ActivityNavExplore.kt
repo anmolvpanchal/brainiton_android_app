@@ -68,7 +68,6 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
             //this will initialize the main view
             initMainView()
-            swipeToRefresh.isRefreshing = false
             //}
 
             // Execute the task after specified time
@@ -121,6 +120,9 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         // add on click listener to the top bar seach button
         top_bar_search_button.setOnClickListener(this@ActivityNavExplore)
 
+        swipeToRefresh.isRefreshing = false
+
+
     }
 
     //initiates bottom navigation bar
@@ -136,7 +138,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         btm_nav_profile.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavMyProfile::class.java))
             (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-        btm_nav_compete.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavCompete::class.java))
+        btm_nav_premium.setOnClickListener { startActivity(Intent(this@ActivityNavExplore, ActivityNavCompete::class.java))
             (it.context as ActivityNavExplore).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }

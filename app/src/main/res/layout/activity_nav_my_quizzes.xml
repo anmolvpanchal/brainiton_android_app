@@ -75,7 +75,7 @@
 
             <!--Compete Button-->
             <LinearLayout
-                android:id="@+id/btm_nav_compete"
+                android:id="@+id/btm_nav_enter_pin"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -87,16 +87,16 @@
                 tools:ignore="NewApi">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_bottom_nav_compete_unchecked"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:src="@drawable/ic_console"
                     tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/text_compete"
+                    android:text="@string/text_enter_pin"
                     style="@style/ThemeTextViewH4Light"
                     tools:ignore="SmallSp" />
 
@@ -104,7 +104,7 @@
 
             <!--Pin Button-->
             <LinearLayout
-                android:id="@+id/btm_nav_enter_pin"
+                android:id="@+id/btm_nav_premium"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -117,16 +117,17 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/pin_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="5dp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="0dp"
+                    android:backgroundTint="@android:color/transparent"
                     tools:ignore="NewApi">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_bottom_nav_enter_pin_checked"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:src="@drawable/ic_premium"
                         tools:ignore="ContentDescription" />
 
                 </androidx.cardview.widget.CardView>
@@ -136,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     style="@style/ThemeTextViewH4Light"
-                    android:text="@string/text_enter_pin"
+                    android:text="@string/text_premiun"
                     tools:ignore="SmallSp" />
 
             </LinearLayout>
