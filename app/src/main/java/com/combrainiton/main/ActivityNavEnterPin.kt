@@ -94,7 +94,7 @@ open class ActivityNavEnterPin : AppCompatActivity(), View.OnClickListener {
 
     //open home activtiy on backpressed
     override fun onBackPressed() {
-        explore()
+        finish()
     }
 
 }

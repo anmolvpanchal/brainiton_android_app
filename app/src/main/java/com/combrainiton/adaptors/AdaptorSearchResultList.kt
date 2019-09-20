@@ -64,7 +64,7 @@ class AdaptorSearchResultList(var mContext: Context, var mActivity: Activity, va
                         .putExtra("quizName", filterList!![selectedPosition].quiz_title)
                         .putExtra("hostName", filterList!![selectedPosition].host_name)
                         .putExtra("image", filterList!![selectedPosition].image_url))
-                mActivity.finish()
+                //mActivity.finish()
             } else {
                 Toast.makeText(mContext, "There Is no Questions Added By Host", Toast.LENGTH_LONG).show()
             }
