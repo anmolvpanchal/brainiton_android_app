@@ -83,7 +83,7 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
     //open home activtiy on backpressed
     override fun onBackPressed() {
-        explore()
+        finish()
     }
 
 }

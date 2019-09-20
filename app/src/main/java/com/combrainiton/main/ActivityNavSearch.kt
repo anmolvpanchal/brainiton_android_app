@@ -180,7 +180,7 @@ class ActivityNavSearch : AppCompatActivity(), View.OnClickListener, TextWatcher
 
     //open home activtiy on backpressed
     override fun onBackPressed() {
-        explore()
+        finish()
     }
 
 }

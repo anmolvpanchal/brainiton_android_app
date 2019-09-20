@@ -65,7 +65,7 @@ class AdaptorFeaturedQuizPrevious(var mContext: Context, var mActivity: Activity
                         .putExtra("quizName", featuredQuizzes[selectedPosition].quiz_title)
                         .putExtra("hostName", featuredQuizzes[selectedPosition].host_name)
                         .putExtra("image", quizItem.image_url))
-                mActivity.finish()
+                //mActivity.finish()
             } else {
                 Toast.makeText(mContext, "There Is no Questions Added By Host", Toast.LENGTH_LONG).show()
             }

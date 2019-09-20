@@ -161,7 +161,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
                 .putExtra("quizData", featuredQuizzesList)//pass featured quiz list after adding all quiz into it
                 .putExtra("from", "home") //pass "from" key with value "home"
                 .putExtra("categoryName", "FeaturedQuizzes")) //pass default filter keyword "FeaturedQuizzes" which will display featured quiz by default
-        finish() // close current acitivtiy
+        //finish() // close current acitivtiy
     }
 
     //opens category
@@ -172,7 +172,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
                 .putExtra("quizData", getCategoryData(categoryId)) //pass category data using getCategoryFunction(int cateory id)
                 .putExtra("from", "category")   //pass "from" key with value "category"
                 .putExtra("categoryName", categoryList[selectedCategory].category_name)) //pass filter category name as filter keyword which will show quiz of that cateory
-        finish()
+        //finish()
     }
 
     //get the data of category from id

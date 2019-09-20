@@ -91,7 +91,7 @@ class ActivityNavCompete : AppCompatActivity() {
             (it.context as ActivityNavCompete).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         btm_nav_compete.setOnClickListener {
-            //do nothimg
+            //do nothing
         }
     }
 
@@ -110,7 +110,7 @@ class ActivityNavCompete : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        explore()
+        finish()
     }
 
 }
