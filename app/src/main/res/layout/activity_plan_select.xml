@@ -93,6 +93,7 @@
                 android:weightSum="2">
 
                 <LinearLayout
+                    android:id="@+id/firstcard_plan_select_layout"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -120,7 +121,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:background="#f4f4f4"
+                            android:background="@color/selectplan_light_gray"
                             android:fontFamily="@font/raleway_semi_bold"
                             android:text="3\nMONTHS"
                             android:lineSpacingExtra="@dimen/_5sdp"
@@ -149,6 +150,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/secondcard_plan_select_layout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -199,7 +201,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:background="#E8FAFA"
+                            android:background="@color/selectplan_light_green"
                             android:fontFamily="@font/raleway_semi_bold"
                             android:text="12\nMONTHS"
                             android:textAlignment="center"
