@@ -3,49 +3,72 @@ package com.combrainiton.normalQuiz
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.combrainiton.R
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.utils.AppProgressDialog
+import com.combrainiton.utils.BataTime
+import com.combrainiton.utils.BataTimeCallback
 import com.combrainiton.utils.NetworkHandler
-import kotlinx.android.synthetic.main.activity_noraml_quiz_instruction.*
+import kotlinx.android.synthetic.main.acivty_normal_quiz_countdown_layout.*
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener {
+private val TAG: String = "ActivityNormalQuizInstruction"
 
-    private val TAG : String = "ActivityNormalQuizInstruction"
+class ActivityNormalQuizInstruction : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_noraml_quiz_instruction)
+        setContentView(R.layout.acivty_normal_quiz_countdown_layout)
         initMainView() //initialize the main view
-    }
 
-    //initialize the main view
-    @SuppressLint("SetTextI18n")
-    private fun initMainView() {
-        quiz_instruction_quit_button.setOnClickListener(this@ActivityNormalQuizInstruction)
-        normal_quiz_instruction_start_button.setOnClickListener(this@ActivityNormalQuizInstruction)
-        normal_quiz_instruction_quiz_image
-        //here we will get data from intent for setting on textview as well as starting web socket
-        val quizName: String = intent.getStringExtra("quizName") //get quiz name
-        val totalQuestion: Int = intent.getIntExtra("totalQuestion", 0) // get total number of questions
+        val timeMiliseconds = 3500 // in milliseconds = 2seconds
+        val tickTime = 1000 // in milliseconds - 1 second - we trigger onUpdate in intervals of this time
+        BataTime(timeMiliseconds, tickTime).start(object : BataTimeCallback {
+            @SuppressLint("ResourceAsColor")
+            override fun onUpdate(elapsed: Int) {
+                Log.e("NormalQuizInstruction", "On update called...time elapsed = $elapsed")
 
-        Glide.with(this@ActivityNormalQuizInstruction)
-                .load(intent.getStringExtra("quizImage")) //set quiz image
-                .into(normal_quiz_instruction_quiz_image)
+                if (elapsed.equals(1000)) {
+                    runOnUiThread {
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorCategoryThree))
+                        text_layout_countdown.setText("2")
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorCategoryTwo))
+                    }
+                }
+                if (elapsed.equals(2000)) {
 
-        my_quizzes_quiz_name.text = quizName  //set quiz name
-        tvQuizQuestionCount.text = "$totalQuestion Questions" //set number of questions
-    }
+                    runOnUiThread {
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorCategoryFour))
+                        text_layout_countdown.setText("1")
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorCategoryThree))
 
-    @SuppressLint("LongLogTag")
-    override fun onClick(p0: View?) {
-        when (p0?.id) {
-            R.id.normal_quiz_instruction_start_button -> { //on click of start button
+                    }
+                }
+                if (elapsed.equals(3000)) {
+
+                    runOnUiThread {
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorRed))
+                        text_layout_countdown.setText("GO!")
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorAccentDark))
+                    }
+
+                }
+
+            }
+
+            override fun onComplete() {
+                Log.e("NormalQuizInstruction", "On complete called...")
                 val quizId: Int = intent.getIntExtra("quizId", 0)//get quiz id from intent
                 val quizName: String = intent.getStringExtra("quizName")
                 if (NetworkHandler(this@ActivityNormalQuizInstruction).isNetworkAvailable()) { //if network is connected
@@ -55,31 +78,38 @@ class ActivityNormalQuizInstruction : AppCompatActivity(), View.OnClickListener 
                     /** Experiment*/
 
                     //get question data from normal quiz management and pass the dialog object in the function
-                    NormalQuizManagement(this@ActivityNormalQuizInstruction, this@ActivityNormalQuizInstruction, mDialog).getQuestions(quizId,quizName)
-                    Log.e(TAG,"result of id $quizId and name $quizName")
+                    NormalQuizManagement(this@ActivityNormalQuizInstruction, this@ActivityNormalQuizInstruction, mDialog).getQuestions(quizId, quizName)
+                    Log.e("NormalQuizInstruction", "result of id $quizId and name $quizName")
                 } else {
                     //display error meessage
                     Toast.makeText(this@ActivityNormalQuizInstruction, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
                 }
+
+
             }
-            R.id.quiz_instruction_quit_button -> { //on click of quit button
-                onBackPressed() //open main acitvity
-            }
-        }
+        })
+
+
     }
 
-    // this will open the home activtiy
-    private fun explore() {
-        if (NetworkHandler(this@ActivityNormalQuizInstruction).isNetworkAvailable()) { //if internet is connected
-            val mDialog = AppProgressDialog(this@ActivityNormalQuizInstruction)
-            mDialog.show() //show progress dialog
-            //this will open the home activity after retriving the data
-            NormalQuizManagement(this@ActivityNormalQuizInstruction, this@ActivityNormalQuizInstruction, mDialog).getAllQuiz()
-        } else {
-            //display error message
-            Toast.makeText(this@ActivityNormalQuizInstruction, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
-        }
+    //initialize the main view
+    @SuppressLint("SetTextI18n")
+    private fun initMainView() {
+//        quiz_instruction_quit_button.setOnClickListener(this@ActivityNormalQuizInstruction)
+//        normal_quiz_instruction_start_button.setOnClickListener(this@ActivityNormalQuizInstruction)
+//        normal_quiz_instruction_quiz_image
+//        //here we will get data from intent for setting on textview as well as starting web socket
+        val quizName: String = intent.getStringExtra("quizName") //get quiz name
+        val totalQuestion: Int = intent.getIntExtra("totalQuestion", 0) // get total number of questions
+
+//        Glide.with(this@ActivityNormalQuizInstruction)
+//                .load(intent.getStringExtra("quizImage")) //set quiz image
+//                .into(normal_quiz_instruction_quiz_image)
+//
+//        my_quizzes_quiz_name.text = quizName  //set quiz name
+//        tvQuizQuestionCount.text = "$totalQuestion Questions" //set number of questions
     }
+
 
     //open home activtiy on backpressed
     override fun onBackPressed() {

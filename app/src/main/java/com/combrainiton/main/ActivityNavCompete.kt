@@ -52,6 +52,17 @@ class ActivityNavCompete : AppCompatActivity() {
         setContentView(R.layout.activity_nav_compete)
 
         viewGroup = findViewById(android.R.id.content)
+
+        showDialog()
+
+//        uncomment this two line to statr subscription model
+//        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
+//        initView()
+        initBottomMenu()
+
+    }
+
+    fun showDialog(){
         val dialogView = LayoutInflater.from(this).inflate(R.layout.compete_activity_popup, viewGroup, false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
@@ -71,11 +82,6 @@ class ActivityNavCompete : AppCompatActivity() {
         keepPlaying.setOnClickListener {
             explore()
         }
-
-//        uncomment this two line to statr subscription model
-//        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
-//        initView()
-        initBottomMenu()
 
     }
 

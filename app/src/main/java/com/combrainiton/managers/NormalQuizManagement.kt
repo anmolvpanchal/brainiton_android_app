@@ -141,7 +141,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
                 } else {
                     //if the response is not successfull then show the error
-
+                    Log.e(TAG,response.errorBody().toString())
                     val errorMsgModle: CommonResponceModel = ApiErrorParser().errorResponce(response)
                     isSessionExpire(errorMsgModle)
                 }
@@ -478,6 +478,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
 
         //get client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
+        Log.e(TAG,apiToken.toString())
 
         //initialize the normal quiz interface object
         requestInterface = ApiClient.getClient(apiToken).create(NormalQuizManagementInterface::class.java)
@@ -590,6 +591,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
         } else {
             //display other message
             AppAlerts().showAlertMessage(mContext, "Error", errorMsgModle.message)
+            Log.e(TAG,errorMsgModle.message)
         }
     }
 }
