@@ -158,6 +158,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
     //opens search activity
     private fun openSearchActivity() {
+        featuredQuizzesList.clear()
         featuredQuizzesList.addAll(quizList)
         startActivity(Intent(this@ActivityNavExplore, ActivityNavSearch::class.java) //open search acitivity
                 .putExtra("quizData", featuredQuizzesList)//pass featured quiz list after adding all quiz into it

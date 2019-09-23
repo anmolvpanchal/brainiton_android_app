@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:layout_gravity="center"
     tools:context=".authentication.ActivitySignUp">
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/ic_app_logo_accent"
         tools:ignore="ContentDescription" />
 
@@ -20,7 +20,7 @@
         android:visibility="invisible"
         android:id="@+id/progress_bar"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/appLogo"
+        android:layout_above="@id/llPhone"
         android:layout_width="34dp"
         android:layout_height="34dp" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/llPhone"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_below="@+id/progress_bar"
+        android:layout_centerInParent="true"
         android:layout_marginLeft="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="56dp"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/llPhone"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:background="@drawable/shape_rounded_button"
         android:padding="12dp"
         android:text="@string/text_send_otp"
@@ -88,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnSendOtp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="@dimen/_20sdp">
 
         <LinearLayout
             android:id="@+id/llLogin"

@@ -143,7 +143,7 @@ class PaymentActivity : AppCompatActivity() {
 
     fun alertDialog(){
         viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.incorrect_subscription_code_popup,viewGroup,false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.correct_subscription_code_popup,viewGroup,false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
         alertDialog= builder.create()
