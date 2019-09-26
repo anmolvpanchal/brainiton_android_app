@@ -46,6 +46,9 @@ dependencies {
     //fetch otp library
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
 
+    //TriangleLabelView
+    implementation 'com.github.shts:TriangleLabelView:1.1.2'
+
     //view pager librarie for competition page latest version (2.3.4) on AUG 12
     //implementation 'com.yuyakaido.android:card-stack-view:2.3.4'
 

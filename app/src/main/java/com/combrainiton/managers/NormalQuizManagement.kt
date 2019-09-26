@@ -77,7 +77,9 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                     val featuredQuizzes: ArrayList<GetAllQuizResponceModel.Allquizzes>? = response.body()!!.featured_quizzes as ArrayList<GetAllQuizResponceModel.Allquizzes>?
                     //parse the JSON object categories as array list of GetAllQuizResponceModel.CategoryList
                     val categoryList: ArrayList<GetAllQuizResponceModel.CategoryList>? = response.body()!!.categories as ArrayList<GetAllQuizResponceModel.CategoryList>?
-                    categoryList!!.add(GetAllQuizResponceModel.CategoryList(0, "quizzes"))
+                    categoryList!!.add(GetAllQuizResponceModel.CategoryList(0, "quizzes",0))
+
+                    Log.i("normal",categoryList[1].category_number.toString())
 
                     //TODO this should be taken care of at the backend side remove it after confirmation
                     //redudant code to replace null values from http response
@@ -155,7 +157,7 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
                          oldProgressBarContainer: RelativeLayout, QuestionResultViewContainer: LinearLayout,
                          topBarQuestionResultText: TextView, optionTVArray: Array<TextView>?, userAnswerOptionId: Int,
                          imgCorrectIncorrect: ImageView, tvCorrectIncorrect: TextView, resultViewTotalScore: TextView,
-                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView,actvity_quiz_question_next_button_for_question: CardView) : Sneaker{
+                         QuestionResultView: RelativeLayout, scoreCard: androidx.cardview.widget.CardView,actvity_quiz_question_next_button_for_question: CardView,questionDesceiption: String) : Sneaker{
 
         var sneaker= Sneaker.with(mActivity)
 

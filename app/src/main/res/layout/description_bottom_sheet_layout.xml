@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/bottom_sheet_answerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Description"
+        android:textSize="@dimen/_20ssp"
+        android:fontFamily="@font/raleway_bold"
+        android:textColor="@color/colorTextPrimaryDark"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+        android:id="@+id/bottom_sheet_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:fontFamily="@font/raleway_medium"
+        android:textSize="@dimen/_15ssp"
+        android:textColor="@color/greyText"
+        android:lineSpacingExtra="@dimen/_2sdp"
+        android:text="Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?Hi how are you?"/>
+
+    <Button
+        android:id="@+id/bottom_sheet_next_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Next question"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+</LinearLayout>
