@@ -8,6 +8,8 @@
     <!--    transperent background colors-->
     <color name="colorTransperentDark">#80000000</color>
     <color name="colorTransperentLight">#60000000</color>
+    <color name="colortransperentLigest">#19000000</color>
+    <color name="colorGray">#D1D1D1</color>
 
 
     <!--accent colors -->
@@ -39,7 +41,14 @@
     <color name="colorYellow">#FFE731</color>
     <color name="colorRed">#FF4242</color>
 
+
+<!--    for select plan page-->
+
+    <color name="selectplan_background">#F5F4FA</color>
+
     <color name="incorrectAnswerPoint">#BB3547</color>
     <color name="correctAnswerPoint">#2A8D51</color>
+    <color name="selectplan_light_green">#E8FAFA</color>
+    <color name="selectplan_light_gray">#f4f4f4</color>
 
 </resources>

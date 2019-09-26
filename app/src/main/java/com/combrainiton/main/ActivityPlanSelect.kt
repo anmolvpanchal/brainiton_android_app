@@ -15,6 +15,17 @@ class ActivityPlanSelect : AppCompatActivity() {
         setContentView(R.layout.activity_plan_select)
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
+
+        firstcard_plan_select.setOnClickListener {
+
+            firstcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
+            secondcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
+        }
+
+        secondcard_plan_select.setOnClickListener {
+            secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
+            firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
+        }
 //
 //        val drawable4 = BadgeDrawable.Builder()
 //                .type(BadgeDrawable.TYPE_WITH_TWO_TEXT_COMPLEMENTARY)

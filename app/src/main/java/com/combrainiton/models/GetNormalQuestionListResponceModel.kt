@@ -8,5 +8,6 @@ import java.io.Serializable
 class GetNormalQuestionListResponceModel : Serializable {
     var quiz_id: Int = 0
     var questions: ArrayList<QuestionResponceModel>? = null
+
 }
 

@@ -30,6 +30,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.roundToInt
+import org.json.JSONObject
+import retrofit2.adapter.rxjava.Result.response
+import android.R.string
+import com.google.gson.Gson
+import org.json.JSONException
+import java.io.IOException
 
 
 /**
@@ -126,6 +132,8 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
             override fun onResponse(call: Call<GetNormalQuestionListResponceModel>, response: Response<GetNormalQuestionListResponceModel>) {
                 //mProgressDialog.dialog.dismiss()
                 if (response.isSuccessful) {
+
+                    Log.e("responce", Gson().toJson(response))
 
                     //get JSON object questions as array list of QuestionResponseModel
                     val questionsList: ArrayList<QuestionResponceModel>? = response.body()!!.questions

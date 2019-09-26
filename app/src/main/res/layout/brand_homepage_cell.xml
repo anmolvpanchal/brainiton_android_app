@@ -26,8 +26,7 @@
             android:id="@+id/brand_home_cell_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/dp1"/>
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/brand_home_cell_title"

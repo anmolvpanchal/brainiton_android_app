@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_console" />
-                            <entry key="sourceFile" value="D:\brainiton_android_app_v2\app\src\main\res\drawable\console.svg" />
+                            <entry key="outputName" value="ic_premium" />
+                            <entry key="sourceFile" value="D:\brainiton_android_app_v2\app\src\main\res\drawable\Premium.svg" />
                           </map>
                         </option>
                       </PersistentState>

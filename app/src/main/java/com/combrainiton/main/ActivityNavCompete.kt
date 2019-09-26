@@ -53,11 +53,11 @@ class ActivityNavCompete : AppCompatActivity() {
 
         viewGroup = findViewById(android.R.id.content)
 
-        showDialog()
+        //showDialog()
 
 //        uncomment this two line to statr subscription model
-//        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
-//        initView()
+        tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
+        initView()
         initBottomMenu()
 
     }

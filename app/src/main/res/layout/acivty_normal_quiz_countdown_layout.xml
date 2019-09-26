@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorCategoryTwo">
+    android:background="@color/design_default_color_primary">
 
 
     <TextView
@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:text="3"
         android:layout_centerInParent="true"
-        android:textSize="@dimen/_150sdp"
+        android:textSize="@dimen/_160sdp"
         android:textAlignment="center"
-        android:fontFamily="@font/raleway_bold"
-        android:textColor="@color/colorCategoryOne"/>
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/colorPrimary"/>
 
 
 </RelativeLayout>
