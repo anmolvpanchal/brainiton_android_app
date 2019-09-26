@@ -270,7 +270,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
         try {
             //try to parse the question description from the question title
-            questionDescription = (questionModel.question_title.subSequence(questionModel.question_title.indexOf(";"), questionModel.question_title.length)).toString()
+            questionDescription = questionModel.question_description
             //set the question title after removing the description from it
             activity_quiz_question_text.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
             Log.e(TAG, "question" + questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?)
