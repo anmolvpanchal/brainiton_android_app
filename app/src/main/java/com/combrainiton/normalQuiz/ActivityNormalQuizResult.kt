@@ -100,10 +100,10 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         //Make gif play only once
         gifPlayOnlyOnce()
 
-        val adapter = AdapterResultDemo(this, answer)
-        recycler = findViewById(R.id.demo_result_recycler)
-        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        recycler.adapter = adapter
+//        val adapter = AdapterResultDemo(this, answer)
+//        recycler = findViewById(R.id.demo_result_recycler)
+//        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+//        recycler.adapter = adapter
 
 //        quiz_result_recycler?.findViewById<RecyclerView>(R.id.quiz_result_recycler)
 //        quiz_result_recycler?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
@@ -131,6 +131,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
     private fun speakOut() {
         val text = correct_option_layout.text.toString()
+        tts!!.setSpeechRate(0.75F)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
         }

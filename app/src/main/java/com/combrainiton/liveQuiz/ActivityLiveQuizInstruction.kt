@@ -12,7 +12,10 @@ import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import com.combrainiton.webSocket.LiveQuizQuestionWebSocketLisner
 import com.combrainiton.webSocket.PollQuestionWebSocketLisner
+import kotlinx.android.synthetic.main.activity_live_quiz_instruction.*
 import kotlinx.android.synthetic.main.activity_noraml_quiz_instruction.*
+import kotlinx.android.synthetic.main.activity_noraml_quiz_instruction.my_quizzes_quiz_name
+import kotlinx.android.synthetic.main.activity_noraml_quiz_instruction.tvQuizQuestionCount
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocketListener
@@ -33,7 +36,7 @@ class ActivityLiveQuizInstruction : AppCompatActivity(), View.OnClickListener {
 
 
         //set on click listener to quit button
-        quiz_instruction_quit_button.setOnClickListener(this@ActivityLiveQuizInstruction)
+        livequiz_instruction_quit_button.setOnClickListener(this@ActivityLiveQuizInstruction)
 
         //firstly we have to check it is poll or quiz
         isPoll = AppSharedPreference(this@ActivityLiveQuizInstruction).getBoolean("isPoll")
