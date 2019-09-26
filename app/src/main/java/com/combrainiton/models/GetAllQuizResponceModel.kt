@@ -36,13 +36,15 @@ class GetAllQuizResponceModel : Serializable {
 
     }
 
-    class CategoryList(category_id: Int, category_name: String) : Serializable {
+    class CategoryList(category_id: Int, category_name: String, category_count: Int) : Serializable {
         var category_id: Int = 0
         var category_name: String = ""
+        var category_number: Int = 0
 
         init {
             this.category_id = category_id
             this.category_name = category_name
+            this.category_number = category_count
         }
 
     }

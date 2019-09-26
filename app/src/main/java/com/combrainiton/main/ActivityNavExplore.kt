@@ -22,7 +22,10 @@ import com.combrainiton.adaptors.AdaptorFeaturedQuizPrevious
 import com.combrainiton.adaptors.AdaptorFeaturedQuizToday
 import com.combrainiton.models.GetAllQuizResponceModel
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_nav_explore.*
+import java.lang.Exception
 
 @SuppressLint("NewApi")
 @Suppress("UNCHECKED_CAST")
@@ -31,6 +34,8 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
     private lateinit var featuredQuizzesList: ArrayList<GetAllQuizResponceModel.Allquizzes> //list for all the featured quizzes
     private lateinit var quizList: ArrayList<GetAllQuizResponceModel.Allquizzes> //list for all the quizzes
     private lateinit var categoryList: ArrayList<GetAllQuizResponceModel.CategoryList> //list for all the categories
+    var category: HashMap<String, Int> = HashMap<String,Int>()
+    var flag: Boolean = false
     private var doubleBackToExitPressedOnce = false // to close app
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,12 +43,13 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_explore)
 
-        Log.e("Explore", FirebaseInstanceId.getInstance().getToken())
+
+        Log.e("Explore", FirebaseInstanceId.getInstance().getToken().toString())
 
         //this will initialize the main view
         initMainView()
 
-        Log.i("Explore", FirebaseInstanceId.getInstance().getToken())
+        Log.i("Explore", FirebaseInstanceId.getInstance().getToken().toString())
 
         //this will initialize the bottom nav bar
         initBottomMenu()
@@ -98,12 +104,35 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
     //this will initialize all the views
     private fun initMainView() {
-
         //This will get he list of all quizzes and category list
         quizList = (intent.getSerializableExtra("allQuiz") as ArrayList<GetAllQuizResponceModel.Allquizzes>?)!!
-
         categoryList = (intent.getSerializableExtra("categoryList") as ArrayList<GetAllQuizResponceModel.CategoryList>?)!!
         featuredQuizzesList = (intent.getSerializableExtra("featured_quizzes") as ArrayList<GetAllQuizResponceModel.Allquizzes>?)!!
+        val sharedPreference = getSharedPreferences("CategoryCount", Context.MODE_PRIVATE)
+
+        try {
+            val categoryString = sharedPreference.getString("categorycount",null)
+
+            flag = categoryString != null
+        } catch (e: Exception) {
+            flag = false
+            Log.i("explore","exception")
+            e.printStackTrace()
+        }
+
+        if(!flag){
+            var i = 0
+            while (i < categoryList.size){
+                category.set(categoryList[i].category_name, categoryList[i].category_number)
+                i += 1
+            }
+
+            //Converting hashmap to gson to store it in shared preference
+            val categoryString = Gson().toJson(category)
+            sharedPreference.edit().putString("categorycount",categoryString).apply()
+        }
+
+        Log.i("explore",flag.toString())
 
         //this will load the main featured quiz on the page
         rv_featured_quiz_today.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 1, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
@@ -115,7 +144,7 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
         //this will attach category list adapter to category list recycler view
         rv_category_list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 2, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
-        rv_category_list.adapter = AdaptorCategoryList(this@ActivityNavExplore, this@ActivityNavExplore, categoryList, quizList, this@ActivityNavExplore, featuredQuizzesList)
+        rv_category_list.adapter = AdaptorCategoryList(this@ActivityNavExplore, this@ActivityNavExplore, categoryList, quizList, this@ActivityNavExplore, featuredQuizzesList,flag)
 
         // add on click listener to the top bar seach button
         top_bar_search_button.setOnClickListener(this@ActivityNavExplore)
