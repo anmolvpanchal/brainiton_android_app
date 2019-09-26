@@ -1,23 +1,63 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlCategory"
     style="@style/ThemeCardViewCategory"
     android:layout_width="152dp"
+    android:id="@+id/rlCategory"
     android:layout_height="60dp"
+    android:background="@color/colorAccent"
     tools:ignore="NewApi">
     <!--TODO use dimensions for layout width and height instead of static size-->
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tvQuizCatName"
-        style="@style/ThemeTextViewH2Light"
-        android:layout_gravity="center"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="@string/trending"
-        android:textAlignment="center" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/badge"
+            android:visibility="invisible"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:background="@drawable/badge"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginRight="@dimen/_2sdp"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/raleway_bold"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvQuizCatName"
+            style="@style/ThemeTextViewH2Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="@string/trending"
+            android:textAlignment="center" />
+
+        <!--<jp.shts.android.library.TriangleLabelView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            app:backgroundColor="@color/colorAccent"
+            app:corner="rightTop"
+            app:labelTopPadding="5dp"
+            app:labelCenterPadding="5dp"
+            app:labelBottomPadding="0dp"
+            app:primaryText="5"
+            app:primaryTextColor="@color/colorTextPrimaryDark"
+            app:primaryTextSize="20sp"
+            app:secondaryTextColor="@color/colorAccent"
+            app:secondaryTextSize="11sp" />-->
+
+    </RelativeLayout>
+
 
 </androidx.cardview.widget.CardView>

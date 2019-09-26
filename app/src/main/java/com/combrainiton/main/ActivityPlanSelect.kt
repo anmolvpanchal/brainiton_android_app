@@ -1,11 +1,8 @@
 package com.combrainiton.main
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
-import android.text.SpannableString
-import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.combrainiton.R
 import kotlinx.android.synthetic.main.activity_plan_select.*

@@ -85,7 +85,7 @@ class CourseLessonsFragment : androidx.fragment.app.Fragment() {
                     val featuredQuizzes: ArrayList<GetAllQuizResponceModel.Allquizzes>? = response.body()!!.featured_quizzes as ArrayList<GetAllQuizResponceModel.Allquizzes>?
                     //parse the JSON object categories as array list of GetAllQuizResponceModel.CategoryList
                     val categoryList: ArrayList<GetAllQuizResponceModel.CategoryList>? = response.body()!!.categories as ArrayList<GetAllQuizResponceModel.CategoryList>?
-                    categoryList!!.add(GetAllQuizResponceModel.CategoryList(0, "quizzes"))
+                    categoryList!!.add(GetAllQuizResponceModel.CategoryList(0, "quizzes",0))
 
                     //TODO this should be taken care of at the backend side remove it after confirmation
                     //redudant code to replace null values from http response

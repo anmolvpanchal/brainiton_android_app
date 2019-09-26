@@ -30,10 +30,7 @@ import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.models.GetNormalQuizScoreRequestModel
 import com.combrainiton.models.ObjectQuizResult
 import com.combrainiton.models.QuestionResponceModel
-import com.combrainiton.utils.AppProgressDialog
-import com.combrainiton.utils.AppSharedPreference
-import com.combrainiton.utils.NetworkHandler
-import com.combrainiton.utils.QuestionCountDownTimer
+import com.combrainiton.utils.*
 import com.irozon.sneaker.Sneaker
 import kotlinx.android.synthetic.main.activity_quiz_question.*
 import java.util.*
@@ -404,7 +401,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
             optionId = 0 //set option id equals to zero
             //get correct option data from normal quiz management
 
-            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question)
+            sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question,questionDescription)
         }, quizTime)
     }
 
@@ -550,6 +547,11 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
     }
 
     private fun showDescriptionPopup() {
+
+        //BottomSheet
+        /*val bottomSheet = DescriptionBottomSheetDialog()
+        bottomSheet.show(supportFragmentManager,"descriptionBottomSheet")*/
+
         //for showing description as popup
         if (questionDescription.isNotEmpty()) { //Description available
             descriptionTextView.visibility = View.VISIBLE
@@ -558,7 +560,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
                 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
                 override fun onClick(v: View?) {
                     alertDialog.dismiss()
-                    nextQuestion() //even though if you see error on this line code will run perfectly
+                    nextQuestion() //even though if you see error on this line, code will run perfectly
                 }
             })
             System.out.println(questionDescription)
@@ -630,7 +632,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         requestData["option_id"] = optionId
 
         //getting sneaker to dismiss on next question click
-        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question)
+        sneaker = NormalQuizManagement(this@ActivityNormalQuizQuestion, this@ActivityNormalQuizQuestion, mDialog).getCorrectOption(result, requestData, llProgress, quiz_question_result_top_bar_container, activity_quiz_question_result_top_bar, optionTextViewList, optionId, activity_quiz_question_answer_result_image, activity_quiz_question_answer_result_text, activity_quiz_question_total_score, rootLeaderLayout, activity_quiz_question_score_card, actvity_quiz_question_next_button_for_question,questionDescription)
 
     }
 
