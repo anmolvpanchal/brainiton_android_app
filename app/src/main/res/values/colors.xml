@@ -9,6 +9,7 @@
     <color name="colorTransperentDark">#80000000</color>
     <color name="colorTransperentLight">#60000000</color>
     <color name="colortransperentLigest">#19000000</color>
+    <color name="colorGray">#D1D1D1</color>
 
 
     <!--accent colors -->

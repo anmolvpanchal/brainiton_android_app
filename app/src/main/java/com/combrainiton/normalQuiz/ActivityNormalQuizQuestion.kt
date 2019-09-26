@@ -98,6 +98,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
 
         tts = TextToSpeech(this, this)
 
+        Log.e("Finally error ...",questionModel.question_description)
 
     }
 

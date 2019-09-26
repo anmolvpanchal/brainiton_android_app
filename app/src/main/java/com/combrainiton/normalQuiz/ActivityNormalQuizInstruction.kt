@@ -20,51 +20,66 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.media.MediaPlayer
 
 
 private val TAG: String = "ActivityNormalQuizInstruction"
 
 class ActivityNormalQuizInstruction : AppCompatActivity() {
 
+    private lateinit var timerSound: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acivty_normal_quiz_countdown_layout)
-        initMainView() //initialize the main view
+        //initMainView() //initialize the main view
 
-        val timeMiliseconds = 3500 // in milliseconds = 2seconds
+        timerSound = MediaPlayer.create(applicationContext, R.raw.first_second)
+        timerSound.isLooping = false
+        timerSound.start()
+        val timeMiliseconds = 3001 // in milliseconds = 2seconds
         val tickTime = 1000 // in milliseconds - 1 second - we trigger onUpdate in intervals of this time
         BataTime(timeMiliseconds, tickTime).start(object : BataTimeCallback {
+
             @SuppressLint("ResourceAsColor")
             override fun onUpdate(elapsed: Int) {
                 Log.e("NormalQuizInstruction", "On update called...time elapsed = $elapsed")
 
                 if (elapsed.equals(1000)) {
                     runOnUiThread {
-                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorCategoryThree))
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.design_default_color_primary))
                         text_layout_countdown.setText("2")
-                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorCategoryTwo))
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorTextPrimaryLight))
+                        timerSound = MediaPlayer.create(applicationContext, R.raw.first_second)
+                        timerSound.isLooping = false
+                        timerSound.start()
                     }
                 }
                 if (elapsed.equals(2000)) {
 
                     runOnUiThread {
-                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorCategoryFour))
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.design_default_color_primary))
                         text_layout_countdown.setText("1")
-                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorCategoryThree))
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorTextPrimaryLight))
+                        timerSound = MediaPlayer.create(applicationContext, R.raw.first_second)
+                        timerSound.isLooping = false
+                        timerSound.start()
 
                     }
                 }
                 if (elapsed.equals(3000)) {
 
                     runOnUiThread {
-                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.colorRed))
-                        text_layout_countdown.setText("GO!")
-                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorAccentDark))
+                        root_layout_countdown.setBackgroundColor(resources.getColor(R.color.design_default_color_primary))
+                        text_layout_countdown.setText("Lets BrainItOn!")
+                        text_layout_countdown.textSize = 50F
+                        text_layout_countdown.setTextColor(resources.getColor(R.color.colorTextPrimaryLight))
+                        timerSound = MediaPlayer.create(applicationContext, R.raw.last_second_sound)
+                        timerSound.isLooping = false
+                        timerSound.start()
                     }
 
                 }
-
             }
 
             override fun onComplete() {
