@@ -11,6 +11,7 @@ class QuestionResponceModel : Serializable {
     var question_time: Int = 0
     var question_id: Int = 0
     var question_image: String = ""
+    var question_description: String = ""
     var options: List<OptionListModel>? = null
 
     class OptionListModel : Serializable {
