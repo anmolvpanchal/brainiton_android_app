@@ -8,6 +8,16 @@ import com.combrainiton.utils.ItemOffsetDecoration
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import androidx.core.content.res.ResourcesCompat
 import android.util.Log
+import androidx.viewpager.widget.PagerAdapter
+import com.combrainiton.adaptors.CompeteAdapter
+import com.combrainiton.api.ApiClient
+import com.combrainiton.managers.NormalQuizManagementInterface
+import com.combrainiton.models.GetAllQuizResponceModel
+import com.combrainiton.subscription.*
+import com.combrainiton.utils.AppAlerts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BrandHomePage : AppCompatActivity() {
 
@@ -15,6 +25,7 @@ class BrandHomePage : AppCompatActivity() {
     private var brandHomeTryList: ArrayList<String> = ArrayList<String>()
     lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     lateinit var collapseToolbarLayout: CollapsingToolbarLayout
+    var requestInterface: SubscriptionInterface? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,16 +53,6 @@ class BrandHomePage : AppCompatActivity() {
         //BrandHomeRecycler.layoutManager = GridLayoutManager(this@BrandHomePage, 2, GridLayoutManager.VERTICAL, false)
         //BrandHomeRecycler.adapter = AdaptorBrandHomeList(this@BrandHomePage, this@BrandHomePage, brandHomeTryList)
 
-        val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
-
-        val adapter = AdaptorBrandHomeList(this,brandHomeTryList,images)
-        recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
-        val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
-        recyclerView.addItemDecoration(decoration)
-        recyclerView.adapter = adapter
-
-        Log.i("Check",spacingInPixel.toString())
-
     }
 
     private fun initView(){
@@ -72,8 +73,39 @@ class BrandHomePage : AppCompatActivity() {
 
             //setting collapsed text color
             setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
+
+            getAllCourses()
         }
 
+    }
+
+    private fun getAllCourses() {
+        //Getting API client
+        requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
+
+        val getCoursesCall: Call<CoursesResponseModel>? = requestInterface!!.getAllCourses(intent.getIntExtra("brandId",0))
+
+        getCoursesCall!!.enqueue(object : Callback<CoursesResponseModel> {
+            override fun onFailure(call: Call<CoursesResponseModel>, t: Throwable) {
+                AppAlerts().showAlertMessage(this@BrandHomePage, "Error", resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<CoursesResponseModel>, response: Response<CoursesResponseModel>) {
+                if(response.isSuccessful){
+                    val courses: ArrayList<AllCourses> = response.body()!!.courses as ArrayList<AllCourses>
+
+                    val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
+
+                    val adapter = AdaptorBrandHomeList(this@BrandHomePage,courses,brandHomeTryList,images)
+                    recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@BrandHomePage, 2)
+                    val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
+                    recyclerView.addItemDecoration(decoration)
+                    recyclerView.adapter = adapter
+                }
+            }
+
+
+        })
     }
 
     /*private fun dpToPx(dp: Int): Int {

@@ -11,12 +11,21 @@ import android.view.ViewGroup
 
 import com.combrainiton.R
 import com.combrainiton.adaptors.CompeteAdapter
+import com.combrainiton.api.ApiClient
+import com.combrainiton.subscription.AllBrands
+import com.combrainiton.subscription.BrandsResponseModel
+import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.utils.AppAlerts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
     lateinit var viewPager: androidx.viewpager.widget.ViewPager
+    var requestInterface: SubscriptionInterface? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -50,23 +59,47 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
         imagesUri.add("http://link.brainiton.in/txtcard5")
         imagesUri.add("http://link.brainiton.in/txtcard6")
 
-        val adapter: androidx.viewpager.widget.PagerAdapter = CompeteAdapter(images, imagesUri, activity)
-        viewPager.adapter = adapter
+        getAllBrands()
 
-        viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-                //Log.i("Compete","check")
+    }
+
+    private fun getAllBrands() {
+        //Getting API client
+        requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
+
+        val getBrandCall: Call<BrandsResponseModel>? = requestInterface!!.getAllBrands()
+
+        getBrandCall!!.enqueue(object : Callback<BrandsResponseModel> {
+
+            override fun onFailure(call: Call<BrandsResponseModel>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(context!!, "Error", resources.getString(R.string.error_server_problem))
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-                //Log.i("Compete","check")
-            }
+            override fun onResponse(call: Call<BrandsResponseModel>, response: Response<BrandsResponseModel>) {
+                if(response.isSuccessful){
+                    val brands: ArrayList<AllBrands> = response.body()!!.brands as ArrayList<AllBrands>
 
-            override fun onPageSelected(p0: Int) {
+                    val adapter: PagerAdapter = CompeteAdapter(brands,images, imagesUri, activity!!,context!!)
+                    viewPager.adapter = adapter
+
+                    viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+                        override fun onPageScrollStateChanged(p0: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                        }
+
+                    })
+                }
             }
 
         })
-
     }
 
     private inner class ViewPagerStack : androidx.viewpager.widget.ViewPager.PageTransformer {
