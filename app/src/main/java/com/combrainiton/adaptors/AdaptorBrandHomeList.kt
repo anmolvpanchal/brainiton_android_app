@@ -9,10 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.combrainiton.R
 import com.combrainiton.main.CourseHomePage
+import com.combrainiton.subscription.AllCourses
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class AdaptorBrandHomeList(var context: Context, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
+class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
     class MyViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
