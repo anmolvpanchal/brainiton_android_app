@@ -1,13 +1,13 @@
 package com.combrainiton.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorBrandHomeList
 import com.combrainiton.utils.ItemOffsetDecoration
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import androidx.core.content.res.ResourcesCompat
-import android.util.Log
 
 class BrandHomePage : AppCompatActivity() {
 
@@ -44,17 +44,17 @@ class BrandHomePage : AppCompatActivity() {
 
         val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
 
-        val adapter = AdaptorBrandHomeList(this,brandHomeTryList,images)
+        val adapter = AdaptorBrandHomeList(this, brandHomeTryList, images)
         recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
         val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
         recyclerView.addItemDecoration(decoration)
         recyclerView.adapter = adapter
 
-        Log.i("Check",spacingInPixel.toString())
+        Log.i("Check", spacingInPixel.toString())
 
     }
 
-    private fun initView(){
+    private fun initView() {
 
         //Setting fontStyle and color to title based on expand and collapse
         collapseToolbarLayout?.apply {
