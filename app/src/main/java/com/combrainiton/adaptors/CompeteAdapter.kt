@@ -1,5 +1,6 @@
 package com.combrainiton.adaptors
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,10 +14,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.combrainiton.R
 import com.combrainiton.main.BrandHomePage
+import com.combrainiton.normalQuiz.ActivityNormalQuizQuestion
+import com.combrainiton.subscription.AllBrands
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<String>, var context: androidx.fragment.app.FragmentActivity?) : androidx.viewpager.widget.PagerAdapter() {
+class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<String>, var imagesUri: ArrayList<String>, var activity: FragmentActivity,var context: Context) : androidx.viewpager.widget.PagerAdapter() {
 
 
     lateinit var layoutInflater: LayoutInflater
@@ -33,7 +36,7 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
         val imageView: ImageView
         val card : androidx.cardview.widget.CardView
 
-        layoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        layoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rv: View = layoutInflater.inflate(R.layout.compete_cell_item,container,false)
         container.addView(rv)
 
@@ -52,8 +55,11 @@ class CompeteAdapter(var images: ArrayList<String>, var imagesUri: ArrayList<Str
             override fun onClick(v: View?) {
                //context!!.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imagesUri[position])))
 
-                var intent = Intent(context,BrandHomePage:: class.java)
-                context?.startActivity(intent)
+                var intent = Intent(activity,BrandHomePage:: class.java)
+                intent.putExtra("brandAuther",brands[position].brandAuthor)
+                intent.putExtra("brandId",brands[position].brandId)
+                intent.putExtra("brandName",brands[position].brandName)
+                activity.startActivity(intent)
             }
 
         })

@@ -1,6 +1,7 @@
 package com.combrainiton.fragments
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.tabs.TabLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
@@ -12,20 +13,32 @@ import android.view.ViewGroup
 import com.combrainiton.R
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.adaptors.SubscriptionAdapter
+import com.combrainiton.api.ApiClient
 import com.combrainiton.main.ActivityNavCompete
+import com.combrainiton.subscription.AllBrands
+import com.combrainiton.subscription.BrandsResponseModel
+import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.utils.AppAlerts
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
     var images = ArrayList<String>()
     var imagesUri = ArrayList<String>()
-    lateinit var viewPager: androidx.viewpager.widget.ViewPager
+    lateinit var viewPager: ViewPager
+    var requestInterface: SubscriptionInterface? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_available_subscription, container, false)
 
-        viewPager = view.findViewById(R.id.avail_sub_viewPager) as androidx.viewpager.widget.ViewPager
+        viewPager = view.findViewById(R.id.avail_sub_viewPager)
 
         viewPager.setPageTransformer(true, ViewPagerStack())
         viewPager.offscreenPageLimit = 3
@@ -52,27 +65,55 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
         //This links will be opened when corresponding card is clicked
         imagesUri.add("http://link.brainiton.in/txtcard4")
-        imagesUri.add("http://link.brainiton.in/txtcard5")
-        imagesUri.add("http://link.brainiton.in/txtcard6")
+        /*imagesUri.add("http://link.brainiton.in/txtcard5")
+        imagesUri.add("http://link.brainiton.in/txtcard6")*/
 
+        getAllBrands()
 
-        val adapter: androidx.viewpager.widget.PagerAdapter = CompeteAdapter(images, imagesUri, activity)
-        viewPager.adapter = adapter
+    }
 
-        viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
-                //Log.i("Compete","check")
+    private fun getAllBrands() {
+        //Getting API client
+        requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
+
+        val getBrandCall: Call<BrandsResponseModel>? = requestInterface!!.getAllBrands()
+
+        getBrandCall!!.enqueue(object : Callback<BrandsResponseModel> {
+
+            override fun onFailure(call: Call<BrandsResponseModel>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(context!!, "Error", resources.getString(R.string.error_server_problem))
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-                //Log.i("Compete","check")
-            }
+            override fun onResponse(call: Call<BrandsResponseModel>, response: Response<BrandsResponseModel>) {
+                if(response.isSuccessful){
+                    val responce : String = response.body().toString()
 
-            override fun onPageSelected(p0: Int) {
+                    Log.e("responce_entire","  " + responce)
+                    val brands: ArrayList<AllBrands> = response.body()!!.brands as ArrayList<AllBrands>
+
+                    Log.i("sub","${brands[0].brandName}    ${brands[0].brandAuthor}")
+
+                    val adapter: PagerAdapter = CompeteAdapter(brands,images, imagesUri, activity!!,context!!)
+                    viewPager.adapter = adapter
+
+                    viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+                        override fun onPageScrollStateChanged(p0: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                        }
+
+                    })
+                }
             }
 
         })
-
     }
 
     private inner class ViewPagerStack : androidx.viewpager.widget.ViewPager.PageTransformer {

@@ -16,13 +16,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.combrainiton.CustomViewPager
 import com.combrainiton.R
+import com.combrainiton.adaptors.AdaptorBrandHomeList
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.adaptors.SubscriptionAdapter
+import com.combrainiton.api.ApiClient
 import com.combrainiton.fragments.AvailableSubscriptionFragment
 import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.managers.NormalQuizManagement
+import com.combrainiton.subscription.AllBrands
+import com.combrainiton.subscription.BrandsResponseModel
+import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
+import com.combrainiton.utils.ItemOffsetDecoration
 import com.combrainiton.utils.NetworkHandler
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_nav_compete.*
@@ -33,6 +41,9 @@ import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_explore
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_my_quizzes
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_profile
 import kotlinx.android.synthetic.main.compete_activity_popup.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.collections.ArrayList
 
 
@@ -52,6 +63,7 @@ class ActivityNavCompete : AppCompatActivity() {
         setContentView(R.layout.activity_nav_compete)
 
         viewGroup = findViewById(android.R.id.content)
+        viewPager = findViewById(R.id.compete_viewPager)
 
         //showDialog()
 
@@ -87,8 +99,6 @@ class ActivityNavCompete : AppCompatActivity() {
 
 
     fun initView() {
-
-        viewPager = findViewById(R.id.compete_viewPager) as androidx.viewpager.widget.ViewPager
 
         val adapter = SubscriptionAdapter(supportFragmentManager)
 
