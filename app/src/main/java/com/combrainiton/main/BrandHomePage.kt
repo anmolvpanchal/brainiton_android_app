@@ -83,6 +83,8 @@ class BrandHomePage : AppCompatActivity() {
         //Getting API client
         requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
 
+        Log.e("intent data","brandID" + intent.getIntExtra("brandId",0))
+
         val getCoursesCall: Call<CoursesResponseModel>? = requestInterface!!.getAllCourses(intent.getIntExtra("brandId",0))
 
         getCoursesCall!!.enqueue(object : Callback<CoursesResponseModel> {

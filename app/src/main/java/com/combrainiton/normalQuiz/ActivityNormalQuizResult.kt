@@ -208,14 +208,14 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
             NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
         }
 
-//        Challange_friend.setOnClickListener(object : View.OnClickListener{
-//            override fun onClick(view : View?) {
-//                if (view != null) {
-//                    shareScore(view)
-//                }
-//            }
-//
-//        })
+        Challange_friend.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(view : View?) {
+                if (view != null) {
+                    shareScore(view)
+                }
+            }
+
+        })
 
 
     }

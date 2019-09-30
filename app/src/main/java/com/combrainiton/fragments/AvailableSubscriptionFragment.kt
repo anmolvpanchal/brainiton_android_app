@@ -19,6 +19,9 @@ import com.combrainiton.subscription.AllBrands
 import com.combrainiton.subscription.BrandsResponseModel
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,6 +87,9 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
             override fun onResponse(call: Call<BrandsResponseModel>, response: Response<BrandsResponseModel>) {
                 if(response.isSuccessful){
+                    val responce : String = response.body().toString()
+
+                    Log.e("responce_entire","  " + responce)
                     val brands: ArrayList<AllBrands> = response.body()!!.brands as ArrayList<AllBrands>
 
                     Log.i("sub","${brands[0].brandName}    ${brands[0].brandAuthor}")

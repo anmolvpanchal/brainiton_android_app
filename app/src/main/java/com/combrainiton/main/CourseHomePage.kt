@@ -23,8 +23,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import kotlinx.android.synthetic.main.activity_course_home_page.*
 
 
 class CourseHomePage : AppCompatActivity() {
@@ -34,9 +33,17 @@ class CourseHomePage : AppCompatActivity() {
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
     lateinit var subscriptionButton: SwipeButton
 
+//     val subscription_ID  = intent.getStringExtra("subscription_id")
+//     val fromFragmentMysubscription  = intent.getStringExtra("from_Subscription")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
+
+//
+//        if (fromFragmentMysubscription.equals(true)){
+//            swipe_button_layout.visibility = View.INVISIBLE
+//        }
 
         //Getting ids from xml
         viewPager = findViewById(R.id.course_viewPager)

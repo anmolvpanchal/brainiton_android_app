@@ -112,6 +112,8 @@ class NormalQuizManagement(var mContext: Context, var mActivity: Activity, var m
         //create api client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
 
+        Log.e("Token for user"," token   " + apiToken)
+
         //intialize the normal quiz management interface
         requestInterface = ApiClient.getClient(apiToken).create(NormalQuizManagementInterface::class.java)
 
