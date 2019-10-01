@@ -23,7 +23,17 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.viewpager.widget.PagerAdapter
+import com.combrainiton.adaptors.MySubscribtionAdapter
+import com.combrainiton.subscription.*
+import com.combrainiton.utils.AppAlerts
+import com.combrainiton.utils.AppSharedPreference
 import kotlinx.android.synthetic.main.activity_course_home_page.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class CourseHomePage : AppCompatActivity() {
@@ -32,9 +42,10 @@ class CourseHomePage : AppCompatActivity() {
     var viewPager: androidx.viewpager.widget.ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
     lateinit var subscriptionButton: SwipeButton
+    var subscription_ID : String = ""
+    val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
+    val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
 
-//     val subscription_ID  = intent.getStringExtra("subscription_id")
-//     val fromFragmentMysubscription  = intent.getStringExtra("from_Subscription")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,22 +53,20 @@ class CourseHomePage : AppCompatActivity() {
 
         if(intent.getBooleanExtra("from_Subscription",false)){
             Log.i("course","Yes, from my subscription")
+            swipe_button_layout.visibility = View.GONE
         } else{
             Log.i("course","No, from available subscription")
         }
 
         if(intent.getStringExtra("subscription_id") != null){
             Log.i("course",intent.getStringExtra("subscription_id"))
+            subscription_ID = intent.getStringExtra("subscription_id")
         } else{
             Log.i("course","no subscription id because coming from available subscription")
         }
 
 
 
-//
-//        if (fromFragmentMysubscription.equals(true)){
-//            swipe_button_layout.visibility = View.INVISIBLE
-//        }
 
         //Getting ids from xml
         viewPager = findViewById(R.id.course_viewPager)
@@ -84,17 +93,6 @@ class CourseHomePage : AppCompatActivity() {
         tabLayout!!.addTab(tabLayout!!.newTab().setText("Description"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("Lessons"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("Progress"))
-
-        //creating instance of adapter
-        var adapter = CoursePagerAdapter(supportFragmentManager)
-
-        //adding fragment through adapter
-        adapter.addFragment(CourseDescriptionFragment(),"Description")
-        adapter.addFragment(CourseLessonsFragment(),"Lessons")
-        adapter.addFragment(CourseProgressFragment(),"Progress")
-
-        //setting view pager adapter
-        viewPager!!.adapter = adapter
 
         //setting tab layout with view pager
         tabLayout?.setupWithViewPager(viewPager)
@@ -138,5 +136,118 @@ class CourseHomePage : AppCompatActivity() {
         }
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+
+
+        getLessonsFromApi(subscription_ID)
     }
+
+    fun getLessonsFromApi ( subID :String){
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getAllLessons(subID.toInt())
+
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(this@CourseHomePage, "Error", resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(this@CourseHomePage, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    subscriptionDataList.clear()
+                    lessonsDataList.clear()
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+                    val lessons = rootObj.getJSONArray("lessons")
+
+                    for (i in 0 until lessons.length()) {
+
+                        val innerobject_lesson: JSONObject = lessons.getJSONObject(i)
+
+                        val lesson_id = innerobject_lesson.getString("lesson_id")
+                        val lesson_name = innerobject_lesson.getString("lesson_name")
+                        val lesson_number = innerobject_lesson.getString("lesson_number")
+                        val quiz_image = innerobject_lesson.getString("quiz_image")
+                        val lesson_quiz = innerobject_lesson.getString("lesson_quiz")
+
+
+                        Log.e("working in CourseHome", " yess" + quiz_image + lesson_name + lesson_id)
+
+
+                        lessonsDataList.add(LessonsDataList_API(lesson_id,lesson_name, lesson_number, quiz_image,lesson_quiz))
+
+                    }
+
+                    val subscription = rootObj.getJSONArray("subscription")
+
+                    for (j in 0 until subscription.length()) {
+
+                        val innerobject_sub: JSONObject = subscription.getJSONObject(j)
+
+                        val current_lesson_id = innerobject_sub.getString("current_lesson_id")
+                        val current_lesson_name = innerobject_sub.getString("current_lesson_name")
+                        val subscription_id = innerobject_sub.getString("subscription_id")
+                        val current_lesson_number = innerobject_sub.getString("current_lesson_number")
+                        val last_lesson_number = innerobject_sub.getString("last_lesson_number")
+                        val course_id = innerobject_sub.getString("course_id")
+                        val current_lesson_quiz = innerobject_sub.getString("current_lesson_quiz")
+                        val course_name = innerobject_sub.getString("course_name")
+
+
+
+                        Log.e("working in CourseHome", " yess" + course_name + current_lesson_name + current_lesson_id)
+
+
+                        subscriptionDataList.add(SubscriptionDataList_API(current_lesson_id,current_lesson_name, subscription_id,
+                                current_lesson_number,last_lesson_number,course_id,current_lesson_quiz,course_name))
+
+                    }
+
+
+                    //creating instance of adapter
+                    var adapter = CoursePagerAdapter(supportFragmentManager)
+
+                    //adding fragment through adapter
+                    adapter.addFragment(CourseDescriptionFragment(),"Description")
+                    adapter.addFragment(CourseLessonsFragment(),"Lessons")
+                    adapter.addFragment(CourseProgressFragment(),"Progress")
+
+                    //setting view pager adapter
+                    viewPager!!.adapter = adapter
+
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
+
+
 }
