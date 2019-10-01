@@ -40,6 +40,20 @@ class CourseHomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
 
+        if(intent.getBooleanExtra("from_Subscription",false)){
+            Log.i("course","Yes, from my subscription")
+        } else{
+            Log.i("course","No, from available subscription")
+        }
+
+        if(intent.getStringExtra("subscription_id") != null){
+            Log.i("course",intent.getStringExtra("subscription_id"))
+        } else{
+            Log.i("course","no subscription id because coming from available subscription")
+        }
+
+
+
 //
 //        if (fromFragmentMysubscription.equals(true)){
 //            swipe_button_layout.visibility = View.INVISIBLE

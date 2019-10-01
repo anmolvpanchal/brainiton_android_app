@@ -24,7 +24,6 @@ interface SubscriptionInterface {
     fun subscribeWithCode(@Field("course") course: String,
                           @Field("code") code: String): Call<ResponseBody>
 
-
     // getting details of lessons for fragments
     @GET("api/subs/subscription/{subscriptionID}/view/")
     fun getAllLessons (@Path("subscriptionID")subscriptionID : Int) : Call<ResponseBody>
