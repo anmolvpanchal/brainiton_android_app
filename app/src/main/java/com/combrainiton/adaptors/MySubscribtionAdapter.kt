@@ -70,6 +70,7 @@ class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCours
                 val intent = Intent(activity, CourseHomePage:: class.java)
                 intent.putExtra("subscription_id",Sub_ID)
                 intent.putExtra("from_Subscription",true)
+                intent.putExtra("course_name",subscribedCourcesList[position].courseName)
                 activity.startActivity(intent)
             }
 

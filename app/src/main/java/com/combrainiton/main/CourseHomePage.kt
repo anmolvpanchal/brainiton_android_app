@@ -121,7 +121,7 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout?.apply {
 
             //setting title
-            setTitle("Course")
+            setTitle(intent.getStringExtra("course_name"))
 
             //Creates typefaces for fonts to be used
             val bold = ResourcesCompat.getFont(this@CourseHomePage, R.font.raleway_bold)
@@ -149,7 +149,6 @@ class CourseHomePage : AppCompatActivity() {
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
         val call = apiClient.getAllLessons(subID.toInt())
-
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -225,7 +224,7 @@ class CourseHomePage : AppCompatActivity() {
 
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragment(),"Description")
-                    adapter.addFragment(CourseLessonsFragment(),"Lessons")
+                    adapter.addFragment(CourseLessonsFragment(lessonsDataList,subscriptionDataList),"Lessons")
                     adapter.addFragment(CourseProgressFragment(),"Progress")
 
                     //setting view pager adapter
