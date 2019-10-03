@@ -81,25 +81,31 @@
                 android:layout_height="94dp"
                 android:layout_centerInParent="true">
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/course_lessons_Container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/course_lessons_quiz_image"
+                    <LinearLayout
                         android:layout_width="124dp"
-                        android:layout_height="124dp"
-                        android:scaleType="centerCrop"
-                        tools:ignore="ContentDescription" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/course_lessons_quiz_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/my_quizzes_quiz_image"
-                        android:layout_toRightOf="@+id/course_lessons_quiz_image"
-                        android:padding="10dp"
-                        tools:ignore="RtlHardcoded">
+                        android:padding="10dp">
 
                         <TextView
                             android:id="@+id/course_lessons_quiz_name"
@@ -119,7 +125,7 @@
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
