@@ -19,10 +19,9 @@ interface SubscriptionInterface {
     fun getMysubscriptions(): Call<ResponseBody>
 
     // subscribing with code
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("api/subs/subscribe/")
-    fun subscribeWithCode(@Field("course") course: String,
-                          @Field("code") code: String): Call<ResponseBody>
+    fun subscribeWithCode(@Body requestData: Map<String, String>): Call<ResponseBody>
 
     // getting details of lessons for fragments
     @GET("api/subs/subscription/{subscriptionID}/view/")
