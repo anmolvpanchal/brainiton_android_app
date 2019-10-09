@@ -2,32 +2,26 @@ package com.combrainiton.main
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.tabs.TabLayout
-import androidx.core.content.res.ResourcesCompat
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
 import com.combrainiton.fragments.CourseLessonsFragment
 import com.combrainiton.fragments.CourseProgressFragment
-import com.ebanx.swipebtn.OnActiveListener
-import com.ebanx.swipebtn.OnStateChangeListener
-import com.ebanx.swipebtn.SwipeButton
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.viewpager.widget.PagerAdapter
-import com.combrainiton.adaptors.MySubscribtionAdapter
-import com.combrainiton.subscription.*
+import com.combrainiton.subscription.LessonsDataList_API
+import com.combrainiton.subscription.ServiceGenerator
+import com.combrainiton.subscription.SubscriptionDataList_API
+import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
+import com.ebanx.swipebtn.OnStateChangeListener
+import com.ebanx.swipebtn.SwipeButton
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_course_home_page.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -42,7 +36,7 @@ class CourseHomePage : AppCompatActivity() {
     var viewPager: androidx.viewpager.widget.ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
     lateinit var subscriptionButton: SwipeButton
-    var subscription_ID : String = ""
+    var subscription_ID: String = ""
     val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
     val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
 
@@ -51,21 +45,20 @@ class CourseHomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
 
-        if(intent.getBooleanExtra("from_Subscription",false)){
-            Log.i("course","Yes, from my subscription")
+        if (intent.getBooleanExtra("from_Subscription", false)) {
+            Log.i("course", "Yes, from my subscription")
             swipe_button_layout.visibility = View.GONE
-        } else{
-            Log.i("course","No, from available subscription")
+        } else {
+            Log.i("course", "No, from available subscription")
         }
 
-        if(intent.getStringExtra("subscription_id") != null){
-            Log.i("course",intent.getStringExtra("subscription_id"))
+        if (intent.getStringExtra("subscription_id") != null) {
+            Log.i("course", intent.getStringExtra("subscription_id"))
             subscription_ID = intent.getStringExtra("subscription_id")
-        } else{
-            Log.i("course","no subscription id because coming from available subscription")
+            getLessonsFromApi(subscription_ID)
+        } else {
+            Log.i("course", "no subscription id because coming from available subscription")
         }
-
-
 
 
         //Getting ids from xml
@@ -77,14 +70,14 @@ class CourseHomePage : AppCompatActivity() {
         //When user swipes to the end
         //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
 
-        subscriptionButton.setOnStateChangeListener( OnStateChangeListener {
-            active -> kotlin.run {
-            if (active){ //fully swiped
-                startActivity(Intent(this,ActivityPlanSelect::class.java))
-            } else{ //when it's unswiped back to normal
-                Toast.makeText(this@CourseHomePage,"Back to unswipe",Toast.LENGTH_LONG).show()
+        subscriptionButton.setOnStateChangeListener(OnStateChangeListener { active ->
+            kotlin.run {
+                if (active) { //fully swiped
+                    startActivity(Intent(this, ActivityPlanSelect::class.java))
+                } else { //when it's unswiped back to normal
+                    Toast.makeText(this@CourseHomePage, "Back to unswipe", Toast.LENGTH_LONG).show()
+                }
             }
-        }
         })
 
         initView()
@@ -101,9 +94,11 @@ class CourseHomePage : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
@@ -132,16 +127,14 @@ class CourseHomePage : AppCompatActivity() {
             setExpandedTitleTypeface(medium)
 
             //setting collapsed text color
-            setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
+            setCollapsedTitleTextColor(resources.getColor(R.color.colorTextPrimaryDark))
         }
 
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
-
-        getLessonsFromApi(subscription_ID)
     }
 
-    fun getLessonsFromApi ( subID :String){
+    fun getLessonsFromApi(subID: String) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(this).getString("apiToken")
@@ -189,7 +182,7 @@ class CourseHomePage : AppCompatActivity() {
                         Log.e("working in CourseHome", " yess" + quiz_image + lesson_name + lesson_id)
 
 
-                        lessonsDataList.add(LessonsDataList_API(lesson_id,lesson_name, lesson_number, quiz_image,lesson_quiz))
+                        lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz))
 
                     }
 
@@ -213,22 +206,36 @@ class CourseHomePage : AppCompatActivity() {
                         Log.e("working in CourseHome", " yess" + course_name + current_lesson_name + current_lesson_id)
 
 
-                        subscriptionDataList.add(SubscriptionDataList_API(current_lesson_id,current_lesson_name, subscription_id,
-                                current_lesson_number,last_lesson_number,course_id,current_lesson_quiz,course_name))
+                        subscriptionDataList.add(SubscriptionDataList_API(current_lesson_id, current_lesson_name, subscription_id,
+                                current_lesson_number, last_lesson_number, course_id, current_lesson_quiz, course_name))
 
                     }
 
 
                     //creating instance of adapter
-                    var adapter = CoursePagerAdapter(supportFragmentManager)
+                    val adapter = CoursePagerAdapter(supportFragmentManager)
 
                     //adding fragment through adapter
-                    adapter.addFragment(CourseDescriptionFragment(),"Description")
-                    adapter.addFragment(CourseLessonsFragment(lessonsDataList,subscriptionDataList),"Lessons")
-                    adapter.addFragment(CourseProgressFragment(),"Progress")
+                    adapter.addFragment(CourseDescriptionFragment(), "Description")
+                    adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList), "Lessons")
+                    adapter.addFragment(CourseProgressFragment(), "Progress")
 
                     //setting view pager adapter
                     viewPager!!.adapter = adapter
+
+                    viewPager!!.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+                        override fun onPageScrollStateChanged(p0: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                        }
+
+                    })
 
 
                 } catch (ex: Exception) {

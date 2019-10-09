@@ -15,13 +15,13 @@ import kotlin.collections.ArrayList
 
 class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
-    class MyViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
         var imageView: ImageView
         var textView: TextView
         var cardView: androidx.cardview.widget.CardView
 
-        constructor(view: View) : super(view){
+        init {
             imageView = view.findViewById(R.id.brand_home_cell_image)
             textView = view.findViewById(R.id.brand_home_cell_title)
             cardView = view.findViewById(R.id.brand_home_cardView)

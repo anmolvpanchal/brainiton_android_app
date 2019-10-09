@@ -2,9 +2,10 @@ package com.combrainiton.normalQuiz
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
@@ -19,6 +20,8 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     private var quizId: Int = 0  //for quiz id
     private var totalQuestiontotalQuestion: Int = 0 //for total quiz question
     private var quizName: String = "" //for quiz name
+    private var hostName: String = ""
+    private var quizDescriptionStr: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,7 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
         initMainView() //initialize the main view
     }
 
-    fun shareQuiz(view: View){
+    fun shareQuiz(view: View) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Brain It On !")
@@ -39,10 +42,14 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     //initialize the main view
     private fun initMainView() {
         quizId = intent.getIntExtra("quizId", 0) //get quiz id
+
+        Log.i("fromdescription Id",quizId.toString())
+
         quizName = intent.getStringExtra("quizName") //get quiz name
         totalQuestiontotalQuestion = intent.getIntExtra("totalQuestion", 0)//get total number of question
-        val hostName: String = "By " + intent.getStringExtra("hostName") //get hostname
-        val quizDescriptionStr: String = intent.getStringExtra("description") //get quiz description
+        hostName = "By " + intent.getStringExtra("hostName") //get hostname
+        quizDescriptionStr = intent.getStringExtra("description") //get quiz description
+
 
         activity_quiz_question_text.text = quizName //set quiz name
         normal_quiz_description_description_text.text = quizDescriptionStr //set quiz description
@@ -52,7 +59,8 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
                 .load(intent.getStringExtra("image"))
                 .into(normal_quiz_description_image)
 
-        top_bar_cancle_button.setOnClickListener { //perform on backpress on click of close button
+        top_bar_cancle_button.setOnClickListener {
+            //perform on backpress on click of close button
             onBackPressed()
         }
 
@@ -62,8 +70,8 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
                     .putExtra("quizId", quizId) //pass quiz id
                     .putExtra("totalQuestion", totalQuestiontotalQuestion) //pass total question
                     .putExtra("quizName", quizName) //pass quiz name
-                    .putExtra("quizImage",intent.getStringExtra("image"))) //pass quiz image
-             //close activity
+                    .putExtra("quizImage", intent.getStringExtra("image"))) //pass quiz image
+            //close activity
         }
 
     }

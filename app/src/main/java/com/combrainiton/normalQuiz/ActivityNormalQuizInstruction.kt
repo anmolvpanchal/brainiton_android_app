@@ -84,7 +84,11 @@ class ActivityNormalQuizInstruction : AppCompatActivity() {
 
             override fun onComplete() {
                 Log.e("NormalQuizInstruction", "On complete called...")
+
                 val quizId: Int = intent.getIntExtra("quizId", 0)//get quiz id from intent
+
+                Log.i("fromd instruction Id",quizId.toString())
+
                 val quizName: String = intent.getStringExtra("quizName")
                 if (NetworkHandler(this@ActivityNormalQuizInstruction).isNetworkAvailable()) { //if network is connected
                     val mDialog = AppProgressDialog(this@ActivityNormalQuizInstruction)
