@@ -8,9 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.combrainiton.R
+import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
 import com.combrainiton.normalQuiz.ActivityNormalQuizInstruction
 import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.ServiceGenerator
@@ -58,9 +63,6 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
            val lessonIDtoPass = lessonsDataList.get(position).lessonId
            val quiz_name = lessonsDataList.get(position).lessonName.toString()
            getLessonsFromApi(lessonIDtoPass.toString(),quiz_name)
-
-
-
        }
 
         //Removing UpperLine and LowerLine from first and last card
@@ -89,21 +91,34 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
     }
 
     class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
-        val imgQuiz = mView.course_lessons_quiz_image!!
-        val tvQuizTitle = mView.course_lessons_quiz_name!!
-        val tvQuizHost = mView.course_lessons_quiz_sponsor!!
-        val cvMain = mView.course_lessons_Container!!
-        val lessonCount = mView.course_lessons_lessons_count
-        val upperLine = mView.course_lessons_upper_line
-        val lowerLine = mView.course_lessons_lower_line
-        val Card = mView.my_quizzes_list_item_main_container
+
+        val imgQuiz : ImageView
+        val tvQuizTitle : TextView
+        val tvQuizHost : TextView
+        val cvMain : LinearLayout
+        val lessonCount : TextView
+        val upperLine : View
+        val lowerLine : View
+        val Card : CardView
+
+
+        init {
+             imgQuiz = mView.course_lessons_quiz_image!!
+             tvQuizTitle = mView.course_lessons_quiz_name!!
+             tvQuizHost = mView.course_lessons_quiz_sponsor!!
+             cvMain = mView.course_lessons_Container!!
+             lessonCount = mView.course_lessons_lessons_count
+             upperLine = mView.course_lessons_upper_line
+             lowerLine = mView.course_lessons_lower_line
+             Card = mView.my_quizzes_list_item_main_container
+
+        }
     }
 
     fun getLessonsFromApi(lessonID: String, quizName: String) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
-
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
         val call = apiClient.getQuizID(lessonID.toInt())
@@ -137,11 +152,75 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
                         Log.e("AdapterResult","responce" + quiz_id)
 
-//                        mActivity.startActivity(Intent(mActivity, ActivityNormalQuizInstruction::class.java)
-//                                .putExtra("quizId", quiz_id) //pass quiz id
-//                                .putExtra("quizName", quizName)) //pass quiz name
+                        // getting data and then intent
+                        gettingDetailsToPass(quiz_id.toInt())
 
                     }
+
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
+
+    fun gettingDetailsToPass(QuizID : Int) {
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getQuizDetailForSubs(QuizID)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(mContext, "Error", mActivity.resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(mContext, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+                    val host_name = rootObj.getString("host_name")
+                    val description = rootObj.getString("description")
+                    val quiz_title = rootObj.getString("quiz_title")
+                    val quiz_id = rootObj.getString("quiz_id")
+                    val image_url = rootObj.getString("image_url")
+                    val total_questions = rootObj.getString("total_questions")
+
+                    Log.i("fromcourse frag Id",quiz_id.toString())
+
+
+                    mActivity.startActivity(Intent(mActivity, ActivityNormalQuizDescription::class.java)
+                            .putExtra("quizId", quiz_id.toInt()) //pass quiz id
+                            .putExtra("quizName", quiz_title)
+                            .putExtra("totalQuestion", total_questions)
+                            .putExtra("hostName", host_name)
+                            .putExtra("description", description)
+                            .putExtra("image", image_url)) //pass quiz name
+
 
 
                 } catch (ex: Exception) {

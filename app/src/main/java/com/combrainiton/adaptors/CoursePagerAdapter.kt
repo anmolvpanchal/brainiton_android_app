@@ -3,15 +3,17 @@ package com.combrainiton.adaptors
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 
-class CoursePagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+class CoursePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var fragmentList = ArrayList<androidx.fragment.app.Fragment>()
     private var fragmentListTitle = ArrayList<String>()
 
-    override fun getItem(positon: Int): androidx.fragment.app.Fragment? {
+    override fun getItem(positon: Int): Fragment {
         return fragmentList.get(positon)
     }
+
 
     override fun getCount(): Int {
         return fragmentList.size

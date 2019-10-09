@@ -72,7 +72,7 @@ class BrandHomePage : AppCompatActivity() {
             setExpandedTitleTypeface(medium)
 
             //setting collapsed text color
-            setCollapsedTitleTextColor(resources.getColor(R.color.colorAccent))
+            setCollapsedTitleTextColor(resources.getColor(R.color.colorTextPrimaryDark))
 
             getAllCourses()
         }

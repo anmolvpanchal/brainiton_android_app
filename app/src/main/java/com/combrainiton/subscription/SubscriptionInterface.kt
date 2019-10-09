@@ -1,5 +1,6 @@
 package com.combrainiton.subscription
 
+import com.combrainiton.models.QuizDetailResponceModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -31,6 +32,9 @@ interface SubscriptionInterface {
     @GET("api/subs/lesson/{lessonID}/play/")
     fun getQuizID (@Path("lessonID") lessonID : Int) : Call<ResponseBody>
 
+    //for getting single quiz detail.
+    @GET("api/quiz/detail/{quizid}/")
+    fun getQuizDetailForSubs(@Path("quizid") quizId: Int): Call<ResponseBody>
 
 
 
