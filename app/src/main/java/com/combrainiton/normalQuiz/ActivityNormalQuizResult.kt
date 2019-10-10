@@ -682,6 +682,8 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
                 try {
 
+                    ScoreDataList.clear()
+
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
 
@@ -693,7 +695,6 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                     val average = rootObj.getString("average")
 
                     // setting text for result page
-
                     tvAccuracy.text = "$accuracy%"
                     averageScoreForResult.text = average
                     topScoreForResultActivity.text = max_score
@@ -702,6 +703,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                     // storing data
 
                     for (i in 0 until score.length()) {
+
 
                         val innerobject_lesson: JSONObject = score.getJSONObject(i)
 
