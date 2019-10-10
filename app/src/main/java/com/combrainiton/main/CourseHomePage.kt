@@ -121,6 +121,7 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout?.apply {
 
             //setting title
+
             setTitle(intent.getStringExtra("course_name"))
 
             //Creates typefaces for fonts to be used
