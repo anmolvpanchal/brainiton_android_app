@@ -31,11 +31,17 @@ import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.*
+import com.combrainiton.subscription.LessonsDataList_API
+import com.combrainiton.subscription.ScoreDataList_API
+import com.combrainiton.subscription.ServiceGenerator
+import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.demo_result.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import pl.droidsonroids.gif.GifDrawable
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,6 +76,9 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     lateinit var recycler: RecyclerView
 
 
+    val ScoreDataList: ArrayList<ScoreDataList_API> = ArrayList()
+
+
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
 
 
@@ -84,6 +93,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
 
         getQuestions(quizId, quizName!!)
+        gettingDetailsForPlayers(quizId)
 
         tts = TextToSpeech(this, this)
 
@@ -178,12 +188,12 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         val scoreData = intent.getSerializableExtra("scoreData") as GetNormalQuizScoreResponceModel?
         quizScore = String.format("%.2f", scoreData!!.total_score)
 
-        //set score data
-        tvTotalScore.text = String.format("%.2f", scoreData!!.total_score)
-
-        //set accuracy
-        val accuracy = (100 * scoreData.correct_answers) / scoreData.total_questions
-        tvAccuracy.text = "$accuracy%"
+//        //set score data
+//        tvTotalScore.text = String.format("%.2f", scoreData!!.total_score)
+//
+//        //set accuracy
+//        val accuracy = (100 * scoreData.correct_answers) / scoreData.total_questions
+//        tvAccuracy.text = "$accuracy%"
 
         //play sound if sound is enabled
         if (AppSharedPreference(this@ActivityNormalQuizResult).getBoolean("sound")) {
@@ -643,5 +653,90 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
             AppAlerts().showAlertMessage(this, "Error", errorMsgModle.message)
         }
     }
+
+
+    fun gettingDetailsForPlayers(QuizID : Int) {
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getDataForResult(QuizID)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(this@ActivityNormalQuizResult, "Error", this@ActivityNormalQuizResult.resources.getString(R.string.error_server_problem))
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(this@ActivityNormalQuizResult, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+
+                    val score = rootObj.getJSONArray("score")
+
+                    val max_score = rootObj.getString("max_score")
+                    val latest_score = rootObj.getString("latest_score")
+                    val accuracy = rootObj.getString("accuracy")
+                    val average = rootObj.getString("average")
+
+                    // setting text for result page
+
+                    tvAccuracy.text = "$accuracy%"
+                    averageScoreForResult.text = average
+                    topScoreForResultActivity.text = max_score
+                    tvTotalScore.text = latest_score
+
+                    // storing data
+
+                    for (i in 0 until score.length()) {
+
+                        val innerobject_lesson: JSONObject = score.getJSONObject(i)
+
+                        val scoreInside = innerobject_lesson.getString("score")
+                        val question__question_number = innerobject_lesson.getString("question__question_number")
+                        val question_id = innerobject_lesson.getString("question_id")
+
+
+                        Log.e("working in CourseHome", " yess" + question_id)
+
+
+                        ScoreDataList.add(ScoreDataList_API(scoreInside, question__question_number, question_id))
+
+                    }
+
+                        Log.i("fromcourse frag Id",max_score + " " + latest_score)
+
+
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
+
 
 }
