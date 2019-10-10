@@ -208,7 +208,7 @@ class CourseHomePage : AppCompatActivity() {
 
                     }
 
-                    //This line will reverse the list and will show the first created lesson on 1st place
+                    //This line will reverse the list and will show the first lesson on 1st place
                     Collections.reverse(lessonsDataList)
 
                     val subscription = rootObj.getJSONArray("subscription")
