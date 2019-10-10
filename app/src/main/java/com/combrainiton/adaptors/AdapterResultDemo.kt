@@ -9,10 +9,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.combrainiton.R
+import com.combrainiton.subscription.ScoreDataList_API
 
-class AdapterResultDemo(var context: Context,var answer: Array<Boolean>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterResultDemo.MyViewHolder>() {
-
-    var index:Int = 1
+class AdapterResultDemo(var context: Context,val scoreDataList: ArrayList<ScoreDataList_API>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterResultDemo.MyViewHolder>() {
 
     class MyViewHolder : androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
@@ -30,23 +29,28 @@ class AdapterResultDemo(var context: Context,var answer: Array<Boolean>) : andro
         return AdapterResultDemo.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.demo_item, parent, false))
     }
 
+    //Always use this two following methods in recyclerView adapter
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun getItemCount(): Int {
-            return  answer.size
+        return scoreDataList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.textView.text = (position+1).toString()
 
-        if(answer[position]){
+        if(scoreDataList[position].scoreInside!!.toInt() > 0){
             holder.layoutR.setBackgroundResource(R.drawable.circle_for_result_green)
         } else{
             holder.layoutR.setBackgroundResource(R.drawable.circle_for_result_red)
         }
-    }
-
-    fun setItems(answer: Array<Boolean>){
-        this.answer = answer
     }
 
 }

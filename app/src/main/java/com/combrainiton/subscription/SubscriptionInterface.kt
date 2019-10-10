@@ -44,5 +44,4 @@ interface SubscriptionInterface {
     @GET("api/subs/course/{courseid}/view/")
     fun getLessonsForAvailableSubs(@Path("courseid") quizId: Int): Call<ResponseBody>
 
-
 }

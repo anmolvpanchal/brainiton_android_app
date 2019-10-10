@@ -246,8 +246,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="Courses"
-            android:textSize="24sp"
+            android:text="Brands"
+            android:textSize="@dimen/_24ssp"
             tools:ignore="HardcodedText,RelativeOverlap,RtlHardcoded" />
 
     </RelativeLayout>

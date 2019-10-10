@@ -88,9 +88,11 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/imageLayout"
                         android:layout_width="124dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        >
 
                         <ImageView
                             android:id="@+id/course_lessons_quiz_image"
