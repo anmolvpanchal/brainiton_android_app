@@ -2,6 +2,7 @@ package com.combrainiton.adaptors
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,11 +57,14 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  val intent = Intent(context,CourseHomePage::class.java)
                  intent.putExtra("from_Subscription",false)
                  intent.putExtra("course_name",courses[position].courseName)
+                 intent.putExtra("course_id",courses[position].courseId)
+                 Log.e("course id",courses.get(position).courseId.toString())
+                 intent.putExtra("courseImage",courses[position].courseImage)
                  context.startActivity(intent)
              }
 
          })
-
+/*
          holder.cardView.setOnClickListener(object: View.OnClickListener{
              override fun onClick(v: View?) {
                  val intent = Intent(context,CourseHomePage::class.java)
@@ -69,7 +73,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  context.startActivity(intent)
              }
 
-         })
+         })*/
 
     }
 
