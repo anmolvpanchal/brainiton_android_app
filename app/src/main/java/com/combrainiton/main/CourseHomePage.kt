@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -22,6 +23,7 @@ import com.ebanx.swipebtn.OnStateChangeListener
 import com.ebanx.swipebtn.SwipeButton
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_course_home_page.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -36,9 +38,11 @@ class CourseHomePage : AppCompatActivity() {
     var viewPager: androidx.viewpager.widget.ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
     lateinit var subscriptionButton: SwipeButton
-    var subscription_ID: String = ""
+    var subscriptionID: String = ""
     val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
     val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
+    var courseId: Int = 0
+    lateinit var courseImage: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +58,14 @@ class CourseHomePage : AppCompatActivity() {
 
         if (intent.getStringExtra("subscription_id") != null) {
             Log.i("course", intent.getStringExtra("subscription_id"))
-            subscription_ID = intent.getStringExtra("subscription_id")
-            getLessonsFromApi(subscription_ID)
+            subscriptionID = intent.getStringExtra("subscription_id")
+            getLessonsFromApi(subscriptionID)
         } else {
             Log.i("course", "no subscription id because coming from available subscription")
+        }
+
+        if (intent.getIntExtra("course_id",0) != null) {
+            courseId = intent.getIntExtra("course_id",0)
         }
 
 
@@ -66,6 +74,7 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout = findViewById(R.id.course_CollapseToolbar)
         tabLayout = findViewById(R.id.course_tabLayout)
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
+        courseImage = findViewById(R.id.course_imageView)
 
         //When user swipes to the end
         //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
@@ -73,7 +82,9 @@ class CourseHomePage : AppCompatActivity() {
         subscriptionButton.setOnStateChangeListener(OnStateChangeListener { active ->
             kotlin.run {
                 if (active) { //fully swiped
-                    startActivity(Intent(this, ActivityPlanSelect::class.java))
+                    val intent = Intent(this@CourseHomePage,ActivityPlanSelect::class.java)
+                    intent.putExtra("course_id",courseId)
+                    startActivity(intent)
                 } else { //when it's unswiped back to normal
                     Toast.makeText(this@CourseHomePage, "Back to unswipe", Toast.LENGTH_LONG).show()
                 }
@@ -106,6 +117,15 @@ class CourseHomePage : AppCompatActivity() {
     }
 
     private fun initView() {
+
+        //If image is available it will be displayed
+        if(intent.getStringExtra("courseImage") != "") {
+            Picasso.get()
+                    .load(intent.getStringExtra("brandImage"))
+                    .fit()
+                    .into(courseImage)
+        }
+
         //remove back button from toolbar
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -116,6 +136,7 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout?.apply {
 
             //setting title
+
             setTitle(intent.getStringExtra("course_name"))
 
             //Creates typefaces for fonts to be used

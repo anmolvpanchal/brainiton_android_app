@@ -25,7 +25,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
     lateinit var layoutInflater: LayoutInflater
 
     override fun getCount(): Int {
-        return images.size
+        return brands.size
     }
 
     override fun isViewFromObject(p0: View, p1: Any): Boolean {
@@ -43,13 +43,15 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
         imageView = rv.findViewById(R.id.compete_imageView)
         card = rv.findViewById(R.id.compete_cardView)
 
-        // use picaso as its fast and reduces the complexity of code
+        //If image is not available it will be shown
+        if (brands[position].brandBanner == ""){
 
-        Picasso.get()
-                .load(images[position])
-                .fit()
-                .into(imageView)
-
+        }else{
+            Picasso.get()
+                    .load(brands[position].brandBanner)
+                    .fit()
+                    .into(imageView)
+        }
 
         imageView.setOnClickListener(object  : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -59,6 +61,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
                 intent.putExtra("brandAuther",brands[position].brandAuthor)
                 intent.putExtra("brandId",brands[position].brandId)
                 intent.putExtra("brandName",brands[position].brandName)
+                intent.putExtra("brandImage",brands[position].brandCard)
                 activity.startActivity(intent)
             }
 
