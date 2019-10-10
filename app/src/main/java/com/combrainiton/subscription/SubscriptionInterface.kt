@@ -32,10 +32,17 @@ interface SubscriptionInterface {
     @GET("api/subs/lesson/{lessonID}/play/")
     fun getQuizID (@Path("lessonID") lessonID : Int) : Call<ResponseBody>
 
+    // getting data for result from quiz id
+    @GET("api/quiz/results/{quizid}/")
+    fun getDataForResult (@Path("quizid") lessonID : Int) : Call<ResponseBody>
+
     //for getting single quiz detail.
     @GET("api/quiz/detail/{quizid}/")
     fun getQuizDetailForSubs(@Path("quizid") quizId: Int): Call<ResponseBody>
 
+    //for getting single quiz detail.
+    @GET("api/subs/course/{courseid}/view/")
+    fun getLessonsForAvailableSubs(@Path("courseid") quizId: Int): Call<ResponseBody>
 
 
 }
