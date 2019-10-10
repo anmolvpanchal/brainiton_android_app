@@ -71,6 +71,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
         //create api client first
         val apiToken: String = AppSharedPreference(activity!!.applicationContext).getString("apiToken")
 
+        Log.e("sigin token" , "API token "+apiToken)
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
         val call = apiClient.getMysubscriptions()
