@@ -575,13 +575,13 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         }
 
         //here we have to call home page api
-        if (NetworkHandler(this@ActivityNormalQuizResult).isNetworkAvailable()) {
+        /*if (NetworkHandler(this@ActivityNormalQuizResult).isNetworkAvailable()) {
             val mDialog = AppProgressDialog(this@ActivityNormalQuizResult)
             mDialog.show()
             NormalQuizManagement(this@ActivityNormalQuizResult, this@ActivityNormalQuizResult, mDialog).getAllQuiz()
         } else {
             Toast.makeText(this@ActivityNormalQuizResult, resources.getString(R.string.error_network_issue), Toast.LENGTH_LONG).show()
-        }
+        }*/
     }
 
     fun isReadStoragePermissionGranted(): Boolean {

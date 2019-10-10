@@ -30,6 +30,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CourseHomePage : AppCompatActivity() {
@@ -100,6 +102,8 @@ class CourseHomePage : AppCompatActivity() {
 
         //setting tab layout with view pager
         tabLayout?.setupWithViewPager(viewPager)
+
+        viewPager!!.setCurrentItem(1)
 
         tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -206,6 +210,9 @@ class CourseHomePage : AppCompatActivity() {
                         lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz))
 
                     }
+
+                    //This line will reverse the list and will show the first created lesson on 1st place
+                    Collections.reverse(lessonsDataList)
 
                     val subscription = rootObj.getJSONArray("subscription")
 
