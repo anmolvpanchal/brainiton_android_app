@@ -2,6 +2,7 @@ package com.combrainiton.adaptors
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.combrainiton.subscription.AllCourses
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
+class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
     class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
@@ -57,11 +58,22 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  intent.putExtra("from_Subscription",false)
                  intent.putExtra("course_name",courses[position].courseName)
                  intent.putExtra("course_id",courses[position].courseId)
+                 intent.putExtra("position",position+1)
                  intent.putExtra("courseImage",courses[position].courseImage)
                  context.startActivity(intent)
              }
 
          })
+/*
+         holder.cardView.setOnClickListener(object: View.OnClickListener{
+             override fun onClick(v: View?) {
+                 val intent = Intent(context,CourseHomePage::class.java)
+                 intent.putExtra("course_id",courses[position].courseId)
+                 intent.putExtra("courseImage",courses[position].courseImage)
+                 context.startActivity(intent)
+             }
+
+         })*/
 
     }
 

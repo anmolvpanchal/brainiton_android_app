@@ -94,7 +94,7 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
                     Log.i("sub","${brands[0].brandName}    ${brands[0].brandAuthor}")
 
-                    val adapter: PagerAdapter = CompeteAdapter(brands,images, imagesUri, activity!!,context!!)
+                    val adapter: PagerAdapter = CompeteAdapter(brands,activity!!,context!!)
                     viewPager.adapter = adapter
 
                     viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {

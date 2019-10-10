@@ -13,7 +13,7 @@ import com.combrainiton.adaptors.AdapterCourseLesson
 import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.SubscriptionDataList_API
 
-class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>,val position: Int) : Fragment() {
+class CourseLessonsFragment(val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>, val position: Int) : Fragment() {
 
     lateinit var recyclerView: RecyclerView
 
@@ -25,10 +25,10 @@ class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>
 
         recyclerView = view.findViewById(R.id.course_lessonsRecyclerView)
 
-        val mSearchAdapter = AdapterCourseLesson(context!!, activity!!, lessonsDataList, subscriptionDataList,position)
+        val mSearchAdapter = AdapterCourseLesson(context!!, activity!!, lessonsDataList, subscriptionDataList, position)
         recyclerView.layoutManager = LinearLayoutManager(context)
         //This line will scroll directly to the new unlocked lesson
-        recyclerView.scrollToPosition(subscriptionDataList[position].currentLessonNumber!!.toInt()-1)
+        recyclerView.scrollToPosition(subscriptionDataList[position].currentLessonNumber!!.toInt() - 1)
         recyclerView.adapter = mSearchAdapter
 
         return view

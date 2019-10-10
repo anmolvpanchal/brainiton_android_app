@@ -11,12 +11,10 @@ import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
+import com.combrainiton.fragments.CourseLessonFragmentForAvailableSubscription
 import com.combrainiton.fragments.CourseLessonsFragment
 import com.combrainiton.fragments.CourseProgressFragment
-import com.combrainiton.subscription.LessonsDataList_API
-import com.combrainiton.subscription.ServiceGenerator
-import com.combrainiton.subscription.SubscriptionDataList_API
-import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.subscription.*
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
 import com.ebanx.swipebtn.OnStateChangeListener
@@ -43,25 +41,32 @@ class CourseHomePage : AppCompatActivity() {
     var subscriptionID: String = ""
     val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
     val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
+    val lessonsDataListForAvailable : ArrayList<LessonsDataListForAvaiable_API> = ArrayList()
     var courseId: Int = 0
     lateinit var courseImage: ImageView
+
+    var CourseID : Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_home_page)
 
+        CourseID = intent.getIntExtra("course_id",0)
+        Log.i("course",CourseID.toString())
+
         if (intent.getBooleanExtra("from_Subscription", false)) {
             Log.i("course", "Yes, from my subscription")
             swipe_button_layout.visibility = View.GONE
         } else {
             Log.i("course", "No, from available subscription")
+            getLessonsFromApiForAvailableSub(CourseID)
         }
 
         if (intent.getStringExtra("subscription_id") != null) {
             Log.i("course", intent.getStringExtra("subscription_id"))
             subscriptionID = intent.getStringExtra("subscription_id")
-            getLessonsFromApi(subscriptionID)
+            getLessonsFromApiForSubscribedUser(subscriptionID)
         } else {
             Log.i("course", "no subscription id because coming from available subscription")
         }
@@ -156,7 +161,7 @@ class CourseHomePage : AppCompatActivity() {
 
     }
 
-    fun getLessonsFromApi(subID: String) {
+    fun getLessonsFromApiForSubscribedUser(subID: String) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(this).getString("apiToken")
@@ -277,6 +282,95 @@ class CourseHomePage : AppCompatActivity() {
 
         })
 
+
+    }
+
+    fun getLessonsFromApiForAvailableSub(courseID : Int){
+
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getLessonsForAvailableSubs(courseID)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(this@CourseHomePage, "Error", this@CourseHomePage.resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(this@CourseHomePage, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    lessonsDataListForAvailable.clear()
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+                    val lessons = rootObj.getJSONArray("lessons")
+
+                    for (i in 0 until lessons.length()) {
+
+                        val innerobject_lesson: JSONObject = lessons.getJSONObject(i)
+
+                        val lesson_name = innerobject_lesson.getString("lesson_name")
+                        val quiz_image = innerobject_lesson.getString("quiz_image")
+                        val lesson_number = innerobject_lesson.getString("lesson_number")
+                        val lesson_id = innerobject_lesson.getString("lesson_id")
+                        val lesson_quiz_id = innerobject_lesson.getString("lesson_quiz_id")
+
+                        Log.e("toCheckQuizID", " yess dsp" + lesson_quiz_id)
+                        lessonsDataListForAvailable.add(LessonsDataListForAvaiable_API(lesson_name, quiz_image, lesson_number, lesson_id, lesson_quiz_id))
+
+                    }
+
+                    val adapter = CoursePagerAdapter(supportFragmentManager)
+
+                    //adding fragment through adapter
+                    adapter.addFragment(CourseDescriptionFragment(), "Description")
+                    adapter.addFragment(CourseLessonFragmentForAvailableSubscription(lessonsDataListForAvailable), "Lessons")
+                    adapter.addFragment(CourseProgressFragment(), "Progress")
+
+                    //setting view pager adapter
+                    viewPager!!.adapter = adapter
+
+                    viewPager!!.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+                        override fun onPageScrollStateChanged(p0: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                        }
+
+                    })
+
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
 
     }
 

@@ -99,7 +99,7 @@ class BrandHomePage : AppCompatActivity() {
 
                     val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
 
-                    val adapter = AdaptorBrandHomeList(this@BrandHomePage,courses,brandHomeTryList,images)
+                    val adapter = AdaptorBrandHomeList(this@BrandHomePage,courses)
                     recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@BrandHomePage, 2)
                     val decoration = ItemOffsetDecoration(2, spacingInPixel, true)
                     recyclerView.addItemDecoration(decoration)
