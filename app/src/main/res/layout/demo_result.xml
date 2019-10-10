@@ -201,11 +201,12 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/topScoreForResultActivity"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:gravity="center_horizontal"
-                                    android:text="43,343"
+                                    android:text="99999"
                                     android:textColor="@color/colorTextPrimaryDark"
                                     android:textSize="@dimen/_20ssp" />
 
@@ -228,11 +229,12 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/averageScoreForResult"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:gravity="center_horizontal"
-                                    android:text="14,865"
+                                    android:text="99999"
                                     android:textColor="@color/colorTextPrimaryDark"
                                     android:textSize="@dimen/_20ssp" />
 
@@ -303,7 +305,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
-                                    android:text="79%"
+                                    android:text="99%"
                                     android:textColor="@color/colorTextPrimaryDark"
                                     android:textSize="@dimen/_15ssp" />
 
