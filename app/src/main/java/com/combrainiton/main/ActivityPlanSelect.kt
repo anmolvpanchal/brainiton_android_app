@@ -23,6 +23,7 @@ import retrofit2.Response
 class ActivityPlanSelect : AppCompatActivity() {
 
     var enteredCode: String = ""
+    var courseId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,10 @@ class ActivityPlanSelect : AppCompatActivity() {
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
 
+        Log.i("plan",intent.getIntExtra("course_id",0).toString())
+
         val requestData = HashMap<String, String>()
-        requestData["course"] = "2" //add quiz id to request data
+        requestData["course"] = courseId.toString() //add quiz id to request data
         requestData["code"] = enteredCode //add question id to request data
 
         firstcard_plan_select.setOnClickListener {

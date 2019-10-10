@@ -36,9 +36,10 @@ class CourseHomePage : AppCompatActivity() {
     var viewPager: androidx.viewpager.widget.ViewPager? = null
     var collapseToolbarLayout: CollapsingToolbarLayout? = null
     lateinit var subscriptionButton: SwipeButton
-    var subscription_ID: String = ""
+    var subscriptionID: String = ""
     val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
     val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
+    var courseId: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +55,14 @@ class CourseHomePage : AppCompatActivity() {
 
         if (intent.getStringExtra("subscription_id") != null) {
             Log.i("course", intent.getStringExtra("subscription_id"))
-            subscription_ID = intent.getStringExtra("subscription_id")
-            getLessonsFromApi(subscription_ID)
+            subscriptionID = intent.getStringExtra("subscription_id")
+            getLessonsFromApi(subscriptionID)
         } else {
             Log.i("course", "no subscription id because coming from available subscription")
+        }
+
+        if (intent.getIntExtra("course_id",0) != null) {
+            courseId = intent.getIntExtra("course_id",0)
         }
 
 
@@ -73,7 +78,9 @@ class CourseHomePage : AppCompatActivity() {
         subscriptionButton.setOnStateChangeListener(OnStateChangeListener { active ->
             kotlin.run {
                 if (active) { //fully swiped
-                    startActivity(Intent(this, ActivityPlanSelect::class.java))
+                    val intent = Intent(this@CourseHomePage,ActivityPlanSelect::class.java)
+                    intent.putExtra("course_id",courseId)
+                    startActivity(intent)
                 } else { //when it's unswiped back to normal
                     Toast.makeText(this@CourseHomePage, "Back to unswipe", Toast.LENGTH_LONG).show()
                 }
