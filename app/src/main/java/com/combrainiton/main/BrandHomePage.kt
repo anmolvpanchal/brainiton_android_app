@@ -61,7 +61,7 @@ class BrandHomePage : AppCompatActivity() {
         collapseToolbarLayout?.apply {
 
             //setting title
-            setTitle("Curious 365")
+            setTitle(intent.getStringExtra("brandName"))
 
             //Creates typefaces for fonts to be used
             val bold = ResourcesCompat.getFont(this@BrandHomePage, R.font.raleway_bold)

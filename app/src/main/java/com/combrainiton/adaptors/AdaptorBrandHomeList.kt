@@ -52,13 +52,15 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  .into(holder.imageView)*/
 
 
-         /*holder.setOnClickListener(object : View.OnClickListener{
+         holder.cardView.setOnClickListener(object : View.OnClickListener{
              override fun onClick(v: View?) {
                  val intent = Intent(context,CourseHomePage::class.java)
+                 intent.putExtra("from_Subscription",false)
+                 intent.putExtra("course_name",courses[position].courseName)
                  context.startActivity(intent)
              }
 
-         })*/
+         })
 
          holder.cardView.setOnClickListener(object: View.OnClickListener{
              override fun onClick(v: View?) {
@@ -72,7 +74,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
 
 
     override fun getItemCount(): Int {
-        return brandHomeTryList.size
+        return courses.size
     }
 
 
