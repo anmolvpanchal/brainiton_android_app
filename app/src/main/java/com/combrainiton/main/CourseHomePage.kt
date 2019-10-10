@@ -78,9 +78,6 @@ class CourseHomePage : AppCompatActivity() {
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
         courseImage = findViewById(R.id.course_imageView)
 
-        //When user swipes to the end
-        //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
-
         subscriptionButton.setOnStateChangeListener(OnStateChangeListener { active ->
             kotlin.run {
                 if (active) { //fully swiped

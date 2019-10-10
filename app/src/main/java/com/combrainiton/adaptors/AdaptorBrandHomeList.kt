@@ -56,14 +56,6 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  val intent = Intent(context,CourseHomePage::class.java)
                  intent.putExtra("from_Subscription",false)
                  intent.putExtra("course_name",courses[position].courseName)
-                 context.startActivity(intent)
-             }
-
-         })
-
-         holder.cardView.setOnClickListener(object: View.OnClickListener{
-             override fun onClick(v: View?) {
-                 val intent = Intent(context,CourseHomePage::class.java)
                  intent.putExtra("course_id",courses[position].courseId)
                  intent.putExtra("courseImage",courses[position].courseImage)
                  context.startActivity(intent)

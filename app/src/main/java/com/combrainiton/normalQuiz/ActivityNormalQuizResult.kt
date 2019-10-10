@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdapterResultDemo
+import com.combrainiton.adaptors.ResultQuizRecAdapter
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
@@ -67,7 +68,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     private var requestInterface: NormalQuizManagementInterface? = null
     private var currentQuestion: Int = 1
     var questionsList: ArrayList<QuestionResponceModel> = ArrayList()
-    val quiz_result_recycler: RecyclerView? = null
+    lateinit var quiz_result_recycler: RecyclerView
     var totalQuestion: Int = 0
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
@@ -76,7 +77,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     lateinit var recycler: RecyclerView
 
 
-    val ScoreDataList: ArrayList<ScoreDataList_API> = ArrayList()
+    val scoreDataList: ArrayList<ScoreDataList_API> = ArrayList()
 
 
     private val TAG: String = "ActivityNormalQuizResult"    // to check the log
@@ -110,14 +111,9 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         //Make gif play only once
         gifPlayOnlyOnce()
 
-//        val adapter = AdapterResultDemo(this, answer)
-//        recycler = findViewById(R.id.demo_result_recycler)
-//        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-//        recycler.adapter = adapter
-
-//        quiz_result_recycler?.findViewById<RecyclerView>(R.id.quiz_result_recycler)
-//        quiz_result_recycler?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-//        quiz_result_recycler?.adapter = ResultQuizRecAdapter(this,questionsList,quizId,quizName!!)
+        /*quiz_result_recycler = findViewById<RecyclerView>(R.id.demo_result_recycler)
+        quiz_result_recycler?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        quiz_result_recycler?.adapter = ResultQuizRecAdapter(this,questionsList,quizId,quizName!!)*/
 
         initViews()
 
@@ -682,6 +678,8 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
                 try {
 
+                    scoreDataList.clear()
+
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
 
@@ -693,14 +691,12 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                     val average = rootObj.getString("average")
 
                     // setting text for result page
-
                     tvAccuracy.text = "$accuracy%"
                     averageScoreForResult.text = average
                     topScoreForResultActivity.text = max_score
                     tvTotalScore.text = latest_score
 
                     // storing data
-
                     for (i in 0 until score.length()) {
 
                         val innerobject_lesson: JSONObject = score.getJSONObject(i)
@@ -709,17 +705,14 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                         val question__question_number = innerobject_lesson.getString("question__question_number")
                         val question_id = innerobject_lesson.getString("question_id")
 
-
-                        Log.e("working in CourseHome", " yess" + question_id)
-
-
-                        ScoreDataList.add(ScoreDataList_API(scoreInside, question__question_number, question_id))
+                        scoreDataList.add(ScoreDataList_API(scoreInside, question__question_number, question_id))
 
                     }
 
-                        Log.i("fromcourse frag Id",max_score + " " + latest_score)
-
-
+                    val adapter = AdapterResultDemo(this@ActivityNormalQuizResult, scoreDataList)
+                    recycler = findViewById(R.id.demo_result_recycler)
+                    recycler.layoutManager = LinearLayoutManager(this@ActivityNormalQuizResult, RecyclerView.HORIZONTAL, false)
+                    recycler.adapter = adapter
 
                 } catch (ex: Exception) {
                     when (ex) {

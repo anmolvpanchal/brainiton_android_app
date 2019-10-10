@@ -62,12 +62,6 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         val no = position + 1
         holder.lessonCount.text = no.toString()
 
-       holder.Card.setOnClickListener {
-
-           val lessonIDtoPass = lessonsDataList.get(position).lessonId
-           getLessonsFromApi(lessonIDtoPass.toString(),position+1,subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
-       }
-
         //Should be locked if lesson is not unlocked
         if((position+1) > subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()){
             holder.imgQuiz.setBackgroundResource(R.drawable.locked)
@@ -78,6 +72,11 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
             Glide.with(mContext)
                     .load(lessonsDataList[position].quizImage)
                     .into(holder.imgQuiz)
+        }
+
+        holder.Card.setOnClickListener {
+            val lessonIDtoPass = lessonsDataList.get(position).lessonId
+            getLessonsFromApi(lessonIDtoPass.toString(),position+1,subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
         }
     }
 

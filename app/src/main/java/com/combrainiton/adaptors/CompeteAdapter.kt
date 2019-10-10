@@ -44,9 +44,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
         card = rv.findViewById(R.id.compete_cardView)
 
         //If image is not available it will be shown
-        if (brands[position].brandBanner == ""){
-
-        }else{
+        if (brands[position].brandBanner != ""){
             Picasso.get()
                     .load(brands[position].brandBanner)
                     .fit()
