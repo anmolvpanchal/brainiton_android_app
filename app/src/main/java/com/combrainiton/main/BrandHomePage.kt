@@ -8,6 +8,7 @@ import com.combrainiton.utils.ItemOffsetDecoration
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import androidx.core.content.res.ResourcesCompat
 import android.util.Log
+import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.combrainiton.adaptors.CompeteAdapter
 import com.combrainiton.api.ApiClient
@@ -15,6 +16,7 @@ import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.GetAllQuizResponceModel
 import com.combrainiton.subscription.*
 import com.combrainiton.utils.AppAlerts
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +28,7 @@ class BrandHomePage : AppCompatActivity() {
     lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     lateinit var collapseToolbarLayout: CollapsingToolbarLayout
     var requestInterface: SubscriptionInterface? = null
+    lateinit var brandImage: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,17 +38,7 @@ class BrandHomePage : AppCompatActivity() {
         //getting ids
         recyclerView = findViewById(R.id.compete_brandHomeRecycler)
         collapseToolbarLayout = findViewById(R.id.brand_CollapseToolbar)
-
-        images.add("http://aagamacademy.com/brainiton/delete/cell1.jpeg")
-        images.add("http://aagamacademy.com/brainiton/delete/cell2.jpeg")
-        images.add("http://aagamacademy.com/brainiton/delete/cell3.jpeg")
-        images.add("http://aagamacademy.com/brainiton/delete/cell4.jpeg")
-
-
-        brandHomeTryList.add("Crazy Chemistry")
-        brandHomeTryList.add("Fun Biology")
-        brandHomeTryList.add("Learn English")
-        brandHomeTryList.add("Aptitude and GK")
+        brandImage = findViewById(R.id.brand_imageView)
 
         initView()
 
@@ -56,6 +49,14 @@ class BrandHomePage : AppCompatActivity() {
     }
 
     private fun initView(){
+
+        //If image is available it will be displayed
+        if(intent.getStringExtra("brandImage") != "") {
+            Picasso.get()
+                    .load(intent.getStringExtra("brandImage"))
+                    .fit()
+                    .into(brandImage)
+        }
 
         //Setting fontStyle and color to title based on expand and collapse
         collapseToolbarLayout?.apply {

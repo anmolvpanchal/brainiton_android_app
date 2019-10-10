@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".main.CourseHomePage">
 
-    <!-- Purchase button-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +34,6 @@
                     android:layout_height="256dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img"
                     app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
@@ -66,34 +64,36 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <!-- Subscription button-->
     <LinearLayout
         android:id="@+id/swipe_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#2B4E67EB"
-        android:padding="10dp">
+        android:padding="@dimen/_7sdp">
 
         <com.ebanx.swipebtn.SwipeButton
             android:id="@+id/course_subscriptionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            app:inner_text="Swipe to subscribe"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:inner_text="Swipe to Subscribe"
             app:inner_text_color="@android:color/white"
-            app:inner_text_size="16sp"
-            app:inner_text_top_padding="18dp"
-            app:inner_text_bottom_padding="18dp"
+            app:inner_text_size="@dimen/_14ssp"
+            app:inner_text_top_padding="@dimen/_14sdp"
+            app:inner_text_left_padding="@dimen/_15sdp"
+            app:inner_text_bottom_padding="@dimen/_14sdp"
             app:inner_text_background="@drawable/swipe_button_shape_checked"
-            app:button_image_height="58dp"
-            app:button_image_width="80dp"
+            app:button_image_height="@dimen/_47sdp"
+            app:button_image_width="@dimen/_60sdp"
             app:button_image_disabled="@drawable/ic_lock_outline_black_24dp"
             app:button_image_enabled="@drawable/ic_lock_open_black_24dp"
-            app:button_left_padding="20dp"
-            app:button_right_padding="20dp"
-            app:button_top_padding="20dp"
-            app:button_bottom_padding="20dp"
+            app:button_left_padding="@dimen/_13sdp"
+            app:button_right_padding="@dimen/_13sdp"
+            app:button_top_padding="@dimen/_13sdp"
+            app:button_bottom_padding="@dimen/_13sdp"
             app:button_background="@drawable/swipe_button_background_checked"
             app:button_trail_enabled="true"
             app:button_trail_drawable="@drawable/swipe_button_background_checked"

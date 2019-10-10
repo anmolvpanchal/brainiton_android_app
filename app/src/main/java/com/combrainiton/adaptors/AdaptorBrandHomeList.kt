@@ -38,7 +38,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
 
      override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-         holder.textView.text = brandHomeTryList.get(position)
+         holder.textView.text = courses[position].courseName
 
          //If image is not available it will be shown
          if (courses[position].courseImage == ""){
@@ -65,6 +65,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
              override fun onClick(v: View?) {
                  val intent = Intent(context,CourseHomePage::class.java)
                  intent.putExtra("course_id",courses[position].courseId)
+                 intent.putExtra("courseImage",courses[position].courseImage)
                  context.startActivity(intent)
              }
 

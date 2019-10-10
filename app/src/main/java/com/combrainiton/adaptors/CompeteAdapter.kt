@@ -25,7 +25,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
     lateinit var layoutInflater: LayoutInflater
 
     override fun getCount(): Int {
-        return images.size
+        return brands.size
     }
 
     override fun isViewFromObject(p0: View, p1: Any): Boolean {
@@ -61,6 +61,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
                 intent.putExtra("brandAuther",brands[position].brandAuthor)
                 intent.putExtra("brandId",brands[position].brandId)
                 intent.putExtra("brandName",brands[position].brandName)
+                intent.putExtra("brandImage",brands[position].brandCard)
                 activity.startActivity(intent)
             }
 
