@@ -100,7 +100,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                     val rootObj = JSONObject(resp)
                     val subscriptions = rootObj.getJSONArray("subscriptions")
                     if (subscriptions.length().equals(0)){
-
+                        Toast.makeText(activity?.applicationContext, "You donot have any Subscription !!" , Toast.LENGTH_LONG).show();
                     }else{
 
                         for (i in 0 until subscriptions.length()) {
