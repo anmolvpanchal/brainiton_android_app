@@ -35,9 +35,11 @@ class ActivityNormalQuizInstruction : AppCompatActivity() {
 
         sound = AppSharedPreference(this@ActivityNormalQuizInstruction).getBoolean("sound")
 
-        timerSound = MediaPlayer.create(applicationContext, R.raw.first_second)
-        timerSound.isLooping = false
-        timerSound.start()
+        if (sound){
+            timerSound = MediaPlayer.create(applicationContext, R.raw.first_second)
+            timerSound.isLooping = false
+            timerSound.start()
+        }
         val timeMiliseconds = 3001 // in milliseconds = 2seconds
         val tickTime = 1000 // in milliseconds - 1 second - we trigger onUpdate in intervals of this time
         BataTime(timeMiliseconds, tickTime).start(object : BataTimeCallback {
