@@ -8,15 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.PagerAdapter
 import com.combrainiton.R
-import com.combrainiton.main.BrandHomePage
 import com.combrainiton.main.CourseHomePage
 import com.combrainiton.subscription.SubscribedCourse_API
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCourse_API>,val activity: FragmentActivity,val context: Context) : androidx.viewpager.widget.PagerAdapter() {
+class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCourse_API>, val activity: FragmentActivity, val context: Context,val currentItem: Int) : androidx.viewpager.widget.PagerAdapter() {
 
     lateinit var layoutInflater: LayoutInflater
 
@@ -71,6 +69,7 @@ class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCours
                 intent.putExtra("subscription_id",Sub_ID)
                 intent.putExtra("from_Subscription",true)
                 intent.putExtra("course_name",subscribedCourcesList[position].courseName)
+                intent.putExtra("position",currentItem)
                 activity.startActivity(intent)
             }
 

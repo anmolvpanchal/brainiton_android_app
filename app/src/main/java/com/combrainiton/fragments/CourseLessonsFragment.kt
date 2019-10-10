@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdapterCourseLesson
-import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.SubscriptionDataList_API
 
-class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>) : Fragment() {
+class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>,val position: Int) : Fragment() {
 
     lateinit var recyclerView: RecyclerView
 
@@ -22,21 +21,14 @@ class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>
 
         val view: View = inflater.inflate(R.layout.fragment_course_lessons, container, false)
 
-
-        //quizList = response.body()!!.quizzes as ArrayList<GetAllQuizResponceModel.Allquizzes>?
-
-        /*val mDialog = AppProgressDialog(context!!)
-        mDialog.show()
-
-        NormalQuizManagement(context!!, activity!!, mDialog).getAllQuiz()*/
-
-        Log.i("course", "current: ${subscriptionDataList[0].currentLessonName}, quiz: ${subscriptionDataList[0].currentLessonQuiz}")
+        Log.i("course", "current: ${subscriptionDataList[position].currentLessonName}, quiz: ${subscriptionDataList[position].currentLessonQuiz}")
 
         recyclerView = view.findViewById(R.id.course_lessonsRecyclerView)
-        val mSearchAdapter = AdapterCourseLesson(context!!, activity!!, lessonsDataList, subscriptionDataList)
+
+        val mSearchAdapter = AdapterCourseLesson(context!!, activity!!, lessonsDataList, subscriptionDataList,position)
         recyclerView.layoutManager = LinearLayoutManager(context)
         //This line will scroll directly to the new unlocked lesson
-        recyclerView.scrollToPosition(subscriptionDataList[0].currentLessonNumber!!.toInt()-1)
+        recyclerView.scrollToPosition(subscriptionDataList[position].currentLessonNumber!!.toInt()-1)
         recyclerView.adapter = mSearchAdapter
 
         return view

@@ -37,5 +37,4 @@ interface SubscriptionInterface {
     fun getQuizDetailForSubs(@Path("quizid") quizId: Int): Call<ResponseBody>
 
 
-
 }

@@ -245,7 +245,7 @@ class CourseHomePage : AppCompatActivity() {
 
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragment(), "Description")
-                    adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList), "Lessons")
+                    adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList,intent.getIntExtra("position",0)), "Lessons")
                     adapter.addFragment(CourseProgressFragment(), "Progress")
 
                     //setting view pager adapter

@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.combrainiton.R
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
-import com.combrainiton.normalQuiz.ActivityNormalQuizInstruction
 import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionDataList_API
@@ -30,12 +29,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterCourseLesson.MyViewHolder>() {
+
+
+class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>,val brandPosition: Int) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterCourseLesson.MyViewHolder>() {
 
     var quiz_id : String = ""
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.course_lessons_card_view_item, parent, false))
@@ -45,11 +43,17 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         return lessonsDataList.size
     }
 
+    //Always use this two following methods in recyclerView adapter
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        Glide.with(mContext)
-                .load(lessonsDataList[position].quizImage)
-                .into(holder.imgQuiz)
         holder.tvQuizTitle.text = lessonsDataList[position].lessonName
         holder.tvQuizHost.text = "By Unknown"
         holder.cvMain.tag = position
@@ -61,33 +65,20 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
        holder.Card.setOnClickListener {
 
            val lessonIDtoPass = lessonsDataList.get(position).lessonId
-           val quiz_name = lessonsDataList.get(position).lessonName.toString()
-           getLessonsFromApi(lessonIDtoPass.toString(),quiz_name)
+           getLessonsFromApi(lessonIDtoPass.toString(),position+1,subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
        }
 
-        //Removing UpperLine and LowerLine from first and last card
-        /*if(position == 0){ //First card
-            holder.upperLine.visibility = View.INVISIBLE
-        } else if(position == itemCount - 1){ //Last card
-            holder.lowerLine.visibility = View.INVISIBLE
-        }*/
-
-        /*holder.cvMain.setOnClickListener { p0 ->
-
-            val selectedPosition: Int = p0!!.tag as Int
-            if (filterList!![selectedPosition].total_questions != 0) {
-                mActivity.startActivity(Intent(mContext, ActivityNormalQuizDescription::class.java)
-                        .putExtra("quizId", filterList!![selectedPosition].quiz_id)
-                        .putExtra("description", filterList!![selectedPosition].description)
-                        .putExtra("totalQuestion", filterList!![selectedPosition].total_questions)
-                        .putExtra("quizName", filterList!![selectedPosition].quiz_title)
-                        .putExtra("hostName", filterList!![selectedPosition].host_name)
-                        .putExtra("image", filterList!![selectedPosition].image_url))
-                mActivity.finish()
-            } else {
-                Toast.makeText(mContext, "There Is no Questions Added By Host", Toast.LENGTH_LONG).show()
-            }
-        }*/
+        //Should be locked if lesson is not unlocked
+        if((position+1) > subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()){
+            holder.imgQuiz.setBackgroundResource(R.drawable.locked)
+            holder.imgQuiz.scaleType = ImageView.ScaleType.CENTER_INSIDE
+            holder.imgQuiz.setPadding(R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp)
+            holder.layout.setBackgroundResource(R.color.listLocked)
+        } else{
+            Glide.with(mContext)
+                    .load(lessonsDataList[position].quizImage)
+                    .into(holder.imgQuiz)
+        }
     }
 
     class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
@@ -100,6 +91,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         val upperLine : View
         val lowerLine : View
         val Card : CardView
+        val layout: LinearLayout
 
 
         init {
@@ -111,11 +103,11 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
              upperLine = mView.course_lessons_upper_line
              lowerLine = mView.course_lessons_lower_line
              Card = mView.my_quizzes_list_item_main_container
-
+            layout = mView.imageLayout
         }
     }
 
-    fun getLessonsFromApi(lessonID: String, quizName: String) {
+    fun getLessonsFromApi(lessonID: String, currentPosition: Int, lastLesson: Int) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -146,7 +138,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                     val play = rootObj.getString("play")
 
                     if (play.equals("false")){
-                        Toast.makeText(mContext, "Quiz Will be available tomorrow " , Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Quiz will be available after ${currentPosition - lastLesson} days" , Toast.LENGTH_LONG).show();
                     }else{
                          quiz_id = rootObj.getString("quiz_id")
 
@@ -171,7 +163,6 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
             }
 
         })
-
 
     }
 
