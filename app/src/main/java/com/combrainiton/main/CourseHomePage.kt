@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -22,6 +23,7 @@ import com.ebanx.swipebtn.OnStateChangeListener
 import com.ebanx.swipebtn.SwipeButton
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayout
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_course_home_page.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -40,6 +42,7 @@ class CourseHomePage : AppCompatActivity() {
     val subscriptionDataList: ArrayList<SubscriptionDataList_API> = ArrayList()
     val lessonsDataList: ArrayList<LessonsDataList_API> = ArrayList()
     var courseId: Int = 0
+    lateinit var courseImage: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +74,7 @@ class CourseHomePage : AppCompatActivity() {
         collapseToolbarLayout = findViewById(R.id.course_CollapseToolbar)
         tabLayout = findViewById(R.id.course_tabLayout)
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
+        courseImage = findViewById(R.id.course_imageView)
 
         //When user swipes to the end
         //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
@@ -113,6 +117,15 @@ class CourseHomePage : AppCompatActivity() {
     }
 
     private fun initView() {
+
+        //If image is available it will be displayed
+        if(intent.getStringExtra("courseImage") != "") {
+            Picasso.get()
+                    .load(intent.getStringExtra("brandImage"))
+                    .fit()
+                    .into(courseImage)
+        }
+
         //remove back button from toolbar
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)

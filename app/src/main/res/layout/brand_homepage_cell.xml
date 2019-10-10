@@ -36,7 +36,7 @@
             android:layout_alignParentBottom="true"
             android:focusable="true"
             android:fontFamily="@font/raleway_bold"
-            android:textColor="#FFF"
+            android:textColor="@color/colorTextPrimaryDark"
             android:gravity="left"
             android:text="Title will be shown here"
             android:textAlignment="center"
