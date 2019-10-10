@@ -35,6 +35,8 @@ class CourseLessonsFragment (val lessonsDataList: ArrayList<LessonsDataList_API>
         recyclerView = view.findViewById(R.id.course_lessonsRecyclerView)
         val mSearchAdapter = AdapterCourseLesson(context!!, activity!!, lessonsDataList, subscriptionDataList)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        //This line will scroll directly to the new unlocked lesson
+        recyclerView.scrollToPosition(subscriptionDataList[0].currentLessonNumber!!.toInt()-1)
         recyclerView.adapter = mSearchAdapter
 
         return view

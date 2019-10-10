@@ -55,4 +55,5 @@ interface UserManagementInterface {
     @Headers("Content-Type: application/json")
     @GET("api/user/name/")
     fun getUserDetail(): Call<UserResponseModel>
+
 }
