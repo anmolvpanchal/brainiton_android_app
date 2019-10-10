@@ -40,16 +40,15 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
 
          holder.textView.text = brandHomeTryList.get(position)
 
-         Picasso.get()
-                 .load(images[position])
-                 .fit()
-                 .into(holder.imageView)
+         //If image is not available it will be shown
+         if (courses[position].courseImage == ""){
 
-         //This will load image to course cardView
-         /*Picasso.get()
-                 .load(images[position])
-                 .fit()
-                 .into(holder.imageView)*/
+         }else{
+             Picasso.get()
+                     .load(courses[position].courseImage)
+                     .fit()
+                     .into(holder.imageView)
+         }
 
 
          holder.cardView.setOnClickListener(object : View.OnClickListener{
@@ -65,6 +64,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
          holder.cardView.setOnClickListener(object: View.OnClickListener{
              override fun onClick(v: View?) {
                  val intent = Intent(context,CourseHomePage::class.java)
+                 intent.putExtra("course_id",courses[position].courseId)
                  context.startActivity(intent)
              }
 
