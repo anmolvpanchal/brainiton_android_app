@@ -19,7 +19,7 @@ import com.combrainiton.subscription.AllBrands
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<String>, var imagesUri: ArrayList<String>, var activity: FragmentActivity,var context: Context) : androidx.viewpager.widget.PagerAdapter() {
+class CompeteAdapter(var brands: ArrayList<AllBrands>,var activity: FragmentActivity,var context: Context) : androidx.viewpager.widget.PagerAdapter() {
 
 
     lateinit var layoutInflater: LayoutInflater
@@ -44,9 +44,7 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var images: ArrayList<Stri
         card = rv.findViewById(R.id.compete_cardView)
 
         //If image is not available it will be shown
-        if (brands[position].brandBanner == ""){
-
-        }else{
+        if (brands[position].brandBanner != ""){
             Picasso.get()
                     .load(brands[position].brandBanner)
                     .fit()

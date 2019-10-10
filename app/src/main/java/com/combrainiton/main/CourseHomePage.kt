@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
 import com.combrainiton.fragments.CourseDescriptionFragment
+import com.combrainiton.fragments.CourseLessonFragmentForAvailableSubscription
 import com.combrainiton.fragments.CourseLessonsFragment
 import com.combrainiton.fragments.CourseProgressFragment
 import com.combrainiton.subscription.*
@@ -52,14 +53,14 @@ class CourseHomePage : AppCompatActivity() {
         setContentView(R.layout.activity_course_home_page)
 
         CourseID = intent.getIntExtra("course_id",0)
-
-        getLessonsFromApiForAvailableSub(CourseID)
+        Log.i("course",CourseID.toString())
 
         if (intent.getBooleanExtra("from_Subscription", false)) {
             Log.i("course", "Yes, from my subscription")
             swipe_button_layout.visibility = View.GONE
         } else {
             Log.i("course", "No, from available subscription")
+            getLessonsFromApiForAvailableSub(CourseID)
         }
 
         if (intent.getStringExtra("subscription_id") != null) {
@@ -81,9 +82,6 @@ class CourseHomePage : AppCompatActivity() {
         tabLayout = findViewById(R.id.course_tabLayout)
         subscriptionButton = findViewById(R.id.course_subscriptionButton)
         courseImage = findViewById(R.id.course_imageView)
-
-        //When user swipes to the end
-        //subscriptionButton.onSwipedOnListener = { Toast.makeText(this@CourseHomePage,"Checked",Toast.LENGTH_LONG).show() }
 
         subscriptionButton.setOnStateChangeListener(OnStateChangeListener { active ->
             kotlin.run {
@@ -215,7 +213,7 @@ class CourseHomePage : AppCompatActivity() {
 
                     }
 
-                    //This line will reverse the list and will show the first created lesson on 1st place
+                    //This line will reverse the list and will show the first lesson on 1st place
                     Collections.reverse(lessonsDataList)
 
                     val subscription = rootObj.getJSONArray("subscription")
@@ -249,7 +247,7 @@ class CourseHomePage : AppCompatActivity() {
 
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragment(), "Description")
-                    adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList), "Lessons")
+                    adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList,intent.getIntExtra("position",0)), "Lessons")
                     adapter.addFragment(CourseProgressFragment(), "Progress")
 
                     //setting view pager adapter
@@ -330,11 +328,34 @@ class CourseHomePage : AppCompatActivity() {
                         val lesson_id = innerobject_lesson.getString("lesson_id")
                         val lesson_quiz_id = innerobject_lesson.getString("lesson_quiz_id")
 
-                        Log.e("toCheckQuizID", " yess" + lesson_quiz_id)
+                        Log.e("toCheckQuizID", " yess dsp" + lesson_quiz_id)
                         lessonsDataListForAvailable.add(LessonsDataListForAvaiable_API(lesson_name, quiz_image, lesson_number, lesson_id, lesson_quiz_id))
 
                     }
 
+                    val adapter = CoursePagerAdapter(supportFragmentManager)
+
+                    //adding fragment through adapter
+                    adapter.addFragment(CourseDescriptionFragment(), "Description")
+                    adapter.addFragment(CourseLessonFragmentForAvailableSubscription(lessonsDataListForAvailable), "Lessons")
+                    adapter.addFragment(CourseProgressFragment(), "Progress")
+
+                    //setting view pager adapter
+                    viewPager!!.adapter = adapter
+
+                    viewPager!!.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+                        override fun onPageScrollStateChanged(p0: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+                            //Log.i("Compete","check")
+                        }
+
+                        override fun onPageSelected(p0: Int) {
+                        }
+
+                    })
 
 
                 } catch (ex: Exception) {

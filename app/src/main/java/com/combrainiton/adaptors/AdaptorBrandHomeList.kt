@@ -14,7 +14,7 @@ import com.combrainiton.subscription.AllCourses
 import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
-class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>, var brandHomeTryList: ArrayList<String>, var images: ArrayList<String>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
+class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCourses>) : androidx.recyclerview.widget.RecyclerView.Adapter<AdaptorBrandHomeList.MyViewHolder>() {
 
     class MyViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
@@ -58,7 +58,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  intent.putExtra("from_Subscription",false)
                  intent.putExtra("course_name",courses[position].courseName)
                  intent.putExtra("course_id",courses[position].courseId)
-                 Log.e("course id",courses.get(position).courseId.toString())
+                 intent.putExtra("position",position+1)
                  intent.putExtra("courseImage",courses[position].courseImage)
                  context.startActivity(intent)
              }

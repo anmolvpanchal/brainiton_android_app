@@ -51,4 +51,6 @@
     <color name="selectplan_light_green">#E8FAFA</color>
     <color name="selectplan_light_gray">#f4f4f4</color>
 
+    <color name="listLocked">#FACED4D4</color>
+
 </resources>
