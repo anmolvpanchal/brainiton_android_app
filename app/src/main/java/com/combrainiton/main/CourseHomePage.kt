@@ -3,6 +3,7 @@ package com.combrainiton.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -318,19 +319,26 @@ class CourseHomePage : AppCompatActivity() {
                     val rootObj = JSONObject(resp)
                     val lessons = rootObj.getJSONArray("lessons")
 
-                    for (i in 0 until lessons.length()) {
+                    if(lessons.length().equals(0)){
+                        val toast : Toast  = Toast.makeText(this@CourseHomePage,"No Lessons Provided In This Course By Tutor New Lessons ComingSoon .", Toast.LENGTH_SHORT);  // to show toast in center
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show()
+                    }else{
 
-                        val innerobject_lesson: JSONObject = lessons.getJSONObject(i)
+                        for (i in 0 until lessons.length()) {
 
-                        val lesson_name = innerobject_lesson.getString("lesson_name")
-                        val quiz_image = innerobject_lesson.getString("quiz_image")
-                        val lesson_number = innerobject_lesson.getString("lesson_number")
-                        val lesson_id = innerobject_lesson.getString("lesson_id")
-                        val lesson_quiz_id = innerobject_lesson.getString("lesson_quiz_id")
+                            val innerobject_lesson: JSONObject = lessons.getJSONObject(i)
 
-                        Log.e("toCheckQuizID", " yess dsp" + lesson_quiz_id)
-                        lessonsDataListForAvailable.add(LessonsDataListForAvaiable_API(lesson_name, quiz_image, lesson_number, lesson_id, lesson_quiz_id))
+                            val lesson_name = innerobject_lesson.getString("lesson_name")
+                            val quiz_image = innerobject_lesson.getString("quiz_image")
+                            val lesson_number = innerobject_lesson.getString("lesson_number")
+                            val lesson_id = innerobject_lesson.getString("lesson_id")
+                            val lesson_quiz_id = innerobject_lesson.getString("lesson_quiz_id")
 
+                            Log.e("toCheckQuizID", " yess dsp" + lesson_quiz_id)
+                            lessonsDataListForAvailable.add(LessonsDataListForAvaiable_API(lesson_name, quiz_image, lesson_number, lesson_id, lesson_quiz_id))
+
+                        }
                     }
 
                     val adapter = CoursePagerAdapter(supportFragmentManager)
