@@ -81,7 +81,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
         holder.Card.setOnClickListener {
 
-            Log.e("clicked and erro","error is caused here")
+            Log.e("clicked and erro", "error is caused here")
             getLessonsFromApi(lessonIDtoPass.toString(), position + 1, subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
         }
     }
@@ -144,9 +144,13 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                     val days = (currentPosition - lastLesson) - 1
 
                     if (play.equals("false")) {
+
+                        if (lastLesson == 0){
+                            Toast.makeText(mContext, "Quiz will unlock Soon", Toast.LENGTH_LONG).show();
+                        }
                         if (days == 0) {
                             Toast.makeText(mContext, "Quiz will unlock Tomorrow", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Toast.makeText(mContext, "Quiz will be available after $days days", Toast.LENGTH_LONG).show();
                         }
                     } else {

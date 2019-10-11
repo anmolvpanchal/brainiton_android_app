@@ -13,12 +13,12 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
+            android:id="@+id/description_text_for_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Curious 365 course is designed to educate curious kids about the world and surrounding. This course is designed by Educational experts having 25+ years of teaching experience.
-This course will help your child in developing the scientific aptitude, mathematical fundamental, improving aptitude and GK."
-            android:textSize="20dp"
+            android:text=" The java.lang.NumberFormatException comes when you try to parse a non-numeric String to Number e.g. Short, Integer, Float, Double etc. For example, if you try to convert  to an integer then you will get NumberFormatException.Aug 27, 2016 "
             android:layout_margin="10dp"
+            android:textSize="@dimen/_15ssp"
             android:textColor="#000"
             android:fontFamily="@font/raleway_medium"/>
 
