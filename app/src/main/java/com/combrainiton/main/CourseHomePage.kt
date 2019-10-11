@@ -205,12 +205,13 @@ class CourseHomePage : AppCompatActivity() {
                         val lesson_number = innerobject_lesson.getString("lesson_number")
                         val quiz_image = innerobject_lesson.getString("quiz_image")
                         val lesson_quiz = innerobject_lesson.getString("lesson_quiz")
+                        val course_description = innerobject_lesson.getString("course_description")
 
 
                         Log.e("working in CourseHome", " yess" + quiz_image + lesson_name + lesson_id)
 
 
-                        lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz))
+                        lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz,course_description))
 
                     }
 
@@ -246,7 +247,7 @@ class CourseHomePage : AppCompatActivity() {
                     //creating instance of adapter
                     val adapter = CoursePagerAdapter(supportFragmentManager)
 
-                    val course_description_from_Subs = "temporary data"
+                    val course_description_from_Subs = intent.getStringExtra("course_description_from_mySubs")
 
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragment(course_description_from_Subs), "Description")
