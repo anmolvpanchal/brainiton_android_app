@@ -246,8 +246,10 @@ class CourseHomePage : AppCompatActivity() {
                     //creating instance of adapter
                     val adapter = CoursePagerAdapter(supportFragmentManager)
 
+                    val course_description_from_Subs = "temporary data"
+
                     //adding fragment through adapter
-                    adapter.addFragment(CourseDescriptionFragment(), "Description")
+                    adapter.addFragment(CourseDescriptionFragment(course_description_from_Subs), "Description")
                     adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList,intent.getIntExtra("position",0)), "Lessons")
                     adapter.addFragment(CourseProgressFragment(), "Progress")
 
@@ -342,9 +344,10 @@ class CourseHomePage : AppCompatActivity() {
                     }
 
                     val adapter = CoursePagerAdapter(supportFragmentManager)
+                    val course_description = intent.getStringExtra("course_description")
 
                     //adding fragment through adapter
-                    adapter.addFragment(CourseDescriptionFragment(), "Description")
+                    adapter.addFragment(CourseDescriptionFragment(course_description), "Description")
                     adapter.addFragment(CourseLessonFragmentForAvailableSubscription(lessonsDataListForAvailable), "Lessons")
                     adapter.addFragment(CourseProgressFragment(), "Progress")
 

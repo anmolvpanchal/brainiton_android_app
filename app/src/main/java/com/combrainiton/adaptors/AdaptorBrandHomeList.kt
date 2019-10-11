@@ -60,6 +60,7 @@ class AdaptorBrandHomeList(var context: Context, var courses: ArrayList<AllCours
                  intent.putExtra("course_id",courses[position].courseId)
                  intent.putExtra("position",position+1)
                  intent.putExtra("courseImage",courses[position].courseImage)
+                 intent.putExtra("course_description",courses[position].courseDescription)
                  context.startActivity(intent)
              }
 

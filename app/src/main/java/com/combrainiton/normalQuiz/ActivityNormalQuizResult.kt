@@ -193,7 +193,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 //        //set score data
 //        tvTotalScore.text = String.format("%.2f", scoreData!!.total_score)
 //
-//        //set accuracy
+        //set accuracy
 //        val accuracy = (100 * scoreData.correct_answers) / scoreData.total_questions
 //        tvAccuracy.text = "$accuracy%"
 
