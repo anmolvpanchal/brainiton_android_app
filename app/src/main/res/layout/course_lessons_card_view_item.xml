@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <!-- Card numbers -->
@@ -18,11 +19,11 @@
 
 
             <TextView
-                android:id="@+id/background"
+                android:id="@+id/backgroundCircle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableStart="@drawable/circle_shape" />
+                />
 
 
             <TextView
@@ -38,18 +39,18 @@
                 android:id="@+id/course_lessons_upper_line"
                 android:layout_width="5dp"
                 android:layout_height="match_parent"
-                android:layout_above="@id/background"
+                android:layout_above="@id/backgroundCircle"
                 android:layout_centerHorizontal="true"
-                android:background="#2B4E67EB" />
+                />
 
             <!-- Lower line -->
             <View
                 android:id="@+id/course_lessons_lower_line"
                 android:layout_width="5dp"
                 android:layout_height="match_parent"
-                android:layout_below="@id/background"
+                android:layout_below="@id/backgroundCircle"
                 android:layout_centerHorizontal="true"
-                android:background="#2B4E67EB" />
+                />
 
             <!-- Right line -->
             <!--<View
@@ -79,7 +80,8 @@
                 style="@style/ThemeCardViewMyQuizzes"
                 android:layout_width="match_parent"
                 android:layout_height="94dp"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                app:cardElevation="@dimen/_5sdp">
 
                 <LinearLayout
                     android:id="@+id/course_lessons_Container"
@@ -99,11 +101,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
+                            android:src="@drawable/lock"
                             tools:ignore="ContentDescription" />
 
                     </LinearLayout>
 
                     <RelativeLayout
+                        android:id="@+id/lessonInfo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@+id/my_quizzes_quiz_image"

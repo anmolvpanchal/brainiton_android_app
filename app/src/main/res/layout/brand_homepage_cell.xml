@@ -36,12 +36,12 @@
             android:layout_alignParentBottom="true"
             android:focusable="true"
             android:fontFamily="@font/raleway_bold"
-            android:textColor="@color/colorTextPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:gravity="left"
             android:text="Title will be shown here"
             android:textAlignment="center"
-            android:textSize="15sp"
-            android:layout_marginBottom="5dp"/>
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginBottom="@dimen/_4sdp"/>
 
     </RelativeLayout>
 

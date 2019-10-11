@@ -25,11 +25,11 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
-    var images = ArrayList<String>()
-    var imagesUri = ArrayList<String>()
     lateinit var viewPager: ViewPager
     var requestInterface: SubscriptionInterface? = null
 
@@ -45,30 +45,10 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
         viewPager.setClipToPadding(false)
         viewPager.setPadding(0, 0, 0, 45)
 
-        initView()
+        getAllBrands()
 
         // Inflate the layout for this fragment
         return view
-
-
-    }
-
-    fun initView() {
-
-        //This links will be displayed on card
-        images.add("http://aagamacademy.com/brainiton/delete/brand1.jpeg")
-//        images.add("http://link.brainiton.in/imgcard5")
-//        images.add("https://i.imgur.com/VFzhBmW.jpg")
-//        images.add("https://i.imgur.com/eXdt2ND.jpg")
-//        images.add("https://i.imgur.com/GGCHVIi.jpg")
-//        images.add("https://i.imgur.com/DH9QbAq.jpg")
-
-        //This links will be opened when corresponding card is clicked
-        imagesUri.add("http://link.brainiton.in/txtcard4")
-        /*imagesUri.add("http://link.brainiton.in/txtcard5")
-        imagesUri.add("http://link.brainiton.in/txtcard6")*/
-
-        getAllBrands()
 
     }
 
@@ -91,6 +71,9 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
 
                     Log.e("responce_entire","  " + responce)
                     val brands: ArrayList<AllBrands> = response.body()!!.brands as ArrayList<AllBrands>
+
+                    //This will show latest brand first
+                    Collections.reverse(brands)
 
                     Log.i("sub","${brands[0].brandName}    ${brands[0].brandAuthor}")
 
@@ -119,16 +102,6 @@ class AvailableSubscriptionFragment : androidx.fragment.app.Fragment() {
     private inner class ViewPagerStack : androidx.viewpager.widget.ViewPager.PageTransformer {
         @Override
         override fun transformPage(page: View, position: Float) {
-
-            // transition 1
-//            if (position >= 0) {
-//                page.scaleY = 1f - 0.9f * position
-//                page.scaleX = 1f
-//                page.translationY = -page.width * position
-//                page.translationX = 360 * position
-//            }
-
-
             // transition 2
 
             if (position >= 0) {

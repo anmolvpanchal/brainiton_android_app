@@ -41,7 +41,6 @@
     <color name="colorYellow">#FFE731</color>
     <color name="colorRed">#FF4242</color>
 
-
 <!--    for select plan page-->
 
     <color name="selectplan_background">#F5F4FA</color>
@@ -52,5 +51,8 @@
     <color name="selectplan_light_gray">#f4f4f4</color>
 
     <color name="listLocked">#FACED4D4</color>
+    <color name="lessonCountColor">#2B4E67EB</color>
+    <color name="lessonInfoLocked">#FBF5ED</color>
+    <color name="currentLesson">#EF9696</color>
 
 </resources>
