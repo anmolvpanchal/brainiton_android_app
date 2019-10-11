@@ -137,7 +137,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
                     }
 
-                    val adapter: PagerAdapter = MySubscribtionAdapter(subscribedCourcesList, activity!!,context!!,viewPager.currentItem,course_description)
+                    val adapter: PagerAdapter = MySubscribtionAdapter(subscribedCourcesList, activity!!,context!!,viewPager.currentItem)
                     viewPager.adapter = adapter
 
                     viewPager.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {

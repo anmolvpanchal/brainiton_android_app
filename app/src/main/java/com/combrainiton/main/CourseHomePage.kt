@@ -11,10 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
-import com.combrainiton.fragments.CourseDescriptionFragment
-import com.combrainiton.fragments.CourseLessonFragmentForAvailableSubscription
-import com.combrainiton.fragments.CourseLessonsFragment
-import com.combrainiton.fragments.CourseProgressFragment
+import com.combrainiton.fragments.*
 import com.combrainiton.subscription.*
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
@@ -247,10 +244,8 @@ class CourseHomePage : AppCompatActivity() {
                     //creating instance of adapter
                     val adapter = CoursePagerAdapter(supportFragmentManager)
 
-                    val course_description_from_Subs = intent.getStringExtra("course_description_from_mySubs")
-
                     //adding fragment through adapter
-                    adapter.addFragment(CourseDescriptionFragment(course_description_from_Subs), "Description")
+                    adapter.addFragment(CourseDescriptionFragmentForMySubscription(intent.getStringExtra("course_description")), "Description")
                     adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList,intent.getIntExtra("position",0)), "Lessons")
                     adapter.addFragment(CourseProgressFragment(), "Progress")
 

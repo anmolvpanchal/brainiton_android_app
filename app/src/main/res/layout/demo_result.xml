@@ -156,10 +156,11 @@
                         android:orientation="vertical">
 
                         <!-- Top and average score-->
-                        <pl.droidsonroids.gif.GifImageView
+                        <ImageView
                             android:id="@+id/gif"
                             android:layout_width="@dimen/_100sdp"
                             android:layout_height="@dimen/_100sdp"
+                            android:src="@drawable/result_image"
                             android:layout_gravity="center_horizontal" />
 
 
