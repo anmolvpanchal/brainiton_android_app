@@ -8,10 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.cardview.widget.CardView
 import com.combrainiton.R
 import com.combrainiton.normalQuiz.ActivityNormalQuizDescription
@@ -58,19 +55,38 @@ class AdapterCourseLessonForAvailableSubscription(var mContext: Context, var mAc
         val no = position + 1
         holder.lessonCount.text = no.toString()
 
-        if(lessonsDataListForAvailable[position].quizImage != ""){
-            Picasso.get()
-                    .load(lessonsDataListForAvailable[position].quizImage)
-                    .fit()
-                    .into(holder.imgQuiz)
+        //Remove first and last line from lesson list
+        if(position == 0){
+            holder.upperLine.visibility = View.INVISIBLE
+        }
+        if(position+1 == lessonsDataListForAvailable.size){
+            holder.lowerLine.visibility = View.INVISIBLE
         }
 
-        //Locking all the lessons except first teo
+        if(position+1 < 3){
+            //Making the lines and circle green if already unlocked
+            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.colorCategoryFourDisabled))
+            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.colorCategoryFourDisabled))
+            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.green_circle_shape))
+        } else{
+            //Making the lines & circle purple and lesson info view light orange if locked
+            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
+            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
+            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.circle_shape))
+            holder.lessonInfo.setBackgroundColor(mActivity.resources.getColor(R.color.lessonInfoLocked))
+        }
+
+        //Locking all the lessons except first two
         if (lessonsDataListForAvailable[position].lessonQuizId.toInt() == -1) {
-            holder.imgQuiz.setBackgroundResource(R.drawable.locked)
+            holder.imgQuiz.setBackgroundResource(R.drawable.lock)
             holder.imgQuiz.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            holder.imgQuiz.setPadding(R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp)
-            holder.layout.setBackgroundResource(R.color.listLocked)
+        } else{
+            if(lessonsDataListForAvailable[position].quizImage != ""){
+                Picasso.get()
+                        .load(lessonsDataListForAvailable[position].quizImage)
+                        .fit()
+                        .into(holder.imgQuiz)
+            }
         }
 
         holder.Card.setOnClickListener {
@@ -96,7 +112,8 @@ class AdapterCourseLessonForAvailableSubscription(var mContext: Context, var mAc
         val lowerLine: View
         val Card: CardView
         val layout: LinearLayout
-
+        val background: TextView
+        val lessonInfo: RelativeLayout
 
         init {
             imgQuiz = mView.course_lessons_quiz_image!!
@@ -108,6 +125,8 @@ class AdapterCourseLessonForAvailableSubscription(var mContext: Context, var mAc
             lowerLine = mView.course_lessons_lower_line
             Card = mView.my_quizzes_list_item_main_container
             layout = mView.imageLayout
+            background = mView.backgroundCircle
+            lessonInfo = mView.lessonInfo
         }
     }
 

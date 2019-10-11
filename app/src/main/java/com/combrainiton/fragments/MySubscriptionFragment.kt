@@ -20,6 +20,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
@@ -128,6 +130,9 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                                     course_name, subscription_id, course_id, lesson_name, lesson_number, course_description))
 
                         }
+
+                        //This will show latest subscribed courses first
+                        Collections.reverse(subscribedCourcesList)
 
                     }
 

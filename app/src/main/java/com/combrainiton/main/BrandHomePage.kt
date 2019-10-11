@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BrandHomePage : AppCompatActivity() {
 
@@ -96,6 +98,9 @@ class BrandHomePage : AppCompatActivity() {
             override fun onResponse(call: Call<CoursesResponseModel>, response: Response<CoursesResponseModel>) {
                 if(response.isSuccessful){
                     val courses: ArrayList<AllCourses> = response.body()!!.courses as ArrayList<AllCourses>
+
+                    //Showing latest courses first
+                    Collections.reverse(courses)
 
                     val spacingInPixel = resources.getDimensionPixelSize(R.dimen.recyclerBrand)
 
