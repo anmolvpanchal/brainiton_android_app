@@ -92,8 +92,8 @@ class ActivityPlanSelect : AppCompatActivity() {
                             jsonObject = JSONObject(response.errorBody()?.string());
                             val internalMessage = jsonObject.getString("message");
                             val errorCode = jsonObject.getString("status");
-                            val toast : Toast  = Toast.makeText(this@ActivityPlanSelect,internalMessage, Toast.LENGTH_LONG);  // to show toast in center
-                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            val toast : Toast  = Toast.makeText(this@ActivityPlanSelect,internalMessage, Toast.LENGTH_LONG)  // to show toast in center
+                            toast.setGravity(Gravity.CENTER, 0, 0)
                             toast.show()
                             Log.e("! Responce ", "some message " + internalMessage + errorCode)
 

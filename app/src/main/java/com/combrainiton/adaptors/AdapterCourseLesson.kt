@@ -30,10 +30,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>, val brandPosition: Int) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterCourseLesson.MyViewHolder>() {
 
-class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val lessonsDataList: ArrayList<LessonsDataList_API>, val subscriptionDataList: ArrayList<SubscriptionDataList_API>,val brandPosition: Int) : androidx.recyclerview.widget.RecyclerView.Adapter<AdapterCourseLesson.MyViewHolder>() {
-
-    var quiz_id : String = ""
+    var quiz_id: String = ""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.course_lessons_card_view_item, parent, false))
@@ -63,12 +62,12 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         holder.lessonCount.text = no.toString()
 
         //Should be locked if lesson is not unlocked
-        if((position+1) > subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()){
+        if ((position + 1) > subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()) {
             holder.imgQuiz.setBackgroundResource(R.drawable.locked)
             holder.imgQuiz.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            holder.imgQuiz.setPadding(R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp,R.dimen._20sdp)
+            holder.imgQuiz.setPadding(R.dimen._20sdp, R.dimen._20sdp, R.dimen._20sdp, R.dimen._20sdp)
             holder.layout.setBackgroundResource(R.color.listLocked)
-        } else{
+        } else {
             Glide.with(mContext)
                     .load(lessonsDataList[position].quizImage)
                     .into(holder.imgQuiz)
@@ -76,32 +75,32 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
         holder.Card.setOnClickListener {
             val lessonIDtoPass = lessonsDataList.get(position).lessonId
-            getLessonsFromApi(lessonIDtoPass.toString(),position+1,subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
+            getLessonsFromApi(lessonIDtoPass.toString(), position + 1, subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
         }
     }
 
     class MyViewHolder(mView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(mView) {
 
-        val imgQuiz : ImageView
-        val tvQuizTitle : TextView
-        val tvQuizHost : TextView
-        val cvMain : LinearLayout
-        val lessonCount : TextView
-        val upperLine : View
-        val lowerLine : View
-        val Card : CardView
+        val imgQuiz: ImageView
+        val tvQuizTitle: TextView
+        val tvQuizHost: TextView
+        val cvMain: LinearLayout
+        val lessonCount: TextView
+        val upperLine: View
+        val lowerLine: View
+        val Card: CardView
         val layout: LinearLayout
 
 
         init {
-             imgQuiz = mView.course_lessons_quiz_image!!
-             tvQuizTitle = mView.course_lessons_quiz_name!!
-             tvQuizHost = mView.course_lessons_quiz_sponsor!!
-             cvMain = mView.course_lessons_Container!!
-             lessonCount = mView.course_lessons_lessons_count
-             upperLine = mView.course_lessons_upper_line
-             lowerLine = mView.course_lessons_lower_line
-             Card = mView.my_quizzes_list_item_main_container
+            imgQuiz = mView.course_lessons_quiz_image!!
+            tvQuizTitle = mView.course_lessons_quiz_name!!
+            tvQuizHost = mView.course_lessons_quiz_sponsor!!
+            cvMain = mView.course_lessons_Container!!
+            lessonCount = mView.course_lessons_lessons_count
+            upperLine = mView.course_lessons_upper_line
+            lowerLine = mView.course_lessons_lower_line
+            Card = mView.my_quizzes_list_item_main_container
             layout = mView.imageLayout
         }
     }
@@ -135,13 +134,18 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
                     val play = rootObj.getString("play")
+                    val days = (currentPosition - lastLesson) - 1
 
-                    if (play.equals("false")){
-                        Toast.makeText(mContext, "Quiz will be available after ${currentPosition - lastLesson} days" , Toast.LENGTH_LONG).show();
-                    }else{
-                         quiz_id = rootObj.getString("quiz_id")
+                    if (play.equals("false")) {
+                        if (days == 0) {
+                            Toast.makeText(mContext, "Quiz will unlock Tomorrow", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(mContext, "Quiz will be available after $days days", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        quiz_id = rootObj.getString("quiz_id")
 
-                        Log.e("AdapterResult","responce" + quiz_id)
+                        Log.e("AdapterResult", "responce" + quiz_id)
 
                         // getting data and then intent
                         gettingDetailsToPass(quiz_id.toInt())
@@ -165,7 +169,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
     }
 
-    fun gettingDetailsToPass(QuizID : Int) {
+    fun gettingDetailsToPass(QuizID: Int) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(mContext).getString("apiToken")
@@ -200,7 +204,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                     val image_url = rootObj.getString("image_url")
                     val total_questions = rootObj.getString("total_questions")
 
-                    Log.i("fromcourse frag Id",quiz_id.toString())
+                    Log.i("fromcourse frag Id", quiz_id.toString())
 
 
                     mActivity.startActivity(Intent(mActivity, ActivityNormalQuizDescription::class.java)
@@ -210,7 +214,6 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                             .putExtra("hostName", host_name)
                             .putExtra("description", description)
                             .putExtra("image", image_url)) //pass quiz name
-
 
 
                 } catch (ex: Exception) {

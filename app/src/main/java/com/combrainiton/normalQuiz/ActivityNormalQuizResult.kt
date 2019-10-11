@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
@@ -15,8 +16,11 @@ import android.os.Environment
 import android.os.StrictMode
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,8 +77,10 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     private lateinit var questionModel: QuestionResponceModel
     private val result: ObjectQuizResult = ObjectQuizResult()
     private var tts: TextToSpeech? = null
-    var answer = arrayOf(true, false, true, false, true, false, true, false, true, false, true, false)
     lateinit var recycler: RecyclerView
+    lateinit var viewGroup: ViewGroup
+    lateinit var builder: AlertDialog.Builder
+    lateinit var alertDialog: AlertDialog
 
 
     val scoreDataList: ArrayList<ScoreDataList_API> = ArrayList()
@@ -696,6 +702,11 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                     topScoreForResultActivity.text = max_score
                     tvTotalScore.text = latest_score
 
+                    // If top score is created by player
+                    if (max_score.equals(latest_score)){
+                        alertDialog()
+                    }
+
                     // storing data
                     for (i in 0 until score.length()) {
 
@@ -730,6 +741,24 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
 
     }
+
+
+    fun alertDialog(){
+        viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.top_score_popup,viewGroup,false)
+        builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        alertDialog= builder.create()
+
+        //This won't allow dialog to dismiss if touched outside it's area
+        alertDialog.setCanceledOnTouchOutside(true)
+
+        //Transparent background for alert dialog
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
+    }
+
 
 
 }

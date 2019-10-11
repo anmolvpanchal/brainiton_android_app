@@ -2,6 +2,7 @@ package com.combrainiton.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,7 +101,9 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                     val rootObj = JSONObject(resp)
                     val subscriptions = rootObj.getJSONArray("subscriptions")
                     if (subscriptions.length().equals(0)){
-                        Toast.makeText(activity?.applicationContext, "You donot have any Subscription !!" , Toast.LENGTH_LONG).show();
+                        val toast : Toast  = Toast.makeText(activity?.applicationContext,"You donot have any Subscription !!\n Please Subscribe From Available Subscription First", Toast.LENGTH_SHORT);  // to show toast in center
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show()
                     }else{
 
                         for (i in 0 until subscriptions.length()) {
