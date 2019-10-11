@@ -1,11 +1,17 @@
 package com.combrainiton.main
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.combrainiton.R
 import com.combrainiton.subscription.ServiceGenerator
@@ -24,6 +30,10 @@ class ActivityPlanSelect : AppCompatActivity() {
 
     var enteredCode: String = ""
     var courseId: Int = 0
+    lateinit var alertDialog: AlertDialog
+    lateinit var viewGroup: ViewGroup
+    lateinit var builder: AlertDialog.Builder
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +42,6 @@ class ActivityPlanSelect : AppCompatActivity() {
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
 
         Log.i("plan",intent.getIntExtra("course_id",0).toString())
-
-        val requestData = HashMap<String, String>()
-        requestData["course"] = courseId.toString() //add quiz id to request data
-        requestData["code"] = enteredCode //add question id to request data
 
         firstcard_plan_select.setOnClickListener {
 
@@ -54,14 +60,74 @@ class ActivityPlanSelect : AppCompatActivity() {
 
         nextbutton_plan_select.setOnClickListener {
             if (Validation()){
+
+                courseId = intent.getIntExtra("course_id",0)
+                enteredCode = enter_subscription_code_eittext.text.toString()
+                val requestData = HashMap<String, String>()
+                requestData["course"] = courseId.toString() //add quiz id to request data
+                requestData["code"] = enteredCode //add question id to request data
+
+                Log.e("hashmap","course id "+ requestData["course"] + "entered code " + requestData["code"])
                 enterSubscriptionCode(requestData)
             }
         }
     }
 
+    fun alertDialogForCorrectCode(){
+        viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.correct_subscription_code_popup,viewGroup,false)
+        builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        alertDialog= builder.create()
+
+        //This won't allow dialog to dismiss if touched outside it's area
+        alertDialog.setCanceledOnTouchOutside(false)
+
+        //Transparent background for alert dialog
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
+
+        val  button : Button? = dialogView.findViewById(R.id.correct_subscription_btn)
+
+        button?.setOnClickListener {
+            startActivity(Intent(this@ActivityPlanSelect,ActivityNavCompete::class.java))
+            alertDialog.dismiss()
+        }
+
+    }
+
+    fun alertDialogForWrongCode(){
+        viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.incorrect_subscription_code_popup,viewGroup,false)
+        builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+        alertDialog= builder.create()
+
+        //This won't allow dialog to dismiss if touched outside it's area
+        alertDialog.setCanceledOnTouchOutside(false)
+
+        //Transparent background for alert dialog
+        alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
+
+        val  button : Button? = dialogView.findViewById(R.id.incorrect_subscription_btn)
+
+        button?.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+    }
+
+
+
     fun Validation(): Boolean {
         if (enter_subscription_code_eittext.text.isEmpty()){
             enter_subscription_code_eittext.error = "Please enter code"
+            return false
+        }else if (enter_subscription_code_eittext.text.length > 6){
+            enter_subscription_code_eittext.error = "Please enter valid code"
             return false
         }else{
             enteredCode = enter_subscription_code_eittext.text.toString()
@@ -90,12 +156,14 @@ class ActivityPlanSelect : AppCompatActivity() {
                         var jsonObject: JSONObject? = null;
                         try {
                             jsonObject = JSONObject(response.errorBody()?.string());
-                            val internalMessage = jsonObject.getString("message");
-                            val errorCode = jsonObject.getString("status");
-                            val toast : Toast  = Toast.makeText(this@ActivityPlanSelect,internalMessage, Toast.LENGTH_LONG)  // to show toast in center
-                            toast.setGravity(Gravity.CENTER, 0, 0)
-                            toast.show()
+                            val internalMessage = jsonObject.getString("message")
+                            val errorCode = jsonObject.getString("status")
+
                             Log.e("! Responce ", "some message " + internalMessage + errorCode)
+
+                            if (errorCode.equals("400")){
+                                alertDialogForWrongCode()
+                            }
 
                         } catch (e: JSONException) {
                             e.printStackTrace();
@@ -110,8 +178,13 @@ class ActivityPlanSelect : AppCompatActivity() {
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
                     val message = rootObj.getString("message")
-                    Toast.makeText(this@ActivityPlanSelect, message, Toast.LENGTH_SHORT).show();
+                    val errorCode = rootObj.getString("status")
+
                     Log.e(" Responce ", "some message " + rootObj)
+
+                    if (errorCode.equals("201")){
+                        alertDialogForCorrectCode()
+                    }
 
 
                 } catch (ex: Exception) {

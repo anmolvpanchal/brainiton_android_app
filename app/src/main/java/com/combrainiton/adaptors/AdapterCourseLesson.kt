@@ -61,6 +61,12 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         val no = position + 1
         holder.lessonCount.text = no.toString()
 
+        val lessonIDtoPass = lessonsDataList.get(position).lessonId
+//        Log.e("error caused by this ", " Brand position " + brandPosition.toString())
+//        Log.e("clicked and erro","error " + lessonIDtoPass.toString() )
+//        Log.e("erro caused by", " this " +   (position + 1))
+//        Log.e("erro caused by", " this " +   subscriptionDataList[brandPosition].lastLessonNumber)
+
         //Should be locked if lesson is not unlocked
         if ((position + 1) > subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()) {
             holder.imgQuiz.setBackgroundResource(R.drawable.locked)
@@ -74,7 +80,8 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         }
 
         holder.Card.setOnClickListener {
-            val lessonIDtoPass = lessonsDataList.get(position).lessonId
+
+            Log.e("clicked and erro","error is caused here")
             getLessonsFromApi(lessonIDtoPass.toString(), position + 1, subscriptionDataList[brandPosition].lastLessonNumber!!.toInt())
         }
     }
