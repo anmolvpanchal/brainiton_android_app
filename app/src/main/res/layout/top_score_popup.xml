@@ -19,7 +19,7 @@
             android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_love"
+            android:src="@drawable/top_score_popup_image"
             />
 
         <TextView

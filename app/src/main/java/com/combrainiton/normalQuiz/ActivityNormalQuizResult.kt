@@ -115,7 +115,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         }
 
         //Make gif play only once
-        gifPlayOnlyOnce()
+        //gifPlayOnlyOnce()
 
         /*quiz_result_recycler = findViewById<RecyclerView>(R.id.demo_result_recycler)
         quiz_result_recycler?.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
