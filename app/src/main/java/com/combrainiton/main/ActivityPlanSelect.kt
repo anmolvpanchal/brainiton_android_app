@@ -33,7 +33,7 @@ class ActivityPlanSelect : AppCompatActivity() {
     lateinit var alertDialog: AlertDialog
     lateinit var viewGroup: ViewGroup
     lateinit var builder: AlertDialog.Builder
-
+    var selectedPlan : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +44,40 @@ class ActivityPlanSelect : AppCompatActivity() {
         Log.i("plan",intent.getIntExtra("course_id",0).toString())
 
         firstcard_plan_select.setOnClickListener {
-
             firstcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
             secondcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
+            firstcard_plan_select.isSelected = true
+            selectedPlan = 299
         }
 
         secondcard_plan_select.setOnClickListener {
             secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
             firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
+            secondcard_plan_select.isSelected = true
+            selectedPlan = 499
         }
 
+
         continue_button_plan_select.setOnClickListener {
-            startActivity(Intent(this, PaymentActivity::class.java))
+            if (selectedPlan.equals(0)){
+                Toast.makeText(this,"please select plan ",Toast.LENGTH_SHORT).show()
+            }else {
+
+                if (firstcard_plan_select.isSelected){
+                    val intent = Intent(this,PaymentActivity::class.java)
+                    intent.putExtra("planSelected", selectedPlan)
+                    this.startActivity(intent)
+
+                }else if (secondcard_plan_select.isSelected){
+                    val intent = Intent(this,PaymentActivity::class.java)
+                    intent.putExtra("planSelected", selectedPlan)
+                    this.startActivity(intent)
+
+                }else{
+                    Toast.makeText(this,"please select plan ",Toast.LENGTH_LONG).show()
+                }
+
+            }
         }
 
         nextbutton_plan_select.setOnClickListener {

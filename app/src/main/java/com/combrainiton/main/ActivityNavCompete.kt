@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.PagerAdapter
@@ -20,18 +22,14 @@ import com.combrainiton.CustomViewPager
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorBrandHomeList
 import com.combrainiton.adaptors.CompeteAdapter
+import com.combrainiton.adaptors.MySubscribtionAdapter
 import com.combrainiton.adaptors.SubscriptionAdapter
 import com.combrainiton.api.ApiClient
 import com.combrainiton.fragments.AvailableSubscriptionFragment
 import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.managers.NormalQuizManagement
-import com.combrainiton.subscription.AllBrands
-import com.combrainiton.subscription.BrandsResponseModel
-import com.combrainiton.subscription.SubscriptionInterface
-import com.combrainiton.utils.AppAlerts
-import com.combrainiton.utils.AppProgressDialog
-import com.combrainiton.utils.ItemOffsetDecoration
-import com.combrainiton.utils.NetworkHandler
+import com.combrainiton.subscription.*
+import com.combrainiton.utils.*
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_nav_compete.*
 import kotlinx.android.synthetic.main.activity_nav_explore.*
@@ -41,9 +39,12 @@ import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_explore
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_my_quizzes
 import kotlinx.android.synthetic.main.activity_nav_explore.btm_nav_profile
 import kotlinx.android.synthetic.main.compete_activity_popup.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -69,7 +70,7 @@ class ActivityNavCompete : AppCompatActivity() {
 
 //        uncomment this two line to statr subscription model
         tabLayout = findViewById<TabLayout>(R.id.compete_tabLayout)
-        initView()
+        InitViews()
         initBottomMenu()
 
     }
@@ -94,34 +95,6 @@ class ActivityNavCompete : AppCompatActivity() {
         keepPlaying.setOnClickListener {
             explore()
         }
-
-    }
-
-
-    fun initView() {
-
-        val adapter = SubscriptionAdapter(supportFragmentManager)
-
-        adapter.addFragment(MySubscriptionFragment(), "My Subscription")
-        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription")
-
-        viewPager.adapter = adapter
-        tabLayout!!.setupWithViewPager(viewPager)
-
-        //Tab Layout
-        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager!!.currentItem = tab.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
-        })
 
     }
 
@@ -163,5 +136,105 @@ class ActivityNavCompete : AppCompatActivity() {
         finish()
     }
 
+    fun InitViews(){
+        //create api client first
+        val apiToken: String = AppSharedPreference(applicationContext).getString("apiToken")
+
+        Log.e("sigin token" , "API token "+apiToken)
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getMysubscriptions()
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(applicationContext, "Error", resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(applicationContext, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+                    val subscriptions = rootObj.getJSONArray("subscriptions")
+                    if (subscriptions.length().equals(0)){
+
+                        val adapter = SubscriptionAdapter(supportFragmentManager)
+
+                        adapter.addFragment(MySubscriptionFragment(), "My Subscription")
+                        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription")
+
+                        viewPager.adapter = adapter
+                        viewPager.setCurrentItem(1)
+                        tabLayout.setupWithViewPager(viewPager)
+
+                        //Tab Layout
+                        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                            override fun onTabSelected(tab: TabLayout.Tab) {
+                                viewPager.currentItem = tab.position
+                            }
+
+                            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                            }
+
+                            override fun onTabReselected(tab: TabLayout.Tab) {
+
+                            }
+                        })
+
+
+
+                    }else {
+
+                        val adapter = SubscriptionAdapter(supportFragmentManager)
+
+                        adapter.addFragment(MySubscriptionFragment(), "My Subscription")
+                        adapter.addFragment(AvailableSubscriptionFragment(), "Available Subscription")
+
+                        viewPager.adapter = adapter
+                        tabLayout.setupWithViewPager(viewPager)
+
+                        //Tab Layout
+                        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                            override fun onTabSelected(tab: TabLayout.Tab) {
+                                viewPager.currentItem = tab.position
+                            }
+
+                            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+                            }
+
+                            override fun onTabReselected(tab: TabLayout.Tab) {
+
+                            }
+                        })
+                    }
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
 }
 
