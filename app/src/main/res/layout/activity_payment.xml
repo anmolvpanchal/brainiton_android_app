@@ -354,11 +354,12 @@
                                 android:textSize="@dimen/_12ssp" />
 
                             <TextView
+                                android:id="@+id/amount_to_pay_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:fontFamily="@font/raleway_bold"
-                                android:text="₹499"
+                                android:text="₹000"
                                 android:textColor="@color/colorAccentDark"
                                 android:textSize="@dimen/_20ssp" />
 

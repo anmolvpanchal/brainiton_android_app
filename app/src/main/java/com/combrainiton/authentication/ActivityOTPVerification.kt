@@ -2,6 +2,7 @@
 
 package com.combrainiton.authentication
 
+import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,7 @@ import java.util.logging.Logger
 import java.util.regex.Pattern
 import androidx.annotation.NonNull
 import android.R.id.message
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 
 
 class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
@@ -68,8 +70,7 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
         }
         timer.start()
 
-
-
+        methodWithPermissions()
 
         // to automatically get and set the OTP
 
@@ -79,6 +80,11 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
             btnSubmit.performClick()// automatically clicks
             //then you can send verification code to server
         })
+    }
+
+    // fun to get all the required permissions
+    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE,RECEIVE_SMS,READ_SMS) {
+        Log.e("permissions","permissions granted")
     }
 
     // this fun is used to fetch whole message and get OTP from message

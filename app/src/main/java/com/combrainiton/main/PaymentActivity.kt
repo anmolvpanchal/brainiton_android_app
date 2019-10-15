@@ -15,6 +15,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.combrainiton.R
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.activity_payment.*
 import java.lang.StringBuilder
 import java.util.*
 import java.util.regex.Pattern
@@ -31,6 +32,7 @@ class PaymentActivity : AppCompatActivity() {
     lateinit var userEmailId: TextInputEditText
     lateinit var userGender: RadioGroup
     lateinit var datePickerDialog: DatePickerDialog
+    var selectedPlan : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,13 @@ class PaymentActivity : AppCompatActivity() {
         userEmailId =findViewById(R.id.activity_payment_userEmailId)
         userMobNo =findViewById(R.id.activity_payment_userPhoneNo)
         userGender =findViewById(R.id.activity_payment_genderRadioGroup)
+
+        //getting selected plan amount and setting to textview
+
+        selectedPlan = intent.getIntExtra("planSelected",2)
+        Log.e("planSelected",selectedPlan.toString())
+        amount_to_pay_text.text = "₹ "+selectedPlan.toString()
+
 
         paymentButton.setOnClickListener {
             if(checkAllValidationBeforeSubmit()){

@@ -93,6 +93,9 @@ dependencies {
     //Pop-up for description in normal quiz
     implementation 'com.nightonke:boommenu:2.1.1'
 
+    //ask all permission at same time
+    implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.0'
+
     //Graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
