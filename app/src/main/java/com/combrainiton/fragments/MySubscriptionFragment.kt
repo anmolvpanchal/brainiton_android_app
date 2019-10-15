@@ -28,6 +28,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
     lateinit var viewPager: androidx.viewpager.widget.ViewPager
     var requestInterface: SubscriptionInterface? = null
+    var course_description : String = ""
 
     val subscribedCourcesList: ArrayList<SubscribedCourse_API> = ArrayList()
 
@@ -105,7 +106,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                             val course_id = innerobject.getString("course_id")
                             val lesson_name = innerobject.getString("lesson_name")
                             val lesson_number = innerobject.getString("lesson_number")
-                            val course_description = innerobject.getString("course_description")
+                            course_description = innerobject.getString("course_description")
 
                             Log.e("working", " yess" + course_id + lesson_name + course_description)
 
