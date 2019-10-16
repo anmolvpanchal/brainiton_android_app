@@ -88,7 +88,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                     val rootObj = JSONObject(resp)
                     val subscriptions = rootObj.getJSONArray("subscriptions")
                     if (subscriptions.length().equals(0)){
-                        val toast : Toast  = Toast.makeText(activity?.applicationContext,"You donot have any Subscription !!\n Please Subscribe From Available Subscription First", Toast.LENGTH_SHORT);  // to show toast in center
+                        val toast : Toast  = Toast.makeText(activity?.applicationContext,"You donot have any Subscription !!\n Please Subscribe From Available Subscription First To Get Courses In MY SUBSCRIPTION", Toast.LENGTH_SHORT);  // to show toast in center
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show()
 
