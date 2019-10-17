@@ -103,8 +103,6 @@ class CourseHomePage : AppCompatActivity() {
         //setting tab layout with view pager
         tabLayout?.setupWithViewPager(viewPager)
 
-        viewPager!!.setCurrentItem(1)
-
         tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position

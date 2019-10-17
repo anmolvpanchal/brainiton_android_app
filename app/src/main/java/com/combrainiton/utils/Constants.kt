@@ -1,4 +1,4 @@
-package com.combrainiton.paytm
+package com.combrainiton.utils
 
 class Constants {
 

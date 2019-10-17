@@ -9,13 +9,11 @@ import com.combrainiton.R
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
-import com.combrainiton.managers.UserManagement
 import com.combrainiton.managers.UserManagementInterface
 import com.combrainiton.models.CheckSumModel
 import com.combrainiton.models.CommonResponceModel
 import com.combrainiton.models.UserResponseModel
-import com.combrainiton.paytm.Constants
-import com.combrainiton.paytm.PayTmModel
+import com.combrainiton.utils.Constants
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
@@ -24,7 +22,6 @@ import com.combrainiton.utils.AppSharedPreference
 import com.paytm.pgsdk.PaytmOrder
 import com.paytm.pgsdk.PaytmPGService
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback
-import kotlinx.android.synthetic.main.activity_nav_my_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,20 +47,13 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
     }
 
     fun getCheckSum() {
+
         requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
 
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
 
-        val paytm = PayTmModel(
-                Constants.MID,
-                Constants.CHANNEL_ID,
-                "100",
-                Constants.WEBSITE,
-                Constants.CALLBACK_URL,
-                Constants.INDUSTRY_TYPE_ID
-        )
 
         val type = HashMap<String, String>()
 
@@ -116,8 +106,6 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         mDialog.show()
 
         val Service = PaytmPGService.getStagingService()
-
-        paramMap = HashMap<String, String>()
 
         paramMap.put("MID", Constants.MID)
         paramMap.put( "ORDER_ID" , orderId!!)

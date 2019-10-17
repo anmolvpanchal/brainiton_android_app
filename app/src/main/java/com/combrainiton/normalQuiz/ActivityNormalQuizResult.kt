@@ -28,15 +28,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdapterResultDemo
-import com.combrainiton.adaptors.ResultQuizRecAdapter
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
-import com.combrainiton.main.ActivityNavExplore
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.managers.NormalQuizManagementInterface
 import com.combrainiton.models.*
-import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.ScoreDataList_API
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
@@ -105,7 +102,11 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
         tts = TextToSpeech(this, this)
 
         correct_option_layout.setOnClickListener {
-            speakOut()
+            if (tts!!.isSpeaking) {
+
+            } else {
+                speakOut()
+            }
         }
         result_Cell_left_button.setOnClickListener {
             previousQuestion()
@@ -127,10 +128,10 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
     private fun gifPlayOnlyOnce() {
         var gifDrawable: GifDrawable? = null
-        try{
-            gifDrawable = GifDrawable(resources,R.drawable.medal)
+        try {
+            gifDrawable = GifDrawable(resources, R.drawable.medal)
             gifDrawable.loopCount = 1
-        }catch (e: java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
         gif.setImageDrawable(gifDrawable)
@@ -220,8 +221,8 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
             NormalQuizManagement(applicationContext, this, mDialog).getQuizDetail(quizId)
         }
 
-        Challange_friend.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(view : View?) {
+        Challange_friend.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
                 if (view != null) {
                     shareScore(view)
                 }
@@ -657,7 +658,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     }
 
 
-    fun gettingDetailsForPlayers(QuizID : Int) {
+    fun gettingDetailsForPlayers(QuizID: Int) {
 
         //create api client first
         val apiToken: String = AppSharedPreference(this).getString("apiToken")
@@ -703,7 +704,7 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
                     tvTotalScore.text = latest_score
 
                     // If top score is created by player
-                    if (max_score.equals(latest_score)){
+                    if (max_score.equals(latest_score)) {
                         alertDialog()
                     }
 
@@ -745,12 +746,12 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
     }
 
 
-    fun alertDialog(){
+    fun alertDialog() {
         viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.top_score_popup,viewGroup,false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.top_score_popup, viewGroup, false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
-        alertDialog= builder.create()
+        alertDialog = builder.create()
 
         //This won't allow dialog to dismiss if touched outside it's area
         alertDialog.setCanceledOnTouchOutside(true)
@@ -760,7 +761,6 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
         alertDialog.show()
     }
-
 
 
 }
