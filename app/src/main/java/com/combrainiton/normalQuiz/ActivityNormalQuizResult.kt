@@ -721,6 +721,8 @@ class ActivityNormalQuizResult : AppCompatActivity(), TextToSpeech.OnInitListene
 
                     }
 
+                    Collections.reverse(scoreDataList)
+
                     val adapter = AdapterResultDemo(this@ActivityNormalQuizResult, scoreDataList)
                     recycler = findViewById(R.id.demo_result_recycler)
                     recycler.layoutManager = LinearLayoutManager(this@ActivityNormalQuizResult, RecyclerView.HORIZONTAL, false)

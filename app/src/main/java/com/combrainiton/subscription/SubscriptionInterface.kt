@@ -1,6 +1,6 @@
 package com.combrainiton.subscription
 
-import com.combrainiton.models.QuizDetailResponceModel
+import com.combrainiton.models.CheckSumModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -40,8 +40,13 @@ interface SubscriptionInterface {
     @GET("api/quiz/detail/{quizid}/")
     fun getQuizDetailForSubs(@Path("quizid") quizId: Int): Call<ResponseBody>
 
-    //for getting single quiz detail.
+
     @GET("api/subs/course/{courseid}/view/")
     fun getLessonsForAvailableSubs(@Path("courseid") quizId: Int): Call<ResponseBody>
+
+    //Getting CHECKSUMHASH for PayTm
+    @Headers("Content-Type: application/json")
+    @POST("api/subs/subscribe/checksum/make/")
+    fun getCheckSumHash(@Body type: Map<String,String>) : Call<CheckSumModel>
 
 }
