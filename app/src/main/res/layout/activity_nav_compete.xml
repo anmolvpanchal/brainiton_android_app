@@ -246,7 +246,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/raleway_medium"
-            android:text="Brands"
+            android:text="Premium"
             android:textSize="@dimen/_24ssp"
             tools:ignore="HardcodedText,RelativeOverlap,RtlHardcoded" />
 

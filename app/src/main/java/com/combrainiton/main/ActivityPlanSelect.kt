@@ -46,7 +46,6 @@ class ActivityPlanSelect : AppCompatActivity() {
         secondcard_plan_select.isSelected = true
         selectedPlan = 499
 
-
         Log.i("plan",intent.getIntExtra("course_id",0).toString())
 
         firstcard_plan_select.setOnClickListener {
@@ -94,6 +93,7 @@ class ActivityPlanSelect : AppCompatActivity() {
                 val requestData = HashMap<String, String>()
                 requestData["course"] = courseId.toString() //add quiz id to request data
                 requestData["code"] = enteredCode //add question id to request data
+                requestData["order"] = ""
 
                 Log.e("hashmap","course id "+ requestData["course"] + "entered code " + requestData["code"])
                 enterSubscriptionCode(requestData)

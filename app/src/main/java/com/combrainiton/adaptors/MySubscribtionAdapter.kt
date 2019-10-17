@@ -71,6 +71,8 @@ class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCours
                 intent.putExtra("course_name",subscribedCourcesList[position].courseName)
                 intent.putExtra("position",currentItem)
                 intent.putExtra("course_description",subscribedCourcesList[position].courseDescription)
+
+                Log.e("onclick of mySUb" , " data" +Sub_ID +" " + subscribedCourcesList[position].courseName )
                 activity.startActivity(intent)
             }
 

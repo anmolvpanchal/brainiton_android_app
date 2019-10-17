@@ -182,6 +182,8 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
     override fun onTransactionCancel(inErrorMessage: String?, inResponse: Bundle?) {
         Toast.makeText(this@PayTmGateway,"Transaction cancelled",Toast.LENGTH_SHORT)
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
     }
 
     override fun networkNotAvailable() {
@@ -194,5 +196,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
     override fun onBackPressedCancelTransaction() {
         Toast.makeText(this@PayTmGateway,"Back Pressed",Toast.LENGTH_SHORT)
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
     }
 }
