@@ -103,8 +103,6 @@ class CourseHomePage : AppCompatActivity() {
         //setting tab layout with view pager
         tabLayout?.setupWithViewPager(viewPager)
 
-        viewPager!!.setCurrentItem(1)
-
         tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
@@ -252,6 +250,8 @@ class CourseHomePage : AppCompatActivity() {
                     //setting view pager adapter
                     viewPager!!.adapter = adapter
 
+                    viewPager!!.setCurrentItem(1)
+
                     viewPager!!.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
                         override fun onPageScrollStateChanged(p0: Int) {
                             //Log.i("Compete","check")
@@ -349,6 +349,8 @@ class CourseHomePage : AppCompatActivity() {
 
                     //setting view pager adapter
                     viewPager!!.adapter = adapter
+
+                    viewPager!!.setCurrentItem(1)
 
                     viewPager!!.setOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
                         override fun onPageScrollStateChanged(p0: Int) {

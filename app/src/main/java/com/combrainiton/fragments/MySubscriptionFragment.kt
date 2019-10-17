@@ -51,6 +51,8 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
 
     fun initView() {
+
+
         MyCources()
     }
 
