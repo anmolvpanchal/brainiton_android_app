@@ -29,9 +29,6 @@ import java.lang.Exception
 
 class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
-    lateinit var paramMap: HashMap<String, String>
-    lateinit var order: PaytmOrder
-    var requestInterface: SubscriptionInterface? = null
     var userInfo: UserManagementInterface? = null
     var mobileNo: String = ""
     var checkSumHash: String? = ""
@@ -48,15 +45,11 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
     fun getCheckSum() {
 
-        requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
-
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
 
-
         val type = HashMap<String, String>()
-
         type["type"] = "type1"
 
         val checkSum: Call<CheckSumModel>? = apiClient.getCheckSumHash(type)
@@ -84,7 +77,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
                     orderId = response.body()!!.orderId
                     customerId = response.body()!!.customerId
 
-                    setOrderObject(response.body()!!.checksumhash)
+                    setOrderObject()
 
                 } catch (ex: Exception) {
                     ex.printStackTrace()
@@ -95,37 +88,36 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         })
     }
 
-    private fun setOrderObject(checksum: String?) {
+    private fun setOrderObject() {
         // when app is ready to publish use production service
         //PaytmPGService  Service = PaytmPGService.getProductionService()
-
-        Log.i("paytm", "in")
-        Log.i("paytm", checksum!!)
 
         val mDialog = AppProgressDialog(this@PayTmGateway)
         mDialog.show()
 
         val Service = PaytmPGService.getStagingService()
 
+        val paramMap = HashMap<String, String>()
+
         paramMap.put("MID", Constants.MID)
-        paramMap.put( "ORDER_ID" , orderId!!)
+        paramMap.put("ORDER_ID" , orderId!!)
         paramMap.put("CUST_ID", customerId!!)
-        //paramMap.put( "MOBILE_NO" , "7777777777")
-        //paramMap.put( "EMAIL" , "username@emailprovider.com")
         paramMap.put("CHANNEL_ID", Constants.CHANNEL_ID)
-        paramMap.put( "TXN_AMOUNT" , "300")
+        paramMap.put("TXN_AMOUNT" , "1")
         paramMap.put("WEBSITE", Constants.WEBSITE)
         paramMap.put("INDUSTRY_TYPE_ID", Constants.INDUSTRY_TYPE_ID)
         paramMap.put("CALLBACK_URL", Constants.CALLBACK_URL)
         paramMap.put("CHECKSUMHASH", checkSumHash!!)
+        //Not required
+        //paramMap.put("MOBILE_NO" , customerId!!)
+        //paramMap.put("EMAIL" , "username@emailprovider.com")
 
-        order = PaytmOrder(paramMap)
+        val order = PaytmOrder(paramMap)
 
         Service.initialize(order, null)
         // start payment service call here
         Service.startPaymentTransaction(this@PayTmGateway, true, true,
                 this@PayTmGateway)
-
     }
 
     private fun getUserPhoneNo() : String{
@@ -190,6 +182,8 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
     override fun onTransactionCancel(inErrorMessage: String?, inResponse: Bundle?) {
         Toast.makeText(this@PayTmGateway,"Transaction cancelled",Toast.LENGTH_SHORT)
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
     }
 
     override fun networkNotAvailable() {
@@ -202,5 +196,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
     override fun onBackPressedCancelTransaction() {
         Toast.makeText(this@PayTmGateway,"Back Pressed",Toast.LENGTH_SHORT)
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
     }
 }
