@@ -7,7 +7,7 @@ class Constants {
         var CHANNEL_ID = "WAP" //Paytm Channel Id, got it in paytm credentials
         var INDUSTRY_TYPE_ID = "Retail" //Paytm industry type got it in paytm credential
         var WEBSITE = "WEBSTAGING"
-        var CALLBACK_URL = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp"
+        var CALLBACK_URL = "http://13.235.33.12:8000/api/subs/subscribe/checksum/verify/"
     }
 
 }
