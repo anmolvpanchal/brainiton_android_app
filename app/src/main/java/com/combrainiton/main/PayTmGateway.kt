@@ -9,13 +9,11 @@ import com.combrainiton.R
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
 import com.combrainiton.authentication.ActivitySignIn
-import com.combrainiton.managers.UserManagement
 import com.combrainiton.managers.UserManagementInterface
 import com.combrainiton.models.CheckSumModel
 import com.combrainiton.models.CommonResponceModel
 import com.combrainiton.models.UserResponseModel
-import com.combrainiton.paytm.Constants
-import com.combrainiton.paytm.PayTmModel
+import com.combrainiton.utils.Constants
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
@@ -24,7 +22,6 @@ import com.combrainiton.utils.AppSharedPreference
 import com.paytm.pgsdk.PaytmOrder
 import com.paytm.pgsdk.PaytmPGService
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback
-import kotlinx.android.synthetic.main.activity_nav_my_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,9 +29,6 @@ import java.lang.Exception
 
 class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
-    lateinit var paramMap: HashMap<String, String>
-    lateinit var order: PaytmOrder
-    var requestInterface: SubscriptionInterface? = null
     var userInfo: UserManagementInterface? = null
     var mobileNo: String = ""
     var checkSumHash: String? = ""
@@ -50,23 +44,12 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
     }
 
     fun getCheckSum() {
-        requestInterface = ApiClient.getClient().create(SubscriptionInterface::class.java)
 
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
 
         val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
 
-        val paytm = PayTmModel(
-                Constants.MID,
-                Constants.CHANNEL_ID,
-                "100",
-                Constants.WEBSITE,
-                Constants.CALLBACK_URL,
-                Constants.INDUSTRY_TYPE_ID
-        )
-
         val type = HashMap<String, String>()
-
         type["type"] = "type1"
 
         val checkSum: Call<CheckSumModel>? = apiClient.getCheckSumHash(type)
@@ -94,7 +77,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
                     orderId = response.body()!!.orderId
                     customerId = response.body()!!.customerId
 
-                    setOrderObject(response.body()!!.checksumhash)
+                    setOrderObject()
 
                 } catch (ex: Exception) {
                     ex.printStackTrace()
@@ -105,39 +88,36 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         })
     }
 
-    private fun setOrderObject(checksum: String?) {
+    private fun setOrderObject() {
         // when app is ready to publish use production service
         //PaytmPGService  Service = PaytmPGService.getProductionService()
-
-        Log.i("paytm", "in")
-        Log.i("paytm", checksum!!)
 
         val mDialog = AppProgressDialog(this@PayTmGateway)
         mDialog.show()
 
         val Service = PaytmPGService.getStagingService()
 
-        paramMap = HashMap<String, String>()
+        val paramMap = HashMap<String, String>()
 
         paramMap.put("MID", Constants.MID)
-        paramMap.put( "ORDER_ID" , orderId!!)
+        paramMap.put("ORDER_ID" , orderId!!)
         paramMap.put("CUST_ID", customerId!!)
-        //paramMap.put( "MOBILE_NO" , "7777777777")
-        //paramMap.put( "EMAIL" , "username@emailprovider.com")
         paramMap.put("CHANNEL_ID", Constants.CHANNEL_ID)
-        paramMap.put( "TXN_AMOUNT" , "300")
+        paramMap.put("TXN_AMOUNT" , "1")
         paramMap.put("WEBSITE", Constants.WEBSITE)
         paramMap.put("INDUSTRY_TYPE_ID", Constants.INDUSTRY_TYPE_ID)
         paramMap.put("CALLBACK_URL", Constants.CALLBACK_URL)
         paramMap.put("CHECKSUMHASH", checkSumHash!!)
+        //Not required
+        //paramMap.put("MOBILE_NO" , customerId!!)
+        //paramMap.put("EMAIL" , "username@emailprovider.com")
 
-        order = PaytmOrder(paramMap)
+        val order = PaytmOrder(paramMap)
 
         Service.initialize(order, null)
         // start payment service call here
         Service.startPaymentTransaction(this@PayTmGateway, true, true,
                 this@PayTmGateway)
-
     }
 
     private fun getUserPhoneNo() : String{

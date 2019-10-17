@@ -41,6 +41,12 @@ class ActivityPlanSelect : AppCompatActivity() {
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
 
+        secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
+        firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
+        secondcard_plan_select.isSelected = true
+        selectedPlan = 499
+
+
         Log.i("plan",intent.getIntExtra("course_id",0).toString())
 
         firstcard_plan_select.setOnClickListener {
@@ -64,12 +70,12 @@ class ActivityPlanSelect : AppCompatActivity() {
             }else {
 
                 if (firstcard_plan_select.isSelected){
-                    val intent = Intent(this,PaymentActivity::class.java)
+                    val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 
                 }else if (secondcard_plan_select.isSelected){
-                    val intent = Intent(this,PaymentActivity::class.java)
+                    val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 

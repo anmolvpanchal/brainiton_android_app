@@ -71,10 +71,10 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
             holder.imgQuiz.setBackgroundResource(R.drawable.lock)
             holder.imgQuiz.scaleType = ImageView.ScaleType.CENTER_INSIDE
 
-            //Making the lines & circle purple and lesson info view light orange if locked
-            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
-            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
-            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.circle_shape))
+            //Making the lines & circle red and lesson info view light orange if locked
+            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.currentLesson))
+            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.currentLesson))
+            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.current_lesson_circle_shape))
             holder.lessonInfo.setBackgroundColor(mActivity.resources.getColor(R.color.lessonInfoLocked))
         } else {
             Glide.with(mContext)
@@ -87,11 +87,11 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
             holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.green_circle_shape))
         }
 
-        //Changing current lesson color
+        //Changing current lesson color to purple
         if(position+1 == subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()){
-            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.currentLesson))
-            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.currentLesson))
-            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.current_lesson_circle_shape))
+            holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
+            holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
+            holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.circle_shape))
         }
 
         holder.Card.setOnClickListener {

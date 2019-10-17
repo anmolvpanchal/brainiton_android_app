@@ -29,7 +29,6 @@
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
-        <activity android:name=".paytm.checksum"></activity>
         <activity android:name=".main.PayTmGateway"></activity>
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
