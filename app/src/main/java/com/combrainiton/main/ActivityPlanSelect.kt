@@ -55,7 +55,7 @@ class ActivityPlanSelect : AppCompatActivity() {
         }
 
         continue_button_plan_select.setOnClickListener {
-            startActivity(Intent(this, PaymentActivity::class.java))
+            startActivity(Intent(this, PayTmGateway::class.java))
         }
 
         nextbutton_plan_select.setOnClickListener {

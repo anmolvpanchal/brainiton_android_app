@@ -297,7 +297,6 @@ class UserManagement(var mContext: Context, var mActivity: Activity, var mProgre
         })
     }
 
-
     //this method is called to check use login status
     private fun isSessionExpire(errorMsgModle: CommonResponceModel) {
         //if error message status is equal to 404

@@ -48,18 +48,18 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"28+")
                 .setContentTitle(title)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setStyle(new NotificationCompat.BigPictureStyle()
+                /*.setStyle(new NotificationCompat.BigPictureStyle()
                         .bigPicture(bitmap)
-                        .bigLargeIcon(null))
+                        .bigLargeIcon(null))*/
                 .setSmallIcon(R.drawable.ic_app_logo_notification) //meta-data has been made in manifest.xml for icon
                 .setContentIntent(pendingIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setAutoCancel(true);
 
         //if image is available convert to bitmap and set it else leave
-        if(bitmap != null){
+        /*if(bitmap != null){
             builder.setLargeIcon(bitmap);
-        }
+        }*/
 
         NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0,builder.build());
