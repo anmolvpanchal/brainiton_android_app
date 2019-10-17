@@ -23,10 +23,9 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
-    var images = ArrayList<String>()
-    var imagesUri = ArrayList<String>()
     lateinit var viewPager: androidx.viewpager.widget.ViewPager
     var requestInterface: SubscriptionInterface? = null
     var course_description : String = ""
@@ -52,22 +51,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
 
 
     fun initView() {
-
-        //This links will be displayed on card
-        images.add("http://go.brainiton.in/img1")
-        images.add("http://link.brainiton.in/imgcard5")
-        images.add("https://i.imgur.com/VFzhBmW.jpg")
-        images.add("https://i.imgur.com/eXdt2ND.jpg")
-        images.add("https://i.imgur.com/GGCHVIi.jpg")
-        images.add("https://i.imgur.com/DH9QbAq.jpg")
-
-        //This links will be opened when corresponding card is clicked
-        imagesUri.add("http://link.brainiton.in/txtcard4")
-        imagesUri.add("http://link.brainiton.in/txtcard5")
-        imagesUri.add("http://link.brainiton.in/txtcard6")
-
         MyCources()
-
     }
 
     fun MyCources() {
@@ -107,6 +91,7 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                         val toast : Toast  = Toast.makeText(activity?.applicationContext,"You donot have any Subscription !!\n Please Subscribe From Available Subscription First", Toast.LENGTH_SHORT);  // to show toast in center
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show()
+
                     }else{
 
                         for (i in 0 until subscriptions.length()) {
