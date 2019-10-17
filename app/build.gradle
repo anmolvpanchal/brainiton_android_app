@@ -43,6 +43,11 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
+    //PayTm Integration
+    implementation('com.paytm:pgplussdk:1.3.3') {
+        transitive = true;
+    }
+
     //fetch otp library
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
 
@@ -119,5 +124,6 @@ dependencies {
 
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation files('libs/json-20190722.jar')
 }
 apply plugin: 'com.google.gms.google-services'
