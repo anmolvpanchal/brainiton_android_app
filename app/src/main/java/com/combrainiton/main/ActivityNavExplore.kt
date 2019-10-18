@@ -1,10 +1,10 @@
 package com.combrainiton.main
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
@@ -20,12 +20,32 @@ import com.combrainiton.R
 import com.combrainiton.adaptors.AdaptorCategoryList
 import com.combrainiton.adaptors.AdaptorFeaturedQuizPrevious
 import com.combrainiton.adaptors.AdaptorFeaturedQuizToday
+import com.combrainiton.adaptors.SubscriptionAdapter
+import com.combrainiton.fragments.AvailableSubscriptionFragment
+import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.models.GetAllQuizResponceModel
+import com.combrainiton.subscription.ServiceGenerator
+import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.utils.AppAlerts
+import com.combrainiton.utils.AppSharedPreference
+import com.combrainiton.utils.InActiveNotification
+import com.combrainiton.utils.ToastBroadcastReceiver
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_nav_explore.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @SuppressLint("NewApi")
 @Suppress("UNCHECKED_CAST")
@@ -37,6 +57,8 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
     var category: HashMap<String, Int> = HashMap<String,Int>()
     var flag: Boolean = false
     private var doubleBackToExitPressedOnce = false // to close app
+    lateinit var inActiveNotiIntent: Intent
+    lateinit var inActiveNotification: InActiveNotification
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -54,36 +76,70 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         //this will initialize the bottom nav bar
         initBottomMenu()
 
-        //creatting notification channel
+        //Background notification service
+        inActiveNotification = InActiveNotification()
+        inActiveNotiIntent = Intent(this, InActiveNotification::class.java)
+        if (!isMyServiceRunning(InActiveNotification::class.java)) {
+            startService(inActiveNotiIntent)
+        }
+
+        //creating notification channel
         createNotificationChannel()
 
+        //Saving last app opened date to sharedpreference
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+        Log.i("explore",dateFormat.format(Date()))
+        val sharedPreference = getSharedPreferences("InActiveNotification", Context.MODE_PRIVATE)
+        val edit = sharedPreference.edit()
+        if(getSharedPreferences("InActiveNotification",Context.MODE_PRIVATE).contains("lastDate")){
+            edit.remove("lastDate")
+            edit.apply()
+            edit.putString("lastDate",dateFormat.format(Date()))
+            edit.apply()
+        } else{
+            edit.putString("lastDate",dateFormat.format(Date()))
+            edit.apply()
+        }
+
+        val intent = Intent(this@ActivityNavExplore, ToastBroadcastReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this@ActivityNavExplore, 100, intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        //val startTime = System.currentTimeMillis() //alarm starts immediately
+        val backupAlarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        backupAlarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),3000,pendingIntent)
+
+
+        checkSubscriptionForNotificationTopic()
 
         // this is to set the colors of refreshing
         swipeToRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light)
-
-        // Initialize the handler instance
-        //val mHandler = Handler()
-
-        // this will refresh the whole feed
         swipeToRefresh.setOnRefreshListener {
-
-            //var mRunnable = Runnable {
-
             //this will initialize the main view
             initMainView()
-            //}
-
-            // Execute the task after specified time
-//            mHandler.postDelayed(
-//                    mRunnable,
-//                    ((3) * 1000).toLong() // Delay max 1 to 5 seconds
-//            )
         }
 
 
+    }
+
+    override fun onDestroy() {
+        stopService(inActiveNotiIntent)
+        super.onDestroy()
+    }
+
+    fun isMyServiceRunning(serviceClass: Class<InActiveNotification>): Boolean {
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+
+        for(service: ActivityManager.RunningServiceInfo in manager.getRunningServices(Int.MAX_VALUE)){
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("Service status", "Running")
+                return true
+            }
+        }
+
+        Log.i ("Service status", "Not running")
+        return false
     }
 
     private fun createNotificationChannel() {
@@ -241,5 +297,70 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
 
 
     }
+
+    fun checkSubscriptionForNotificationTopic(){
+        //create api client first
+        val apiToken: String = AppSharedPreference(applicationContext).getString("apiToken")
+
+        Log.e("sigin token" , "API token "+apiToken)
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getMysubscriptions()
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(applicationContext, "Error", resources.getString(R.string.error_server_problem))
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(applicationContext, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+                    val subscriptions = rootObj.getJSONArray("subscriptions")
+                    if (subscriptions.length().equals(0)){
+
+
+                        //Creating topic for subscribed user
+                        FirebaseMessaging.getInstance().subscribeToTopic("general")
+                                .addOnCompleteListener { task ->
+                                    if (!task.isSuccessful) {
+                                        Log.i("plan", "unsubscribed")
+                                    } else{
+                                        Toast.makeText(this@ActivityNavExplore, "not subscribed", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+
+
+                    }
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
+
 
 }
