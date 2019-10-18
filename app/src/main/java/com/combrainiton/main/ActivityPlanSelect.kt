@@ -18,6 +18,7 @@ import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_plan_select.*
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -113,6 +114,26 @@ class ActivityPlanSelect : AppCompatActivity() {
 
         //Transparent background for alert dialog
         alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        //Creating topic for subscribed user
+        FirebaseMessaging.getInstance().subscribeToTopic("subscribed")
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.i("plan", "subscribed")
+                    } else{
+                        Toast.makeText(this@ActivityPlanSelect, "added", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+        //removing from unsubscribed topic of firebase
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.i("plan", "unsubscribed")
+                    } else{
+                        Toast.makeText(this@ActivityPlanSelect, "removed", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
         alertDialog.show()
 
