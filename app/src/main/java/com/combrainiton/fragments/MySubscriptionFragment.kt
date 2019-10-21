@@ -108,14 +108,14 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                             val course_id = innerobject.getString("course_id")
                             val lesson_name = innerobject.getString("lesson_name")
                             val lesson_number = innerobject.getString("lesson_number")
+                            val course_vertical_image = innerobject.getString("course_vertical_image")
+
                             course_description = innerobject.getString("course_description")
 
                             Log.e("working", " yess" + course_id + lesson_name + course_description)
 
-
-
                             subscribedCourcesList.add(SubscribedCourse_API(course_image, lesson_id, lesson_quiz,
-                                    course_name, subscription_id, course_id, lesson_name, lesson_number, course_description))
+                                    course_name, subscription_id, course_id, lesson_name, lesson_number, course_description , course_vertical_image))
 
                         }
 

@@ -3,6 +3,7 @@ package com.combrainiton.main
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.combrainiton.R
+import com.combrainiton.subscription.MerchantActivity
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
@@ -34,12 +36,15 @@ class ActivityPlanSelect : AppCompatActivity() {
     lateinit var viewGroup: ViewGroup
     lateinit var builder: AlertDialog.Builder
     var selectedPlan : Int = 0
+    var fromAvailableSub : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_select)
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
+
+        Log.e("should not null" , intent.getStringExtra("fromAvailableSub"))
 
         secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
         firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
@@ -69,12 +74,16 @@ class ActivityPlanSelect : AppCompatActivity() {
             }else {
 
                 if (firstcard_plan_select.isSelected){
-                    val intent = Intent(this,PayTmGateway::class.java)
+
+                    //startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://p-y.tm/8-gWw8A")))
+                    val intent = Intent(this,MerchantActivity::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 
                 }else if (secondcard_plan_select.isSelected){
-                    val intent = Intent(this,PayTmGateway::class.java)
+
+                    //startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://p-y.tm/hd09-YM")))
+                    val intent = Intent(this,MerchantActivity::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 
@@ -84,6 +93,10 @@ class ActivityPlanSelect : AppCompatActivity() {
 
             }
         }
+
+
+
+
 
         nextbutton_plan_select.setOnClickListener {
             if (Validation()){
@@ -230,7 +243,6 @@ class ActivityPlanSelect : AppCompatActivity() {
         })
 
     }
-
 
 }
 

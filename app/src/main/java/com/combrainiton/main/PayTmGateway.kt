@@ -35,14 +35,16 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
     var customerId: String? = ""
     var orderId: String? = ""
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pay_tm_gateway)
 
         getUserPhoneNo()
-        getCheckSum()
+        //getCheckSum()
     }
 
+/*
     fun getCheckSum() {
 
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
@@ -87,6 +89,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
         })
     }
+*/
 
     private fun setOrderObject() {
         // when app is ready to publish use production service
@@ -120,10 +123,62 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
                 this@PayTmGateway)
     }
 
+
+    override fun onTransactionResponse(inResponse: Bundle?) {
+        Toast.makeText(this@PayTmGateway,"Transaction Response",Toast.LENGTH_SHORT)
+        Log.e("paytem","responce value"+inResponse.toString())
+
+        val bundleFromNotifications: Bundle? = inResponse
+        bundleFromNotifications?.keySet()?.forEach{
+            Log.d("paytem", it + "=> \"" + bundleFromNotifications.get(it) + "\"")
+        }
+
+    }
+
+    override fun clientAuthenticationFailed(inErrorMessage: String?) {
+        Toast.makeText(this@PayTmGateway,"Client Authentication Failed",Toast.LENGTH_SHORT)
+        Log.e("paytem","clientAuthenticationFailed" + inErrorMessage)
+
+    }
+
+    override fun someUIErrorOccurred(inErrorMessage: String?) {
+        Toast.makeText(this@PayTmGateway,"UI Error",Toast.LENGTH_SHORT)
+        Log.e("paytem","someUIErrorOccurred" + inErrorMessage)
+    }
+
+    override fun onTransactionCancel(inErrorMessage: String?, inResponse: Bundle?) {
+        Toast.makeText(this@PayTmGateway,"Transaction cancelled",Toast.LENGTH_SHORT)
+        Log.e("paytem","onTransactionCancel" + inErrorMessage + "  " + inResponse)
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
+    }
+
+    override fun networkNotAvailable() {
+        Toast.makeText(this@PayTmGateway,"Network not available",Toast.LENGTH_SHORT)
+        Log.e("paytem","networkNotAvailable" )
+
+    }
+
+    override fun onErrorLoadingWebPage(iniErrorCode: Int, inErrorMessage: String?, inFailingUrl: String?) {
+        Toast.makeText(this@PayTmGateway,"Error Loading WebPage",Toast.LENGTH_SHORT)
+        Log.e("paytem","onErrorLoadingWebPage" + inErrorMessage )
+
+    }
+
+    override fun onBackPressedCancelTransaction() {
+        Toast.makeText(this@PayTmGateway,"Back Pressed",Toast.LENGTH_SHORT)
+        Log.e("paytem","onBackPressedCancelTransaction" )
+        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
+        finish()
+    }
+
     private fun getUserPhoneNo() : String{
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
+
         userInfo = ApiClient.getClient(apiToken).create(UserManagementInterface::class.java)
+
         val getDetailCall = userInfo!!.getUserDetail()
+
         getDetailCall.enqueue(object : Callback<UserResponseModel> {
             override fun onResponse(call: Call<UserResponseModel>, response: Response<UserResponseModel>) {
                 //mProgressDialog.dialog.dismiss()
@@ -168,35 +223,4 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         }
     }
 
-    override fun onTransactionResponse(inResponse: Bundle?) {
-        Toast.makeText(this@PayTmGateway,"Transaction Response",Toast.LENGTH_SHORT)
-    }
-
-    override fun clientAuthenticationFailed(inErrorMessage: String?) {
-        Toast.makeText(this@PayTmGateway,"Client Authentication Failed",Toast.LENGTH_SHORT)
-    }
-
-    override fun someUIErrorOccurred(inErrorMessage: String?) {
-        Toast.makeText(this@PayTmGateway,"UI Error",Toast.LENGTH_SHORT)
-    }
-
-    override fun onTransactionCancel(inErrorMessage: String?, inResponse: Bundle?) {
-        Toast.makeText(this@PayTmGateway,"Transaction cancelled",Toast.LENGTH_SHORT)
-        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
-        finish()
-    }
-
-    override fun networkNotAvailable() {
-        Toast.makeText(this@PayTmGateway,"Network not available",Toast.LENGTH_SHORT)
-    }
-
-    override fun onErrorLoadingWebPage(iniErrorCode: Int, inErrorMessage: String?, inFailingUrl: String?) {
-        Toast.makeText(this@PayTmGateway,"Error Loading WebPage",Toast.LENGTH_SHORT)
-    }
-
-    override fun onBackPressedCancelTransaction() {
-        Toast.makeText(this@PayTmGateway,"Back Pressed",Toast.LENGTH_SHORT)
-        startActivity(Intent(this@PayTmGateway,ActivityNavCompete::class.java))
-        finish()
-    }
 }
