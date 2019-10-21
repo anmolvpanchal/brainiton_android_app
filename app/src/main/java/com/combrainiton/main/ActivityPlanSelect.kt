@@ -3,7 +3,6 @@ package com.combrainiton.main
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -14,18 +13,21 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.android.billingclient.api.*
 import com.combrainiton.R
-import com.combrainiton.subscription.MerchantActivity
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_plan_select.*
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class ActivityPlanSelect : AppCompatActivity() {
@@ -36,7 +38,7 @@ class ActivityPlanSelect : AppCompatActivity() {
     lateinit var viewGroup: ViewGroup
     lateinit var builder: AlertDialog.Builder
     var selectedPlan : Int = 0
-    var fromAvailableSub : String = ""
+    lateinit var billingClient: BillingClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,7 @@ class ActivityPlanSelect : AppCompatActivity() {
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
 
-        Log.e("should not null" , intent.getStringExtra("fromAvailableSub"))
+        startGoogleBilling()
 
         secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
         firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
@@ -73,30 +75,47 @@ class ActivityPlanSelect : AppCompatActivity() {
                 Toast.makeText(this,"please select plan ",Toast.LENGTH_SHORT).show()
             }else {
 
-                if (firstcard_plan_select.isSelected){
+                if(billingClient.isReady){
 
-                    //startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://p-y.tm/8-gWw8A")))
-                    val intent = Intent(this,MerchantActivity::class.java)
+                    val params= SkuDetailsParams.newBuilder()
+                    params.setSkusList(Arrays.asList("sub_299","sub_499"))
+                    params.setType(BillingClient.SkuType.INAPP)
+
+                    billingClient.querySkuDetailsAsync(params.build(),object : SkuDetailsResponseListener{
+
+                        override fun onSkuDetailsResponse(billingResult: BillingResult?, skuDetailsList: MutableList<SkuDetails>?) {
+
+                            val billingFlowParams = BillingFlowParams.newBuilder()
+
+                            if (firstcard_plan_select.isSelected){
+                                billingFlowParams.setSkuDetails(skuDetailsList!![0])
+                            }else if (secondcard_plan_select.isSelected){
+                                billingFlowParams.setSkuDetails(skuDetailsList!![1])
+                            }
+                            billingClient.launchBillingFlow(this@ActivityPlanSelect,billingFlowParams.build())
+                        }
+
+                    })
+                } else{
+                    Toast.makeText(this@ActivityPlanSelect,"Billing client is not ready",Toast.LENGTH_SHORT).show()
+                }
+
+                /*if (firstcard_plan_select.isSelected){
+                    val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 
                 }else if (secondcard_plan_select.isSelected){
-
-                    //startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://p-y.tm/hd09-YM")))
-                    val intent = Intent(this,MerchantActivity::class.java)
+                    val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
 
                 }else{
                     Toast.makeText(this,"please select plan ",Toast.LENGTH_LONG).show()
-                }
+                }*/
 
             }
         }
-
-
-
-
 
         nextbutton_plan_select.setOnClickListener {
             if (Validation()){
@@ -114,6 +133,21 @@ class ActivityPlanSelect : AppCompatActivity() {
         }
     }
 
+    fun startGoogleBilling(){
+        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).build()
+        billingClient.startConnection(object : BillingClientStateListener{
+
+            override fun onBillingSetupFinished(billingResult: BillingResult?) {
+                Toast.makeText(this@ActivityPlanSelect,billingResult.toString(),Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onBillingServiceDisconnected() {
+                Toast.makeText(this@ActivityPlanSelect,"Billing service disconnected",Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
     fun alertDialogForCorrectCode(){
         viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
         val dialogView = LayoutInflater.from(this).inflate(R.layout.correct_subscription_code_popup,viewGroup,false)
@@ -126,6 +160,26 @@ class ActivityPlanSelect : AppCompatActivity() {
 
         //Transparent background for alert dialog
         alertDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        //Creating topic for subscribed user
+        FirebaseMessaging.getInstance().subscribeToTopic("subscribed")
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.i("plan", "subscribed")
+                    } else{
+                        Toast.makeText(this@ActivityPlanSelect, "added", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+        //removing from unsubscribed topic of firebase
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.i("plan", "unsubscribed")
+                    } else{
+                        Toast.makeText(this@ActivityPlanSelect, "removed", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
         alertDialog.show()
 
@@ -243,6 +297,7 @@ class ActivityPlanSelect : AppCompatActivity() {
         })
 
     }
+
 
 }
 
