@@ -101,13 +101,6 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
             edit.apply()
         }
 
-        val intent = Intent(this@ActivityNavExplore, ToastBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this@ActivityNavExplore, 100, intent,PendingIntent.FLAG_UPDATE_CURRENT)
-        //val startTime = System.currentTimeMillis() //alarm starts immediately
-        val backupAlarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        backupAlarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),3000,pendingIntent)
-
-
         checkSubscriptionForNotificationTopic()
 
         // this is to set the colors of refreshing

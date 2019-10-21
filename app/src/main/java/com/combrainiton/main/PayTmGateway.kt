@@ -107,7 +107,7 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         paramMap.put("TXN_AMOUNT" , "1")
         paramMap.put("WEBSITE", Constants.WEBSITE)
         paramMap.put("INDUSTRY_TYPE_ID", Constants.INDUSTRY_TYPE_ID)
-        paramMap.put("CALLBACK_URL", Constants.CALLBACK_URL)
+        paramMap.put("CALLBACK_URL", "https://securegw-stage.paytm.in/order/status")
         paramMap.put("CHECKSUMHASH", checkSumHash!!)
         //Not required
         //paramMap.put("MOBILE_NO" , customerId!!)

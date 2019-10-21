@@ -63,6 +63,9 @@ dependencies {
     //custom dialog to rate application
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
 
+    //google play billing
+    implementation 'com.android.billingclient:billing:2.0.3'
+
     //badge library to show badges
     implementation "com.github.nekocode:Badge:2.0"
 
