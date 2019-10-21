@@ -16,7 +16,7 @@ android {
         applicationId "com.combrainiton"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 4
+        versionCode 5
         versionName "1.3"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -47,6 +47,9 @@ dependencies {
     implementation('com.paytm:pgplussdk:1.3.3') {
         transitive = true;
     }
+
+    //goolgle play billing
+    implementation 'com.android.billingclient:billing:2.0.3'
 
     //fetch otp library
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
@@ -86,9 +89,11 @@ dependencies {
     //glide framework for images
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 
-    //Firebase Messaging library for Sending push Notifications //noinspection GradleDependency
-    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    // Add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
+    //Firebase Messaging library for Sending push Notifications //noinspection GradleDependency
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
     // Activity Transitions
     implementation 'com.kogitune:pre-lollipop-activity-transition:1.3.3'
 

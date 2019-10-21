@@ -1,6 +1,6 @@
 package com.combrainiton.subscription
 
-import com.combrainiton.models.CheckSumModel
+import com.combrainiton.models.UserResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -47,6 +47,11 @@ interface SubscriptionInterface {
     //Getting CHECKSUMHASH for PayTm
     @Headers("Content-Type: application/json")
     @POST("api/subs/subscribe/checksum/make/")
-    fun getCheckSumHash(@Body type: Map<String,String>) : Call<CheckSumModel>
+    fun getCheckSumHash(@Body type: MutableMap<String, String>): Call<ResponseBody>
+
+
+    //for getting user detail
+    @GET("api/user/name/")
+    fun getUserDetail(): Call<ResponseBody>
 
 }

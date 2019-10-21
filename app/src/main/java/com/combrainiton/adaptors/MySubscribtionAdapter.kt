@@ -51,11 +51,11 @@ class MySubscribtionAdapter(val subscribedCourcesList: ArrayList<SubscribedCours
 
         // use picaso as its fast and reduces the complexity of code
 
-        if (obj.courseImage == ""){
+        if (obj.courseVerticalImage == ""){
 
         }else{
             Picasso.get()
-                    .load(obj.courseImage)
+                    .load(obj.courseVerticalImage)
                     .fit()
                     .into(imageView)
         }

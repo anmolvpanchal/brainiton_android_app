@@ -86,6 +86,7 @@ class CourseHomePage : AppCompatActivity() {
                 if (active) { //fully swiped
                     val intent = Intent(this@CourseHomePage,ActivityPlanSelect::class.java)
                     intent.putExtra("course_id",courseId)
+                    intent.putExtra("fromAvailableSub","yesFromAvailableSub")
                     startActivity(intent)
                 } else { //when it's unswiped back to normal
                     Toast.makeText(this@CourseHomePage, "Back to unswipe", Toast.LENGTH_LONG).show()
@@ -119,14 +120,6 @@ class CourseHomePage : AppCompatActivity() {
     }
 
     private fun initView() {
-
-        //If image is available it will be displayed
-        if(intent.getStringExtra("courseImage") != "") {
-            Picasso.get()
-                    .load(intent.getStringExtra("brandImage"))
-                    .fit()
-                    .into(courseImage)
-        }
 
         //remove back button from toolbar
         if (supportActionBar != null) {
@@ -226,16 +219,26 @@ class CourseHomePage : AppCompatActivity() {
                         val course_id = innerobject_sub.getString("course_id")
                         val current_lesson_quiz = innerobject_sub.getString("current_lesson_quiz")
                         val course_name = innerobject_sub.getString("course_name")
-
+                        val course_horizontal_image = innerobject_sub.getString("course_horizontal_image")
 
 
                         Log.e("working in CourseHome", " yess" + course_name + current_lesson_name + current_lesson_id)
+
+                        //If image is available it will be displayed
+                        if(course_horizontal_image != "") {
+                            Picasso.get()
+                                    .load(course_horizontal_image)
+                                    .fit()
+                                    .into(courseImage)
+                        }
 
 
                         subscriptionDataList.add(SubscriptionDataList_API(current_lesson_id, current_lesson_name, subscription_id,
                                 current_lesson_number, last_lesson_number, course_id, current_lesson_quiz, course_name))
 
                     }
+
+
 
 
                     //creating instance of adapter
@@ -314,6 +317,16 @@ class CourseHomePage : AppCompatActivity() {
 
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
+                    val course_horizontal_image = rootObj.getString("course_horizontal_image")
+
+                    //If image is available it will be displayed
+                    if(course_horizontal_image != "") {
+                        Picasso.get()
+                                .load(course_horizontal_image)
+                                .fit()
+                                .into(courseImage)
+                    }
+
                     val lessons = rootObj.getJSONArray("lessons")
 
                     if(lessons.length().equals(0)){
@@ -344,7 +357,6 @@ class CourseHomePage : AppCompatActivity() {
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragment(course_description), "Description")
                     adapter.addFragment(CourseLessonFragmentForAvailableSubscription(lessonsDataListForAvailable), "Lessons")
-                    adapter.addFragment(CourseProgressFragment(), "Progress")
 
                     //setting view pager adapter
                     viewPager!!.adapter = adapter

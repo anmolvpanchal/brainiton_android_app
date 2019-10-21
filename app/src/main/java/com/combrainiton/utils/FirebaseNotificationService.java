@@ -9,17 +9,25 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.combrainiton.R;
 import com.combrainiton.main.ActivityNavExplore;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Objects;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import retrofit2.http.Url;
 
@@ -39,6 +47,23 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         img_url = message.getNotification().getImageUrl();
         url = message.getNotification().getImageUrl();
         Log.i("Check","innnn");
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.i("firebase", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = Objects.requireNonNull(task.getResult()).getToken();
+
+                        // Log and toast
+                        Log.i("firebase", "firebase token " + token);
+                    }
+                });
 
 
         //Convert image uri to bitmap
@@ -91,7 +116,8 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onNewToken(String s) {
-        Log.i("FirebaseToken", s);
+    public void onNewToken(String token) {
+        Log.i("FirebaseToken", token);
+
     }
 }

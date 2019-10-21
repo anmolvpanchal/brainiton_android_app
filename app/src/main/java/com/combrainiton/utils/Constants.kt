@@ -8,4 +8,5 @@ class Constants {
         var WEBSITE = "WEBSTAGING"
         var CALLBACK_URL = "http://13.235.33.12:8000/api/subs/subscribe/checksum/verify/"
     }
+
 }
