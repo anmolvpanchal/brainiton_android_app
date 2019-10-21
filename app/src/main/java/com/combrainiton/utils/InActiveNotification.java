@@ -71,10 +71,11 @@ public class InActiveNotification extends Service {
             public void run() {
                 Log.i("Count", "=========  "+ (counter++));
                 sharedPreferences = getApplicationContext().getSharedPreferences("InActiveNotification", Context.MODE_PRIVATE);
+                //Bellow method will be called after every 3 secs and date will be checked
                 ConvertDateToReadableDate(sharedPreferences.getString("lastDate",""));
             }
         };
-        timer.schedule(timerTask, 1000, 3000); //
+        timer.schedule(timerTask, 1000, 60000);
     }
 
     public void stoptimertask() {
@@ -124,7 +125,7 @@ public class InActiveNotification extends Service {
                 numOfDayPass = (numOfMilliSecondPassed / milliSecond);
 
                 //Staging
-                if((cm - min) == 1){
+                /*if((cm - min) == 1){
                     SharedPreferences sharedPreferences = getSharedPreferences("InActiveNotification", Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = sharedPreferences.edit();
                     edit.remove("lastDate");
@@ -132,7 +133,7 @@ public class InActiveNotification extends Service {
                     edit.putString("lastDate",dateFormat.format(new Date()));
                     edit.apply();
                     createNotification();
-                }
+                }*/
 
                 //Production
                 if(numOfDayPass == 2){

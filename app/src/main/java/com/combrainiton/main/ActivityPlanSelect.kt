@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.android.billingclient.api.*
 import com.combrainiton.R
 import com.combrainiton.subscription.ServiceGenerator
 import com.combrainiton.subscription.SubscriptionInterface
@@ -25,6 +26,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class ActivityPlanSelect : AppCompatActivity() {
@@ -35,12 +38,15 @@ class ActivityPlanSelect : AppCompatActivity() {
     lateinit var viewGroup: ViewGroup
     lateinit var builder: AlertDialog.Builder
     var selectedPlan : Int = 0
+    lateinit var billingClient: BillingClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_select)
         cardone_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 299 </b><br> ₹99/mon")).toString()
         cardtwo_bottomtext_planselect.setText(Html.fromHtml("<b>₹ 499 </b><br> ₹39/mon")).toString()
+
+        startGoogleBilling()
 
         secondcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
         firstcard_plan_select_layout.setBackgroundColor(resources.getColor(R.color.selectplan_background))
@@ -69,7 +75,32 @@ class ActivityPlanSelect : AppCompatActivity() {
                 Toast.makeText(this,"please select plan ",Toast.LENGTH_SHORT).show()
             }else {
 
-                if (firstcard_plan_select.isSelected){
+                if(billingClient.isReady){
+
+                    val params= SkuDetailsParams.newBuilder()
+                    params.setSkusList(Arrays.asList("sub_299","sub_499"))
+                    params.setType(BillingClient.SkuType.INAPP)
+
+                    billingClient.querySkuDetailsAsync(params.build(),object : SkuDetailsResponseListener{
+
+                        override fun onSkuDetailsResponse(billingResult: BillingResult?, skuDetailsList: MutableList<SkuDetails>?) {
+
+                            val billingFlowParams = BillingFlowParams.newBuilder()
+
+                            if (firstcard_plan_select.isSelected){
+                                billingFlowParams.setSkuDetails(skuDetailsList!![0])
+                            }else if (secondcard_plan_select.isSelected){
+                                billingFlowParams.setSkuDetails(skuDetailsList!![1])
+                            }
+                            billingClient.launchBillingFlow(this@ActivityPlanSelect,billingFlowParams.build())
+                        }
+
+                    })
+                } else{
+                    Toast.makeText(this@ActivityPlanSelect,"Billing client is not ready",Toast.LENGTH_SHORT).show()
+                }
+
+                /*if (firstcard_plan_select.isSelected){
                     val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
@@ -81,7 +112,7 @@ class ActivityPlanSelect : AppCompatActivity() {
 
                 }else{
                     Toast.makeText(this,"please select plan ",Toast.LENGTH_LONG).show()
-                }
+                }*/
 
             }
         }
@@ -100,6 +131,21 @@ class ActivityPlanSelect : AppCompatActivity() {
                 enterSubscriptionCode(requestData)
             }
         }
+    }
+
+    fun startGoogleBilling(){
+        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).build()
+        billingClient.startConnection(object : BillingClientStateListener{
+
+            override fun onBillingSetupFinished(billingResult: BillingResult?) {
+                Toast.makeText(this@ActivityPlanSelect,billingResult.toString(),Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onBillingServiceDisconnected() {
+                Toast.makeText(this@ActivityPlanSelect,"Billing service disconnected",Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     fun alertDialogForCorrectCode(){
