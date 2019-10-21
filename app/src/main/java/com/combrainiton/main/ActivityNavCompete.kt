@@ -30,6 +30,7 @@ import com.combrainiton.fragments.MySubscriptionFragment
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.subscription.*
 import com.combrainiton.utils.*
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_nav_compete.*
 import kotlinx.android.synthetic.main.activity_nav_explore.*
@@ -176,7 +177,6 @@ class ActivityNavCompete : AppCompatActivity() {
                         viewPager.adapter = adapter
                         viewPager.setCurrentItem(1)
                         tabLayout.setupWithViewPager(viewPager)
-
                         //Tab Layout
                         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                             override fun onTabSelected(tab: TabLayout.Tab) {

@@ -335,6 +335,16 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
                                 }
 
 
+                        //remove for subscribed user
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("subscribed")
+                                .addOnCompleteListener { task ->
+                                    if (!task.isSuccessful) {
+                                        Log.i("plan", "unsubscribed")
+                                    } else{
+                                        Toast.makeText(this@ActivityNavExplore, "added", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
 
                     }
 

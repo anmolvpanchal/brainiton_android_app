@@ -30,7 +30,11 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class ActivityPlanSelect : AppCompatActivity() {
+class ActivityPlanSelect : AppCompatActivity(),PurchasesUpdatedListener {
+    override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
+
+        Log.i("plan","purchase update " + billingResult.toString())
+    }
 
     var enteredCode: String = ""
     var courseId: Int = 0
@@ -134,15 +138,19 @@ class ActivityPlanSelect : AppCompatActivity() {
     }
 
     fun startGoogleBilling(){
-        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).build()
+        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).setListener(this@ActivityPlanSelect).enablePendingPurchases().build()
         billingClient.startConnection(object : BillingClientStateListener{
 
             override fun onBillingSetupFinished(billingResult: BillingResult?) {
                 Toast.makeText(this@ActivityPlanSelect,billingResult.toString(),Toast.LENGTH_SHORT).show()
+                Log.i("plan","purchase update " + billingResult.toString())
+
             }
 
             override fun onBillingServiceDisconnected() {
                 Toast.makeText(this@ActivityPlanSelect,"Billing service disconnected",Toast.LENGTH_SHORT).show()
+                Log.i("plan","billing diss conected " )
+
             }
 
         })
