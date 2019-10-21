@@ -22,6 +22,8 @@ import com.combrainiton.utils.AppSharedPreference
 import com.paytm.pgsdk.PaytmOrder
 import com.paytm.pgsdk.PaytmPGService
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,10 +43,9 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         setContentView(R.layout.activity_pay_tm_gateway)
 
         getUserPhoneNo()
-        //getCheckSum()
+        getCheckSum()
     }
 
-/*
     fun getCheckSum() {
 
         val apiToken: String = AppSharedPreference(this@PayTmGateway).getString("apiToken")
@@ -54,14 +55,14 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
         val type = HashMap<String, String>()
         type["type"] = "type1"
 
-        val checkSum: Call<CheckSumModel>? = apiClient.getCheckSumHash(type)
+        val checkSum: Call<ResponseBody> = apiClient.getCheckSumHash(type)
 
-        checkSum!!.enqueue(object : Callback<CheckSumModel> {
-            override fun onFailure(call: Call<CheckSumModel>, t: Throwable) {
+        checkSum!!.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.i("paytm", "failure")
             }
 
-            override fun onResponse(call: Call<CheckSumModel>, response: Response<CheckSumModel>) {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(this@PayTmGateway, "Something went Wrong!!" + response.code(), Toast.LENGTH_SHORT).show()
                     Log.e("!response.isSuccessful", "body \n"
@@ -71,13 +72,16 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
                 }
 
                 try {
-                    Log.i("paytm", "check: "+response.body()!!.checksumhash)
-                    Log.i("paytm", "order: "+response.body()!!.orderId)
-                    Log.i("paytm", "cust: "+response.body()!!.customerId)
+                    val resp = response.body()!!.string()
+                    val rootObj = JSONObject(resp)
 
-                    checkSumHash = response.body()!!.checksumhash
-                    orderId = response.body()!!.orderId
-                    customerId = response.body()!!.customerId
+                    checkSumHash = rootObj.getString("CHECKSUMHASH")
+                    orderId = rootObj.getString("ORDERID")
+                    customerId = rootObj.getString("CUSTOMERID")
+
+                    Log.e("paytm", "user checkSumHash madeyo  $checkSumHash")
+                    Log.e("paytm", "user orderId madeyo  $orderId")
+                    Log.e("paytm", "user customerId madeyo  $customerId")
 
                     setOrderObject()
 
@@ -89,7 +93,6 @@ class PayTmGateway : AppCompatActivity(), PaytmPaymentTransactionCallback {
 
         })
     }
-*/
 
     private fun setOrderObject() {
         // when app is ready to publish use production service
