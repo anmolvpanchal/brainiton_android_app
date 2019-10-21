@@ -16,8 +16,8 @@ android {
         applicationId "com.combrainiton"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.3"
+        versionCode 10
+        versionName "1.10"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,7 +45,7 @@ dependencies {
 
     //PayTm Integration
     implementation('com.paytm:pgplussdk:1.3.3') {
-        transitive = true;
+        transitive = true
     }
 
     //goolgle play billing

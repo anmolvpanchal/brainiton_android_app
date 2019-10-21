@@ -28,16 +28,22 @@ import retrofit2.Call
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.HashMap
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-class ActivityPlanSelect : AppCompatActivity() {
+
+
+class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
 
     var enteredCode: String = ""
     var courseId: Int = 0
     lateinit var alertDialog: AlertDialog
     lateinit var viewGroup: ViewGroup
     lateinit var builder: AlertDialog.Builder
-    var selectedPlan : Int = 0
+    var selectedPlan: Int = 0
     lateinit var billingClient: BillingClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +59,7 @@ class ActivityPlanSelect : AppCompatActivity() {
         secondcard_plan_select.isSelected = true
         selectedPlan = 499
 
-        Log.i("plan",intent.getIntExtra("course_id",0).toString())
+        Log.i("plan", intent.getIntExtra("course_id", 0).toString())
 
         firstcard_plan_select.setOnClickListener {
             firstcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
@@ -71,33 +77,35 @@ class ActivityPlanSelect : AppCompatActivity() {
 
 
         continue_button_plan_select.setOnClickListener {
-            if (selectedPlan.equals(0)){
-                Toast.makeText(this,"please select plan ",Toast.LENGTH_SHORT).show()
-            }else {
+            if (selectedPlan.equals(0)) {
+                Toast.makeText(this, "please select plan ", Toast.LENGTH_SHORT).show()
+            } else {
 
-                if(billingClient.isReady){
+                if (billingClient.isReady) {
 
-                    val params= SkuDetailsParams.newBuilder()
-                    params.setSkusList(Arrays.asList("sub_299","sub_499"))
+                    val params = SkuDetailsParams.newBuilder()
+                    params.setSkusList(Arrays.asList("android.test.purchased", "android.test.purchased"))
                     params.setType(BillingClient.SkuType.INAPP)
 
-                    billingClient.querySkuDetailsAsync(params.build(),object : SkuDetailsResponseListener{
+                    billingClient.querySkuDetailsAsync(params.build(), object : SkuDetailsResponseListener {
 
                         override fun onSkuDetailsResponse(billingResult: BillingResult?, skuDetailsList: MutableList<SkuDetails>?) {
 
                             val billingFlowParams = BillingFlowParams.newBuilder()
 
-                            if (firstcard_plan_select.isSelected){
+                            if (selectedPlan == 299) {
+                                Log.i("plan", "299")
                                 billingFlowParams.setSkuDetails(skuDetailsList!![0])
-                            }else if (secondcard_plan_select.isSelected){
+                            } else if (selectedPlan == 499) {
+                                Log.i("plan", "499")
                                 billingFlowParams.setSkuDetails(skuDetailsList!![1])
                             }
-                            billingClient.launchBillingFlow(this@ActivityPlanSelect,billingFlowParams.build())
+                            billingClient.launchBillingFlow(this@ActivityPlanSelect, billingFlowParams.build())
                         }
 
                     })
-                } else{
-                    Toast.makeText(this@ActivityPlanSelect,"Billing client is not ready",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@ActivityPlanSelect, "Billing client is not ready", Toast.LENGTH_SHORT).show()
                 }
 
                 /*if (firstcard_plan_select.isSelected){
@@ -118,42 +126,141 @@ class ActivityPlanSelect : AppCompatActivity() {
         }
 
         nextbutton_plan_select.setOnClickListener {
-            if (Validation()){
+            if (Validation()) {
 
-                courseId = intent.getIntExtra("course_id",0)
+                courseId = intent.getIntExtra("course_id", 0)
                 enteredCode = enter_subscription_code_eittext.text.toString()
                 val requestData = HashMap<String, String>()
                 requestData["course"] = courseId.toString() //add quiz id to request data
                 requestData["code"] = enteredCode //add question id to request data
                 requestData["order"] = ""
 
-                Log.e("hashmap","course id "+ requestData["course"] + "entered code " + requestData["code"])
+                Log.e("hashmap", "course id " + requestData["course"] + "entered code " + requestData["code"])
                 enterSubscriptionCode(requestData)
             }
         }
     }
 
-    fun startGoogleBilling(){
-        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).build()
-        billingClient.startConnection(object : BillingClientStateListener{
+    fun startGoogleBilling() {
+        billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).setListener(this@ActivityPlanSelect).enablePendingPurchases().build()
+        billingClient.startConnection(object : BillingClientStateListener {
 
             override fun onBillingSetupFinished(billingResult: BillingResult?) {
-                Toast.makeText(this@ActivityPlanSelect,billingResult.toString(),Toast.LENGTH_SHORT).show()
+                if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK)
+                    Toast.makeText(this@ActivityPlanSelect, billingResult.toString(), Toast.LENGTH_SHORT).show()
+                Log.i("plan", "Billing setup finished: " + billingResult.toString())
             }
 
             override fun onBillingServiceDisconnected() {
-                Toast.makeText(this@ActivityPlanSelect,"Billing service disconnected",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ActivityPlanSelect, "Billing service disconnected", Toast.LENGTH_SHORT).show()
+                Log.i("plan", "Billing service disconnected")
             }
 
         })
     }
 
-    fun alertDialogForCorrectCode(){
+    override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
+        if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            Log.i("plan", "purchase successfull")
+            for (purchase in purchases) {
+                handlePurchase(purchase)
+                //allowMultiplePurchases(purchase)
+            }
+
+            Toast.makeText(this@ActivityPlanSelect, "Purchased", Toast.LENGTH_LONG).show()
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+            Log.i("plan", "already purchased")
+            //checkhistory()
+            for (purchase in purchases!!) {
+                Log.i("plan", purchase.orderId)
+                handlePurchase(purchase)
+                //allowMultiplePurchases(purchase)
+            }
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.DEVELOPER_ERROR) {
+            Log.i("plan", "developer error")
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ERROR) {
+            Log.i("plan", "error")
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ITEM_NOT_OWNED) {
+            Log.i("plan", "item not owned")
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ITEM_UNAVAILABLE) {
+            Log.i("plan", "item unavailable")
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            Log.i("plan", "user cancelled")
+        } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE) {
+            Log.i("plan", "service unavailable")
+        }
+    }
+
+    private fun handlePurchase(purchase: Purchase) {
+        if (purchase.purchaseState === Purchase.PurchaseState.PURCHASED) {
+
+            // Acknowledge the purchase if it hasn't already been acknowledged.
+            if (!purchase.isAcknowledged) {
+                val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                billingClient.acknowledgePurchase(acknowledgePurchaseParams, object : AcknowledgePurchaseResponseListener {
+                    override fun onAcknowledgePurchaseResponse(billingResult: BillingResult?) {
+                        if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK) {
+                            Log.i("plan", "acknowledge ok")
+                        } else {
+                            Log.i("plan", "acknowledge not ok")
+                        }
+                    }
+
+                })
+            }
+        }
+    }
+
+    fun checkhistory(){
+
+        billingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP,object : PurchaseHistoryResponseListener{
+            override fun onPurchaseHistoryResponse(billingResult: BillingResult?, purchaseHistoryRecordList: MutableList<PurchaseHistoryRecord>?) {
+                if(billingResult!!.responseCode == BillingClient.BillingResponseCode.OK){
+                    Log.i("plan","history")
+                }
+            }
+
+        })
+    }
+
+    fun allowMultiplePurchases(purchase: Purchase) {
+
+        if (purchase.purchaseState === Purchase.PurchaseState.PURCHASED) {
+            Log.i("plan", "1")
+            val consumeParams =
+                    ConsumeParams.newBuilder()
+                            .setPurchaseToken(purchase.purchaseToken)
+                            .setDeveloperPayload(purchase.developerPayload)
+                            .build()
+            billingClient.consumeAsync(consumeParams, object : ConsumeResponseListener {
+                override fun onConsumeResponse(billingResult: BillingResult?, purchaseToken: String?) {
+                    Log.i("plan", "consume")
+                    if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK && purchaseToken != null) {
+                        Log.i("plan", "multiple purchase allowed")
+                    } else {
+                        Log.i("plan", "multiple purchase not allowed")
+                    }
+                }
+            })
+        } else {
+            Log.i("plan", "else")
+        }
+
+        if (purchase != null) {
+
+        } else {
+
+        }
+    }
+
+    fun alertDialogForCorrectCode() {
         viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.correct_subscription_code_popup,viewGroup,false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.correct_subscription_code_popup, viewGroup, false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
-        alertDialog= builder.create()
+        alertDialog = builder.create()
 
         //This won't allow dialog to dismiss if touched outside it's area
         alertDialog.setCanceledOnTouchOutside(false)
@@ -166,7 +273,7 @@ class ActivityPlanSelect : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         Log.i("plan", "subscribed")
-                    } else{
+                    } else {
                         Toast.makeText(this@ActivityPlanSelect, "added", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -176,28 +283,28 @@ class ActivityPlanSelect : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (!task.isSuccessful) {
                         Log.i("plan", "unsubscribed")
-                    } else{
+                    } else {
                         Toast.makeText(this@ActivityPlanSelect, "removed", Toast.LENGTH_SHORT).show()
                     }
                 }
 
         alertDialog.show()
 
-        val  button : Button? = dialogView.findViewById(R.id.correct_subscription_btn)
+        val button: Button? = dialogView.findViewById(R.id.correct_subscription_btn)
 
         button?.setOnClickListener {
-            startActivity(Intent(this@ActivityPlanSelect,ActivityNavCompete::class.java))
+            startActivity(Intent(this@ActivityPlanSelect, ActivityNavCompete::class.java))
             alertDialog.dismiss()
         }
 
     }
 
-    fun alertDialogForWrongCode(){
+    fun alertDialogForWrongCode() {
         viewGroup = findViewById(android.R.id.content) //This is an in-built id and not made by programmer
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.incorrect_subscription_code_popup,viewGroup,false)
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.incorrect_subscription_code_popup, viewGroup, false)
         builder = AlertDialog.Builder(this)
         builder.setView(dialogView)
-        alertDialog= builder.create()
+        alertDialog = builder.create()
 
         //This won't allow dialog to dismiss if touched outside it's area
         alertDialog.setCanceledOnTouchOutside(false)
@@ -207,7 +314,7 @@ class ActivityPlanSelect : AppCompatActivity() {
 
         alertDialog.show()
 
-        val  button : Button? = dialogView.findViewById(R.id.incorrect_subscription_btn)
+        val button: Button? = dialogView.findViewById(R.id.incorrect_subscription_btn)
 
         button?.setOnClickListener {
             alertDialog.dismiss()
@@ -216,15 +323,14 @@ class ActivityPlanSelect : AppCompatActivity() {
     }
 
 
-
     fun Validation(): Boolean {
-        if (enter_subscription_code_eittext.text.isEmpty()){
+        if (enter_subscription_code_eittext.text.isEmpty()) {
             enter_subscription_code_eittext.error = "Please enter code"
             return false
-        }else if (enter_subscription_code_eittext.text.length > 6){
+        } else if (enter_subscription_code_eittext.text.length > 6) {
             enter_subscription_code_eittext.error = "Please enter valid code"
             return false
-        }else{
+        } else {
             enteredCode = enter_subscription_code_eittext.text.toString()
             return true
         }
@@ -256,7 +362,7 @@ class ActivityPlanSelect : AppCompatActivity() {
 
                             Log.e("! Responce ", "some message " + internalMessage + errorCode)
 
-                            if (errorCode.equals("400")){
+                            if (errorCode.equals("400")) {
                                 alertDialogForWrongCode()
                             }
 
@@ -277,7 +383,7 @@ class ActivityPlanSelect : AppCompatActivity() {
 
                     Log.e(" Responce ", "some message " + rootObj)
 
-                    if (errorCode.equals("201")){
+                    if (errorCode.equals("201")) {
                         alertDialogForCorrectCode()
                     }
 
