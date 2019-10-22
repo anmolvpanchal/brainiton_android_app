@@ -32,8 +32,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import retrofit2.Callback
 
 
 class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
@@ -45,6 +44,9 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
     lateinit var builder: AlertDialog.Builder
     var selectedPlan: Int = 0
     lateinit var billingClient: BillingClient
+    var orderId : String = ""
+    var Sub_package_quarter = ""
+    var Sub_package_year = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,18 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
         selectedPlan = 499
 
         Log.i("plan", intent.getIntExtra("course_id", 0).toString())
+
+        try {
+
+             Sub_package_quarter = intent.getStringExtra("package_quarter")
+             Sub_package_year = intent.getStringExtra("package_year")
+            Log.i("error in plan","Sub_package_quarter" + Sub_package_quarter)
+
+        }catch ( e : Exception){
+            Log.i("error in plan","planselect error")
+            Toast.makeText(this@ActivityPlanSelect, "Product not available yet", Toast.LENGTH_LONG).show()
+
+        }
 
         firstcard_plan_select.setOnClickListener {
             firstcard_plan_select_layout.background = resources.getDrawable(R.drawable.planselect_cardselect_background)
@@ -81,43 +95,51 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
                 Toast.makeText(this, "please select plan ", Toast.LENGTH_SHORT).show()
             } else {
 
-                if (billingClient.isReady) {
+                if (Sub_package_quarter != null && !Sub_package_quarter.isEmpty() && !Sub_package_quarter.equals("null") &&
+                        Sub_package_year != null && !Sub_package_year.isEmpty() && !Sub_package_year.equals("null")){
 
-                    val params = SkuDetailsParams.newBuilder()
-                    params.setSkusList(Arrays.asList("android.test.purchased", "android.test.purchased"))
-                    params.setType(BillingClient.SkuType.INAPP)
+                    if (billingClient.isReady) {
 
-                    billingClient.querySkuDetailsAsync(params.build(), object : SkuDetailsResponseListener {
+                        val params = SkuDetailsParams.newBuilder()
+                        params.setSkusList(Arrays.asList(Sub_package_quarter, Sub_package_year))
+                        params.setType(BillingClient.SkuType.INAPP)
 
-                        override fun onSkuDetailsResponse(billingResult: BillingResult?, skuDetailsList: MutableList<SkuDetails>?) {
+                        billingClient.querySkuDetailsAsync(params.build(), object : SkuDetailsResponseListener {
 
-                            val billingFlowParams = BillingFlowParams.newBuilder()
+                            override fun onSkuDetailsResponse(billingResult: BillingResult?, skuDetailsList: MutableList<SkuDetails>?) {
 
-                            if (selectedPlan == 299) {
-                                Log.i("plan", "299")
-                                billingFlowParams.setSkuDetails(skuDetailsList!![0])
-                            } else if (selectedPlan == 499) {
-                                Log.i("plan", "499")
-                                billingFlowParams.setSkuDetails(skuDetailsList!![1])
+                                val billingFlowParams = BillingFlowParams.newBuilder()
+
+                                if (selectedPlan == 299) {
+                                    Log.i("plan", "299")
+                                    billingFlowParams.setSkuDetails(skuDetailsList!![0])
+                                } else if (selectedPlan == 499) {
+                                    Log.i("plan", "499")
+                                    billingFlowParams.setSkuDetails(skuDetailsList!![1])
+                                }
+                                billingClient.launchBillingFlow(this@ActivityPlanSelect, billingFlowParams.build())
                             }
-                            billingClient.launchBillingFlow(this@ActivityPlanSelect, billingFlowParams.build())
-                        }
 
-                    })
-                } else {
-                    Toast.makeText(this@ActivityPlanSelect, "Billing client is not ready", Toast.LENGTH_SHORT).show()
+                        })
+                    } else {
+                        Toast.makeText(this@ActivityPlanSelect, "Billing client is starting", Toast.LENGTH_SHORT).show()
+                        startGoogleBilling()
+                    }
+
+
+                }else{
+
+
+                    Toast.makeText(this@ActivityPlanSelect, "Product not made yet", Toast.LENGTH_SHORT).show()
                 }
-
                 /*if (firstcard_plan_select.isSelected){
                     val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
-
                 }else if (secondcard_plan_select.isSelected){
                     val intent = Intent(this,PayTmGateway::class.java)
                     intent.putExtra("planSelected", selectedPlan)
                     this.startActivity(intent)
-
                 }else{
                     Toast.makeText(this,"please select plan ",Toast.LENGTH_LONG).show()
                 }*/
@@ -133,13 +155,15 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
                 val requestData = HashMap<String, String>()
                 requestData["course"] = courseId.toString() //add quiz id to request data
                 requestData["code"] = enteredCode //add question id to request data
-                requestData["order"] = ""
+                requestData["order"] = ""       //only used when purchased
 
                 Log.e("hashmap", "course id " + requestData["course"] + "entered code " + requestData["code"])
                 enterSubscriptionCode(requestData)
             }
         }
     }
+
+
 
     fun startGoogleBilling() {
         billingClient = BillingClient.newBuilder(this@ActivityPlanSelect).setListener(this@ActivityPlanSelect).enablePendingPurchases().build()
@@ -152,24 +176,50 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
             }
 
             override fun onBillingServiceDisconnected() {
-                Toast.makeText(this@ActivityPlanSelect, "Billing service disconnected", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ActivityPlanSelect, "Billing service is disconnected", Toast.LENGTH_SHORT).show()
                 Log.i("plan", "Billing service disconnected")
             }
 
         })
     }
 
+    fun destroyBillingClient() {
+        billingClient.endConnection()
+        Log.i("plan", "Billing service disconnected")
+
+    }
+
     override fun onPurchasesUpdated(billingResult: BillingResult?, purchases: MutableList<Purchase>?) {
         if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            Log.i("plan",purchases[0].orderId.toString())
             Log.i("plan", "purchase successfull")
+            Log.i("plan",billingResult.responseCode.toString())
+
+
             for (purchase in purchases) {
                 handlePurchase(purchase)
                 //allowMultiplePurchases(purchase)
             }
 
-            Toast.makeText(this@ActivityPlanSelect, "Purchased", Toast.LENGTH_LONG).show()
+            // closing the connection
+            destroyBillingClient()
+            // to get order id from server
+            getOrderId()
+
+            courseId = intent.getIntExtra("course_id", 0)
+            val requestData = HashMap<String, String>()
+            requestData["course"] = courseId.toString() //add quiz id to request data
+            Log.i("planselect for purchase"," course id " + courseId)
+            requestData["code"] = "" //add question id to request data
+            requestData["order"] = orderId       //only used when purchased
+
+            // is purchase successful them subscribe the user
+            enterSubscriptionCode(requestData)
+
         } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
             Log.i("plan", "already purchased")
+            Toast.makeText(this@ActivityPlanSelect, "You Have Already Purchased This plan", Toast.LENGTH_SHORT).show()
+
             //checkhistory()
             for (purchase in purchases!!) {
                 Log.i("plan", purchase.orderId)
@@ -185,6 +235,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
         } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.ITEM_UNAVAILABLE) {
             Log.i("plan", "item unavailable")
         } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            Toast.makeText(this@ActivityPlanSelect, "Transaction Was Cancelled By User", Toast.LENGTH_SHORT).show()
             Log.i("plan", "user cancelled")
         } else if (billingResult!!.responseCode == BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE) {
             Log.i("plan", "service unavailable")
@@ -248,11 +299,6 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
             Log.i("plan", "else")
         }
 
-        if (purchase != null) {
-
-        } else {
-
-        }
     }
 
     fun alertDialogForCorrectCode() {
@@ -363,7 +409,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
                             Log.e("! Responce ", "some message " + internalMessage + errorCode)
 
                             if (errorCode.equals("400")) {
-                                alertDialogForWrongCode()
+                                Toast.makeText(this@ActivityPlanSelect,"Something Went worng while subscribing please contact us !\n" + internalMessage,Toast.LENGTH_LONG).show()
                             }
 
                         } catch (e: JSONException) {
@@ -404,6 +450,53 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
 
     }
 
+    fun getOrderId() {
+
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+
+        val type = HashMap<String, String>()
+
+        if (selectedPlan == 299) {
+            type["type"] = "type1"
+        } else if (selectedPlan == 499) {
+            type["type"] = "type2"
+        }
+
+
+        val checkSum: Call<ResponseBody> = apiClient.getCheckSumHash(type)
+
+        checkSum!!.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.i("paytm", "failure")
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(this@ActivityPlanSelect, "Something went Wrong!!" + response.code(), Toast.LENGTH_SHORT).show()
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return
+                }
+
+                try {
+                    val resp = response.body()!!.string()
+                    val rootObj = JSONObject(resp)
+
+                    orderId = rootObj.getString("ORDERID")
+                    Log.e("paytm", "user orderId madeyo  $orderId")
+
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                    Log.i("planselect exception", ex.toString())
+                }
+            }
+
+        })
+    }
+
+
 
 }
-
