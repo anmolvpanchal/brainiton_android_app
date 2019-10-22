@@ -303,7 +303,8 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 //mProgressDialog.dialog.dismiss()
-                AppAlerts().showAlertMessage(applicationContext, "Error", resources.getString(R.string.error_server_problem))
+                Toast.makeText(applicationContext, "Something went Wrong to add to firebase!!" , Toast.LENGTH_SHORT).show();
+
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

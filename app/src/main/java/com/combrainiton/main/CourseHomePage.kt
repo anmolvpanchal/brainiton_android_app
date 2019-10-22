@@ -42,7 +42,8 @@ class CourseHomePage : AppCompatActivity() {
     val lessonsDataListForAvailable : ArrayList<LessonsDataListForAvaiable_API> = ArrayList()
     var courseId: Int = 0
     lateinit var courseImage: ImageView
-
+    var package_year : String = ""
+    var package_quarter : String = ""
     var CourseID : Int = 0
 
 
@@ -86,7 +87,8 @@ class CourseHomePage : AppCompatActivity() {
                 if (active) { //fully swiped
                     val intent = Intent(this@CourseHomePage,ActivityPlanSelect::class.java)
                     intent.putExtra("course_id",courseId)
-                    intent.putExtra("fromAvailableSub","yesFromAvailableSub")
+                    intent.putExtra("package_quarter",package_quarter)
+                    intent.putExtra("package_year",package_year)
                     startActivity(intent)
                 } else { //when it's unswiped back to normal
                     Toast.makeText(this@CourseHomePage, "Back to unswipe", Toast.LENGTH_LONG).show()
@@ -318,6 +320,8 @@ class CourseHomePage : AppCompatActivity() {
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
                     val course_horizontal_image = rootObj.getString("course_horizontal_image")
+                    package_year = rootObj.getString("package_year")
+                    package_quarter = rootObj.getString("package_quarter")
 
                     //If image is available it will be displayed
                     if(course_horizontal_image != "") {

@@ -57,7 +57,7 @@ class ActivityLiveQuizInstruction : AppCompatActivity(), View.OnClickListener {
         // save the question counter to 0 in intent data
         AppSharedPreference(this@ActivityLiveQuizInstruction).saveInt("currentQuestion", 0)
         val gamePin: String = intent.getStringExtra("gamePin") //get the game pin from intent
-        val wsUrl = "ws://13.235.33.12:8000/pin-$gamePin/" //set the base url
+        val wsUrl = "ws://13.233.130.106:8000/pin-$gamePin/" //set the base url
         val client = OkHttpClient() //get http client
         val mRequest = Request.Builder().url(wsUrl).header("Origin", wsUrl).build()
         val webLisner: WebSocketListener

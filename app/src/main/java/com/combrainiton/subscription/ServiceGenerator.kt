@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 object ServiceGenerator {
 
-    internal var BASEURL = "http://13.235.33.12:8000/"
+    internal var BASEURL = "http://13.233.130.106:8000/"
     private val builder = Retrofit.Builder()
             .baseUrl(BASEURL)
             .addConverterFactory(GsonConverterFactory.create())

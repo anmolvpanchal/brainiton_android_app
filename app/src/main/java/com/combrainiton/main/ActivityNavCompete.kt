@@ -149,7 +149,7 @@ class ActivityNavCompete : AppCompatActivity() {
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 //mProgressDialog.dialog.dismiss()
-                AppAlerts().showAlertMessage(applicationContext, "Error", resources.getString(R.string.error_server_problem))
+                AppAlerts().showAlertMessage(this@ActivityNavCompete, "Error", resources.getString(R.string.error_server_problem))
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

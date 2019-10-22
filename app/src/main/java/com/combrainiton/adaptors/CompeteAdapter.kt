@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.combrainiton.R
 import com.combrainiton.main.BrandHomePage
 import com.combrainiton.normalQuiz.ActivityNormalQuizQuestion
@@ -45,6 +46,11 @@ class CompeteAdapter(var brands: ArrayList<AllBrands>,var activity: FragmentActi
 
         //If image is not available it will be shown
         if (brands[position].brandBanner != ""){
+//
+//            Glide.with(context)
+//                    .load(brands.get(position).brandBanner)
+//                    .into(imageView)
+//
             Picasso.get()
                     .load(brands[position].brandBanner)
                     .fit()

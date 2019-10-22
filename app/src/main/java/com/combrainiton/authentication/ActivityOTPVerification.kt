@@ -70,7 +70,6 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
         }
         timer.start()
 
-        methodWithPermissions()
 
         // to automatically get and set the OTP
 
@@ -79,11 +78,13 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
             etOTP.setText(code)//set OTP in edit text
             btnSubmit.performClick()// automatically clicks
             //then you can send verification code to server
+            methodWithPermissions()
+
         })
     }
 
     // fun to get all the required permissions
-    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE,RECEIVE_SMS,READ_SMS) {
+    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE,RECEIVE_SMS,READ_SMS, SEND_SMS) {
         Log.e("permissions","permissions granted")
     }
 
