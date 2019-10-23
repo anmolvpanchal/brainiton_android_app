@@ -16,8 +16,8 @@ android {
         applicationId "com.combrainiton"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 11
-        versionName "1.11"
+        versionCode 13
+        versionName "1.13"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,11 +48,12 @@ dependencies {
         transitive = true
     }
 
+    //otp check
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.1.0'
+
     //goolgle play billing
     implementation 'com.android.billingclient:billing:2.0.3'
-
-    //fetch otp library
-    implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
 
     //TriangleLabelView
     implementation 'com.github.shts:TriangleLabelView:1.1.2'
