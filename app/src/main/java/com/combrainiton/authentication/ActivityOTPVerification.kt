@@ -4,7 +4,6 @@ package com.combrainiton.authentication
 
 import android.Manifest.permission.*
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
@@ -14,8 +13,6 @@ import com.combrainiton.utils.AppProgressDialog
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.activity_otp_verifiocation.*
 import android.os.CountDownTimer
-import com.stfalcon.smsverifycatcher.OnSmsCatchListener
-import com.stfalcon.smsverifycatcher.SmsVerifyCatcher
 import android.R
 import android.R.id.message
 import android.util.Log
@@ -23,30 +20,94 @@ import java.util.logging.Logger
 import java.util.regex.Pattern
 import androidx.annotation.NonNull
 import android.R.id.message
+import android.app.Activity
+import android.content.*
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 
 
 class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var smsVerifyCatcher: SmsVerifyCatcher
     private var oTPStr: String = ""
     private var fromStr: String = ""
     private val TAG: String = "ActivityOTPVerification"    // to check the log
 
-    override fun onStart() { // used for SMS catcher
-        super.onStart()
-        smsVerifyCatcher.onStart();
+    // Start listening for SMS User Consent broadcasts from senderPhoneNumber
+// The Task<Void> will be successful if SmsRetriever was able to start
+// SMS User Consent, and will error if there was an error starting.
+
+    private val SMS_CONSENT_REQUEST = 2  // Set to an unused request code
+    private val smsVerificationReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (SmsRetriever.SMS_RETRIEVED_ACTION == intent.action) {
+                val extras = intent.extras
+                val smsRetrieverStatus = extras?.get(SmsRetriever.EXTRA_STATUS) as Status
+
+                when (smsRetrieverStatus.statusCode) {
+                    CommonStatusCodes.SUCCESS -> {
+                        // Get consent intent
+                        val consentIntent = extras.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)
+                        try {
+                            Log.e("SUCCESS","TIMEOUT  working")
+
+                            // Start activity to show consent dialog to user, activity must be started in
+                            // 5 minutes, otherwise you'll receive another TIMEOUT intent
+                            startActivityForResult(consentIntent, SMS_CONSENT_REQUEST)
+                        } catch (e: ActivityNotFoundException) {
+                            // Handle the exception ...
+                        }
+                    }
+                    CommonStatusCodes.TIMEOUT -> {
+                        Log.e("TIMEOUT","TIMEOUT so not working")
+                    }
+                }
+            }
+        }
     }
 
-    override fun onStop() { // used for SMS catcher
-        super.onStop()
-        smsVerifyCatcher.onStop();
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            // ...
+            SMS_CONSENT_REQUEST ->
+                // Obtain the phone number from the result
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    // Get SMS message content
+                    val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+                    // Extract one-time code from the message and complete verification
+                    // `message` contains the entire text of the SMS message, so you will need
+                    // to parse the string.
+
+                    Log.e("content","Get SMS message content" + message)
+
+
+                    val code = parseCode(message)//Parse verification code
+                    etOTP.setText(code)//set OTP in edit text
+                    btnSubmit.performClick()// automatically clicks
+                    //then you can send verification code to server
+                    // send one time code to the server
+
+                    methodWithPermissions()
+                } else {
+                    // Consent denied. User can type OTC manually.
+                    Log.e("denied","User can type OTC manually")
+
+                }
+        }
     }
 
-    // used for SMS catcher to check permissions
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    fun parseCode(message: String): String {
+
+        val p = Pattern.compile("\\b\\d{6}\\b");
+        val m = p.matcher(message)
+        var code = ""
+        while (m.find()) {
+            code = m.group(0)
+        }
+        Log.i(TAG, "codenevalue $code")
+        return code
     }
 
 
@@ -55,6 +116,11 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
         setContentView(com.combrainiton.R.layout.activity_otp_verifiocation)
         initViews()
         tvResendOtp.visibility = View.GONE
+
+        val task = SmsRetriever.getClient(this@ActivityOTPVerification).startSmsUserConsent(null)
+
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        registerReceiver(smsVerificationReceiver, intentFilter)
 
         val timer = object : CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
@@ -70,36 +136,11 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
         }
         timer.start()
 
-
-        // to automatically get and set the OTP
-
-        smsVerifyCatcher = SmsVerifyCatcher(this, OnSmsCatchListener { message ->
-            val code = parseCode(message)//Parse verification code
-            etOTP.setText(code)//set OTP in edit text
-            btnSubmit.performClick()// automatically clicks
-            //then you can send verification code to server
-            methodWithPermissions()
-
-        })
     }
 
     // fun to get all the required permissions
-    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE,RECEIVE_SMS,READ_SMS, SEND_SMS) {
+    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE) {
         Log.e("permissions","permissions granted")
-    }
-
-    // this fun is used to fetch whole message and get OTP from message
-
-    fun parseCode(message: String): String {
-
-        val p = Pattern.compile("\\b\\d{6}\\b");
-        val m = p.matcher(message)
-        var code = ""
-        while (m.find()) {
-            code = m.group(0)
-        }
-        Log.e(TAG, "codenevalue $code")
-        return code
     }
 
     @SuppressLint("SetTextI18n")
