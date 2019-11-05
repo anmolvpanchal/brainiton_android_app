@@ -171,8 +171,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
 
             override fun onBillingSetupFinished(billingResult: BillingResult?) {
                 if (billingResult!!.responseCode == BillingClient.BillingResponseCode.OK)
-                    Toast.makeText(this@ActivityPlanSelect, billingResult.toString(), Toast.LENGTH_SHORT).show()
-                Log.i("plan", "Billing setup finished: " + billingResult.toString())
+                    Log.i("plan", "Billing setup finished: " + billingResult.toString())
             }
 
             override fun onBillingServiceDisconnected() {
@@ -318,9 +317,9 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
         FirebaseMessaging.getInstance().subscribeToTopic("subscribed")
                 .addOnCompleteListener { task ->
                     if (!task.isSuccessful) {
-                        Log.i("plan", "subscribed")
+                        Log.i("plan", "cannot subscrib to topic subscribed")
                     } else {
-                        Toast.makeText(this@ActivityPlanSelect, "added", Toast.LENGTH_SHORT).show()
+                        Log.i("plan", "subscrib to topic subscribed")
                     }
                 }
 
@@ -328,9 +327,9 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
         FirebaseMessaging.getInstance().unsubscribeFromTopic("general")
                 .addOnCompleteListener { task ->
                     if (!task.isSuccessful) {
-                        Log.i("plan", "unsubscribed")
+                        Log.i("plan", "cannot unsubscribe from geneal")
                     } else {
-                        Toast.makeText(this@ActivityPlanSelect, "removed", Toast.LENGTH_SHORT).show()
+                        Log.i("plan", "unsubscribe from geneal")
                     }
                 }
 
@@ -409,6 +408,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
                             Log.e("! Responce ", "some message " + internalMessage + errorCode)
 
                             if (errorCode.equals("400")) {
+                                alertDialogForWrongCode()
                                 Toast.makeText(this@ActivityPlanSelect,"Something Went worng while subscribing please contact us !\n" + internalMessage,Toast.LENGTH_LONG).show()
                             }
 

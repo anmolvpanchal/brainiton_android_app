@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
-            android:text="You have entered incorrect subscription code. Please check the code again."
+            android:text="If using code pleas check it again \n and for digital payment error pleas contact us from profile !"
             android:textSize="@dimen/_15ssp"
             android:lineSpacingExtra="@dimen/_2ssp"
             android:layout_marginLeft="@dimen/_20sdp"

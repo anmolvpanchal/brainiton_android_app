@@ -64,6 +64,13 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
             onBackPressed()
         }
 
+        normal_quiz_description_learn_button.setOnClickListener {
+            startActivity(Intent(this@ActivityNormalQuizDescription, Learn_quiz::class.java)
+                    .putExtra("quizId", quizId) //pass quiz id
+                    .putExtra("quizName", quizName) //pass quiz name
+            )
+        }
+
         //set on click listener for play button
         normal_quiz_description_play_button.setOnClickListener {
             startActivity(Intent(this@ActivityNormalQuizDescription, ActivityNormalQuizInstruction::class.java)

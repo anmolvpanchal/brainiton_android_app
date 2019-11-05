@@ -15,6 +15,7 @@ import com.combrainiton.subscription.SubscribedCourse_API
 import com.combrainiton.subscription.SubscriptionInterface
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
+import kotlinx.android.synthetic.main.fragment_my_subscription.*
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -90,10 +91,8 @@ class MySubscriptionFragment : androidx.fragment.app.Fragment() {
                     val rootObj = JSONObject(resp)
                     val subscriptions = rootObj.getJSONArray("subscriptions")
                     if (subscriptions.length().equals(0)){
-                        val toast : Toast  = Toast.makeText(activity?.applicationContext,"You donot have any Subscription !!\n Please Subscribe From Available Subscription First To Get Courses In MY SUBSCRIPTION", Toast.LENGTH_SHORT);  // to show toast in center
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show()
-
+                        Log.i("no subscription","You donot have any Subscription !!\n Please Subscribe From Available Subscription First To Get Courses In MY SUBSCRIPTION")
+                        nosub_text.visibility = View.VISIBLE
                     }else{
 
                         for (i in 0 until subscriptions.length()) {

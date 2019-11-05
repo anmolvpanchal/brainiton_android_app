@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_button"
+        android:layout_margin="@dimen/_30sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_of_question"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/text_of_question"
+                android:scaleType="fitCenter"
+                android:layout_margin="@dimen/_15sdp"/>
+
+            <TextView
+                android:id="@+id/text_of_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/raleway_medium"
+                android:text="Question"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="@dimen/_16ssp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
