@@ -89,7 +89,6 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
                     //then you can send verification code to server
                     // send one time code to the server
 
-                    methodWithPermissions()
                 } else {
                     // Consent denied. User can type OTC manually.
                     Log.e("denied","User can type OTC manually")
@@ -138,10 +137,6 @@ class ActivityOTPVerification : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    // fun to get all the required permissions
-    fun methodWithPermissions() = runWithPermissions( WRITE_EXTERNAL_STORAGE, INTERNET, READ_EXTERNAL_STORAGE,ACCESS_WIFI_STATE) {
-        Log.e("permissions","permissions granted")
-    }
 
     @SuppressLint("SetTextI18n")
     private fun initViews() {

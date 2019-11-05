@@ -71,8 +71,6 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         //this will initialize the main view
         initMainView()
 
-        Log.i("Explore", FirebaseInstanceId.getInstance().getToken().toString())
-
         //this will initialize the bottom nav bar
         initBottomMenu()
 
@@ -329,20 +327,19 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
                         FirebaseMessaging.getInstance().subscribeToTopic("general")
                                 .addOnCompleteListener { task ->
                                     if (!task.isSuccessful) {
-                                        Log.i("plan", "unsubscribed")
+                                        Log.i("plan", "subscribe to general unsucessful")
                                     } else{
-                                        Toast.makeText(this@ActivityNavExplore, "not subscribed", Toast.LENGTH_SHORT).show()
+                                        Log.i("plan", "subscribe to general")
                                     }
                                 }
-
 
                         //remove for subscribed user
                         FirebaseMessaging.getInstance().unsubscribeFromTopic("subscribed")
                                 .addOnCompleteListener { task ->
                                     if (!task.isSuccessful) {
-                                        Log.i("plan", "unsubscribed")
+                                        Log.i("plan", "cannot unsubscribed from subscribed topic")
                                     } else{
-                                        Toast.makeText(this@ActivityNavExplore, "added", Toast.LENGTH_SHORT).show()
+                                        Log.i("plan", "unsubscribed from subscribed topic")
                                     }
                                 }
 

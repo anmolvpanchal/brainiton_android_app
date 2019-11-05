@@ -13,5 +13,15 @@
         android:clipToPadding="false"
         android:foregroundGravity="center"
         android:overScrollMode="never" />
-
+    <TextView
+        android:id="@+id/nosub_text"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You donot have any Subscription !!\n Please Subscribe From Available Subscription First To Get premium cources"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/_15ssp"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textAlignment="center"
+        android:textColor="#000"/>
 </RelativeLayout>
