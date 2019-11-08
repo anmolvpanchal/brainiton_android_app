@@ -24,6 +24,7 @@
     <color name="colorTextPrimaryLight">#FFFFFF</color>
     <color name="colorTextSecondaryLight">#FFFFFF</color>
     <color name="greyText">#737171</color>
+    <color name="black">#000</color>
 
     <!--enabled option colors -->
     <color name="colorCategoryOne">#f29c1f</color>

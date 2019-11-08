@@ -7,8 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".normalQuiz.Learn_quiz">
 
+    <!--Top bar-->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:focusable="true"
+        tools:ignore="NewApi,UnusedAttribute">
+
+        <!--Top bar cancle button-->
+        <TextView
+            android:id="@+id/top_bar_cancle_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="5dp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_centerVertical="true"
+            android:drawableRight="@drawable/ic_cross"/>
+
+        <TextView
+            android:id="@+id/questionNo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/20"
+            android:textAlignment="center"
+            android:textSize="@dimen/_20ssp"
+            android:fontFamily="@font/raleway_medium"
+            android:textColor="#000"
+            android:layout_toRightOf="@id/top_bar_cancle_button"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_35ssp"/>
+
+    </RelativeLayout>
+
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:layout_above="@id/bottom_button"
+        android:layout_below="@id/top_bar"
         android:id="@+id/easyFlipView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,12 +63,25 @@
 
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
+    <ImageView
+        android:id="@+id/speak_buton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_speaker"
+        android:layout_marginLeft="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        android:layout_below="@id/easyFlipView"/>
+
     <LinearLayout
         android:id="@+id/bottom_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/_25sdp"
+        android:layout_marginLeft="@dimen/_25sdp"
+        android:layout_marginRight="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
         android:weightSum="2">
 
         <TextView

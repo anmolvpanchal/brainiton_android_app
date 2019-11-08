@@ -159,6 +159,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
 
                 Log.e("hashmap", "course id " + requestData["course"] + "entered code " + requestData["code"])
                 enterSubscriptionCode(requestData)
+
             }
         }
     }
@@ -414,7 +415,7 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
 
                         } catch (e: JSONException) {
                             e.printStackTrace();
-
+                            Toast.makeText(this@ActivityPlanSelect,"Server error please contact us !!" ,Toast.LENGTH_LONG).show()
                         }
                     }
 
@@ -438,8 +439,11 @@ class ActivityPlanSelect : AppCompatActivity(), PurchasesUpdatedListener {
                     when (ex) {
                         is IllegalAccessException, is IndexOutOfBoundsException -> {
                             Log.e("catch block", "some known exception" + ex)
+                            Toast.makeText(this@ActivityPlanSelect,"Server error please contact us !!" ,Toast.LENGTH_LONG).show()
+
                         }
                         else -> Log.e("catch block", "other type of exception" + ex)
+
 
                     }
 

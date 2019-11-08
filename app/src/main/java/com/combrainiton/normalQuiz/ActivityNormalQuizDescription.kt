@@ -1,18 +1,35 @@
 package com.combrainiton.normalQuiz
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
+import com.combrainiton.adaptors.AdapterResultDemo
 import com.combrainiton.managers.NormalQuizManagement
+import com.combrainiton.subscription.ScoreDataList_API
+import com.combrainiton.subscription.ServiceGenerator
+import com.combrainiton.subscription.SubscriptionInterface
+import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppProgressDialog
+import com.combrainiton.utils.AppSharedPreference
 import com.combrainiton.utils.NetworkHandler
 import kotlinx.android.synthetic.main.activity_normal_quiz_description.*
+import kotlinx.android.synthetic.main.demo_result.*
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 
 
 class ActivityNormalQuizDescription : AppCompatActivity() {
@@ -26,7 +43,9 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_normal_quiz_description)
+        result_view.visibility = View.GONE
         initMainView() //initialize the main view
+
     }
 
     fun shareQuiz(view: View) {
@@ -42,6 +61,29 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     //initialize the main view
     private fun initMainView() {
         quizId = intent.getIntExtra("quizId", 0) //get quiz id
+
+        result_text.setOnClickListener {
+            rl_description.visibility = View.GONE
+            result_view.visibility = View.VISIBLE
+            gettingDetailsForPlayers(quizId)
+
+            details_text.setTextColor(resources.getColor(R.color.black))
+            details_text.setBackgroundResource(R.drawable.white_for_unselected)
+            result_text.setTextColor(resources.getColor(R.color.colorPrimary))
+            result_text.setBackgroundResource(R.drawable.shape_tab_bottom_selected)
+
+        }
+
+        details_text.setOnClickListener {
+            rl_description.visibility = View.VISIBLE
+            result_view.visibility = View.GONE
+
+
+            details_text.setTextColor(resources.getColor(R.color.colorPrimary))
+            details_text.setBackgroundResource(R.drawable.shape_tab_bottom_selected)
+            result_text.setTextColor(resources.getColor(R.color.black))
+            result_text.setBackgroundResource(R.drawable.white_for_unselected)
+        }
 
         Log.i("fromdescription Id",quizId.toString())
 
@@ -100,5 +142,64 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     override fun onBackPressed() {
         finish()
     }
+
+    fun gettingDetailsForPlayers(QuizID: Int) {
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+        val apiClient = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+        val call = apiClient.getDataForResult(QuizID)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                //mProgressDialog.dialog.dismiss()
+                AppAlerts().showAlertMessage(this@ActivityNormalQuizDescription, "Error", this@ActivityNormalQuizDescription.resources.getString(R.string.error_server_problem))
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(this@ActivityNormalQuizDescription, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.e("!response.isSuccessful", "body \n"
+                            + response.errorBody().toString()
+                            + " code ${response.code()}")
+                    return;
+                }
+
+                try {
+
+                    val resp = response.body()?.string()
+                    val rootObj = JSONObject(resp)
+
+                    val max_score = rootObj.getString("max_score")
+                    val latest_score = rootObj.getString("latest_score")
+                    val accuracy = rootObj.getString("accuracy")
+                    val average = rootObj.getString("average")
+
+                    topscore_text.text = max_score
+                    myscore_text.text = latest_score
+                    accuracy_text.text = accuracy + "%"
+                    avgscore_text.text = average
+
+
+                } catch (ex: Exception) {
+                    when (ex) {
+                        is IllegalAccessException, is IndexOutOfBoundsException -> {
+                            Log.e("catch block", "some known exception" + ex)
+                        }
+                        else -> Log.e("catch block", "other type of exception" + ex)
+
+                    }
+
+                }
+            }
+
+        })
+
+
+    }
+
 
 }

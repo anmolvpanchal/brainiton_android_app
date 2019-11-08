@@ -51,6 +51,13 @@ dependencies {
     // flip card
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
 
+    // material design
+    implementation 'com.google.android.material:material:1.0.0'
+
+    // percentage chart
+    implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+
     //otp check
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.1.0'

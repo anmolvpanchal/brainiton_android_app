@@ -78,7 +78,50 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/bottom_layout_description"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <!--play button-->
+            <Button
+                android:id="@+id/normal_quiz_description_play_button"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play"
+                android:drawableLeft="@drawable/ic_play"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:drawablePadding="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:padding="@dimen/_5sdp"/>
+
+            <!--  learn button-->
+
+            <Button
+                android:id="@+id/normal_quiz_description_learn_button"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Learn"
+                android:drawableLeft="@drawable/ic_local_library_white_24dp"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:drawablePadding="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:padding="@dimen/_5sdp"/>
+
+
+        </RelativeLayout>
+
         <ScrollView
+            android:id="@+id/scroll_view_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/quiz_description_quiz_image_container">
@@ -103,6 +146,7 @@
 
                     <!--tab indicator-->
                     <TextView
+                        android:id="@+id/details_text"
                         style="@style/ThemeTextViewH2Light"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -112,6 +156,22 @@
                         android:text="@string/text_details"
                         android:textAlignment="center"
                         tools:ignore="RelativeOverlap" />
+
+                    <TextView
+                        android:id="@+id/result_text"
+                        style="@style/ThemeTextViewH2Light"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:background="@drawable/white_for_unselected"
+                        android:padding="8dp"
+                        android:text="Result"
+                        android:layout_toRightOf="@+id/details_text"
+                        android:textAlignment="center"
+                        tools:ignore="RelativeOverlap" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,48 +221,307 @@
         </ScrollView>
 
         <RelativeLayout
+            android:id="@+id/result_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:layout_below="@+id/scroll_view_description"
+            android:layout_above="@+id/bottom_layout_description"
             >
 
-            <!--play button-->
-            <Button
-                android:id="@+id/normal_quiz_description_play_button"
-                android:layout_marginRight="@dimen/_35sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Play"
-                android:drawableLeft="@drawable/ic_play"
-                android:background="@drawable/button_background"
-                android:textColor="@color/white"
-                android:drawablePadding="@dimen/_5sdp"
-                android:textSize="@dimen/_15ssp"
-                android:padding="@dimen/_5sdp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <!--  learn button-->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:weightSum="3"
+                    android:orientation="vertical">
 
-            <Button
-                android:id="@+id/normal_quiz_description_learn_button"
-                android:layout_marginLeft="@dimen/_35sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Learn"
-                android:drawableLeft="@drawable/ic_local_library_white_24dp"
-                android:background="@drawable/button_background"
-                android:textColor="@color/white"
-                android:drawablePadding="@dimen/_5sdp"
-                android:textSize="@dimen/_15ssp"
-                android:padding="@dimen/_5sdp"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/myscore_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="12345"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:textColor="#e15067"
+                                android:textSize="@dimen/_15ssp"
+                                android:fontFamily="@font/raleway_bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="My Score"
+                                android:paddingTop="@dimen/_1sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15ssp"
+                                android:fontFamily="@font/raleway_light"/>
+
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/topscore_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="12345"
+                                android:textColor="#71c089"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:fontFamily="@font/raleway_bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="Top Score"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_1sdp"
+                                android:fontFamily="@font/raleway_light"/>
+
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/yourrank_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="12345"
+                                android:textColor="#ce7af9"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:fontFamily="@font/raleway_bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:paddingTop="@dimen/_1sdp"
+                                android:text="your rank"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15ssp"
+                                android:fontFamily="@font/raleway_light"/>
+
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:weightSum="3"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/accuracy_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="63%"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:textColor="#f0a63c"
+                                android:textSize="@dimen/_15ssp"
+                                android:fontFamily="@font/raleway_bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="Accuracy"
+                                android:paddingTop="@dimen/_1sdp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15ssp"
+                                android:fontFamily="@font/raleway_light"/>
+
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/avgscore_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="63%"
+                                android:textColor="#49a0dc"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:fontFamily="@font/raleway_bold"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:textAlignment="center"
+                                android:text="Avg Score"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_1sdp"
+                                android:fontFamily="@font/raleway_light"/>
+
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardCornerRadius="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:cardElevation="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/leaderbord_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textAlignment="center"
+                                android:text="view \nLeaderbord"
+                                android:textColor="#8f9cde"
+                                android:textSize="@dimen/_15ssp"
+                                android:paddingTop="@dimen/_5sdp"
+                                android:fontFamily="@font/raleway_medium"/>
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
+
     </RelativeLayout>
+
+
+
+
 
 </LinearLayout>
