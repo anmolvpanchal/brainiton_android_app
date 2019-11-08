@@ -2,11 +2,15 @@ package com.combrainiton.normalQuiz
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.util.Log
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.combrainiton.R
 import com.combrainiton.api.ApiClient
 import com.combrainiton.api.ApiErrorParser
@@ -16,28 +20,20 @@ import com.combrainiton.models.*
 import com.combrainiton.utils.AppAlerts
 import com.combrainiton.utils.AppSharedPreference
 import com.squareup.picasso.Picasso
+import com.wajahatkarim3.easyflipview.EasyFlipView
 import kotlinx.android.synthetic.main.activity_learn_quiz.*
-import kotlinx.android.synthetic.main.demo_result.*
+import kotlinx.android.synthetic.main.activity_quiz_question.*
 import kotlinx.android.synthetic.main.flash_card_layout_back.*
 import kotlinx.android.synthetic.main.flash_card_layout_front.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.wajahatkarim3.easyflipview.EasyFlipView
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.Gravity
-import android.widget.RelativeLayout
-import android.R.attr.button
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
-
-
-class Learn_quiz : AppCompatActivity() {
+class Learn_quiz : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var currentQuestion: Int = 1
     private lateinit var questionModel: QuestionResponceModel
     var questionsList: ArrayList<QuestionResponceModel> = ArrayList()
@@ -48,8 +44,7 @@ class Learn_quiz : AppCompatActivity() {
     private var questionDescription: String = ""
     private var requestInterface: NormalQuizManagementInterface? = null
     private var quizName: String? = null
-
-
+    private var tts: TextToSpeech? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +54,9 @@ class Learn_quiz : AppCompatActivity() {
         quizId = intent.getIntExtra("quizId", 0)
         quizName = intent.getStringExtra("quizName")
 
-        Log.i("data" ," data from intent" + quizId + " " + quizName)
+        tts = TextToSpeech(this, this)
+
+        Log.i("data", " data from intent" + quizId + " " + quizName)
 
 
         easyFlipView.flipDuration = 500
@@ -67,41 +64,124 @@ class Learn_quiz : AppCompatActivity() {
 
         easyFlipView.onFlipListener = EasyFlipView.OnFlipAnimationListener { flipView, newCurrentSide ->
 
-            val state : String = newCurrentSide.toString()
+            val state: String = newCurrentSide.toString()
 
             previous_button.setOnClickListener {
 
-            if (state == "BACK_SIDE" ){
-                easyFlipView.flipTheView(true)
+                if (state == "BACK_SIDE") {
+                    easyFlipView.flipTheView(true)
+                    previousQuestion()
+                    stopSpeaking()
+                }
                 previousQuestion()
+                stopSpeaking()
             }
-                previousQuestion()
-            }
+
             next_button.setOnClickListener {
 
-            if (state.equals("BACK_SIDE") ){
-                easyFlipView.flipTheView(true)
+                if (state.equals("BACK_SIDE")) {
+                    easyFlipView.flipTheView(true)
+                    nextQuestion()
+                    stopSpeaking()
+                }
                 nextQuestion()
+                stopSpeaking()
             }
-                nextQuestion()
+
+            speak_buton.setOnClickListener {
+                if (state == "BACK_SIDE") {
+                    if (tts!!.isSpeaking) {
+
+                    } else {
+                        speakOut()
+                    }
+                } else {
+                    if (tts!!.isSpeaking) {
+
+                    } else {
+                        speakQuestion()
+                    }
+                }
             }
 
         }
 
         getQuestions(quizId, quizName!!)
 
-        // for y=the first time
+        top_bar_cancle_button.setOnClickListener {
+            //perform on backpress on click of close button
+            onBackPressed()
+        }
 
+        // for the first time
+        speak_buton.setOnClickListener {
+            if (tts!!.isSpeaking) {
+
+            } else {
+                speakQuestion()
+            }
+        }
         next_button.setOnClickListener {
             nextQuestion()
+            stopSpeaking()
         }
         previous_button.setOnClickListener {
             previousQuestion()
+            stopSpeaking()
         }
 
         Log.i("state", " state " + easyFlipView.currentFlipState)
 
 
+    }
+
+    override fun onDestroy() {
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
+
+    }
+
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+
+            var speachListener = object : UtteranceProgressListener() {
+                @SuppressLint("LongLogTag")
+                override fun onDone(string: String?) {
+
+                }
+
+                override fun onError(p0: String?) {
+                    Toast.makeText(this@Learn_quiz, "Error cannot speak", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onStart(p0: String?) {
+                    val result = tts!!.setLanguage(Locale("en", "IN"))
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "The Language specified is not supported!")
+                    } else {
+                        actvity_quiz_question_speak_button_for_options!!.isEnabled = true
+                    }
+                }
+
+            }
+
+            tts?.setOnUtteranceProgressListener(speachListener)
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+            Toast.makeText(this, "Error cannot speak", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    //open home activtiy on backpressed
+    override fun onBackPressed() {
+        finish()
     }
 
 
@@ -141,14 +221,16 @@ class Learn_quiz : AppCompatActivity() {
                         questionDescription = (questionModel.question_title.subSequence(questionModel.question_title.indexOf(";"), questionModel?.question_title!!.length)).toString()
                         //set the question title after removing the description from it
                         text_of_question.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+                        totalQuestion = questionsList.size.toInt()
+                        questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
                         val imageUrl = questionModel.question_image
-                        Log.i("image url" , "url " + imageUrl)
+                        Log.i("image url", "url " + imageUrl)
                         //If image is available it will be displayed
-                        if(imageUrl != "") {
+                        if (imageUrl != "") {
                             Picasso.get()
                                     .load(imageUrl)
                                     .into(image_of_question)
-                        }else if(imageUrl == ""){
+                        } else if (imageUrl == "") {
                             val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                             params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                             params.addRule(RelativeLayout.CENTER_IN_PARENT)
@@ -157,7 +239,6 @@ class Learn_quiz : AppCompatActivity() {
 
                         Log.e(TAG, "question" + questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")))
                         result.questionText = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";")) as String?
-                        //result_Cell_questionNo_text.text = "Question $currentQuestion"
                         Log.e(TAG, "question list size ${questionsList.size.toString()}")
                         Log.e(TAG, "current $currentQuestion")
 
@@ -186,14 +267,16 @@ class Learn_quiz : AppCompatActivity() {
                     } catch (e: java.lang.Exception) {
                         //if eror occurs then set the question without parsing
                         text_of_question.text = questionModel.question_title
+                        totalQuestion = questionsList.size.toInt()
+                        questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
                         val imageUrl = questionModel.question_image
                         //If image is available it will be displayed
-                        Log.i("image url" , "url " + imageUrl)
-                        if(imageUrl != "") {
+                        Log.i("image url", "url " + imageUrl)
+                        if (imageUrl != "") {
                             Picasso.get()
                                     .load(imageUrl)
                                     .into(image_of_question)
-                        }else if(imageUrl == ""){
+                        } else if (imageUrl == "") {
                             val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                             params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                             params.addRule(RelativeLayout.CENTER_IN_PARENT)
@@ -201,7 +284,6 @@ class Learn_quiz : AppCompatActivity() {
                         }
 
                         result.questionText = questionModel.question_title
-                        //result_Cell_questionNo_text.text = "Question ${currentQuestion}"
                         val requestData = HashMap<String, Int>()
 
                         requestData["quiz_id"] = quizId //add quiz id to request data
@@ -236,8 +318,7 @@ class Learn_quiz : AppCompatActivity() {
     }
 
 
-    fun previousQuestion()
-    {
+    fun previousQuestion() {
 
         next_button.visibility = View.VISIBLE
         currentQuestion -= 1
@@ -250,19 +331,20 @@ class Learn_quiz : AppCompatActivity() {
         try {
             questionModel = questionsList[currentQuestion - 1]
             text_of_question.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+            totalQuestion = questionsList.size.toInt()
+            questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
             val imageUrl = questionModel.question_image
             //If image is available it will be displayed
-            if(imageUrl != "") {
+            if (imageUrl != "") {
                 Picasso.get()
                         .load(imageUrl)
                         .into(image_of_question)
-            }else if(imageUrl == ""){
+            } else if (imageUrl == "") {
                 val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                 params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                 params.addRule(RelativeLayout.CENTER_IN_PARENT)
                 text_of_question.layoutParams = params
             }
-//            result_Cell_questionNo_text.text = "Question ${currentQuestion}"
             Log.e(TAG, "previous clicked")
             val requestData = HashMap<String, Int>()
 
@@ -279,20 +361,21 @@ class Learn_quiz : AppCompatActivity() {
         } catch (e: Exception) {
             questionModel = questionsList[currentQuestion - 1]
             text_of_question.text = questionModel.question_title
+            totalQuestion = questionsList.size.toInt()
+            questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
             val imageUrl = questionModel.question_image
             //If image is available it will be displayed
-            if(imageUrl != "") {
+            if (imageUrl != "") {
                 Picasso.get()
                         .load(imageUrl)
                         .into(image_of_question)
-            }else if(imageUrl == ""){
+            } else if (imageUrl == "") {
                 val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                 params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                 params.addRule(RelativeLayout.CENTER_IN_PARENT)
                 text_of_question.layoutParams = params
             }
 
-            //result_Cell_questionNo_text.text = "Question ${currentQuestion}"
 
             val requestData = HashMap<String, Int>()
 
@@ -323,20 +406,21 @@ class Learn_quiz : AppCompatActivity() {
         try {
             questionModel = questionsList[currentQuestion - 1]
             text_of_question.text = questionModel.question_title.subSequence(0, questionModel.question_title.indexOf(";"))
+            totalQuestion = questionsList.size.toInt()
+            questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
             val imageUrl = questionModel.question_image
             //If image is available it will be displayed
-            if(imageUrl != "") {
+            if (imageUrl != "") {
                 Picasso.get()
                         .load(imageUrl)
                         .into(image_of_question)
-            }else if(imageUrl == ""){
+            } else if (imageUrl == "") {
                 val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                 params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                 params.addRule(RelativeLayout.CENTER_IN_PARENT)
                 text_of_question.layoutParams = params
             }
 
-            //result_Cell_questionNo_text.text = "Question $currentQuestion"
             Log.e(TAG, "next clicked")
 
             val requestData = HashMap<String, Int>()
@@ -353,20 +437,21 @@ class Learn_quiz : AppCompatActivity() {
         } catch (e: Exception) {
             questionModel = questionsList[currentQuestion - 1]
             text_of_question.text = questionModel.question_title
+            totalQuestion = questionsList.size.toInt()
+            questionNo_text.text = "Question ${currentQuestion} / $totalQuestion"
             val imageUrl = questionModel.question_image
             //If image is available it will be displayed
-            if(imageUrl != "") {
+            if (imageUrl != "") {
                 Picasso.get()
                         .load(imageUrl)
                         .into(image_of_question)
-            }else if(imageUrl == ""){
+            } else if (imageUrl == "") {
                 val params = text_of_question.getLayoutParams() as RelativeLayout.LayoutParams
                 params.removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
                 params.addRule(RelativeLayout.CENTER_IN_PARENT)
                 text_of_question.layoutParams = params
             }
 
-            //result_Cell_questionNo_text.text = "Question $currentQuestion"
             val requestData = HashMap<String, Int>()
 
             requestData["quiz_id"] = quizId //add quiz id to request data
@@ -422,6 +507,33 @@ class Learn_quiz : AppCompatActivity() {
         })
     }
 
+
+    private fun speakQuestion() {
+        val speakQuestion: String = text_of_question.text.toString()
+        val text: String = speakQuestion
+        tts!!.setSpeechRate(0.75F)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        }
+
+    }
+
+    private fun speakOut() {
+        val speakAnswer: String = text_of_answer.text.toString()
+        val text = speakAnswer
+        tts!!.setSpeechRate(0.75F)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        }
+
+    }
+
+    private fun stopSpeaking() {
+        if (tts!!.isSpeaking) {
+            tts?.stop()
+        }
+    }
+
     private fun isSessionExpire(errorMsgModle: CommonResponceModel) {
         //if error message status is equal to 404
         if (errorMsgModle.status == 404) {
@@ -444,8 +556,6 @@ class Learn_quiz : AppCompatActivity() {
             AppAlerts().showAlertMessage(this, "Error", errorMsgModle.message)
         }
     }
-
-
 
 
 }

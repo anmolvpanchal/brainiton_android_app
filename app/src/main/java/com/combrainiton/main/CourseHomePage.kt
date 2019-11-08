@@ -65,6 +65,7 @@ class CourseHomePage : AppCompatActivity() {
         if (intent.getStringExtra("subscription_id") != null) {
             Log.i("course", intent.getStringExtra("subscription_id"))
             subscriptionID = intent.getStringExtra("subscription_id")
+            Log.i("coures home page" ,"subs id" + subscriptionID)
             getLessonsFromApiForSubscribedUser(subscriptionID)
         } else {
             Log.i("course", "no subscription id because coming from available subscription")
@@ -249,7 +250,7 @@ class CourseHomePage : AppCompatActivity() {
                     //adding fragment through adapter
                     adapter.addFragment(CourseDescriptionFragmentForMySubscription(intent.getStringExtra("course_description")), "Description")
                     adapter.addFragment(CourseLessonsFragment(lessonsDataList, subscriptionDataList,intent.getIntExtra("position",0)), "Lessons")
-                    adapter.addFragment(CourseProgressFragment(), "Progress")
+                    adapter.addFragment(CourseProgressFragment(subscriptionID,this@CourseHomePage), "Progress")
 
                     //setting view pager adapter
                     viewPager!!.adapter = adapter
