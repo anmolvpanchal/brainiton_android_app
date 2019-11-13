@@ -78,8 +78,27 @@
 
         </RelativeLayout>
 
+
+        <Button
+            android:id="@+id/normal_quiz_description_play_video_button"
+            android:layout_above="@id/bottom_layout_description_learn"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Video"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:drawablePadding="@dimen/_5sdp"
+            android:textSize="@dimen/_15ssp"
+            android:padding="@dimen/_10sdp"/>
+
+
+
         <RelativeLayout
-            android:id="@+id/bottom_layout_description"
+            android:id="@+id/bottom_layout_description_learn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_56sdp"
             android:layout_alignParentBottom="true"
@@ -87,10 +106,25 @@
 
             <!--play button-->
             <Button
-                android:id="@+id/normal_quiz_description_play_button"
+                android:id="@+id/normal_quiz_description_play_button_learn"
                 android:layout_marginRight="@dimen/_40sdp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play "
+                android:drawableLeft="@drawable/ic_play"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:drawablePadding="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:padding="@dimen/_10sdp"/>
+
+
+            <!--play button-->
+            <Button
+                android:id="@+id/normal_quiz_description_play_button"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Play"
@@ -99,7 +133,7 @@
                 android:textColor="@color/white"
                 android:drawablePadding="@dimen/_5sdp"
                 android:textSize="@dimen/_15ssp"
-                android:padding="@dimen/_5sdp"/>
+                android:padding="@dimen/_10sdp"/>
 
             <!--  learn button-->
 
@@ -115,10 +149,12 @@
                 android:textColor="@color/white"
                 android:drawablePadding="@dimen/_5sdp"
                 android:textSize="@dimen/_15ssp"
-                android:padding="@dimen/_5sdp"/>
+                android:padding="@dimen/_10sdp"/>
 
 
         </RelativeLayout>
+
+
 
         <ScrollView
             android:id="@+id/scroll_view_description"
@@ -226,7 +262,7 @@
             android:layout_height="match_parent"
             android:background="#FFF"
             android:layout_below="@+id/scroll_view_description"
-            android:layout_above="@+id/bottom_layout_description"
+            android:layout_above="@+id/bottom_layout_description_learn"
             >
 
             <LinearLayout
@@ -265,20 +301,19 @@
                                 android:layout_weight="1"
                                 android:textAlignment="center"
                                 android:text="12345"
-                                android:paddingTop="@dimen/_3sdp"
                                 android:textColor="#e15067"
-                                android:textSize="@dimen/_15ssp"
-                                android:fontFamily="@font/raleway_bold"/>
+                                android:textSize="@dimen/_20ssp"
+                                android:fontFamily="sans-serif-black"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:textAlignment="center"
-                                android:text="My Score"
-                                android:paddingTop="@dimen/_1sdp"
+                                android:text="Score"
+                                android:paddingTop="@dimen/_3sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_15ssp"
+                                android:textSize="@dimen/_10ssp"
                                 android:fontFamily="@font/raleway_light"/>
 
 
@@ -311,9 +346,8 @@
                                 android:textAlignment="center"
                                 android:text="12345"
                                 android:textColor="#71c089"
-                                android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_3sdp"
-                                android:fontFamily="@font/raleway_bold"/>
+                                android:textSize="@dimen/_20ssp"
+                                android:fontFamily="sans-serif-black"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -322,8 +356,8 @@
                                 android:textAlignment="center"
                                 android:text="Top Score"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_1sdp"
+                                android:textSize="@dimen/_10ssp"
+                                android:paddingTop="@dimen/_3sdp"
                                 android:fontFamily="@font/raleway_light"/>
 
 
@@ -357,19 +391,18 @@
                                 android:textAlignment="center"
                                 android:text="12345"
                                 android:textColor="#ce7af9"
-                                android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_3sdp"
-                                android:fontFamily="@font/raleway_bold"/>
+                                android:textSize="@dimen/_20ssp"
+                                android:fontFamily="sans-serif-black"/>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:textAlignment="center"
-                                android:paddingTop="@dimen/_1sdp"
-                                android:text="your rank"
+                                android:paddingTop="@dimen/_3sdp"
+                                android:text="Rank"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_15ssp"
+                                android:textSize="@dimen/_10ssp"
                                 android:fontFamily="@font/raleway_light"/>
 
 
@@ -411,10 +444,9 @@
                                 android:layout_weight="1"
                                 android:textAlignment="center"
                                 android:text="63%"
-                                android:paddingTop="@dimen/_3sdp"
                                 android:textColor="#f0a63c"
-                                android:textSize="@dimen/_15ssp"
-                                android:fontFamily="@font/raleway_bold"/>
+                                android:textSize="@dimen/_20ssp"
+                                android:fontFamily="sans-serif-black"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -422,9 +454,9 @@
                                 android:layout_weight="1"
                                 android:textAlignment="center"
                                 android:text="Accuracy"
-                                android:paddingTop="@dimen/_1sdp"
+                                android:paddingTop="@dimen/_3sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_15ssp"
+                                android:textSize="@dimen/_10ssp"
                                 android:fontFamily="@font/raleway_light"/>
 
 
@@ -457,9 +489,8 @@
                                 android:textAlignment="center"
                                 android:text="63%"
                                 android:textColor="#49a0dc"
-                                android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_3sdp"
-                                android:fontFamily="@font/raleway_bold"/>
+                                android:textSize="@dimen/_20ssp"
+                                android:fontFamily="sans-serif-black"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -468,8 +499,8 @@
                                 android:textAlignment="center"
                                 android:text="Avg Score"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_1sdp"
+                                android:textSize="@dimen/_10ssp"
+                                android:paddingTop="@dimen/_3sdp"
                                 android:fontFamily="@font/raleway_light"/>
 
 
@@ -494,16 +525,24 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/leaderbord_text"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                >
+
+                            <TextView
+                                android:id="@+id/leaderbord_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:textAlignment="center"
-                                android:text="view \nLeaderbord"
+                                android:text="Leaderbord"
                                 android:textColor="#8f9cde"
                                 android:textSize="@dimen/_15ssp"
-                                android:paddingTop="@dimen/_5sdp"
+                                android:layout_centerInParent="true"
                                 android:fontFamily="@font/raleway_medium"/>
+
+                            </RelativeLayout>
+
 
 
                         </LinearLayout>

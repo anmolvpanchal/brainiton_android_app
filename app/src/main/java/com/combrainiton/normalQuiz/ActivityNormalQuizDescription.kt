@@ -30,6 +30,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
 
 
 class ActivityNormalQuizDescription : AppCompatActivity() {
@@ -39,11 +44,17 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
     private var quizName: String = "" //for quiz name
     private var hostName: String = ""
     private var quizDescriptionStr: String = ""
+    private var quiz_video :String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_normal_quiz_description)
         result_view.visibility = View.GONE
+
+        quizId = intent.getIntExtra("quizId", 0) //get quiz id
+
+        LernOrNot(quizId)
+
         initMainView() //initialize the main view
 
     }
@@ -60,10 +71,11 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
     //initialize the main view
     private fun initMainView() {
-        quizId = intent.getIntExtra("quizId", 0) //get quiz id
+
 
         result_text.setOnClickListener {
             rl_description.visibility = View.GONE
+            normal_quiz_description_play_video_button.visibility = View.GONE
             result_view.visibility = View.VISIBLE
             gettingDetailsForPlayers(quizId)
 
@@ -76,6 +88,7 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
         details_text.setOnClickListener {
             rl_description.visibility = View.VISIBLE
+            normal_quiz_description_play_video_button.visibility = View.VISIBLE
             result_view.visibility = View.GONE
 
 
@@ -85,7 +98,7 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
             result_text.setBackgroundResource(R.drawable.white_for_unselected)
         }
 
-        Log.i("fromdescription Id",quizId.toString())
+        Log.i("fromdescription Id", quizId.toString())
 
         quizName = intent.getStringExtra("quizName") //get quiz name
         totalQuestiontotalQuestion = intent.getIntExtra("totalQuestion", 0)//get total number of question
@@ -106,6 +119,17 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
             onBackPressed()
         }
 
+        normal_quiz_description_play_video_button.setOnClickListener {
+
+            if (quiz_video != null && !quiz_video.isEmpty() && !quiz_video.equals("null")) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(quiz_video)))
+
+            }else{
+                Toast.makeText(this,"No video available",Toast.LENGTH_LONG).show()
+            }
+        }
+
+
         normal_quiz_description_learn_button.setOnClickListener {
             startActivity(Intent(this@ActivityNormalQuizDescription, Learn_quiz::class.java)
                     .putExtra("quizId", quizId) //pass quiz id
@@ -115,6 +139,15 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
         //set on click listener for play button
         normal_quiz_description_play_button.setOnClickListener {
+            startActivity(Intent(this@ActivityNormalQuizDescription, ActivityNormalQuizInstruction::class.java)
+                    .putExtra("quizId", quizId) //pass quiz id
+                    .putExtra("totalQuestion", totalQuestiontotalQuestion) //pass total question
+                    .putExtra("quizName", quizName) //pass quiz name
+                    .putExtra("quizImage", intent.getStringExtra("image"))) //pass quiz image
+            //close activity
+        }
+
+        normal_quiz_description_play_button_learn.setOnClickListener {
             startActivity(Intent(this@ActivityNormalQuizDescription, ActivityNormalQuizInstruction::class.java)
                     .putExtra("quizId", quizId) //pass quiz id
                     .putExtra("totalQuestion", totalQuestiontotalQuestion) //pass total question
@@ -184,7 +217,7 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
                     myscore_text.text = latest_score
                     accuracy_text.text = accuracy + "%"
                     avgscore_text.text = average
-                    yourrank_text.text  = rank
+                    yourrank_text.text = rank
 
 
                 } catch (ex: Exception) {
@@ -204,5 +237,55 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
     }
 
+    fun LernOrNot(QuizID: Int) {
+
+        //create api client first
+        val apiToken: String = AppSharedPreference(this).getString("apiToken")
+
+
+        val subscriptionInterface = ServiceGenerator.getClient(apiToken).create(SubscriptionInterface::class.java)
+
+        val call = subscriptionInterface.LearnOption(QuizID)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (!response.isSuccessful) {
+                    Toast.makeText(applicationContext, "Something went Wrong !!" + response.code(), Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                try {
+                    val resp = response.body()!!.string()
+                    val rootObj = JSONObject(resp)
+
+                    val practice = rootObj.getString("practice")
+                    quiz_video = rootObj.getString("quiz_video")
+                    Log.i("description", " prectice " + practice)
+
+                    if (practice.equals("false")) {
+                        normal_quiz_description_play_button_learn.visibility = View.GONE
+                        normal_quiz_description_learn_button.visibility = View.GONE
+
+                    } else {
+                        normal_quiz_description_play_button.visibility = View.GONE
+                    }
+
+                    if (quiz_video != null && !quiz_video.isEmpty() && !quiz_video.equals("null")){
+
+                    }else{
+                        normal_quiz_description_play_video_button.visibility =View.GONE
+                    }
+
+                } catch (e: Exception) {
+                    Log.e("quiz escription", "error$e")
+                }
+
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(applicationContext, "Something went Wrong !!", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
 }

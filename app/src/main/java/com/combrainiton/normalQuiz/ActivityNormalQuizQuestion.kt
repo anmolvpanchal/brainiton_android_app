@@ -552,7 +552,7 @@ class ActivityNormalQuizQuestion : AppCompatActivity(), View.OnClickListener, Te
         //BottomSheet
         /*val bottomSheet = DescriptionBottomSheetDialog()
         bottomSheet.show(supportFragmentManager,"descriptionBottomSheet")*/
-
+            alertDialog.setCancelable(false)
         //for showing description as popup
         if (questionDescription.isNotEmpty()) { //Description available
             descriptionTextView.visibility = View.VISIBLE
