@@ -170,14 +170,23 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
                     if (locked.equals("true")) {
                         Toast.makeText(mContext, "Quiz will unlock soon", Toast.LENGTH_SHORT).show();
-                    } else {
-                        quiz_id = rootObj.getString("quiz_id")
+                    }
 
-                        Log.e("AdapterResult", "responce" + quiz_id)
+                    if (locked.equals("false")){
+                        if (play.equals("true")){
+                            quiz_id = rootObj.getString("quiz_id")
 
-                        // getting data and then intent
-                        gettingDetailsToPass(quiz_id.toInt())
+                            Log.e("AdapterResult", "responce" + quiz_id)
 
+                            // getting data and then intent
+                            gettingDetailsToPass(quiz_id.toInt())
+                        }
+                    }
+
+                    if (locked.equals("false")){
+                        if (play.equals("false")){
+                            Toast.makeText(mContext, "Please play previous lessons to unlock this lesson", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
 

@@ -1,5 +1,6 @@
 package com.combrainiton.subscription
 
+import com.combrainiton.models.GetNormalQuestionListResponceModel
 import com.combrainiton.models.UserResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -53,5 +54,10 @@ interface SubscriptionInterface {
     //for getting user detail
     @GET("api/user/name/")
     fun getUserDetail(): Call<ResponseBody>
+
+
+    //for getting question list by quiz id
+    @GET("api/quiz/{quizId}/play/")
+    fun LearnOption(@Path("quizId") quzId: Int): Call<ResponseBody>
 
 }
