@@ -38,7 +38,6 @@
         android:imeOptions="actionNext"
         android:inputType="text"
         android:paddingLeft="16dp"
-        android:textColorHint="@color/colorTextPrimaryDark"
         tools:ignore="Autofill,RtlHardcoded,RtlSymmetry" />
 
     <RelativeLayout
@@ -74,6 +73,7 @@
             android:layout_toRightOf="@id/phonePrefix"
             android:background="#f2f2f2"
             android:gravity="center_vertical"
+            android:fontFamily="sans-serif-medium"
             android:hint="@string/hnt_mobile_number"
             android:imeOptions="actionDone"
             android:inputType="phone"

@@ -1,13 +1,17 @@
 package com.combrainiton.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import com.combrainiton.R
 import com.combrainiton.adaptors.CoursePagerAdapter
+import com.combrainiton.main.Activity_leaderboard
 import com.combrainiton.main.CourseHomePage
 import com.combrainiton.subscription.LessonsDataList_API
 import com.combrainiton.subscription.ServiceGenerator
@@ -26,10 +30,20 @@ import java.util.*
 
 class CourseProgressFragment(val subscriptionID: String, val activity: CourseHomePage) : androidx.fragment.app.Fragment() {
 
+    lateinit var leaderboardCard: CardView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_course_progress, container, false)
 
         getLessonsFromApiForSubscribedUser(subscriptionID)
+
+        leaderboardCard = view.findViewById(R.id.showleaderboard)
+
+        leaderboardCard.setOnClickListener {
+            startActivity(Intent(activity,Activity_leaderboard::class.java)
+                    .putExtra("subId",subscriptionID)
+                    .putExtra("from","progress"))
+        }
 
         return view
     }
@@ -67,6 +81,8 @@ class CourseProgressFragment(val subscriptionID: String, val activity: CourseHom
 
                     val subscription = rootObj.getJSONArray("subscription")
 
+                    val rank = rootObj.getString("rank")
+
                     for (j in 0 until subscription.length()) {
 
                         val innerobject_sub: JSONObject = subscription.getJSONObject(j)
@@ -82,6 +98,7 @@ class CourseProgressFragment(val subscriptionID: String, val activity: CourseHom
                         Attempted_text.text = attempted+" Attempted"
                         donut_accuracy.progress = accuracy.toFloat()
                         donut_completion.progress = progress.toFloat()
+                        results_rank.text = rank
                     }
 
 

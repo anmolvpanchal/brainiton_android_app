@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="15dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    app:cardElevation="1dp"
-    android:elevation="20dp">
+    android:elevation="20dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,9 +22,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_light_bulb"
                 android:layout_centerInParent="true"
-                />
+                android:drawableStart="@drawable/ic_light_bulb" />
 
         </RelativeLayout>
 
@@ -32,23 +31,35 @@
             android:id="@+id/custom_dialog_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Explanation!"
             android:layout_gravity="center"
-            android:textSize="25sp"
-            android:textColor="@color/colorTextPrimaryDark"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/raleway_bold"
-            android:layout_marginTop="20dp"/>
-
-        <TextView
-            android:id="@+id/custom_dialog_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textSize="@dimen/_20ssp"
+            android:text="Explanation!"
             android:textColor="@color/colorTextPrimaryDark"
-            android:fontFamily="@font/raleway_medium"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"/>
+            android:textSize="25sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/custom_dialog_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/raleway_medium"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorTextPrimaryDark"
+                    android:textSize="@dimen/_20ssp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <Button
             android:id="@+id/custom_dialog_next_button"
@@ -56,13 +67,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_15sdp"
             android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/colorAccent"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:backgroundTint="@color/colorAccent"
             android:text="Next question"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />

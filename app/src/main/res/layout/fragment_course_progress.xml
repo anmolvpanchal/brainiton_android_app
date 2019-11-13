@@ -16,7 +16,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- Remove -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -76,13 +75,14 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:id="@+id/results_rank"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_above="@id/curentrank_text"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="@dimen/_15sdp"
                                 android:fontFamily="@font/raleway_light"
-                                android:text="12"
+                                android:textColor="@color/colorAccent"
                                 android:textAlignment="center"
                                 android:textSize="@dimen/_65ssp"
                                 android:textStyle="bold" />
@@ -122,7 +122,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Remove -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -159,37 +158,37 @@
                                 <TextView
                                     android:id="@+id/Totallessons_text"
                                     android:layout_width="match_parent"
+                                    android:layout_marginLeft="@dimen/_15sdp"
                                     android:layout_height="0dp"
                                     android:layout_centerHorizontal="true"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/raleway_regular"
+                                    android:fontFamily="@font/raleway_semi_bold"
                                     android:paddingTop="@dimen/_15sdp"
                                     android:text="Total lessons"
-                                    android:textAlignment="center"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_15ssp" />
 
                                 <TextView
                                     android:id="@+id/unlocked_text"
                                     android:layout_width="match_parent"
+                                    android:layout_marginLeft="@dimen/_15sdp"
                                     android:layout_height="0dp"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/raleway_regular"
+                                    android:fontFamily="@font/raleway_semi_bold"
                                     android:paddingTop="@dimen/_15sdp"
                                     android:text="Unlocked"
-                                    android:textAlignment="center"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_15ssp" />
 
                                 <TextView
                                     android:id="@+id/Attempted_text"
                                     android:layout_width="match_parent"
+                                    android:layout_marginLeft="@dimen/_15sdp"
                                     android:layout_height="0dp"
                                     android:layout_weight="1"
-                                    android:fontFamily="@font/raleway_regular"
+                                    android:fontFamily="@font/raleway_semi_bold"
                                     android:paddingTop="@dimen/_15sdp"
                                     android:text="Attempted"
-                                    android:textAlignment="center"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_15ssp" />
 
@@ -221,12 +220,12 @@
                                 android:layout_width="@dimen/_90sdp"
                                 android:layout_height="@dimen/_90sdp"
                                 android:layout_centerHorizontal="true"
-                                app:donut_finished_color="#feccff"
+                                app:donut_finished_color="#cd66ff"
                                 app:donut_finished_stroke_width="@dimen/_10sdp"
                                 app:donut_max="100"
                                 app:donut_progress="25"
                                 app:donut_text_color="@color/black"
-                                app:donut_unfinished_color="#cd66ff" />
+                                app:donut_unfinished_color="#feccff" />
 
                         </RelativeLayout>
 
@@ -248,8 +247,8 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Remove -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/showleaderboard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/_20sdp"
@@ -271,7 +270,7 @@
                         android:paddingTop="@dimen/_10sdp"
                         android:paddingBottom="@dimen/_10sdp"
                         android:fontFamily="@font/raleway_regular"
-                        android:text="Show Leaderbord"
+                        android:text="Show Leaderboard"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_20ssp" />
