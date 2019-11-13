@@ -100,4 +100,15 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Get live game pin from your tutor or host."
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:gravity="center"
+        android:textColor="#2A2A2A"
+        android:textSize="@dimen/_10ssp"
+        />
+
 </RelativeLayout>
