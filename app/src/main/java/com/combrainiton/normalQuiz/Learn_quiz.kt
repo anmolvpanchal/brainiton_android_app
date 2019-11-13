@@ -73,8 +73,6 @@ class Learn_quiz : AppCompatActivity(), TextToSpeech.OnInitListener {
                     previousQuestion()
                     stopSpeaking()
                 }
-                previousQuestion()
-                stopSpeaking()
             }
 
             next_button.setOnClickListener {
@@ -84,8 +82,6 @@ class Learn_quiz : AppCompatActivity(), TextToSpeech.OnInitListener {
                     nextQuestion()
                     stopSpeaking()
                 }
-                nextQuestion()
-                stopSpeaking()
             }
 
             speak_buton.setOnClickListener {
