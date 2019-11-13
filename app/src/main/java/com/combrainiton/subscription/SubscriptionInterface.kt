@@ -15,7 +15,7 @@ interface SubscriptionInterface {
     @GET("api/subs/brand/{brandID}/view/")
     fun getAllCourses(@Path("brandID") brandId: Int): Call<CoursesResponseModel>
 
-    // getting all subscribed cources must be logged in
+    // getting all subscribed courses. Must be logged in
     @GET("api/subs/get_my_subs/")
     fun getMysubscriptions(): Call<ResponseBody>
 
@@ -44,7 +44,7 @@ interface SubscriptionInterface {
     @GET("api/subs/course/{courseid}/view/")
     fun getLessonsForAvailableSubs(@Path("courseid") quizId: Int): Call<ResponseBody>
 
-    //Getting CHECKSUMHASH for PayTm
+    //Getting CHECKSUMHASH for Paytm
     @Headers("Content-Type: application/json")
     @POST("api/subs/subscribe/checksum/make/")
     fun getCheckSumHash(@Body type: MutableMap<String, String>): Call<ResponseBody>
