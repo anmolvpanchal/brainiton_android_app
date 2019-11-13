@@ -190,18 +190,23 @@ class CourseHomePage : AppCompatActivity() {
                     for (i in 0 until lessons.length()) {
 
                         val innerobject_lesson: JSONObject = lessons.getJSONObject(i)
+
                         val lesson_id = innerobject_lesson.getString("lesson_id")
                         val lesson_name = innerobject_lesson.getString("lesson_name")
                         val lesson_number = innerobject_lesson.getString("lesson_number")
                         val quiz_image = innerobject_lesson.getString("quiz_image")
                         val lesson_quiz = innerobject_lesson.getString("lesson_quiz")
+                        val has_played = innerobject_lesson.getString("has_played")
+                        val quiz_video =innerobject_lesson.getString("quiz_video")
+                        val host_name = innerobject_lesson.getString("host_name")
+
                         //val course_description = innerobject_lesson.getString("course_description")
 
                         Log.e("working in CourseHome", " yess" + quiz_image + lesson_name + lesson_id)
 
                         Log.i("Course","${lesson_name}")
 
-                        lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz))
+                        lessonsDataList.add(LessonsDataList_API(lesson_id, lesson_name, lesson_number, quiz_image, lesson_quiz,has_played,quiz_video,host_name))
                     }
 
 

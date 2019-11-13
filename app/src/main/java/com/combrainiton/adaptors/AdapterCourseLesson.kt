@@ -51,18 +51,23 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.tvQuizTitle.text = lessonsDataList[position].lessonName
-        holder.tvQuizHost.text = "By Unknown"
+        holder.tvQuizHost.text = lessonsDataList[position].hostName
         holder.cvMain.tag = position
 
+
+        // if played
+        if (lessonsDataList[position].hasPlayed.equals("true")){
+            holder.checkmark.visibility  = View.VISIBLE
+        }
         //Setting lesson count
         val no = position + 1
         holder.lessonCount.text = no.toString()
 
         //Remove first and last line from lesson list
-        if(position == 0){
+        if (position == 0) {
             holder.upperLine.visibility = View.INVISIBLE
         }
-        if(position+1 == lessonsDataList.size){
+        if (position + 1 == lessonsDataList.size) {
             holder.lowerLine.visibility = View.INVISIBLE
         }
 
@@ -88,7 +93,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         }
 
         //Changing current lesson color to purple
-        if(position+1 == subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()){
+        if (position + 1 == subscriptionDataList[brandPosition].currentLessonNumber!!.toInt()) {
             holder.upperLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
             holder.lowerLine.setBackgroundColor(mActivity.resources.getColor(R.color.lessonCountColor))
             holder.background.setBackgroundDrawable(mActivity.resources.getDrawable(R.drawable.circle_shape))
@@ -113,6 +118,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
         val layout: LinearLayout
         val background: TextView
         val lessonInfo: RelativeLayout
+        val checkmark : ImageView
 
 
         init {
@@ -127,6 +133,7 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
             layout = mView.imageLayout
             background = mView.backgroundCircle
             lessonInfo = mView.lessonInfo
+            checkmark = mView.course_lessons_quiz_checkmark
         }
     }
 
@@ -159,14 +166,11 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
                     val resp = response.body()?.string()
                     val rootObj = JSONObject(resp)
                     val play = rootObj.getString("play")
+                    val locked = rootObj.getString("locked")
                     val days = (currentPosition - lastLesson) - 1
 
-                    if (play.equals("false")) {
-                        if (days == 0) {
-                            Toast.makeText(mContext, "Quiz will unlock Tomorrow", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(mContext, "Quiz will be available after $days days", Toast.LENGTH_SHORT).show();
-                        }
+                    if (locked.equals("true")) {
+                        Toast.makeText(mContext, "Quiz will unlock soon", Toast.LENGTH_SHORT).show();
                     } else {
                         quiz_id = rootObj.getString("quiz_id")
 

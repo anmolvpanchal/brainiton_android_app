@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_local_library_white_24dp" />
-                            <entry key="sourceFile" value="D:\brainiton_android_app_v2\app\src\main\res\drawable\Premium.svg" />
+                            <entry key="outputName" value="ic_check_mark" />
+                            <entry key="sourceFile" value="D:\brainiton_android_app_v2\app\src\main\res\drawable\check-mark.svg" />
                           </map>
                         </option>
                       </PersistentState>
