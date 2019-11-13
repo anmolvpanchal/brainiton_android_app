@@ -177,11 +177,14 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
                     val latest_score = rootObj.getString("latest_score")
                     val accuracy = rootObj.getString("accuracy")
                     val average = rootObj.getString("average")
+                    val rank = rootObj.getString("rank")
+
 
                     topscore_text.text = max_score
                     myscore_text.text = latest_score
                     accuracy_text.text = accuracy + "%"
                     avgscore_text.text = average
+                    yourrank_text.text  = rank
 
 
                 } catch (ex: Exception) {
