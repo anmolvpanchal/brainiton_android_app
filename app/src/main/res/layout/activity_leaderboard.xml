@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.Activity_leaderboard"
+    android:background="#EEEFF8">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Leaderboard"
+        android:gravity="center"
+        android:textColor="@color/colorTextPrimaryDark"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_20ssp"
+        android:fontFamily="@font/raleway_semi_bold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/player_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heading"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/myname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dhruvam"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="#2A2A2A"
+                android:gravity="center"
+                android:textSize="@dimen/_20ssp"
+                android:fontFamily="@font/raleway_bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/myrank"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="50"
+                    android:fontFamily="sans-serif-black"
+                    android:textSize="@dimen/_25ssp"
+                    android:textColor="#DE88A5"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/myscoreoraccuracy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="12000"
+                    android:fontFamily="sans-serif-black"
+                    android:textSize="@dimen/_25ssp"
+                    android:textColor="#DE88A5"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="rank"
+                    android:layout_marginTop="@dimen/_minus5sdp"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/greyText"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/scoreoraccuracyTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_minus5sdp"
+                    android:layout_weight="1"
+                    android:text="score"
+                    android:fontFamily="@font/raleway_regular"
+                    android:textSize="@dimen/_15ssp"
+                    android:textColor="@color/greyText"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leaderboard_recycler"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@id/player_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F4FA">
+    android:background="#EEEFF8">
 
 
     <!--    layout for chalange-->
@@ -159,8 +159,8 @@
                         <ImageView
                             android:id="@+id/gif"
                             android:src="@drawable/result_image"
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_100sdp"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="@dimen/_70sdp"
                             android:layout_gravity="center_horizontal" />
 
 
@@ -176,10 +176,10 @@
                             android:id="@+id/tvTotalScore"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/raleway_bold"
+                            android:fontFamily="sans-serif-black"
                             android:gravity="center_horizontal"
                             android:text="23,456"
-                            android:textColor="@color/colorTextPrimaryDark"
+                            android:textColor="#2A2A2A"
                             android:textSize="@dimen/_20ssp" />
 
                         <View
@@ -205,10 +205,10 @@
                                     android:id="@+id/topScoreForResultActivity"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/raleway_bold"
+                                    android:fontFamily="sans-serif-black"
                                     android:gravity="center_horizontal"
                                     android:text="99999"
-                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textColor="#2A2A2A"
                                     android:textSize="@dimen/_20ssp" />
 
                                 <TextView
@@ -233,10 +233,10 @@
                                     android:id="@+id/averageScoreForResult"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/raleway_bold"
+                                    android:fontFamily="sans-serif-black"
                                     android:gravity="center_horizontal"
                                     android:text="99999"
-                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textColor="#2A2A2A"
                                     android:textSize="@dimen/_20ssp" />
 
                                 <TextView
@@ -305,9 +305,9 @@
                                     android:id="@+id/tvAccuracy"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/raleway_bold"
+                                    android:fontFamily="sans-serif-black"
                                     android:text="99%"
-                                    android:textColor="@color/colorTextPrimaryDark"
+                                    android:textColor="#2A2A2A"
                                     android:textSize="@dimen/_15ssp" />
 
                                 <TextView

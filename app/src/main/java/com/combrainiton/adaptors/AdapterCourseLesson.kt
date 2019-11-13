@@ -31,7 +31,6 @@ class AdapterCourseLesson(var mContext: Context, var mActivity: Activity, val le
 
     var quiz_id: String = ""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-
         return MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.course_lessons_card_view_item, parent, false))
     }
 

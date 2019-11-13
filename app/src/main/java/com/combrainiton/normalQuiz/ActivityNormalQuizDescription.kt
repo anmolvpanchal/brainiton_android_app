@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.combrainiton.BuildConfig
 import com.combrainiton.R
 import com.combrainiton.adaptors.AdapterResultDemo
+import com.combrainiton.main.Activity_leaderboard
 import com.combrainiton.managers.NormalQuizManagement
 import com.combrainiton.subscription.ScoreDataList_API
 import com.combrainiton.subscription.ServiceGenerator
@@ -35,7 +36,7 @@ import java.util.*
 class ActivityNormalQuizDescription : AppCompatActivity() {
 
     private var quizId: Int = 0  //for quiz id
-    private var totalQuestiontotalQuestion: Int = 0 //for total quiz question
+    private var totalQuestiontotalQuestion: String = ""//for total quiz question
     private var quizName: String = "" //for quiz name
     private var hostName: String = ""
     private var quizDescriptionStr: String = ""
@@ -85,10 +86,16 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
             result_text.setBackgroundResource(R.drawable.white_for_unselected)
         }
 
+        leaderboard_cardView.setOnClickListener {
+            startActivity(Intent(this@ActivityNormalQuizDescription,Activity_leaderboard::class.java)
+                    .putExtra("quizId",quizId)
+                    .putExtra("from","description"))
+        }
+
         Log.i("fromdescription Id",quizId.toString())
 
         quizName = intent.getStringExtra("quizName") //get quiz name
-        totalQuestiontotalQuestion = intent.getIntExtra("totalQuestion", 0)//get total number of question
+        totalQuestiontotalQuestion = intent.getStringExtra("totalQuestion")//get total number of question
         hostName = "By " + intent.getStringExtra("hostName") //get hostname
         quizDescriptionStr = intent.getStringExtra("description") //get quiz description
 
