@@ -59,6 +59,7 @@
             android:gravity="center_vertical"
             android:hint="@string/hnt_mobile_number"
             android:imeOptions="actionDone"
+            android:fontFamily="sans-serif-medium"
             android:inputType="phone"
             android:maxLength="10"
             tools:ignore="Autofill,RtlHardcoded" />
