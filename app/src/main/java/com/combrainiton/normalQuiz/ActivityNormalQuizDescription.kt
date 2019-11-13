@@ -89,7 +89,12 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
 
         details_text.setOnClickListener {
             rl_description.visibility = View.VISIBLE
-            normal_quiz_description_play_video_button.visibility = View.VISIBLE
+            if (quiz_video != null && !quiz_video.isEmpty() && !quiz_video.equals("null")){
+                normal_quiz_description_play_video_button.visibility =View.VISIBLE
+
+            }else{
+                normal_quiz_description_play_video_button.visibility =View.GONE
+            }
             result_view.visibility = View.GONE
 
 
