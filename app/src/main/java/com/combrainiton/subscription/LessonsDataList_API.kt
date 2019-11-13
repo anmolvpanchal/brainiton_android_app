@@ -3,14 +3,16 @@ package com.combrainiton.subscription
 import android.os.Parcel
 import android.os.Parcelable
 
-class LessonsDataList_API(val lessonId: String?,val lessonName: String?,val lessonNumber: String?,val quizImage: String?,val lessonQuiz: String?) : Parcelable {
+class LessonsDataList_API(val lessonId: String?,val lessonName: String?,val lessonNumber: String?,val quizImage: String?,val lessonQuiz: String?,val hasPlayed: String?,val quizVideo: String?,val hostName: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString())
-             {
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -19,6 +21,9 @@ class LessonsDataList_API(val lessonId: String?,val lessonName: String?,val less
         parcel.writeString(lessonNumber)
         parcel.writeString(quizImage)
         parcel.writeString(lessonQuiz)
+        parcel.writeString(hasPlayed)
+        parcel.writeString(quizVideo)
+        parcel.writeString(hostName)
     }
 
     override fun describeContents(): Int {
