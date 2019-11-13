@@ -189,6 +189,8 @@ class ActivityNavExplore : AppCompatActivity(), View.OnClickListener {
         rv_featured_quiz_previous.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 1, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
         rv_featured_quiz_previous.adapter = AdaptorFeaturedQuizPrevious(this@ActivityNavExplore, this@ActivityNavExplore, featuredQuizzesList)
 
+        Log.i("Feature",featuredQuizzesList.size.toString())
+
         //this will attach category list adapter to category list recycler view
         rv_category_list.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@ActivityNavExplore, 2, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
         rv_category_list.adapter = AdaptorCategoryList(this@ActivityNavExplore, this@ActivityNavExplore, categoryList, quizList, this@ActivityNavExplore, featuredQuizzesList,flag)

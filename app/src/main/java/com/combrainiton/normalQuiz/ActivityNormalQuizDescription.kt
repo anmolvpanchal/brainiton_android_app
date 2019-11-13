@@ -95,7 +95,12 @@ class ActivityNormalQuizDescription : AppCompatActivity() {
         Log.i("fromdescription Id",quizId.toString())
 
         quizName = intent.getStringExtra("quizName") //get quiz name
-        totalQuestiontotalQuestion = intent.getStringExtra("totalQuestion")//get total number of question
+        try{
+            totalQuestiontotalQuestion = intent.getStringExtra("totalQuestion")//get total number of question
+        }catch (e: java.lang.Exception){
+            e.printStackTrace()
+        }
+
         hostName = "By " + intent.getStringExtra("hostName") //get hostname
         quizDescriptionStr = intent.getStringExtra("description") //get quiz description
 
