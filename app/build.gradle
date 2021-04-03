@@ -16,8 +16,8 @@ android {
         applicationId "com.combrainiton"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 17
-        versionName "1.17"
+        versionCode 16
+        versionName "1.16"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

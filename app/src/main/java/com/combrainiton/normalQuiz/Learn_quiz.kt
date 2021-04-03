@@ -65,11 +65,14 @@ class Learn_quiz : AppCompatActivity(), TextToSpeech.OnInitListener {
         easyFlipView.onFlipListener = EasyFlipView.OnFlipAnimationListener { flipView, newCurrentSide ->
 
             val state: String = newCurrentSide.toString()
-
+            Log.i("state","side is " + state)
             previous_button.setOnClickListener {
 
                 if (state == "BACK_SIDE") {
                     easyFlipView.flipTheView(true)
+                    previousQuestion()
+                    stopSpeaking()
+                }else if(state == "FRONT_SIDE"){
                     previousQuestion()
                     stopSpeaking()
                 }
@@ -79,6 +82,9 @@ class Learn_quiz : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 if (state.equals("BACK_SIDE")) {
                     easyFlipView.flipTheView(true)
+                    nextQuestion()
+                    stopSpeaking()
+                }else if(state == "FRONT_SIDE"){
                     nextQuestion()
                     stopSpeaking()
                 }
